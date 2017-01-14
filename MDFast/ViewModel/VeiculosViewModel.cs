@@ -4,11 +4,9 @@ using GalaSoft.MvvmLight.CommandWpf;
 using MDFast.Model;
 using MDFast.Validation;
 using NFe.Utils;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System;
-using System.Collections;
 
 namespace MDFast.ViewModel
 {
