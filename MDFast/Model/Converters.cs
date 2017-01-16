@@ -9,7 +9,7 @@ using FluentValidation.Results;
 using System.Collections.ObjectModel;
 using System.Windows;
 
-namespace MDFast.Model
+namespace FiscaliZi.MDFast.Model
 {
     public class BooleanOrConverter : IMultiValueConverter
     {

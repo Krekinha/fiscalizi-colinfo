@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace MDFast.Model
+namespace FiscaliZi.MDFast.Model
 {
     public class Veiculo : IEquatable<Veiculo>, INotifyPropertyChanged
     {

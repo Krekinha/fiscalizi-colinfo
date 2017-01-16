@@ -12,11 +12,11 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
-using MDFast.Model;
+using FiscaliZi.MDFast.Model;
 using FluentValidation;
-using MDFast.Validation;
+using FiscaliZi.MDFast.Validation;
 
-namespace MDFast.ViewModel
+namespace FiscaliZi.MDFast.ViewModel
 {
     /// <summary>
     /// This class contains static references to all the view models in the

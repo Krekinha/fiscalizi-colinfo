@@ -1,13 +1,13 @@
 ﻿using FluentValidation.Results;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using MDFast.Model;
-using MDFast.Validation;
+using FiscaliZi.MDFast.Model;
+using FiscaliZi.MDFast.Validation;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
-namespace MDFast.ViewModel
+namespace FiscaliZi.MDFast.ViewModel
 {
     public class MotoristasViewModel : ViewModelBase, INotifyPropertyChanged
     {

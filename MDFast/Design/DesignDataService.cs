@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using FluentValidation.Results;
-using MDFast.Model;
-using MDFast.Validation;
+using FiscaliZi.MDFast.Model;
+using FiscaliZi.MDFast.Validation;
 
-namespace MDFast.Design
+namespace FiscaliZi.MDFast.Design
 {
     public class DesignDataService : IDataService
     {

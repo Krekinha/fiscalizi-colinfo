@@ -1,7 +1,7 @@
-﻿using MDFast.Model;
+﻿using FiscaliZi.MDFast.Model;
 using FluentValidation;
 
-namespace MDFast.Validation
+namespace FiscaliZi.MDFast.Validation
 {
     public class VeiculoValidator : AbstractValidator<Veiculo>
     {

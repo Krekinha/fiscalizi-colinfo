@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using FluentValidation.Results;
 
-namespace MDFast.Model
+namespace FiscaliZi.MDFast.Model
 {
     public interface IDataService
     {

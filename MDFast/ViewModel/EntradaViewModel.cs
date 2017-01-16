@@ -1,14 +1,14 @@
 ﻿using GalaSoft.MvvmLight;
-using MDFast.Model;
+using FiscaliZi.MDFast.Model;
 using System.Collections.ObjectModel;
 using NFe.Utils;
 using GalaSoft.MvvmLight.CommandWpf;
 using System;
 using Microsoft.Win32;
 using NFe.Classes;
-using MDFast.Validation;
+using FiscaliZi.MDFast.Validation;
 
-namespace MDFast.ViewModel
+namespace FiscaliZi.MDFast.ViewModel
 {
     public class EntradaViewModel : ViewModelBase
     {

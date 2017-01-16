@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace MDFast.Views
+namespace FiscaliZi.MDFast.Views
 {
     /// <summary>
     /// Description for Entrada.

@@ -1,7 +1,7 @@
-﻿using MDFast.Model;
+﻿using FiscaliZi.MDFast.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace MDFast
+namespace FiscaliZi.MDFast
 {
     public class MDFastContext : DbContext
     {

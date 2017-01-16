@@ -1,4 +1,4 @@
-﻿using MDFast.Validation;
+﻿using FiscaliZi.MDFast.Validation;
 using NFe.Utils;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using FluentValidation.Results;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
-namespace MDFast.Model
+namespace FiscaliZi.MDFast.Model
 {
     public class DataService : IDataService
     {

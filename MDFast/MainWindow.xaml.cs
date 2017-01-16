@@ -1,7 +1,7 @@
 ﻿using System.Windows;
-using MDFast.ViewModel;
+using FiscaliZi.MDFast.ViewModel;
 
-namespace MDFast
+namespace FiscaliZi.MDFast
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

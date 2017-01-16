@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MDFast.Model
+namespace FiscaliZi.MDFast.Model
 {
     public class Motorista : IEquatable<Motorista>, INotifyPropertyChanged
     {

@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MDFast.Views
+namespace FiscaliZi.MDFast.Views
 {
     /// <summary>
     /// Interação lógica para ErrorControl.xam

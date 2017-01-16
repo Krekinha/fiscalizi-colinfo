@@ -1,7 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
-using MDFast.Model;
+using FiscaliZi.MDFast.Model;
 
-namespace MDFast.ViewModel
+namespace FiscaliZi.MDFast.ViewModel
 {
     /// <summary>
     /// This class contains properties that the main View can data bind to.

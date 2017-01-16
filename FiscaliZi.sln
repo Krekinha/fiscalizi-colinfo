@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26020.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDFast", "MDFast\MDFast.csproj", "{58220A0C-51B7-4153-BD19-3FC3BEE70A0F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FiscaliZi.MDFast", "MDFast\FiscaliZi.MDFast.csproj", "{58220A0C-51B7-4153-BD19-3FC3BEE70A0F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Zeus", "Zeus", "{3B309E13-9BE4-4751-8377-967B11C4F0DD}"
 EndProject
