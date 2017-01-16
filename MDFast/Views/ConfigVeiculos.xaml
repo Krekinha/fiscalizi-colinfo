@@ -25,25 +25,22 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-        <Controls:FlipView x:Name="FlipView1st"
+        <Controls:FlipView x:Name="FlipVeiculos"
                            IsBannerEnabled="False"
                            MouseOverGlowEnabled="False"
                            CircularNavigation="True"
                            IsNavigationEnabled="False"
                            Orientation="Horizontal" 
                            SelectedIndex="{Binding FlyIndex}"
-                           Grid.Row="0" MinWidth="20" MinHeight="20">
+                           Grid.Row="0" MinWidth="20" MinHeight="20" BorderThickness="2" BorderBrush="#FFEC1414" Height="500" Width="700">
             <Controls:FlipView.Items>
-                <StackPanel x:Name="stkListaMotoristas">
-                    <DataGrid x:Name="dgVeiculos" ItemsSource="{Binding Cars}" Margin="10,10,10,5" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" AutoGenerateColumns="False" CanUserAddRows="False" HorizontalAlignment="Left">
+                <StackPanel x:Name="stkListaMotoristas" Background="#FFD4CCCC" Orientation="Vertical">
+                    <DataGrid x:Name="dgVeiculos" ItemsSource="{Binding Cars}" Margin="10,10,10,5"  AutoGenerateColumns="False" CanUserAddRows="False" MinHeight="100">
                         <DataGrid.Columns>
                             <DataGridCheckBoxColumn Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=IsSelected, Mode=OneWay}"
                                         EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
@@ -60,10 +57,10 @@
 
                         </DataGrid.Columns>
                     </DataGrid>
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Grid.Row="4" d:LayoutOverrides="VerticalAlignment">
-                        <Button Height="38" Content="ADD VEÍCULO" Width="120" Command="{Binding FlyNaviCommand}" CommandParameter="1" Margin="10,5,0,5"/>
-                        <Button Height="38" Content="EDITAR VEÍCULO" Width="120" Command="{Binding FlyNaviCommand}" CommandParameter="2" Margin="10,5,0,5"/>
-                        <Button Height="38" Content="REMOVER VEÍCULO" Width="120" Margin="10,5,0,5" Command="{Binding RemoverVeiculoCommand}" CommandParameter="{Binding SelectedItem, ElementName=dgVeiculos}" />
+                    <StackPanel Orientation="Horizontal"  Background="#FFAAB0AD" Height="48" VerticalAlignment="Bottom" Margin="10,10,10,0">
+                        <Button Height="38" Content="ADD VEÍCULO" Width="120" Command="{Binding FlyNaviCommand}" CommandParameter="1" Margin="10,5,0,5" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+                        <Button Height="38" Content="EDITAR VEÍCULO" Width="120" Command="{Binding FlyNaviCommand}" CommandParameter="2" Margin="10,5,0,5" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+                        <Button Height="38" Content="REMOVER VEÍCULO" Width="120" Margin="10,5,0,5" Command="{Binding RemoverVeiculoCommand}" CommandParameter="{Binding SelectedItem, ElementName=dgVeiculos}" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
                     </StackPanel>
                 </StackPanel>
                 <Grid x:Name="grdAddVeiculo" Margin="40,40,0,0" HorizontalAlignment="Stretch">
@@ -245,7 +242,6 @@
                         <Button Content="Buscar" Grid.Row="8" Grid.Column="3" Height="20" Width="50" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,0,0,0" />
                     </StackPanel>
                 </Grid>
-
                 <Button Content="EDITAR" Width="100" Height="25" /> />
             </Controls:FlipView.Items>
         </Controls:FlipView>
