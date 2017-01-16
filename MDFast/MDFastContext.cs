@@ -6,6 +6,7 @@ namespace MDFast
     public class MDFastContext : DbContext
     {
         public DbSet<Veiculo> Veiculos { get; set; }
+        public DbSet<Motorista> Motoristas { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

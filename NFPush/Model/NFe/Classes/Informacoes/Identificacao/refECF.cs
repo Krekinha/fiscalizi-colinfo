@@ -1,0 +1,25 @@
+﻿using System.Xml.Serialization;
+
+namespace NFPush.Model.NFe.Classes.Informacoes.Identificacao
+{
+    public class refECF
+    {
+        [XmlIgnore]
+        public int ID { get; set; }
+
+        /// <summary>
+        ///     BA21 - Modelo do Documento Fiscal
+        /// </summary>
+        public string mod { get; set; }
+
+        /// <summary>
+        ///     BA22 - Número de ordem sequencial do ECF
+        /// </summary>
+        public int nECF { get; set; }
+
+        /// <summary>
+        ///     BA23 - Número do Contador de Ordem de Operação - COO
+        /// </summary>
+        public int nCOO { get; set; }
+    }
+}

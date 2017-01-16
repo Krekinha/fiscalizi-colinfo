@@ -68,7 +68,7 @@ namespace MDFast.ViewModel
         }
         private void Teste()
         {
-            _dataService.AddVeiculo(new Veiculo { Placa = "XXX1234", Tara = 15000, CapKG = 66000, TPRod = "03", TPCar = "10", UF = "SP" });
+            _dataService.AdicionarVeiculo(new Veiculo { Placa = "XXX1234", Tara = 15000, CapKG = 66000, TPRod = "03", TPCar = "10", UF = "SP" });
         }
 
         #endregion

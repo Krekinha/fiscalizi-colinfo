@@ -126,7 +126,7 @@ namespace MDFast.ViewModel
             {
                 Errors.Clear();
                 RaisePropertyChanged("Errors");
-                _dataService.AddVeiculo(NewVeiculo);
+                _dataService.AdicionarVeiculo(NewVeiculo);
                 AtualizaVeiculos();
                 FlyIndex = 0;
                 RaisePropertyChanged("FlyIndex");
@@ -141,20 +141,19 @@ namespace MDFast.ViewModel
         private void RemoverVeiculo(Veiculo car)
         {
             _dataService.RemoverVeiculo(car);
+            RaisePropertyChanged("Cars");
             AtualizaVeiculos();
         }
-
         private void AtualizaVeiculos()
         {
-            var cars = FuncoesXml.ArquivoXmlParaClasse<ObservableCollection<Veiculo>>("DBase\\Veiculos.xml");
-            Cars = cars;
+            Cars.Clear();
+            Cars = _dataService.GetVeiculos();
         }
 
         private void FlyNavi(int index)
         {
             FlyIndex = index;
         }
-
         private void Validate()
         {
             VeiculoValidator validator = new VeiculoValidator();

@@ -8,7 +8,12 @@ namespace MDFast.Design
 {
     public class DesignDataService : IDataService
     {
-        public void AddVeiculo(Veiculo car)
+        public void AddMotorista(Motorista newMotorista)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AdicionarVeiculo(Veiculo car)
         {
             throw new NotImplementedException();
         }
@@ -22,12 +27,22 @@ namespace MDFast.Design
             };
         }
 
+        public ObservableCollection<Motorista> GetMotoristas()
+        {
+            throw new NotImplementedException();
+        }
+
         public Veiculo GetStandVeiculo()
         {
             return new Veiculo { Placa = "AAA-1515", CapKG = 36000, Tara = 19000, TPCar = "02", TPRod = "00", UF = "MG" };
         }
 
         public ObservableCollection<Veiculo> GetVeiculos()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoverMotorista(Motorista mot)
         {
             throw new NotImplementedException();
         }
