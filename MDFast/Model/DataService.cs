@@ -57,7 +57,7 @@ namespace FiscaliZi.MDFast.Model
             }
 
         }
-        public void GravaVeiculos()
+        public void GerarDadosVeiculos()
         {
             using (var context = new MDFastContext())
             {

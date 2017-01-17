@@ -27,6 +27,11 @@ namespace FiscaliZi.MDFast.Design
             };
         }
 
+        public void GerarDadosVeiculos()
+        {
+            throw new NotImplementedException();
+        }
+
         public ObservableCollection<Motorista> GetMotoristas()
         {
             throw new NotImplementedException();

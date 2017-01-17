@@ -16,6 +16,7 @@ namespace FiscaliZi.MDFast.Model
         ObservableCollection<Motorista> GetMotoristas();
         void RemoverMotorista(Motorista mot);
         void AddMotorista(Motorista newMotorista);
+        void GerarDadosVeiculos();
         #endregion
 
         ObservableCollection<ValidationFailure> fakeERR();

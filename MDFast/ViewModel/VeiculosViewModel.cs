@@ -19,6 +19,7 @@ namespace FiscaliZi.MDFast.ViewModel
             CancelAddVeiculoCommand = new RelayCommand(CancelAddVeiculo);
             FlyNaviCommand = new RelayCommand<int>(FlyNavi);
             RemoverVeiculoCommand = new RelayCommand<Veiculo>(RemoverVeiculo);
+            GerarDadosVeiculosCommand = new RelayCommand(GerarDadosVeiculos);
             NewVeiculo = new Veiculo();
             Errors = _dataService.fakeERR();
         }
@@ -31,6 +32,7 @@ namespace FiscaliZi.MDFast.ViewModel
         public RelayCommand CancelAddVeiculoCommand { get; set; }
         public RelayCommand<int> FlyNaviCommand { get; set; }
         public RelayCommand<Veiculo> RemoverVeiculoCommand { get; set; }
+        public RelayCommand GerarDadosVeiculosCommand { get; set; }
 
         private ObservableCollection<ValidationFailure> _errors;
         public ObservableCollection<ValidationFailure> Errors
@@ -141,6 +143,11 @@ namespace FiscaliZi.MDFast.ViewModel
         {
             _dataService.RemoverVeiculo(car);
             RaisePropertyChanged("Cars");
+            AtualizaVeiculos();
+        }
+        private void GerarDadosVeiculos()
+        {
+            _dataService.GerarDadosVeiculos();
             AtualizaVeiculos();
         }
         private void AtualizaVeiculos()

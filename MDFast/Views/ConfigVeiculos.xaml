@@ -37,10 +37,22 @@
                            IsNavigationEnabled="False"
                            Orientation="Horizontal" 
                            SelectedIndex="{Binding FlyIndex}"
-                           Grid.Row="0" MinWidth="20" MinHeight="20" BorderThickness="2" BorderBrush="#FFEC1414" Height="500" Width="700">
+                           Grid.Row="0" MinWidth="20" MinHeight="20" BorderThickness="2" BorderBrush="{x:Null}" Height="500" Width="800">
             <Controls:FlipView.Items>
-                <StackPanel x:Name="stkListaMotoristas" Background="#FFD4CCCC" Orientation="Vertical">
-                    <DataGrid x:Name="dgVeiculos" ItemsSource="{Binding Cars}" Margin="10,10,10,5"  AutoGenerateColumns="False" CanUserAddRows="False" MinHeight="100">
+                <Grid x:Name="stkListaMotoristas" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="35
+                                       "/>
+                    </Grid.RowDefinitions>
+                    <DataGrid x:Name="dgVeiculos" ItemsSource="{Binding Cars}" 
+                              Margin="10"  
+                              AutoGenerateColumns="False" CanUserAddRows="False" 
+                              MinHeight="100" 
+                              HorizontalContentAlignment="Stretch" 
+                              MinWidth="500" 
+                              Background="{x:Null}"
+                              FontSize="12">
                         <DataGrid.Columns>
                             <DataGridCheckBoxColumn Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=IsSelected, Mode=OneWay}"
                                         EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
@@ -57,12 +69,13 @@
 
                         </DataGrid.Columns>
                     </DataGrid>
-                    <StackPanel Orientation="Horizontal"  Background="#FFAAB0AD" Height="48" VerticalAlignment="Bottom" Margin="10,10,10,0">
-                        <Button Height="38" Content="ADD VEÍCULO" Width="120" Command="{Binding FlyNaviCommand}" CommandParameter="1" Margin="10,5,0,5" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-                        <Button Height="38" Content="EDITAR VEÍCULO" Width="120" Command="{Binding FlyNaviCommand}" CommandParameter="2" Margin="10,5,0,5" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-                        <Button Height="38" Content="REMOVER VEÍCULO" Width="120" Margin="10,5,0,5" Command="{Binding RemoverVeiculoCommand}" CommandParameter="{Binding SelectedItem, ElementName=dgVeiculos}" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
+                    <StackPanel Orientation="Horizontal"  Background="#FF46749B" Height="35" VerticalAlignment="Bottom" Margin="10,0" Grid.Row="1">
+                        <Button Height="25" Content="ADD VEÍCULO" Width="120" Command="{Binding FlyNaviCommand}" CommandParameter="1" Margin="10,5,0,5" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+                        <Button Height="25" Content="EDITAR VEÍCULO" Width="120" Command="{Binding FlyNaviCommand}" CommandParameter="2" Margin="10,5,0,5" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+                        <Button Height="25" Content="REMOVER VEÍCULO" Width="120" Margin="10,5,0,5" Command="{Binding RemoverVeiculoCommand}" CommandParameter="{Binding SelectedItem, ElementName=dgVeiculos}" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
+                        <Button Height="25" Content="gerar dados" Width="120" Command="{Binding GerarDadosVeiculosCommand}" Margin="10,5,0,5" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
                     </StackPanel>
-                </StackPanel>
+                </Grid>
                 <Grid x:Name="grdAddVeiculo" Margin="40,40,0,0" HorizontalAlignment="Stretch">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="25"/>

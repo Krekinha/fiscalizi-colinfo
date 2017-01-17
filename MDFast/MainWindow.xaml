@@ -10,7 +10,7 @@
         Height="600"
         Width="1000"
         Title="MDFast - Manifesto de Documento Fiscal"
-        DataContext="{Binding Main, Source={StaticResource Locator}}">
+        DataContext="{Binding Main, Source={StaticResource Locator}}" BorderBrush="{DynamicResource NormalBorderBrush}">
 
     <Window.Resources>
     </Window.Resources>
