@@ -42,8 +42,7 @@
                 <Grid x:Name="stkListaMotoristas" >
                     <Grid.RowDefinitions>
                         <RowDefinition/>
-                        <RowDefinition Height="35
-                                       "/>
+                        <RowDefinition Height="35"/>
                     </Grid.RowDefinitions>
                     <DataGrid x:Name="dgVeiculos" ItemsSource="{Binding Cars}" 
                               Margin="10"  
@@ -69,12 +68,14 @@
 
                         </DataGrid.Columns>
                     </DataGrid>
-                    <StackPanel Orientation="Horizontal"  Background="#FF46749B" Height="35" VerticalAlignment="Bottom" Margin="10,0" Grid.Row="1">
-                        <Button Height="25" Content="ADD VEÍCULO" Width="120" Command="{Binding FlyNaviCommand}" CommandParameter="1" Margin="10,5,0,5" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-                        <Button Height="25" Content="EDITAR VEÍCULO" Width="120" Command="{Binding FlyNaviCommand}" CommandParameter="2" Margin="10,5,0,5" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-                        <Button Height="25" Content="REMOVER VEÍCULO" Width="120" Margin="10,5,0,5" Command="{Binding RemoverVeiculoCommand}" CommandParameter="{Binding SelectedItem, ElementName=dgVeiculos}" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
-                        <Button Height="25" Content="gerar dados" Width="120" Command="{Binding GerarDadosVeiculosCommand}" Margin="10,5,0,5" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-                    </StackPanel>
+                    <Border Grid.Row="1" BorderThickness="1" BorderBrush="#FF46749B" CornerRadius="2" Background="#FF46749B">
+                        <StackPanel Orientation="Horizontal"  Height="35" VerticalAlignment="Bottom" Margin="10,0" >
+                            <Button Height="25" Content="ADD VEÍCULO" Width="120" Command="{Binding FlyNaviCommand}" CommandParameter="1" Margin="10,4,0,4" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+                            <Button Height="25" Content="EDITAR VEÍCULO" Width="120" Command="{Binding FlyNaviCommand}" CommandParameter="2" Margin="10,4,0,4" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+                            <Button Height="25" Content="REMOVER VEÍCULO" Width="120" Margin="10,4,0,4" Command="{Binding RemoverVeiculoCommand}" CommandParameter="{Binding SelectedItem, ElementName=dgVeiculos}" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
+                            <Button Height="25" Content="gerar dados" Width="120" Command="{Binding GerarDadosVeiculosCommand}" Margin="10,4,0,4" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+                        </StackPanel>
+                    </Border>
                 </Grid>
                 <Grid x:Name="grdAddVeiculo" Margin="40,40,0,0" HorizontalAlignment="Stretch">
                     <Grid.RowDefinitions>
