@@ -36,7 +36,7 @@
                            CircularNavigation="True"
                            IsNavigationEnabled="False"
                            Orientation="Horizontal" 
-                           SelectedIndex="{Binding FlyIndex}"
+                           SelectedIndex="1"
                            Grid.Row="0" MinWidth="20" MinHeight="20" BorderThickness="2" BorderBrush="{x:Null}" Height="500" Width="800">
             <Controls:FlipView.Items>
                 <Grid x:Name="stkListaMotoristas" >
@@ -246,14 +246,18 @@
                             Margin="10,20,5,0"
                             Text="Motorista" HorizontalAlignment="Left" FontSize="12" />
                     <StackPanel Grid.Column="0" Grid.ColumnSpan="3" Margin="10,0,0,0" Orientation="Horizontal" Grid.Row="8" HorizontalAlignment="Left" VerticalAlignment="Top">
-                        <Border BorderThickness="1" BorderBrush="#FFBBBABA" Background="#FFF1F1F1" HorizontalAlignment="Left" VerticalAlignment="Center" >
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                <TextBlock FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" ><Run Text="MARCELO CAPOVILLA FILHO NASCIMENTO COSTA"/></TextBlock>
-                                <Separator Height="15" Style="{DynamicResource SimpleSeparator}" Width="auto" Margin="8,2,0,2" Background="#FFB9B8B8" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                                <TextBlock Text="091.025.455-88" FontSize="12" Margin="8,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Left" />
-                            </StackPanel>
+                        <Border BorderThickness="1" BorderBrush="#FFBBBABA" Background="#FFF1F1F1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="343" Height="50" >
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                            </Grid>
                         </Border>
-                        <Button Content="Buscar" Grid.Row="8" Grid.Column="3" Height="20" Width="50" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,0,0,0" />
                     </StackPanel>
                 </Grid>
                 <Button Content="EDITAR" Width="100" Height="25" /> />
