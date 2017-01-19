@@ -36,7 +36,7 @@
                            CircularNavigation="True"
                            IsNavigationEnabled="False"
                            Orientation="Horizontal" 
-                           SelectedIndex="1"
+                           SelectedIndex="{Binding FlyIndex}"
                            Grid.Row="0" MinWidth="20" MinHeight="20" BorderThickness="2" BorderBrush="{x:Null}" Height="500" Width="800">
             <Controls:FlipView.Items>
                 <Grid x:Name="stkListaMotoristas" >
@@ -88,76 +88,73 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="100"/>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="Auto" MinHeight="86"/>
+                        <RowDefinition Height="Auto" MinHeight="41"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="110" MaxWidth="110"/>
-                        <ColumnDefinition Width="155" MaxWidth="155"/>
+                        <ColumnDefinition Width="180" MaxWidth="180"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock x:Name="lblPlaca" 
-                                   Grid.Row="0" Grid.Column="0" 
-                                   Height="25"
+                                   Grid.Row="0" Grid.Column="0"
                                    Margin="10,0,0,0"
-                                   Text="Placa" FontSize="12" HorizontalAlignment="Left"/>
+                                   Text="Placa" FontSize="12" HorizontalAlignment="Left" FontWeight="Bold" Width="29"/>
                     <TextBox x:Name="txtPlaca"
                              Grid.Row="0" Grid.Column="1"
-                             Width="145" Height="25" MinHeight="20" 
+                             Width="170" Height="25" MinHeight="20" 
                              Margin="10,0,0,0" 
                              BorderThickness="1" 
                              CharacterCasing="Upper"
                              HorizontalAlignment="Left" VerticalAlignment="Top"
                              Text="{Binding NewVeiculo.Placa, Mode=TwoWay}" />
                     <local:ErrorControl x:Name="errPlaca"
-                                        Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"
-                                        Margin="5,0,10,0"
+                                        Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="1"
+                                        Margin="5,0,10,7"
                                         Visibility="{Binding Errors, ConverterParameter=Placa, Converter={StaticResource VisibleErrorList}, Mode=TwoWay}"
-                                        ErrMessage="{Binding Errors, ConverterParameter=Placa, Converter={StaticResource ErrorMessageConverter}, Mode=TwoWay}" HorizontalContentAlignment="Left"/>
+                                        ErrMessage="{Binding Errors, ConverterParameter=Placa, Converter={StaticResource ErrorMessageConverter}, Mode=TwoWay}" HorizontalContentAlignment="Left" Grid.RowSpan="2"/>
                     <TextBlock x:Name="lblTara" 
-                                   Grid.Row="1" Grid.Column="0" 
-                                   Height="25"
-                                   Margin="10,5,0,0"
-                                   Text="Tara (KG)" FontSize="12" HorizontalAlignment="Left"/>
+                                   Grid.Row="1" Grid.Column="0"
+                                   Margin="10,6,0,1"
+                                   Text="Tara (KG)" FontSize="12" HorizontalAlignment="Left" FontWeight="Bold" Width="53"/>
                     <Controls:NumericUpDown Name="txtTara" 
                                             Grid.Row="1" Grid.Column="1"
-                                            Width="145" Height="25" MinHeight="20" 
+                                            Width="170" Height="25" MinHeight="20" 
                                             Margin="10,5,0,0" 
                                             BorderThickness="1"
                                             HorizontalAlignment="Left" VerticalAlignment="Top"
                                             HideUpDownButtons="True" FlowDirection="RightToLeft" 
                                             Value="{Binding NewVeiculo.Tara, Mode=TwoWay}"/>
                     <local:ErrorControl x:Name="errTara"
-                                        Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2"
-                                        Margin="5,5,10,0"
+                                        Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="1"
+                                        Margin="5,5,10,7"
                                         Visibility="{Binding Errors, ConverterParameter=Tara, Converter={StaticResource VisibleErrorList}, Mode=OneWay}"
-                                        ErrMessage="{Binding Errors, ConverterParameter=Tara, Converter={StaticResource ErrorMessageConverter}}" HorizontalContentAlignment="Left"/>
+                                        ErrMessage="{Binding Errors, ConverterParameter=Tara, Converter={StaticResource ErrorMessageConverter}}" HorizontalContentAlignment="Left" Grid.RowSpan="2"/>
                     <TextBlock x:Name="lblCapacidade" 
-                                   Grid.Row="2" Grid.Column="0" 
-                                   Height="25"
+                                   Grid.Row="2" Grid.Column="0"
                                    Margin="10,5,0,0"
-                                   Text="Capacidade (KG)" FontSize="12" HorizontalAlignment="Left"/>
+                                   Text="Capacidade (KG)" FontSize="12" HorizontalAlignment="Left" FontWeight="Bold" Width="93"/>
                     <Controls:NumericUpDown x:Name="txtCapacidade"
                                             Grid.Row="2" Grid.Column="1"
-                                            Width="145" Height="25" MinHeight="20" 
+                                            Width="170" Height="25" MinHeight="20" 
                                             Margin="10,5,0,0" 
                                             BorderThickness="1" 
                                             HideUpDownButtons="True" FlowDirection="RightToLeft" 
                                             HorizontalAlignment="Left" VerticalAlignment="Top"
                                             Value="{Binding NewVeiculo.CapKG, Mode=TwoWay}" />
                     <local:ErrorControl x:Name="errCapacidade"
-                                        Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"
-                                        Margin="5,5,10,0"
+                                        Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="1"
+                                        Margin="5,5,10,7"
                                         Visibility="{Binding Errors, ConverterParameter=Capacidade, Converter={StaticResource VisibleErrorList}, Mode=OneWay}"
-                                        ErrMessage="{Binding Errors, ConverterParameter=Capacidade, Converter={StaticResource ErrorMessageConverter}}" HorizontalContentAlignment="Left"/>
+                                        ErrMessage="{Binding Errors, ConverterParameter=Capacidade, Converter={StaticResource ErrorMessageConverter}}" HorizontalContentAlignment="Left" Grid.RowSpan="2"/>
                     <TextBlock x:Name="lblTPCar" 
-                                   Grid.Row="3" Grid.Column="0" 
-                                   Height="25"
-                                   Margin="10,5,0,0"
-                                   Text="Tipo de Carroceria" FontSize="12" HorizontalAlignment="Left" Width="100"/>
+                                   Grid.Row="3" Grid.Column="0"
+                                   Margin="10,6,0,1"
+                                   Text="Tipo de Carroceria" FontSize="12" HorizontalAlignment="Left" Width="100" FontWeight="Bold"/>
                     <ComboBox x:Name="cboTPCar" 
                                   Grid.Row="3" Grid.Column="1"
-                                  Width="145" Height="25" MinHeight="20" 
+                                  Width="170" Height="25" MinHeight="20" 
                                   Margin="10,5,0,0" 
                                   ToolTip="Tipo de Carroceria"
                                   HorizontalAlignment="Left" VerticalAlignment="Top"
@@ -183,34 +180,21 @@
                         </ComboBoxItem>
                     </ComboBox>
                     <TextBlock x:Name="lblUF" 
-                                   Grid.Row="5" Grid.Column="0" 
-                                   Height="25"
-                                   Margin="10,5,0,0"
-                                   Text="UF" FontSize="12" HorizontalAlignment="Left" />
+                                   Grid.Row="5" Grid.Column="0"
+                                   Margin="10,6,0,1"
+                                   Text="UF" FontSize="12" HorizontalAlignment="Left" FontWeight="Bold" Width="15" />
                     <ComboBox x:Name="cboUF" 
                                   Grid.Row="5" Grid.Column="1"
-                                  Width="145" Height="25" MinHeight="20" 
+                                  Width="170" Height="25" MinHeight="20" 
                                   Margin="10,5,0,0" 
                                   ToolTip="UF"
                                   HorizontalAlignment="Left" VerticalAlignment="Top"
                                   SelectedIndex="12"
                                   ItemsSource="{StaticResource UF}"
                                   SelectedValue="{Binding NewVeiculo.UF, Mode=TwoWay}" />
-                    <StackPanel Grid.ColumnSpan="2" Grid.Column="0" Margin="10,5,10,0" Orientation="Horizontal" Grid.Row="10" d:LayoutOverrides="Width" HorizontalAlignment="Left" VerticalAlignment="Top">
-                        <Button Content="Salvar"
-                            Height="25" Width="80"
-                            Margin="0,0,0,5"
-                            VerticalAlignment="Bottom"
-                            Command="{Binding AddVeiculoCommand}" d:LayoutOverrides="Width" />
-                        <Button Content="Cancelar"
-                            Height="25" Width="80"
-                            Margin="5,0,0,5"
-                            VerticalAlignment="Bottom"
-                            Command="{Binding CancelAddVeiculoCommand}" HorizontalAlignment="Right" />
-                    </StackPanel>
                     <ComboBox x:Name="cboTPRod" 
                             Grid.Row="4" Grid.Column="1"
-                            Width="145" Height="25" MinHeight="20" 
+                            Width="170" Height="25" MinHeight="20" 
                             Margin="10,5,0,0" 
                             ToolTip="Tipo de Rodado"
                             HorizontalAlignment="Left" VerticalAlignment="Top"
@@ -236,30 +220,48 @@
                         </ComboBoxItem>
                     </ComboBox>
                     <TextBlock x:Name="lblTPRod" 
-                            Grid.Row="4" Grid.Column="0" 
-                            Height="25"
+                            Grid.Row="4" Grid.Column="0"
                             Margin="10,5,0,0"
-                            Text="Tipo de Rodado" FontSize="12" HorizontalAlignment="Left"/>
+                            Text="Tipo de Rodado" FontSize="12" HorizontalAlignment="Left" FontWeight="Bold" Width="90"/>
                     <TextBlock x:Name="lblMotorista" 
-                            Grid.Row="7" Grid.Column="0" 
-                            Height="25"
-                            Margin="10,20,5,0"
-                            Text="Motorista" HorizontalAlignment="Left" FontSize="12" />
-                    <StackPanel Grid.Column="0" Grid.ColumnSpan="3" Margin="10,0,0,0" Orientation="Horizontal" Grid.Row="8" HorizontalAlignment="Left" VerticalAlignment="Top">
-                        <Border BorderThickness="1" BorderBrush="#FFBBBABA" Background="#FFF1F1F1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="343" Height="50" >
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="25"/>
-                                    <RowDefinition Height="25"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="50"/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <Image Grid.RowSpan="2" UseLayoutRounding="False" Source="/FiscaliZi.MDFast;component/Resources/driverman.png" />
-                            </Grid>
-                        </Border>
-                    </StackPanel>
+                            Grid.Row="7" Grid.Column="0"
+                            Margin="10,15,0,5"
+                            Text="Motorista" HorizontalAlignment="Left" FontSize="12" FontWeight="Bold" Width="55" />
+                    <Border x:Name="borMotoristaAdd"
+                            Height="56"
+                            Margin="10,0,0,0"
+                            Grid.Row="8" Grid.ColumnSpan="2" CornerRadius="3"  BorderBrush="#FFC2C3C9" VerticalAlignment="Center" BorderThickness="2" >
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="25"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.RowSpan="2" UseLayoutRounding="False" Source="/FiscaliZi.MDFast;component/Resources/driverman.png" Width="40" Height="45" />
+                            <TextBlock Text="MILTON FABIANO ABREU SANTOS" Grid.Column="1" Margin="5,0,0,0" FontSize="12" FontWeight="Bold" VerticalAlignment="Bottom" />
+                            <TextBlock Text="000.111.222-33" Grid.Column="1" Margin="5,0,0,0" Grid.Row="1" FontSize="12" VerticalAlignment="Top" />
+                        </Grid>
+                    </Border>
+                    <Button Content="Buscar"
+                            Height="25" Width="60"
+                            Grid.Row="9" Margin="10,5,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="9"/>
+                    <Border Grid.Row="11" Grid.ColumnSpan="3" BorderThickness="1" BorderBrush="#FF46749B" CornerRadius="2" Background="#FF46749B" VerticalAlignment="Bottom" Height="37" Margin="0,25,0,0">
+                        <StackPanel Orientation="Horizontal"  Height="35" VerticalAlignment="Bottom" Margin="10,0" >
+                            <Button Content="Salvar"
+                                    Height="25" Width="80"
+                                    Margin="0,0,0,5"
+                                    VerticalAlignment="Bottom"
+                                    Command="{Binding AddVeiculoCommand}" />
+                            <Button Content="Cancelar"
+                                    Height="25" Width="80"
+                                    Margin="5,0,0,5"
+                                    VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                                    Command="{Binding CancelAddVeiculoCommand}" />
+                        </StackPanel>
+                    </Border>
                 </Grid>
                 <Button Content="EDITAR" Width="100" Height="25" /> />
             </Controls:FlipView.Items>
