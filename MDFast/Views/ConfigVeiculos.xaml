@@ -256,6 +256,7 @@
                                     <ColumnDefinition Width="50"/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
+                                <Image Grid.RowSpan="2" UseLayoutRounding="False" Source="/FiscaliZi.MDFast;component/Resources/driverman.png" />
                             </Grid>
                         </Border>
                     </StackPanel>

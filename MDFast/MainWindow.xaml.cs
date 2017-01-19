@@ -16,6 +16,7 @@ namespace FiscaliZi.MDFast
         {
             InitializeComponent();
             Closing += (s, e) => ViewModelLocator.Cleanup();
+            //ChangeAccent();
         }
 
         private void ChangeAccent()
