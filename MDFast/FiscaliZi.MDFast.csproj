@@ -238,6 +238,7 @@
     <Compile Include="Migrations\MDFastContextModelSnapshot.cs" />
     <Compile Include="Model\Converters.cs" />
     <Compile Include="Model\DataService.cs" />
+    <Compile Include="Model\DialogMotoristasContent.cs" />
     <Compile Include="Model\IDataService.cs" />
     <Compile Include="Model\Motorista.cs" />
     <Compile Include="Model\Veiculo.cs" />
@@ -251,6 +252,9 @@
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="Views\ConfigVeiculos.xaml.cs">
       <DependentUpon>ConfigVeiculos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DialogMotoristas.xaml.cs">
+      <DependentUpon>DialogMotoristas.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Entrada.xaml.cs">
       <DependentUpon>Entrada.xaml</DependentUpon>
@@ -283,6 +287,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ConfigVeiculos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DialogMotoristas.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -20,6 +20,7 @@
         <Model:BooleanOrConverter x:Key="BooleanOr" />
         <Model:VisibleErrorListConverter x:Key="VisibleErrorList" />
         <Model:ErrorMessageConverter x:Key="ErrorMessageConverter" />
+        <Model:VisibilityValueConverter x:Key="VisibilityValue" />
     </UserControl.Resources>
 
     <Grid>
@@ -36,7 +37,7 @@
                            CircularNavigation="True"
                            IsNavigationEnabled="False"
                            Orientation="Horizontal" 
-                           SelectedIndex="{Binding FlyIndex}"
+                           SelectedIndex="1"
                            Grid.Row="0" MinWidth="20" MinHeight="20" BorderThickness="2" BorderBrush="{x:Null}" Height="500" Width="800">
             <Controls:FlipView.Items>
                 <Grid x:Name="stkListaMotoristas" >
@@ -240,9 +241,24 @@
                                 <ColumnDefinition Width="50"/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <Image Grid.RowSpan="2" UseLayoutRounding="False" Source="/FiscaliZi.MDFast;component/Resources/driverman.png" Width="40" Height="45" />
-                            <TextBlock Text="MILTON FABIANO ABREU SANTOS" Grid.Column="1" Margin="5,0,0,0" FontSize="12" FontWeight="Bold" VerticalAlignment="Bottom" />
-                            <TextBlock Text="000.111.222-33" Grid.Column="1" Margin="5,0,0,0" Grid.Row="1" FontSize="12" VerticalAlignment="Top" />
+                            <Image 
+                                Source="/FiscaliZi.MDFast;component/Resources/driverman.png" 
+                                Visibility="{Binding NewVeiculo.Motorista, Converter={StaticResource VisibilityValue}}"
+                                Grid.RowSpan="2" 
+                                UseLayoutRounding="False"
+                                Width="40" Height="45" />
+                            <TextBlock 
+                                Text="{Binding NewVeiculo.Motorista.Nome}" 
+                                Grid.Column="1" 
+                                Margin="5,0,0,0" 
+                                FontSize="12" FontWeight="Bold" 
+                                VerticalAlignment="Bottom" />
+                            <TextBlock 
+                                Text="{Binding NewVeiculo.Motorista.CPF}" 
+                                Grid.Column="1" Grid.Row="1" 
+                                Margin="5,0,0,0"
+                                FontSize="12" 
+                                VerticalAlignment="Top" />
                         </Grid>
                     </Border>
                     <Button Content="Buscar"

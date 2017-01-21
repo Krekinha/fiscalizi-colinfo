@@ -102,7 +102,20 @@ namespace FiscaliZi.MDFast.Model
 
         public Veiculo GetStandVeiculo()
         {
-            return new Veiculo { Placa = "ABC1234", CapKG = 36000, Tara = 19000, TPCar = "02", TPRod = "00", UF = "MG" };
+            return new Veiculo
+            {
+                Placa = "ABC1234",
+                CapKG = 36000,
+                Tara = 19000,
+                TPCar = "02",
+                TPRod = "00",
+                UF = "MG",
+                Motorista = new Motorista
+                {
+                    CPF = "000.222.555-77",
+                    Nome = "ZEZINHO BARROS GOMES DA SILVA",
+                }
+            };
         }
         #endregion
 

@@ -53,6 +53,22 @@ namespace FiscaliZi.MDFast.Model
         }
     }
 
+    public class VisibilityValueConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+
+            if (value != null)
+                return Visibility.Visible;
+            return Visibility.Hidden;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value;
+        }
+    }
+
     public class ErrorMessageConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
