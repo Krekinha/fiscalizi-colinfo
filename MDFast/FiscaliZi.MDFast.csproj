@@ -238,13 +238,13 @@
     <Compile Include="Migrations\MDFastContextModelSnapshot.cs" />
     <Compile Include="Model\Converters.cs" />
     <Compile Include="Model\DataService.cs" />
-    <Compile Include="Model\DialogMotoristasContent.cs" />
     <Compile Include="Model\IDataService.cs" />
     <Compile Include="Model\Motorista.cs" />
     <Compile Include="Model\Veiculo.cs" />
     <Compile Include="Utils\ColorText.cs" />
     <Compile Include="Validation\MotoristaValidator.cs" />
     <Compile Include="Validation\VeiculoValidator.cs" />
+    <Compile Include="ViewModel\DialogViewModel.cs" />
     <Compile Include="ViewModel\EntradaViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MotoristasViewModel.cs" />

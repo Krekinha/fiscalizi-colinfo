@@ -8,12 +8,13 @@ using System.ComponentModel;
 using System;
 using MahApps.Metro.Controls.Dialogs;
 using FiscaliZi.MDFast.Views;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace FiscaliZi.MDFast.ViewModel
 {
     public class VeiculosViewModel : ViewModelBase, INotifyPropertyChanged
     {
-        public VeiculosViewModel(IDataService dataService)
+        public VeiculosViewModel(IDataService dataService, IDialogCoordinator dialogCoordinator)
         {
             _dataService = dataService;
 
@@ -21,13 +22,16 @@ namespace FiscaliZi.MDFast.ViewModel
             NewVeiculo = _dataService.GetStandVeiculo();
             Errors = _dataService.fakeERR();
 
+            _dialogCoordinator = dialogCoordinator;
+            Messenger.Default.Register<string>(this, ProcessMessage);
+
             #region · Commands ·
             AddVeiculoCommand = new RelayCommand(AddVeiculo);
             CancelAddVeiculoCommand = new RelayCommand(CancelAddVeiculo);
             FlyNaviCommand = new RelayCommand<int>(FlyNavi);
             RemoverVeiculoCommand = new RelayCommand<Veiculo>(RemoverVeiculo);
             GerarDadosVeiculosCommand = new RelayCommand(GerarDadosVeiculos);
-            ShowMotoristasDialog = new RelayCommand(ShowMotoristas);
+            ShowMotoristasDialog = new RelayCommand(ShowDialog);
             #endregion
 
         }
@@ -191,20 +195,35 @@ namespace FiscaliZi.MDFast.ViewModel
                 RaisePropertyChanged("Errors");
             }
         }
-        private async void ShowMotoristas()
+
+        #endregion
+
+        #region Dialog Motoristas
+        private readonly IDialogCoordinator _dialogCoordinator;
+        private readonly DialogMotoristas _dialogView = new DialogMotoristas();
+        private string _dialogResult;
+        public string DialogResult
         {
-            var customDialog = new CustomDialog() { Title = "Motoristas" };
-
-            var customDialogExampleContent = new CustomDialogExampleContent(instance =>
+            get { return _dialogResult; }
+            set
             {
-                _dialogCoordinator.HideMetroDialogAsync(this, customDialog);
-                System.Diagnostics.Debug.WriteLine(instance.FirstName);
-            });
-            customDialog.Content = new DialogMotoristas { DataContext = customDialogExampleContent };
-
-            await _dialogCoordinator.ShowMetroDialogAsync(this, customDialog);
+                if (_dialogResult == value)
+                {
+                    return;
+                }
+                _dialogResult = value;
+                RaisePropertyChanged();
+            }
         }
-
+        private async void ShowDialog()
+        {
+            await _dialogCoordinator.ShowMetroDialogAsync(this, _dialogView);
+        }
+        private async void ProcessMessage(string messageContents)
+        {
+            DialogResult = messageContents;
+            await _dialogCoordinator.HideMetroDialogAsync(this, _dialogView);
+        }
         #endregion
     }
 }

@@ -15,6 +15,7 @@ using Microsoft.Practices.ServiceLocation;
 using FiscaliZi.MDFast.Model;
 using FluentValidation;
 using FiscaliZi.MDFast.Validation;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace FiscaliZi.MDFast.ViewModel
 {
@@ -43,6 +44,8 @@ namespace FiscaliZi.MDFast.ViewModel
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<EntradaViewModel>();
             SimpleIoc.Default.Register<VeiculosViewModel>();
+            SimpleIoc.Default.Register<DialogViewModel>();
+            SimpleIoc.Default.Register<IDialogCoordinator, DialogCoordinator>();
         }
 
         public MainViewModel Main
@@ -66,6 +69,14 @@ namespace FiscaliZi.MDFast.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<VeiculosViewModel>();
+            }
+        }
+
+        public DialogViewModel DialogVM
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<DialogViewModel>();
             }
         }
 

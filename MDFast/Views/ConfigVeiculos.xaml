@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:FiscaliZi.MDFast.Views"
              xmlns:Custom="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:dialogs="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
              xmlns:Model="clr-namespace:FiscaliZi.MDFast.Model"
              xmlns:Design="clr-namespace:FiscaliZi.MDFast.Design"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
@@ -13,7 +14,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
-             DataContext="{Binding VeiculosVM, Source={StaticResource Locator}}" Loaded="UserControl_Loaded">
+             DataContext="{Binding VeiculosVM, Source={StaticResource Locator}}" Loaded="UserControl_Loaded"
+             dialogs:DialogParticipation.Register="{Binding}">
 
     <UserControl.Resources>
         <SolidColorBrush x:Key="vermelho" Color="#FFDA1C1C"></SolidColorBrush>
@@ -261,9 +263,14 @@
                                 VerticalAlignment="Top" />
                         </Grid>
                     </Border>
-                    <Button Content="Buscar"
+                    <Button Command="{Binding ShowMotoristasDialog}" 
+                            Content="Buscar"
                             Height="25" Width="60"
-                            Grid.Row="9" Margin="10,5,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="9"/>
+                            Grid.Row="9" 
+                            Margin="10,5,0,0" 
+                            VerticalAlignment="Top" HorizontalAlignment="Left" 
+                            HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                            FontSize="9"/>
                     <Border Grid.Row="11" Grid.ColumnSpan="3" BorderThickness="1" BorderBrush="#FF46749B" CornerRadius="2" Background="#FF46749B" VerticalAlignment="Bottom" Height="37" Margin="0,25,0,0">
                         <StackPanel Orientation="Horizontal"  Height="35" VerticalAlignment="Bottom" Margin="10,0" >
                             <Button Content="Salvar"
