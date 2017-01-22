@@ -20,14 +20,16 @@ namespace FiscaliZi.MDFast.Model
         #endregion
 
         [Key]
-        public int ID { get; set; }
+        public int VeiculoID { get; set; }
         public string Placa { get; set; }
         public int Tara { get; set; }
         public int CapKG { get; set; }
         public string TPRod { get; set; }
         public string TPCar { get; set; }
         public string UF { get; set; }
-        public Motorista Motorista { get; set; }
+
+        public Motorista Chofer { get; set; }
+        public virtual Motorista Motorista { get; set; }
 
     }
 }

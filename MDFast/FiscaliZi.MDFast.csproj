@@ -223,20 +223,17 @@
     </ApplicationDefinition>
     <Compile Include="Design\DesignDataService.cs" />
     <Compile Include="MDFastContext.cs" />
-    <Compile Include="Migrations\20170115033709_MIG.cs" />
-    <Compile Include="Migrations\20170115033709_MIG.designer.cs">
-      <DependentUpon>20170115033709_MIG.cs</DependentUpon>
+    <Compile Include="Migrations\20170122011742_mig.cs" />
+    <Compile Include="Migrations\20170122011742_mig.designer.cs">
+      <DependentUpon>20170122011742_mig.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\20170115034056_MIG2.cs" />
-    <Compile Include="Migrations\20170115034056_MIG2.designer.cs">
-      <DependentUpon>20170115034056_MIG2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20170115041010_mig3.cs" />
-    <Compile Include="Migrations\20170115041010_mig3.designer.cs">
-      <DependentUpon>20170115041010_mig3.cs</DependentUpon>
+    <Compile Include="Migrations\20170122023031_mig2.cs" />
+    <Compile Include="Migrations\20170122023031_mig2.designer.cs">
+      <DependentUpon>20170122023031_mig2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\MDFastContextModelSnapshot.cs" />
     <Compile Include="Model\Converters.cs" />
+    <Compile Include="Model\DialogContent\CustomDialogMotoristaContent.cs" />
     <Compile Include="Model\DataService.cs" />
     <Compile Include="Model\IDataService.cs" />
     <Compile Include="Model\Motorista.cs" />

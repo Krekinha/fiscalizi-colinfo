@@ -20,6 +20,6 @@ namespace FiscaliZi.MDFast.Model
         #endregion
 
         ObservableCollection<ValidationFailure> fakeERR();
-        
+        void TesteData(Veiculo car);
     }
 }

@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using FiscaliZi.MDFast;
 
-namespace MDFast.Migrations
+namespace FiscaliZi.MDFast.Migrations
 {
     [DbContext(typeof(MDFastContext))]
-    [Migration("20170115034056_MIG2")]
-    partial class MIG2
+    [Migration("20170122023031_mig2")]
+    partial class mig2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -17,26 +17,28 @@ namespace MDFast.Migrations
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
                 .HasAnnotation("ProductVersion", "1.1.0-rtm-22752");
 
-            modelBuilder.Entity("MDFast.Model.Motorista", b =>
+            modelBuilder.Entity("FiscaliZi.MDFast.Model.Motorista", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("MotoristaID")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("CPF");
 
                     b.Property<string>("Nome");
 
-                    b.HasKey("ID");
+                    b.HasKey("MotoristaID");
 
                     b.ToTable("Motoristas");
                 });
 
-            modelBuilder.Entity("MDFast.Model.Veiculo", b =>
+            modelBuilder.Entity("FiscaliZi.MDFast.Model.Veiculo", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("VeiculoID")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("CapKG");
+
+                    b.Property<int?>("ChoferMotoristaID");
 
                     b.Property<int?>("MotoristaID");
 
@@ -50,16 +52,22 @@ namespace MDFast.Migrations
 
                     b.Property<string>("UF");
 
-                    b.HasKey("ID");
+                    b.HasKey("VeiculoID");
+
+                    b.HasIndex("ChoferMotoristaID");
 
                     b.HasIndex("MotoristaID");
 
                     b.ToTable("Veiculos");
                 });
 
-            modelBuilder.Entity("MDFast.Model.Veiculo", b =>
+            modelBuilder.Entity("FiscaliZi.MDFast.Model.Veiculo", b =>
                 {
-                    b.HasOne("MDFast.Model.Motorista", "Motorista")
+                    b.HasOne("FiscaliZi.MDFast.Model.Motorista", "Chofer")
+                        .WithMany()
+                        .HasForeignKey("ChoferMotoristaID");
+
+                    b.HasOne("FiscaliZi.MDFast.Model.Motorista", "Motorista")
                         .WithMany()
                         .HasForeignKey("MotoristaID");
                 });
