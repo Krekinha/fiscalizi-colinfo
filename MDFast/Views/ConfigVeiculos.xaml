@@ -57,20 +57,21 @@
                               HorizontalContentAlignment="Stretch" 
                               MinWidth="500" 
                               Background="{x:Null}"
-                              FontSize="12">
+                              FontSize="12" ColumnHeaderStyle="{DynamicResource CustomDataGridColumnHeader}">
                         <DataGrid.Columns>
                             <DataGridCheckBoxColumn Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=IsSelected, Mode=OneWay}"
                                         EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
-                                        ElementStyle="{DynamicResource MetroDataGridCheckBox}"
-                                        Header="Sel" />
+                                        ElementStyle="{DynamicResource MetroDataGridCheckBox}" />
 
-                            <DataGridTextColumn Header="PLACA" SortMemberPath="Placa" Binding="{Binding Placa}"/>
-                            <DataGridTextColumn Header="TARA" SortMemberPath="Tara" Binding="{Binding Tara}" />
-                            <DataGridTextColumn Header="CAPACIDADE" SortMemberPath="CapKG" Binding="{Binding CapKG}"/>
-                            <DataGridTextColumn Header="TIPO ROD" SortMemberPath="TPRod" Binding="{Binding TPRod}"/>
-                            <DataGridTextColumn Header="TIPO CAR" SortMemberPath="TPCar" Binding="{Binding TPCar}"/>
-                            <DataGridTextColumn Header="UF" SortMemberPath="UF" Binding="{Binding UF}"/>
+                            <DataGridTextColumn Header="ID" SortMemberPath="VeiculoID" Binding="{Binding VeiculoID}" SortDirection="Ascending"/>
+                            <DataGridTextColumn Header="PLACA" Binding="{Binding Placa}"/>
+                            <DataGridTextColumn Header="TARA" Binding="{Binding Tara}" />
+                            <DataGridTextColumn Header="CAPACIDADE" Binding="{Binding CapKG}"/>
+                            <DataGridTextColumn Header="TIPO ROD" Binding="{Binding TPRod}"/>
+                            <DataGridTextColumn Header="TIPO CAR" Binding="{Binding TPCar}"/>
+                            <DataGridTextColumn Header="UF" Binding="{Binding UF}"/>
                             <DataGridTextColumn Header="Motorista"  Binding="{Binding Chofer.Nome}"/>
+                            <DataGridTextColumn Header="MotID"  Binding="{Binding Chofer.MotoristaID}"/>
 
                         </DataGrid.Columns>
                     </DataGrid>

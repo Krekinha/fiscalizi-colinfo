@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FiscaliZi.MDFast.Views
+namespace FiscaliZi.MDFast.Views.Dialogs
 {
     /// <summary>
     /// Interação lógica para DialogMotoristas.xam

@@ -235,6 +235,8 @@
     <Compile Include="Model\Converters.cs" />
     <Compile Include="Model\DialogContent\CustomDialogMotoristaContent.cs" />
     <Compile Include="Model\DataService.cs" />
+    <Compile Include="Model\DialogContent\DialogMessages.cs" />
+    <Compile Include="Model\DialogContent\SimpleCommand.cs" />
     <Compile Include="Model\IDataService.cs" />
     <Compile Include="Model\Motorista.cs" />
     <Compile Include="Model\Veiculo.cs" />
@@ -250,7 +252,10 @@
     <Compile Include="Views\ConfigVeiculos.xaml.cs">
       <DependentUpon>ConfigVeiculos.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DialogMotoristas.xaml.cs">
+    <Compile Include="Views\Dialogs\DialogError.xaml.cs">
+      <DependentUpon>DialogError.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\DialogMotoristas.xaml.cs">
       <DependentUpon>DialogMotoristas.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Entrada.xaml.cs">
@@ -287,7 +292,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DialogMotoristas.xaml">
+    <Page Include="Views\Dialogs\DialogError.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\DialogMotoristas.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
