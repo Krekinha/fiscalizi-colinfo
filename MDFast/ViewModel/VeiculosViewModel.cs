@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using FiscaliZi.MDFast.Model;
+using FiscaliZi.MDFast.Model.DialogContent;
 using FiscaliZi.MDFast.Validation;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -19,8 +20,10 @@ namespace FiscaliZi.MDFast.ViewModel
             _dataService = dataService;
 
             Cars = _dataService.GetVeiculos();
+            Mots = _dataService.GetMotoristas();
             NewVeiculo = _dataService.GetStandVeiculo();
             Errors = _dataService.fakeERR();
+            _dialogView = new DialogMotoristas { DataContext = this };
 
             _dialogCoordinator = dialogCoordinator;
             Messenger.Default.Register<string>(this, ProcessMessage);
@@ -32,8 +35,18 @@ namespace FiscaliZi.MDFast.ViewModel
             RemoverVeiculoCommand = new RelayCommand<Veiculo>(RemoverVeiculo);
             GerarDadosVeiculosCommand = new RelayCommand(GerarDadosVeiculos);
             ShowMotoristasDialog = new RelayCommand(ShowDialog);
+            SendMotoristaCommand = new RelayCommand<Motorista>(SendMotorista);
+            TesteCommand = new RelayCommand(Teste);
+
+            //GerarDadosVeiculos();
             #endregion
 
+        }
+
+        private void Teste()
+        {
+            _dataService.TesteData(NewVeiculo);
+            AtualizaVeiculos();
         }
 
         #region · Propriedades ·
@@ -47,6 +60,17 @@ namespace FiscaliZi.MDFast.ViewModel
         public RelayCommand<Veiculo> RemoverVeiculoCommand { get; set; }
         public RelayCommand GerarDadosVeiculosCommand { get; set; }
         public RelayCommand ShowMotoristasDialog { get; set; }
+        public RelayCommand<Motorista> SendMotoristaCommand{ get; set; }
+        private RelayCommand _sendMessageCommand;
+        public RelayCommand SendMessageCommand
+        {
+            get
+            {
+                return _sendMessageCommand
+                       ?? (_sendMessageCommand = new RelayCommand(SendMessage));
+            }
+        }
+        public RelayCommand TesteCommand { get; set; }
         #endregion
 
         private ObservableCollection<ValidationFailure> _errors;
@@ -77,6 +101,20 @@ namespace FiscaliZi.MDFast.ViewModel
             }
         }
 
+        private ObservableCollection<Motorista> _mots;
+        public ObservableCollection<Motorista> Mots
+        {
+            get
+            {
+                return _mots;
+            }
+
+            set
+            {
+                Set(() => Mots, ref _mots, value);
+            }
+        }
+
         private Veiculo _newVeiculo;
         public Veiculo NewVeiculo
         {
@@ -92,6 +130,54 @@ namespace FiscaliZi.MDFast.ViewModel
                 //Validate();
                 
                 //NewVeiculo.ForcePropertyChanged("UF");
+            }
+        }
+
+        private DialogMotoristas _dialogView;
+        public DialogMotoristas DialogView
+        {
+            get
+            {
+                return _dialogView;
+            }
+
+            set
+            {
+                Set(() => DialogView, ref _dialogView, value);
+                RaisePropertyChanged("DialogView");
+                //Validate();
+
+                //NewVeiculo.ForcePropertyChanged("UF");
+            }
+        }
+
+        private string _dialogMessage;
+        public string DialogMessage
+        {
+            get { return _dialogMessage; }
+            set
+            {
+                if (_dialogMessage == value)
+                {
+                    return;
+                }
+                _dialogMessage = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private Motorista _selectedMotorista;
+        public Motorista SelectedMotorista
+        {
+            get { return _selectedMotorista; }
+            set
+            {
+                if (_selectedMotorista == value)
+                {
+                    return;
+                }
+                _selectedMotorista = value;
+                RaisePropertyChanged();
             }
         }
 
@@ -195,12 +281,20 @@ namespace FiscaliZi.MDFast.ViewModel
                 RaisePropertyChanged("Errors");
             }
         }
+        private void SendMessage()
+        {
+            Messenger.Default.Send(DialogMessage);
+        }
+        private async void SendMotorista(Motorista mot)
+        {
+            //NewVeiculo.Motorista = SelectedMotorista;
+            await _dialogCoordinator.HideMetroDialogAsync(this, _dialogView);
+        }
 
         #endregion
 
         #region Dialog Motoristas
-        private readonly IDialogCoordinator _dialogCoordinator;
-        private readonly DialogMotoristas _dialogView = new DialogMotoristas();
+        private IDialogCoordinator _dialogCoordinator;
         private string _dialogResult;
         public string DialogResult
         {
@@ -217,13 +311,19 @@ namespace FiscaliZi.MDFast.ViewModel
         }
         private async void ShowDialog()
         {
-            await _dialogCoordinator.ShowMetroDialogAsync(this, _dialogView);
+            await _dialogCoordinator.ShowMetroDialogAsync(this, _dialogView );
+            /*var customDialog = new CustomDialog() { Title = "Custom Dialog" };
+
+            customDialog.Content = new DialogMotoristas { DataContext = this };
+
+            await _dialogCoordinator.ShowMetroDialogAsync(this, customDialog);*/
         }
         private async void ProcessMessage(string messageContents)
         {
             DialogResult = messageContents;
             await _dialogCoordinator.HideMetroDialogAsync(this, _dialogView);
         }
+
         #endregion
     }
 }

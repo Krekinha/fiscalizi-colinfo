@@ -34,13 +34,16 @@
         </Grid.ColumnDefinitions>
 
         <Controls:FlipView x:Name="FlipVeiculos"
+                           SelectedIndex="{Binding FlyIndex}"
+                           Height="500" Width="800"
+                           MinWidth="20" MinHeight="20"
+                           Grid.Row="0"
                            IsBannerEnabled="False"
                            MouseOverGlowEnabled="False"
                            CircularNavigation="True"
                            IsNavigationEnabled="False"
-                           Orientation="Horizontal" 
-                           SelectedIndex="1"
-                           Grid.Row="0" MinWidth="20" MinHeight="20" BorderThickness="2" BorderBrush="{x:Null}" Height="500" Width="800">
+                           Orientation="Horizontal"                        
+                           BorderThickness="2" BorderBrush="{x:Null}">
             <Controls:FlipView.Items>
                 <Grid x:Name="stkListaMotoristas" >
                     <Grid.RowDefinitions>
@@ -67,7 +70,7 @@
                             <DataGridTextColumn Header="TIPO ROD" SortMemberPath="TPRod" Binding="{Binding TPRod}"/>
                             <DataGridTextColumn Header="TIPO CAR" SortMemberPath="TPCar" Binding="{Binding TPCar}"/>
                             <DataGridTextColumn Header="UF" SortMemberPath="UF" Binding="{Binding UF}"/>
-                            <DataGridTextColumn Header="Motorista"  Binding="{Binding Motorista.Nome}"/>
+                            <DataGridTextColumn Header="Motorista"  Binding="{Binding Chofer.Nome}"/>
 
                         </DataGrid.Columns>
                     </DataGrid>
@@ -77,6 +80,7 @@
                             <Button Height="25" Content="EDITAR VEÍCULO" Width="120" Command="{Binding FlyNaviCommand}" CommandParameter="2" Margin="10,4,0,4" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
                             <Button Height="25" Content="REMOVER VEÍCULO" Width="120" Margin="10,4,0,4" Command="{Binding RemoverVeiculoCommand}" CommandParameter="{Binding SelectedItem, ElementName=dgVeiculos}" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
                             <Button Height="25" Content="gerar dados" Width="120" Command="{Binding GerarDadosVeiculosCommand}" Margin="10,4,0,4" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+                            <Button Height="25" Content="teste" Width="120" Command="{Binding TesteCommand}" Margin="10,4,0,4" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
                         </StackPanel>
                     </Border>
                 </Grid>
@@ -245,18 +249,18 @@
                             </Grid.ColumnDefinitions>
                             <Image 
                                 Source="/FiscaliZi.MDFast;component/Resources/driverman.png" 
-                                Visibility="{Binding NewVeiculo.Motorista, Converter={StaticResource VisibilityValue}}"
+                                Visibility="{Binding NewVeiculo.Chofer, Converter={StaticResource VisibilityValue}}"
                                 Grid.RowSpan="2" 
                                 UseLayoutRounding="False"
                                 Width="40" Height="45" />
                             <TextBlock 
-                                Text="{Binding NewVeiculo.Motorista.Nome}" 
+                                Text="{Binding NewVeiculo.Chofer.Nome}" 
                                 Grid.Column="1" 
                                 Margin="5,0,0,0" 
                                 FontSize="12" FontWeight="Bold" 
                                 VerticalAlignment="Bottom" />
                             <TextBlock 
-                                Text="{Binding NewVeiculo.Motorista.CPF}" 
+                                Text="{Binding NewVeiculo.Chofer.CPF}" 
                                 Grid.Column="1" Grid.Row="1" 
                                 Margin="5,0,0,0"
                                 FontSize="12" 

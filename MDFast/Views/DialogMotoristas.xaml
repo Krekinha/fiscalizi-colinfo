@@ -7,8 +7,7 @@
              xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:local="clr-namespace:FiscaliZi.MDFast.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="300"
-             DataContext="{Binding DialogVM, Source={StaticResource Locator}}" Width="625.751">
+             d:DesignHeight="300" Width="625.751">
 
     <dialogs:CustomDialog.Content>
         <StackPanel Margin="-119,0,-93,0">
@@ -17,13 +16,14 @@
             <TextBox Text="{Binding DialogMessage,
                                     Mode=TwoWay,
                                     UpdateSourceTrigger=PropertyChanged}"
-                     metro:TextBoxHelper.Watermark="Add Message Here" />
+                     metro:TextBoxHelper.Watermark="{Binding SelectedItem, ElementName=dgMotoristas}" />
             <DataGrid x:Name="dgMotoristas" ItemsSource="{Binding Mots}" 
                               AutoGenerateColumns="False" CanUserAddRows="False" 
                               MinHeight="100" 
                               HorizontalContentAlignment="Stretch"  
                               Background="{x:Null}"
-                              FontSize="12">
+                              FontSize="12"
+                      SelectedItem="{Binding NewVeiculo.Chofer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <DataGrid.Columns>
                     <DataGridCheckBoxColumn 
                         Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=IsSelected, Mode=OneWay}"
@@ -39,7 +39,8 @@
         </StackPanel>
     </dialogs:CustomDialog.Content>
     <dialogs:CustomDialog.DialogBottom>
-        <Button Command="{Binding SendMessageCommand}"
+        <Button Command="{Binding SendMotoristaCommand}"
+                CommandParameter="{Binding SelectedItem, ElementName=dgMotoristas}"
                 Content="Send Message"
                 DockPanel.Dock="Top" />
     </dialogs:CustomDialog.DialogBottom>

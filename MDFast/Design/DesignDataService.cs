@@ -56,5 +56,15 @@ namespace FiscaliZi.MDFast.Design
         {
             throw new NotImplementedException();
         }
+
+        public void TesteData()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void TesteData(Veiculo car)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

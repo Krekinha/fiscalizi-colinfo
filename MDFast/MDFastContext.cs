@@ -1,5 +1,6 @@
 ﻿using FiscaliZi.MDFast.Model;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace FiscaliZi.MDFast
 {
