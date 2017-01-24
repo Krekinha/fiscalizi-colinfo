@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFe.Classes", "Zeus\DFe.Cla
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFPush", "NFPush\NFPush.csproj", "{B680E8A7-54BC-4044-85BA-327007D988C5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FiscaliZi.Colinfo", "FiscaliZi.Colinfo\FiscaliZi.Colinfo.csproj", "{17699143-5149-45A8-8467-81DD74FB477C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,6 +87,18 @@ Global
 		{B680E8A7-54BC-4044-85BA-327007D988C5}.Release|x64.Build.0 = Release|Any CPU
 		{B680E8A7-54BC-4044-85BA-327007D988C5}.Release|x86.ActiveCfg = Release|Any CPU
 		{B680E8A7-54BC-4044-85BA-327007D988C5}.Release|x86.Build.0 = Release|Any CPU
+		{17699143-5149-45A8-8467-81DD74FB477C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17699143-5149-45A8-8467-81DD74FB477C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17699143-5149-45A8-8467-81DD74FB477C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{17699143-5149-45A8-8467-81DD74FB477C}.Debug|x64.Build.0 = Debug|Any CPU
+		{17699143-5149-45A8-8467-81DD74FB477C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{17699143-5149-45A8-8467-81DD74FB477C}.Debug|x86.Build.0 = Debug|Any CPU
+		{17699143-5149-45A8-8467-81DD74FB477C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17699143-5149-45A8-8467-81DD74FB477C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17699143-5149-45A8-8467-81DD74FB477C}.Release|x64.ActiveCfg = Release|Any CPU
+		{17699143-5149-45A8-8467-81DD74FB477C}.Release|x64.Build.0 = Release|Any CPU
+		{17699143-5149-45A8-8467-81DD74FB477C}.Release|x86.ActiveCfg = Release|Any CPU
+		{17699143-5149-45A8-8467-81DD74FB477C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
