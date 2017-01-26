@@ -181,7 +181,7 @@ namespace FiscaliZi.Colinfo.Model
         private DrawingBrush retornaImagem(int err, int con)
         {
             ResourceDictionary dic = new ResourceDictionary();
-            dic = (ResourceDictionary)Application.LoadComponent(new Uri("/ACPD.View;component/Design/dicACPD.xaml", UriKind.RelativeOrAbsolute));
+            dic = (ResourceDictionary)Application.LoadComponent(new Uri("/FiscaliZi.Colinfo;component/Resources/Dictionaries/dicColinfo.xaml", UriKind.RelativeOrAbsolute));
 
             if (err > 0)
             {

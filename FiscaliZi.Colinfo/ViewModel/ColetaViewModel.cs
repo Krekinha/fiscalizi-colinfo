@@ -22,7 +22,7 @@ namespace FiscaliZi.Colinfo.ViewModel
         }
 
         #region · Properties ·
-        public ObservableCollection<Vendedor> Vendedores;
+        public ObservableCollection<Vendedor> Vendedores { get; set; }
         #endregion
     }
 }

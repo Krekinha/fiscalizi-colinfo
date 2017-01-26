@@ -7,8 +7,7 @@
     xmlns:Metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     xmlns:Model="clr-namespace:FiscaliZi.Colinfo.Model"
     xmlns:local="clr-namespace:FiscaliZi.Colinfo.Views"
-    mc:Ignorable="d" 
-    d:DesignHeight="300" Width="734.667"
+    mc:Ignorable="d"
     DataContext="{Binding Source={StaticResource Locator}, Path=ColetaVM}">
 
     <UserControl.Resources>
@@ -24,7 +23,7 @@
         <Model:SituacaoCNPJColorConverter x:Key="SituacaoCNPJColorConverter" />
         <Model:CurrentAccentColorConverter x:Key="CurrentAccentColorConverter" />
     </UserControl.Resources>
-    
+
     <Grid Margin="10" >
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -35,7 +34,7 @@
                 x:Name="lstVendedores" 
                 ItemsSource="{Binding Vendedores}" 
                 IsSynchronizedWithCurrentItem="True" 
-                SelectedIndex="0" Width="165">
+                SelectedIndex="0">
                 <ListBox.ItemTemplate>
                     <DataTemplate x:Name="TesteDT">
                         <Grid Height="40">
@@ -51,20 +50,20 @@
                                 <RowDefinition Height="20"/>
                             </Grid.RowDefinitions>
                             <Rectangle Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Margin="0,1"/>
-                            <TextBlock FontWeight="Bold" Grid.Column="1" Grid.Row="0" Width="Auto" Margin="3,3,0,0" FontSize="10.5" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" >
+                            <TextBlock FontWeight="Bold" Grid.Column="1" Grid.Row="0" Width="Auto" Margin="3,3,0,0" FontSize="9" >
                                 <TextBlock.Text>
                                     <MultiBinding StringFormat="{}{0} ({1}) {2}">
-                                        <Binding Path="Numero"/>
+                                        <Binding Path="NumVendedor"/>
                                         <Binding Path="Pedidos" Converter="{StaticResource RotaConverter}" />
-                                        <Binding Path="Nome" Converter="{StaticResource SimplificaNomeVendedorConverter}"/>
+                                        <Binding Path="NomeVendedor" Converter="{StaticResource SimplificaNomeVendedorConverter}"/>
                                     </MultiBinding>
                                 </TextBlock.Text>
                             </TextBlock>
-                            <TextBlock Grid.Column="1" Grid.Row="1" Margin="3,1,1,5.033"  Width="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Text="{Binding Arquivo}" FontSize="10.5" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
-                            <TextBlock Grid.Column="2" Grid.Row="0" Margin="5,3,0,0" Height="Auto" Width="Auto" FontSize="10.5" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"><Run Text="PED: " FontWeight="Bold"/><Run Text=" "/><Run Text="{Binding Pedidos.Count, Mode=OneWay}"/></TextBlock>
-                            <TextBlock Grid.Column="2" Grid.Row="1" Margin="5,1,0,5.033" Width="Auto" FontSize="10.5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"><Run Text="PES: " FontWeight="Bold"/><Run Text=" "/><Run Text="000.000,00"/></TextBlock>
-                            <TextBlock Grid.Column="3" Grid.Row="0" Margin="5,3,0,1" FontSize="10.5" Width="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"><Run Text="ENV: " FontWeight="Bold"/><Run Text=" "/><Run Text="{Binding DataEnvio, StringFormat=\{0:dd/MM hh:mm:ss\}}"/></TextBlock>
-                            <TextBlock Grid.Column="3" Grid.Row="1" Margin="5,1,0,3" FontSize="10.5" HorizontalAlignment="Stretch" Width="Auto" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"><Run Text="VAL: " FontWeight="Bold"/><Run Text=" "/><Run Text="{Binding Pedidos, Converter={StaticResource TotalValPedsConverter}}"/></TextBlock>
+                            <TextBlock Grid.Column="1" Grid.Row="1" Margin="3,1,1,5.033"  Width="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Text="{Binding ArquivoVendedor}" FontSize="9" />
+                            <TextBlock Grid.Column="2" Grid.Row="0" Margin="5,3,0,0" Height="Auto" Width="Auto" FontSize="9" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"><Run Text="PED: " FontWeight="Bold"/><Run Text=" "/><Run Text="{Binding Pedidos.Count, Mode=OneWay}"/></TextBlock>
+                            <TextBlock Grid.Column="2" Grid.Row="1" Margin="5,1,0,5.033" Width="Auto" FontSize="9" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ><Run Text="PES: " FontWeight="Bold"/><Run Text=" "/><Run Text="000.000,00"/></TextBlock>
+                            <TextBlock Grid.Column="3" Grid.Row="0" Margin="5,3,0,1" FontSize="9" Width="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"><Run Text="ENV: " FontWeight="Bold"/><Run Text=" "/><Run Text="{Binding DataEnvio, StringFormat=\{0:dd/MM hh:mm:ss\}}"/></TextBlock>
+                            <TextBlock Grid.Column="3" Grid.Row="1" Margin="5,1,0,3" FontSize="9" HorizontalAlignment="Stretch" Width="Auto"><Run Text="VAL: " FontWeight="Bold"/><Run Text=" "/><Run Text="{Binding Pedidos, Converter={StaticResource TotalValPedsConverter}}"/></TextBlock>
                             <Button Grid.Column="4" Grid.Row="0" Margin="2,1.5,1,1.5" 
                                               Command="{Binding DataContext.RemoveCommand, ElementName=lstVendedores}" 
                                               CommandParameter="{Binding}"

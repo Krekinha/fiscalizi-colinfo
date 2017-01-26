@@ -4,7 +4,8 @@
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"       
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"        
                    xmlns:Metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"        
-                   xmlns:local="clr-namespace:FiscaliZi.Colinfo"       
+                   xmlns:local="clr-namespace:FiscaliZi.Colinfo" 
+                   xmlns:views="clr-namespace:FiscaliZi.Colinfo.Views"
                    mc:Ignorable="d"       
                    Title="MainWindow" 
                    Height="364" Width="796"
@@ -29,7 +30,7 @@
                 Metro:ControlsHelper.HeaderFontWeight="Black" 
                 Metro:TabControlHelper.IsUnderlined="True" 
                 Metro:ControlsHelper.HeaderMargin="10,0,0,0">
-                <TextBlock Text="entrada" />
+                <views:Coleta />
             </Metro:MetroTabItem>
             <Metro:MetroTabItem 
                 Header="Opções" 
