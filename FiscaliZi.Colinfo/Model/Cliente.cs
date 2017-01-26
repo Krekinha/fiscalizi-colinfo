@@ -1,4 +1,5 @@
-﻿using PropertyChanged;
+﻿using NFe.Classes.Servicos.ConsultaCadastro;
+using PropertyChanged;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -20,11 +21,11 @@ namespace FiscaliZi.Colinfo.Model
         public string Razao { get; set; }
         public string Sigla { get; set; }
         public Info Info { get; set; }
-        public retConsCad retConsCad { get; set; }
+        public retConsCad RetConsultaCadastro { get; set; }
         #endregion
 
         #region Navigation Properties
-        public virtual ICollection<Pedido> navPedidos { get; set; }
+        public virtual ICollection<Pedido> NavPedidos { get; set; }
         #endregion
 
     }
