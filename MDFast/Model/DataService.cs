@@ -6,123 +6,66 @@ using System.Collections.ObjectModel;
 using FluentValidation.Results;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using FiscaliZi.MDFast.Model.DialogContent;
+using MahApps.Metro.Controls.Dialogs;
+using FiscaliZi.MDFast.Views.Dialogs;
+using GalaSoft.MvvmLight;
+using System.ComponentModel;
 
 namespace FiscaliZi.MDFast.Model
 {
-    public class DataService : IDataService
+    public class DataService : ViewModelBase, IDataService, INotifyPropertyChanged
     {
         //readonly MDFastContext context;
-        public DataService()
+        public DataService(IDialogCoordinator dialogCoordinator)
         {
-            //context = new MDFastContext();
+            _dialogCoordinator = dialogCoordinator;
+
+            DialogMessages = new DialogMessages();
+            DialogViewError = new DialogError();
         }
 
-        #region VeiculosViewModel Objects
-        public ObservableCollection<Veiculo> GetVeiculos()
+        #region · Dialogs ·
+
+        private IDialogCoordinator _dialogCoordinator;
+        private DialogMessages _dialogMessages;
+        public DialogMessages DialogMessages
         {
-            //GerarDadosVeiculos();
-
-            using (var context = new MDFastContext())
+            get { return _dialogMessages; }
+            set
             {
-                var Cars = new ObservableCollection<Veiculo>();
-
-                var cars = context.Veiculos
-                    .Include(car => car.Chofer);
-
-                foreach (var car in cars)
+                if (_dialogMessages == value)
                 {
-                    Cars.Add(car);
+                    return;
                 }
-
-                return Cars;
+                _dialogMessages = value;
+                RaisePropertyChanged("DialogMessages");
+            }
+        }
+        private DialogError _dialogViewError;
+        public DialogError DialogViewError
+        {
+            get
+            {
+                return _dialogViewError;
             }
 
-            //GravaMotoristas();
-        }
-        public void AdicionarVeiculo(Veiculo car)
-        {
-            using (var context = new MDFastContext())
+            set
             {
-                var mot = context.Motoristas.Find(car.Chofer.MotoristaID);
-
-                car.Chofer = mot;
-                context.Veiculos.Add(car);
-                context.SaveChanges();
+                Set(() => DialogViewError, ref _dialogViewError, value);
+                RaisePropertyChanged("DialogViewError");
             }
-
         }
-        public void RemoverVeiculo(Veiculo car)
+
+        private async void ShowDialogErrorAsync(string erro)
         {
-            using (var context = new MDFastContext())
-            {
-                context.Remove(car);
-                context.SaveChanges();
-            }
-
-        }
-        public void GerarDadosVeiculos()
-        {
-            using (var context = new MDFastContext())
-            {
-                var cars = new List<Veiculo>
-            {
-                new Veiculo { Placa = "HXO2461", Tara = 19000, CapKG = 39000, TPRod = "02", TPCar = "00", UF = "MG", Chofer = new Motorista() { Nome = "EDUARDO DOS REIS BATISTA", CPF = "05355520685" } },
-                new Veiculo { Placa = "JSO9224", Tara = 19000, CapKG = 39000, TPRod = "02", TPCar = "00", UF = "MG" },
-                new Veiculo { Placa = "DPB7119", Tara = 19000, CapKG = 39000, TPRod = "02", TPCar = "00", UF = "MG" },
-                new Veiculo { Placa = "MET3489", Tara = 19000, CapKG = 39800, TPRod = "06", TPCar = "00", UF = "MG", Chofer = new Motorista() { Nome = "MARCELO CAPOVILLA", CPF = "38711273615" } },
-                new Veiculo { Placa = "BXI4406", Tara = 19000, CapKG = 39000, TPRod = "02", TPCar = "00", UF = "MG" },
-                new Veiculo { Placa = "AMZ8419", Tara = 19000, CapKG = 39000, TPRod = "02", TPCar = "00", UF = "MG" },
-                new Veiculo { Placa = "MEB4051", Tara = 19000, CapKG = 39000, TPRod = "02", TPCar = "00", UF = "MG", Chofer = new Motorista() { Nome = "VENI PEREIRA DA COSTA", CPF = "05739590647" } },
-                new Veiculo { Placa = "JQU7507", Tara = 19000, CapKG = 39000, TPRod = "02", TPCar = "00", UF = "MG" },
-                new Veiculo { Placa = "MQP8818", Tara = 19000, CapKG = 39000, TPRod = "02", TPCar = "00", UF = "MG" },
-                new Veiculo { Placa = "GMW1910", Tara = 19000, CapKG = 39000, TPRod = "02", TPCar = "00", UF = "MG" },
-                new Veiculo { Placa = "GML5508", Tara = 19000, CapKG = 39000, TPRod = "02", TPCar = "00", UF = "MG" }
-            };
-                foreach (var car in cars)
-                {
-                    try
-                    {
-                        context.Add(car);
-                        context.SaveChanges();
-                    }
-                    catch (Exception ex)
-                    {
-                        var msg = "";
-                        if (!string.IsNullOrEmpty(ex.Message))
-                        {
-                            if (ex.InnerException != null)
-                                msg = ex.InnerException.Message;
-                            else
-                                msg = ex.Message;
-                            //Funcoes.Mensagem(msg, "Erro", MessageBoxButton.OK);
-                        }
-                    }
-
-                }
-            }
-
+            DialogMessages.Message = erro;
+            await _dialogCoordinator.ShowMetroDialogAsync(DialogMessages, DialogViewError);
         }
 
-        public Veiculo GetStandVeiculo()
-        {
-            return new Veiculo
-            {
-                Placa = "ABC-1234",
-                CapKG = 36000,
-                Tara = 19000,
-                TPCar = "02",
-                TPRod = "00",
-                UF = "MG",
-                Chofer = new Motorista
-                {
-                    CPF = "000.222.555-77",
-                    Nome = "ZEZINHO BARROS GOMES DA SILVA",
-                }
-            };
-        }
         #endregion
 
-        #region MotoristasViewModel Objects
+        #region · MotoristasViewModel Objects ·
         public ObservableCollection<Motorista> GetMotoristas()
         {
             using (var context = new MDFastContext())
@@ -180,8 +123,17 @@ namespace FiscaliZi.MDFast.Model
         {
             using (var context = new MDFastContext())
             {
-                context.Remove(mot);
-                context.SaveChanges();
+                try
+                {
+
+                    context.Remove(mot);
+                    context.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+
+                    throw;
+                }
             }
 
         }
@@ -196,6 +148,137 @@ namespace FiscaliZi.MDFast.Model
         }
         #endregion
 
+        #region · VeiculosViewModel Objects ·
+        public ObservableCollection<Veiculo> GetVeiculos()
+        {
+            //GerarDadosVeiculos();
+
+            using (var context = new MDFastContext())
+            {
+                var Cars = new ObservableCollection<Veiculo>();
+
+                var cars = context.Veiculos
+                    .Include(car => car.Chofer);
+
+                foreach (var car in cars)
+                {
+                    Cars.Add(car);
+                }
+
+                return Cars;
+            }
+
+            //GravaMotoristas();
+        }
+        public void AdicionarVeiculo(Veiculo car)
+        {
+            using (var context = new MDFastContext())
+            {
+                var mot = new Motorista();
+                if (car.Chofer != null)
+                {
+                    mot = context.Motoristas.Find(car.Chofer.MotoristaID);
+                }
+                else
+                {
+                    mot = null;
+                }
+                var newCar = new Veiculo
+                {
+                    Placa = car.Placa,
+                    CapKG = car.CapKG,
+                    Tara = car.Tara,
+                    TPCar = car.TPCar,
+                    TPRod = car.TPRod,
+                    UF = car.UF,
+                    Chofer = mot
+                };
+                context.Veiculos.Add(newCar);
+                context.SaveChanges();
+            }
+
+        }
+        public void RemoverVeiculo(Veiculo car)
+        {
+            using (var context = new MDFastContext())
+            {
+                try
+                {
+
+                    context.Remove(car);
+                    context.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    var msg = "";
+                    if (!string.IsNullOrEmpty(ex.Message))
+                    {
+                        if (ex.InnerException != null)
+                            msg = ex.InnerException.Message;
+                        else
+                            msg = ex.Message;
+                        ShowDialogErrorAsync(msg);
+                    }
+                }
+            }
+
+        }
+        public void GerarDadosVeiculos()
+        {
+            using (var context = new MDFastContext())
+            {
+                var cars = new List<Veiculo>
+            {
+                new Veiculo { Placa = "HXO2461", Tara = 19000, CapKG = 39000, TPRod = "02", TPCar = "00", UF = "MG", Chofer = new Motorista() { Nome = "EDUARDO DOS REIS BATISTA", CPF = "05355520685" } },
+                new Veiculo { Placa = "JSO9224", Tara = 19000, CapKG = 39000, TPRod = "02", TPCar = "00", UF = "MG" },
+                new Veiculo { Placa = "DPB7119", Tara = 19000, CapKG = 39000, TPRod = "02", TPCar = "00", UF = "MG" },
+                new Veiculo { Placa = "MET3489", Tara = 19000, CapKG = 39800, TPRod = "06", TPCar = "00", UF = "MG", Chofer = new Motorista() { Nome = "MARCELO CAPOVILLA", CPF = "38711273615" } },
+                new Veiculo { Placa = "BXI4406", Tara = 19000, CapKG = 39000, TPRod = "02", TPCar = "00", UF = "MG" },
+                new Veiculo { Placa = "AMZ8419", Tara = 19000, CapKG = 39000, TPRod = "02", TPCar = "00", UF = "MG" },
+                new Veiculo { Placa = "MEB4051", Tara = 19000, CapKG = 39000, TPRod = "02", TPCar = "00", UF = "MG", Chofer = new Motorista() { Nome = "VENI PEREIRA DA COSTA", CPF = "05739590647" } },
+                new Veiculo { Placa = "JQU7507", Tara = 19000, CapKG = 39000, TPRod = "02", TPCar = "00", UF = "MG" },
+                new Veiculo { Placa = "MQP8818", Tara = 19000, CapKG = 39000, TPRod = "02", TPCar = "00", UF = "MG" },
+                new Veiculo { Placa = "GMW1910", Tara = 19000, CapKG = 39000, TPRod = "02", TPCar = "00", UF = "MG" },
+                new Veiculo { Placa = "GML5508", Tara = 19000, CapKG = 39000, TPRod = "02", TPCar = "00", UF = "MG" }
+            };
+                foreach (var car in cars)
+                {
+                    try
+                    {
+                        context.Add(car);
+                        context.SaveChanges();
+                    }
+                    catch (Exception ex)
+                    {
+                        var msg = "";
+                        if (!string.IsNullOrEmpty(ex.Message))
+                        {
+                            if (ex.InnerException != null)
+                                msg = ex.InnerException.Message;
+                            else
+                                msg = ex.Message;
+                            //Funcoes.Mensagem(msg, "Erro", MessageBoxButton.OK);
+                        }
+                    }
+
+                }
+            }
+
+        }
+
+        public Veiculo GetStandVeiculo()
+        {
+            return new Veiculo
+            {
+                Placa = "ABC-1234",
+                CapKG = 36000,
+                Tara = 19000,
+                TPCar = "02",
+                TPRod = "00",
+                UF = "MG"
+            };
+        }
+        #endregion
 
         public ObservableCollection<ValidationFailure> fakeERR()
         {
@@ -208,9 +291,19 @@ namespace FiscaliZi.MDFast.Model
             using (var context = new MDFastContext())
             {
                 var mot = context.Motoristas.Find(1);
-                car.Chofer = mot;
-
-                context.Veiculos.Add(car);
+                var car2 = new Veiculo
+                {
+                    Placa = car.Placa,
+                    CapKG = car.CapKG,
+                    Tara = car.Tara,
+                    TPCar = car.TPCar,
+                    TPRod = car.TPRod,
+                    UF = car.UF,
+                    Chofer = mot
+                };
+                //car2.Chofer = mot;
+                //context.Entry(car.Chofer).State = EntityState.Added;
+                context.Veiculos.Add(car2);
                 context.SaveChanges();
             }
         }

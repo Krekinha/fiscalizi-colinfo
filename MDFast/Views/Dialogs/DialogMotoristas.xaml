@@ -1,4 +1,4 @@
-﻿<dialogs:CustomDialog x:Class="FiscaliZi.MDFast.Views.DialogMotoristas"
+﻿<dialogs:CustomDialog x:Class="FiscaliZi.MDFast.Views.Dialogs.DialogMotoristas"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -13,17 +13,13 @@
         <StackPanel Margin="-119,0,-93,0">
             <TextBlock Text="Selecione um motorista"
                        TextAlignment="Center" />
-            <TextBox Text="{Binding DialogMessage,
-                                    Mode=TwoWay,
-                                    UpdateSourceTrigger=PropertyChanged}"
-                     metro:TextBoxHelper.Watermark="{Binding SelectedItem, ElementName=dgMotoristas}" />
             <DataGrid x:Name="dgMotoristas" ItemsSource="{Binding Mots}" 
                               AutoGenerateColumns="False" CanUserAddRows="False" 
                               MinHeight="100" 
                               HorizontalContentAlignment="Stretch"  
                               Background="{x:Null}"
                               FontSize="12"
-                      SelectedItem="{Binding NewVeiculo.Chofer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                      SelectedItem="{Binding NewVeiculo.Chofer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,10,0,0">
                 <DataGrid.Columns>
                     <DataGridCheckBoxColumn 
                         Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=IsSelected, Mode=OneWay}"
