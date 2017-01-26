@@ -8,7 +8,7 @@
                    mc:Ignorable="d"       
                    Title="MainWindow" 
                    Height="364" Width="796"
-                   DataContext="{Binding Main, Source={StaticResource Locator}}" >
+                   DataContext="{Binding Source={StaticResource Locator}, Path=Main}" >
 
     <Window.Resources>
     </Window.Resources>
@@ -50,7 +50,7 @@
         </Metro:MetroAnimatedTabControl>
         <StatusBar Grid.Row="2" VerticalAlignment="Bottom">
             <StatusBarItem Content="NFPush App"/>
-            <Separator Style="{StaticResource MetroStatusBarSeparator}" />
+            <Separator  />
             <StatusBarItem Content="Status:"/>
             <StatusBarItem Content="{Binding SelectedItem.Header, ElementName=tbcMain, Mode=OneWay}" />
         </StatusBar>
