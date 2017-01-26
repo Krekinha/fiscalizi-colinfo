@@ -25,6 +25,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
                 <!-- Locais -->
                 <ResourceDictionary Source="Resources/Dictionaries/dicColinfo.xaml"/>
+                <ResourceDictionary Source="Resources/Dictionaries/dicImages.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
   </Application.Resources>
