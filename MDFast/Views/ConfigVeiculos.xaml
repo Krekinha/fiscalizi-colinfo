@@ -34,7 +34,7 @@
         </Grid.ColumnDefinitions>
 
         <Controls:FlipView x:Name="FlipVeiculos"
-                           SelectedIndex="{Binding FlyIndex}"
+                           SelectedIndex="1"
                            Height="500" Width="800"
                            MinWidth="20" MinHeight="20"
                            Grid.Row="0"
@@ -121,6 +121,7 @@
                                         Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="1"
                                         Margin="5,0,10,7"
                                         Visibility="{Binding Errors, ConverterParameter=Placa, Converter={StaticResource VisibleErrorList}, Mode=TwoWay}"
+                                        
                                         ErrMessage="{Binding Errors, ConverterParameter=Placa, Converter={StaticResource ErrorMessageConverter}, Mode=TwoWay}" HorizontalContentAlignment="Left" Grid.RowSpan="2"/>
                     <TextBlock x:Name="lblTara" 
                                    Grid.Row="1" Grid.Column="0"

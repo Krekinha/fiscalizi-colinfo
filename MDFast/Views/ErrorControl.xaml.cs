@@ -25,7 +25,7 @@ namespace FiscaliZi.MDFast.Views
             InitializeComponent();
         }
 
-        public string ErrMessage
+        public string ErrMessage2
         {
             get { return (string)GetValue(ErrMessageProperty); }
             set { SetValue(ErrMessageProperty, value); }
@@ -33,6 +33,26 @@ namespace FiscaliZi.MDFast.Views
 
         public static DependencyProperty ErrMessageProperty =
            DependencyProperty.Register("ErrMessage", typeof(string), typeof(UserControl));
+
+        public static readonly DependencyProperty TestNameProperty = DependencyProperty.Register("TestName", typeof(string), typeof(UserControl), new PropertyMetadata(string.Empty));
+
+        // <summary>
+        // Gets or sets the control's text
+        // </summary>
+        public string ErrMessage
+        {
+            get
+            {
+                return (string)GetValue(TestNameProperty);
+            }
+
+            set
+            {
+                SetValue(TestNameProperty, value);
+
+                // set the value of the control's text here...!
+            }
+        }
 
     }
 }

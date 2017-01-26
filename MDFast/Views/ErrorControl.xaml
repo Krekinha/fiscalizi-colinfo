@@ -40,7 +40,6 @@
                    FontSize="12" 
                    TextWrapping="Wrap"
                    VerticalAlignment="Center"
-                   UseLayoutRounding="True"
-                   Text="{Binding ErrMessage, ElementName=userControl}" />
+                   UseLayoutRounding="True"/>
     </Grid>
 </UserControl>
