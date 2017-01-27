@@ -70,9 +70,56 @@ namespace FiscaliZi.Colinfo.Model
                                 ValorTotal = 9150.00m },
                             { new Item
                             {
-                                ItemID = 2, Produto = new Produto { ProdutoID = 2, Codigo = 900090, Descricao = "", Peso = 0m, Preco = 0m, Unidades = 0 }, Quantidade = 2, ValorUnid = 5800.00m, ValorTotal = 11600.00m } },
-{ new Item { ItemID = 3, Produto = new Produto { ProdutoID = 3, Codigo = 900350, Descricao = "", Peso = 0m, Preco = 0m, Unidades = 0 }, Quantidade = 1, ValorUnid = 1850.00m, ValorTotal = 1850.00m } },
-{ new Item { ItemID = 4, Produto = new Produto { ProdutoID = 4, Codigo = 902410, Descricao = "", Peso = 0m, Preco = 0m, Unidades = 0 }, Quantidade = 2, ValorUnid = 2360.00m, ValorTotal = 4720.00m } },
+                                ItemID = 2,
+                                Produto = new Produto
+                                {
+                                    ProdutoID = 2,
+                                    Codigo = 900090,
+                                    Descricao = "",
+                                    Peso = 0m,
+                                    Preco = 0m,
+                                    Unidades = 0
+                                },
+                                Quantidade = 2,
+                                ValorUnid = 5800.00m,
+                                ValorTotal = 11600.00m
+                            }
+                            },
+                            { new Item
+                            {
+                                ItemID = 3,
+                                Produto = new Produto
+                                {
+                                    ProdutoID = 3,
+                                    Codigo = 900350,
+                                    Descricao = "",
+                                    Peso = 0m,
+                                    Preco = 0m,
+                                    Unidades = 0
+                                },
+                                Quantidade = 1,
+                                ValorUnid = 1850.00m,
+                                ValorTotal = 1850.00m
+                            }
+                            },
+                            {
+                                new Item
+                                {
+                                    ItemID = 4,
+                                    Produto = new Produto
+                                    {
+                                        ProdutoID = 4,
+                                        Codigo = 902410,
+                                        Descricao = "",
+                                        Peso = 0m,
+                                        Preco = 0m,
+                                        Unidades = 0
+                                    },
+                                    Quantidade = 2,
+                                    ValorUnid = 2360.00m,
+                                    ValorTotal = 4720.00m
+                                }
+                            },
 { new Item { ItemID = 5, Produto = new Produto { ProdutoID = 5, Codigo = 902780, Descricao = "", Peso = 0m, Preco = 0m, Unidades = 0 }, Quantidade = 6, ValorUnid = 1850.00m, ValorTotal = 11100.00m } },
 { new Item { ItemID = 6, Produto = new Produto { ProdutoID = 6, Codigo = 902795, Descricao = "", Peso = 0m, Preco = 0m, Unidades = 0 }, Quantidade = 3, ValorUnid = 1850.00m, ValorTotal = 5550.00m } },
 { new Item { ItemID = 7, Produto = new Produto { ProdutoID = 7, Codigo = 902802, Descricao = "", Peso = 0m, Preco = 0m, Unidades = 0 }, Quantidade = 2, ValorUnid = 1850.00m, ValorTotal = 3700.00m } },

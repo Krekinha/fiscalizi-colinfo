@@ -8,7 +8,6 @@
     xmlns:ignore="http://www.galasoft.ch/ignore"
     StartupUri="MainWindow.xaml"  
     d1p1:Ignorable="d ignore">
-    
 
     <Application.Resources>
         
@@ -21,11 +20,13 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
                 <!-- Accent and AppTheme setting -->
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/teal.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/baselight.xaml" />
                 <!-- Locais -->
                 <ResourceDictionary Source="Resources/Dictionaries/dicColinfo.xaml"/>
                 <ResourceDictionary Source="Resources/Dictionaries/dicImages.xaml"/>
+                <!-- <ResourceDictionary Source="Resources/Dictionaries/CustomAccents/CustomTheme.xaml"/> -->
+                <ResourceDictionary Source="Resources/Dictionaries/CustomAccents/CustomAccent.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
   </Application.Resources>

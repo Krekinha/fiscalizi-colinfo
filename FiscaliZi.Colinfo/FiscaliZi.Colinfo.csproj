@@ -209,6 +209,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Resources\Dictionaries\CustomAccents\CustomAccent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Dictionaries\CustomAccents\CustomTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Resources\Dictionaries\dicColinfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

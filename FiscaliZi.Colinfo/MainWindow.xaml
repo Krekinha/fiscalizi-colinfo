@@ -8,8 +8,8 @@
                    xmlns:views="clr-namespace:FiscaliZi.Colinfo.Views"
                    mc:Ignorable="d"       
                    Title="MainWindow" 
-                   Height="364" Width="796"
-                   DataContext="{Binding Source={StaticResource Locator}, Path=Main}" >
+                   Height="700" Width="1230"
+                   DataContext="{Binding Source={StaticResource Locator}, Path=Main}" BorderBrush="{DynamicResource WindowTitleColorBrush}" BorderThickness="2" >
 
     <Window.Resources>
     </Window.Resources>
@@ -23,7 +23,7 @@
         <Metro:MetroAnimatedTabControl 
             x:Name="tbcMain" 
             Metro:TabControlHelper.IsUnderlined="True" 
-            Margin="5,10,0,0">
+            Margin="0,10,0,0">
             <Metro:MetroTabItem 
                 Header="Coleta  " 
                 Metro:ControlsHelper.HeaderFontSize="15" 

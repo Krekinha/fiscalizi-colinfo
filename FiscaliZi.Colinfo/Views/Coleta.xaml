@@ -24,17 +24,17 @@
         <Model:CurrentAccentColorConverter x:Key="CurrentAccentColorConverter" />
     </UserControl.Resources>
 
-    <Grid Margin="10" >
+    <Grid >
         <Grid.RowDefinitions>
             <RowDefinition/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
         <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
             <ListBox 
                 x:Name="lstVendedores" 
                 ItemsSource="{Binding Vendedores}" 
                 IsSynchronizedWithCurrentItem="True" 
-                SelectedIndex="0">
+                SelectedIndex="0" Margin="10,10,0,0">
                 <ListBox.ItemTemplate>
                     <DataTemplate x:Name="TesteDT">
                         <Grid Height="40">
@@ -103,7 +103,7 @@
                 </ListBox.Resources>
             </ListBox>
             <DataGrid x:Name="dgPedidos" 
-                      AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding Vendedores/Pedidos}" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserDeleteRows="False" CanUserResizeRows="False" IsReadOnly="True" HeadersVisibility="Column" Margin="15,0,0,0" IsSynchronizedWithCurrentItem="True">
+                      AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding Vendedores/Pedidos}" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserDeleteRows="False" CanUserResizeRows="False" IsReadOnly="True" HeadersVisibility="Column" Margin="15,10,0,0" IsSynchronizedWithCurrentItem="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Ped" Binding="{Binding Numero}" CanUserResize="False" />
                     <DataGridTextColumn Header="Rota" Binding="{Binding Cliente.Rota}" CanUserResize="False" />
@@ -131,14 +131,14 @@
             </DataGrid>
         </StackPanel>
         <StackPanel Grid.Row="1" Background="#3F2CC965" Orientation="Horizontal">
-            <StackPanel Orientation="Vertical" Width="100">
+            <StackPanel Orientation="Horizontal">
                 <TextBlock Width="100" FontSize="10" HorizontalAlignment="Left" Margin="5,3,0,0"><Run Text="REJEIÇÕES:" FontWeight="Bold"/><Run Text=" "/><Run Text=" "/><Run Text=" "/><Run Text="{Binding Vendedores, Converter={StaticResource Total_RejeicoesCNPJConverter}}"/></TextBlock>
                 <TextBlock Width="100" FontSize="10" HorizontalAlignment="Left" Margin="5,3,0,0"><Run Text="PEDIDOS:" FontWeight="Bold"/><Run Text=" "/><Run Text="   "/><Run Text=" "/><Run Text="{Binding Vendedores, Converter={StaticResource TotalPedsConverter}}"/></TextBlock>
                 <TextBlock Width="100" FontSize="10" HorizontalAlignment="Left" Margin="5,3,0,0"><Run Text="BOLETOS:" FontWeight="Bold"/><Run Text=" "/><Run Text="  "/><Run Text=" "/><Run Text="{Binding Vendedores, Converter={StaticResource Total_FormPgtConverter}}"/></TextBlock>
+                <Button x:Name="button" Content="Refresh" VerticalAlignment="Bottom" 
+                    HorizontalAlignment="Left" Command="{Binding Testes}" Margin="100,0,0,3" Background="#3FFFFFFF" 
+                    CommandParameter="{Binding ItemsSource, ElementName=lstVendedores}" Height="20" MinHeight="20" Padding="2,2,3,2" FontSize="9" />
             </StackPanel>
-            <Button x:Name="button" Content="Refresh" VerticalAlignment="Bottom" 
-                    HorizontalAlignment="Right" Command="{Binding Testes}" Padding="5" Margin="100,0,0,3" Background="#3FFFFFFF" 
-                    CommandParameter="{Binding ItemsSource, ElementName=lstVendedores}" />
         </StackPanel>
     </Grid>
 </UserControl>
