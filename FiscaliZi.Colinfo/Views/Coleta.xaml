@@ -70,8 +70,12 @@
                                               Width="Auto" Height="Auto"
                                               Padding="0" UseLayoutRounding="False" 
                                               ClickMode="Release" HorizontalAlignment="Stretch" 
-                                              VerticalAlignment="Stretch" Foreground="#FFCDC5C5"/>
-                            <Viewbox Grid.Column="4" Grid.Row="1" Width="Auto" Height="Auto" Margin="2.5,2" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
+                                              VerticalAlignment="Stretch" Foreground="#FFCDC5C5">
+                                <Button.Background>
+                                    <ImageBrush/>
+                                </Button.Background>
+                            </Button>
+                            <Viewbox Grid.Column="4" Grid.Row="1" Width="Auto" Height="Auto" Margin="2.5,2">
                                 <Rectangle x:Name="RECT" Height="16" Grid.RowSpan="2" 
                                            VerticalAlignment="Top" Width="16" Margin="0" 
                                            Grid.Column="4" Grid.Row="1" 

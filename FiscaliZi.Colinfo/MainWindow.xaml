@@ -3,7 +3,7 @@
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"                   
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"       
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"        
-                   xmlns:Metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"        
+                   xmlns:Metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"     
                    xmlns:local="clr-namespace:FiscaliZi.Colinfo" 
                    xmlns:views="clr-namespace:FiscaliZi.Colinfo.Views"
                    mc:Ignorable="d"       
@@ -20,7 +20,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Metro:MetroAnimatedTabControl 
+        <Metro:MetroAnimatedTabControl
             x:Name="tbcMain" 
             Metro:TabControlHelper.IsUnderlined="True" 
             Margin="0,10,0,0">
@@ -28,8 +28,7 @@
                 Header="Coleta  " 
                 Metro:ControlsHelper.HeaderFontSize="15" 
                 Metro:ControlsHelper.HeaderFontWeight="Black" 
-                Metro:TabControlHelper.IsUnderlined="True" 
-                Metro:ControlsHelper.HeaderMargin="10,0,0,0">
+                Metro:TabControlHelper.IsUnderlined="True">
                 <views:Coleta />
             </Metro:MetroTabItem>
             <Metro:MetroTabItem 
