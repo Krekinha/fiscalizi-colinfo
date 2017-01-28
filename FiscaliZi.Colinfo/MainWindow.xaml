@@ -3,57 +3,49 @@
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"                   
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"       
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"        
-                   xmlns:Metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"     
+                   xmlns:Metro="http://metro.mahapps.com/winfx/xaml/controls" 
+                   xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
+                   xmlns:dockablz="clr-namespace:Dragablz.Dockablz;assembly=Dragablz"
                    xmlns:local="clr-namespace:FiscaliZi.Colinfo" 
                    xmlns:views="clr-namespace:FiscaliZi.Colinfo.Views"
                    mc:Ignorable="d"       
                    Title="MainWindow" 
                    Height="700" Width="1230"
+                   GlowBrush="{DynamicResource AccentColorBrush}"
                    DataContext="{Binding Source={StaticResource Locator}, Path=Main}" BorderBrush="{DynamicResource WindowTitleColorBrush}" BorderThickness="2" >
 
     <Window.Resources>
     </Window.Resources>
 
-    <Grid x:Name="Root">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <Metro:MetroAnimatedTabControl
-            x:Name="tbcMain" 
-            Metro:TabControlHelper.IsUnderlined="True" 
-            Margin="0,10,0,0">
-            <Metro:MetroTabItem 
-                Header="Coleta  " 
-                Metro:ControlsHelper.HeaderFontSize="15" 
-                Metro:ControlsHelper.HeaderFontWeight="Black" 
-                Metro:TabControlHelper.IsUnderlined="True">
-                <views:Coleta />
-            </Metro:MetroTabItem>
-            <Metro:MetroTabItem 
-                Header="Opções" 
-                Metro:ControlsHelper.HeaderFontSize="15" 
-                Metro:ControlsHelper.HeaderFontWeight="Black">
-                <Metro:MetroAnimatedTabControl 
-                    TabStripPlacement="Left">
-                    <Metro:MetroTabItem 
-                        Header="VEÍCULOS" 
-                        Metro:ControlsHelper.HeaderFontSize="15">
-                        <TextBlock Text="CONF" />
-                    </Metro:MetroTabItem>
-                    <Metro:MetroTabItem 
-                        Header="GERAL" 
-                        Metro:ControlsHelper.HeaderFontSize="15"/>
-                </Metro:MetroAnimatedTabControl>
-            </Metro:MetroTabItem>
-        </Metro:MetroAnimatedTabControl>
-        <StatusBar Grid.Row="2" VerticalAlignment="Bottom">
-            <StatusBarItem Content="NFPush App"/>
-            <Separator  />
-            <StatusBarItem Content="Status:"/>
-            <StatusBarItem Content="{Binding SelectedItem.Header, ElementName=tbcMain, Mode=OneWay}" />
-        </StatusBar>
-    </Grid>
+    <dockablz:Layout>
+        <dragablz:TabablzControl BorderThickness="0"
+                                 Margin="0,-1,0,1">
+            <dragablz:TabablzControl.InterTabController>
+                <dragablz:InterTabController />
+            </dragablz:TabablzControl.InterTabController>
+            <TabItem Header="COLETA">
+                <views:Coleta Margin="8"/>
+            </TabItem>
+            <TabItem Header="OPÇÕES">
+                <dragablz:TabablzControl >
+                    <TextBlock Text="Tab 1"/>
+                    <TextBlock Text="Tab 2"/>
+
+                    <dragablz:TabablzControl.HeaderPrefixContent>
+                        <TextBlock>Before</TextBlock>
+                    </dragablz:TabablzControl.HeaderPrefixContent>
+
+                    <dragablz:TabablzControl.HeaderSuffixContentTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding}" ToolTip="You can easily insert content here using HeaderSuffixContent"/>
+                        </DataTemplate>
+                    </dragablz:TabablzControl.HeaderSuffixContentTemplate>
+
+                </dragablz:TabablzControl>
+            </TabItem>
+        </dragablz:TabablzControl>
+    </dockablz:Layout>
+
+
 
 </Metro:MetroWindow>
