@@ -19,28 +19,14 @@
 
     <dockablz:Layout>
         <dragablz:TabablzControl BorderThickness="0"
-                                 Margin="0,-1,0,1">
-            <dragablz:TabablzControl.InterTabController>
-                <dragablz:InterTabController  />
-            </dragablz:TabablzControl.InterTabController>
+                                 Margin="0,-1,0,1" FixedHeaderCount="2" >
             <TabItem Header="COLETA">
                 <views:Coleta Margin="8"/>
             </TabItem>
             <TabItem Header="OPÇÕES">
-                <dragablz:TabablzControl >
-                    <TextBlock Text="Tab 1"/>
-                    <TextBlock Text="Tab 2"/>
-
-                    <dragablz:TabablzControl.HeaderPrefixContent>
-                        <TextBlock>Before</TextBlock>
-                    </dragablz:TabablzControl.HeaderPrefixContent>
-
-                    <dragablz:TabablzControl.HeaderSuffixContentTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding}" ToolTip="You can easily insert content here using HeaderSuffixContent"/>
-                        </DataTemplate>
-                    </dragablz:TabablzControl.HeaderSuffixContentTemplate>
-
+                <dragablz:TabablzControl FixedHeaderCount="2"  >
+                    <TabItem Header="Tab 1"/>
+                    <TabItem Header="Tab 2"/>
                 </dragablz:TabablzControl>
             </TabItem>
         </dragablz:TabablzControl>
