@@ -87,7 +87,7 @@
                                     <TextBlock Grid.Column="2" Grid.Row="1" Margin="5,1,0,5.033" Width="Auto" FontSize="10.5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ><Run Text="PES: " FontWeight="Bold"/><Run Text=" "/><Run Text="000.000,00"/></TextBlock>
                                     <TextBlock Grid.Column="3" Grid.Row="0" Margin="5,3,0,1" FontSize="10.5" Width="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"><Run Text="ENV: " FontWeight="Bold"/><Run Text=" "/><Run Text="{Binding DataEnvio, StringFormat=\{0:dd/MM hh:mm:ss\}}"/></TextBlock>
                                     <TextBlock Grid.Column="3" Grid.Row="1" Margin="5,1,0,3" FontSize="10.5" HorizontalAlignment="Stretch" Width="Auto"><Run Text="VAL: " FontWeight="Bold"/><Run Text=" "/><Run Text="{Binding Pedidos, Converter={StaticResource TotalValPedsConverter}}"/></TextBlock>
-                                    <StackPanel Grid.Column="4" Grid.Row="0" Grid.RowSpan="2">
+                                    <StackPanel Grid.Column="4" Grid.Row="0" Grid.RowSpan="2" Orientation="Vertical">
                                         <materialDesign:PopupBox
                                             Width="Auto">
                                             <StackPanel>
@@ -95,11 +95,7 @@
                                                 <Button Content="Options"/>
                                             </StackPanel>
                                         </materialDesign:PopupBox>
-                                        <Viewbox Width="Auto" Height="Auto" >
-                                            <Rectangle x:Name="RECT" Height="10"
-                                           VerticalAlignment="Top" Width="18"
-                                           Fill="{Binding Pedidos, Converter={StaticResource SituacaoCNPJColorConverter}}" HorizontalAlignment="Center" />
-                                        </Viewbox>
+                                        <materialDesign:PackIcon Kind="AccountOff" HorizontalAlignment="Right" />
                                     </StackPanel>
                                 </Grid>
                             </DataTemplate>
