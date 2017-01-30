@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.listbox.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style x:Key="CustomMaterialDesignListBox" TargetType="{x:Type ListBox}" BasedOn="{StaticResource MaterialDesignListBox}">
+    </Style>
+
+</ResourceDictionary>

@@ -58,8 +58,9 @@
                 <ResourceDictionary Source="pack://application:,,,/Dragablz;component/Themes/materialdesign.xaml"/>
 
                 <!-- Locais -->
-                <ResourceDictionary Source="Resources/Dictionaries/dicColinfo.xaml"/>
+                <ResourceDictionary Source="Resources/Dictionaries/dicDatagrid.xaml"/>
                 <ResourceDictionary Source="Resources/Dictionaries/dicImages.xaml"/>
+                <ResourceDictionary Source="Resources/Dictionaries/dicListBox.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             
