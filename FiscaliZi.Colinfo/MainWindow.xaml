@@ -9,19 +9,19 @@
                    xmlns:local="clr-namespace:FiscaliZi.Colinfo" 
                    xmlns:views="clr-namespace:FiscaliZi.Colinfo.Views"
                    mc:Ignorable="d"       
-                   Title="MainWindow" 
-                   Height="700" Width="1230"
+                   Title="MainWindow" Width="1230"
                    GlowBrush="{DynamicResource AccentColorBrush}"
                    DataContext="{Binding Source={StaticResource Locator}, Path=Main}" 
                    BorderBrush="{DynamicResource WindowTitleColorBrush}" 
-                   BorderThickness="2" >
+                   BorderThickness="2" Height="800" >
 
     <Window.Resources>
     </Window.Resources>
 
     <dockablz:Layout>
         <dragablz:TabablzControl BorderThickness="0"
-                                 Margin="0,-1,0,1" FixedHeaderCount="2" >
+                                 Margin="0,-1,0,1" 
+                                 FixedHeaderCount="2" >
             <TabItem Header="COLETA">
                 <views:Coleta Margin="8"/>
             </TabItem>
