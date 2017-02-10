@@ -16,17 +16,19 @@ namespace FiscaliZi.Colinfo.Model
     {
         public ObservableCollection<Vendedor> GetVendedores()
         {
-            var v1 = testData;
-
-            for (int i = 0; i < 5; i++)
+            using (var context = new ColinfoContext())
             {
-                foreach (var item in testData)
-                {
-                    v1.Add(item);
-                }
-            }
+                var Vends = new ObservableCollection<Vendedor>();
 
-            return v1;
+                var vends = context.Vendedores;
+
+                foreach (var item in vends)
+                {
+                    Vends.Add(item);
+                }
+
+                return Vends;
+            }
         }
 
         private ObservableCollection<Vendedor> testData =>
