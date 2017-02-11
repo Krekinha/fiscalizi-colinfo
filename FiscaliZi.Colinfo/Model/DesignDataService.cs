@@ -1369,5 +1369,10 @@ namespace FiscaliZi.Colinfo.Model
                     }
                 }
             };
+
+        public void AddVendedor(Vendedor vnd)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

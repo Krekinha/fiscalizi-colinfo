@@ -1,4 +1,5 @@
 using FiscaliZi.Colinfo.Model;
+using FiscaliZi.Colinfo.Utils;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
@@ -22,6 +23,7 @@ namespace FiscaliZi.Colinfo.ViewModel
 
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<ColetaViewModel>();
+            SimpleIoc.Default.Register<Monitors>();
         }
 
         public MainViewModel Main
