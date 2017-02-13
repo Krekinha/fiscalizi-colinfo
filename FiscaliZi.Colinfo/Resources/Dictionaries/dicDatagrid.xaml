@@ -56,7 +56,7 @@
 
     <Style x:Key="CustomMaterialDesignDataGridColumnHeader" TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
         <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="TextBlock.FontSize" Value="12" />
+        <Setter Property="Margin" Value="10,0,0,0"/>
         <Setter Property="TextBlock.FontWeight" Value="Medium" />
         <Setter Property="Padding" Value="2" />
         <Setter Property="Foreground" Value="{DynamicResource MaterialDesignColumnHeader}" />

@@ -9,20 +9,21 @@ namespace FiscaliZi.Colinfo.Model
     {
         public ObservableCollection<Vendedor> GetVendedores()
         {
-            var v1 = testData;
-
-            for (int i = 0; i < 5; i++)
+            return new ObservableCollection<Vendedor>()
             {
-                foreach (var item in testData)
+                new Vendedor
                 {
-                    v1.Add(item);
+                    VendedorID = 1,
+                    NumVendedor = 308,
+                    DataColeta = DateTime.Now,
+                    DataEnvio = DateTime.Parse("03/05/2000 00:00:00"),
+                    NomeVendedor = "RAFAEL ALVES",
+                    ArquivoVendedor = "TXAA0600000308.TXT"
                 }
-            }
-
-            return v1;
+            };
         }
 
-        private ObservableCollection<Vendedor> testData =>
+        public ObservableCollection<Vendedor> testData =>
             new ObservableCollection<Vendedor>
             {
                 new Vendedor
@@ -1371,6 +1372,11 @@ namespace FiscaliZi.Colinfo.Model
             };
 
         public void AddVendedor(Vendedor vnd)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoverVendedor(Vendedor vnd)
         {
             throw new NotImplementedException();
         }

@@ -1,10 +1,14 @@
-﻿using FiscaliZi.Colinfo.Model;
+﻿using System;
+using FiscaliZi.Colinfo.Model;
 using GalaSoft.MvvmLight;
 using PropertyChanged;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Threading;
+using System.Threading.Tasks;
 using FiscaliZi.Colinfo.Utils;
+using GalaSoft.MvvmLight.CommandWpf;
 using Microsoft.Practices.ServiceLocation;
 
 namespace FiscaliZi.Colinfo.ViewModel
@@ -12,7 +16,7 @@ namespace FiscaliZi.Colinfo.ViewModel
     [ImplementPropertyChanged]
     public class ColetaViewModel : ViewModelBase
     {
-        private static IDataService dataService;
+        private readonly IDataService dataService;
         const string dir_Pedidos = @"..\Pedidos\";
 
         public ColetaViewModel(IDataService _dataService)
@@ -20,15 +24,47 @@ namespace FiscaliZi.Colinfo.ViewModel
             dataService = _dataService;
             Vendedores = dataService.GetVendedores();
             InitializeMonitor();
+
+            #region Commands
+
+            RemoverVendedorCommand = new RelayCommand<Vendedor>(RemoverVendedor);
+
+            #endregion
         }
 
+        /*public ColetaViewModel()
+        {
+            if (IsInDesignMode)
+            {
+                Vendedores = new ObservableCollection<Vendedor>()
+                {
+                    new Vendedor
+                    {
+                        VendedorID = 1,
+                        NumVendedor = 308,
+                        DataColeta = DateTime.Now,
+                        DataEnvio = DateTime.Parse("03/05/2000 00:00:00"),
+                        NomeVendedor = "RAFAEL ALVES",
+                        ArquivoVendedor = "TXAA0600000308.TXT"
+                    }
+                };
+            }
+
+        }*/
+
         #region · Properties ·
+
+        #region Commands
+
+        public RelayCommand<Vendedor> RemoverVendedorCommand { get; set; }
+
+        #endregion
         public ObservableCollection<Vendedor> Vendedores { get; set; }
         #endregion
 
         #region · Constructors ·
 
-        private static void InitializeMonitor()
+        private void InitializeMonitor()
         {
             MonitorTXTPED();
             Monitors.MonitorGZPTPED(@"D:\SOF\VDWIN\PTPED");
@@ -38,14 +74,31 @@ namespace FiscaliZi.Colinfo.ViewModel
         private void AtualizaVendedores()
         {
             var vnds = dataService.GetVendedores();
-            Vendedores.Clear();
+            if(Vendedores.Count > 0)
+                Vendedores.Clear();
             foreach (var vnd in vnds)
             {
                 Vendedores.Add(vnd);
             }
         }
+        private void RemoverVendedor(Vendedor vnd)
+        {
+            dataService.RemoverVendedor(vnd);
+            AtualizaVendedores();
+        }
+        private async void ConsCad(Vendedor vend)
+        {
+            var erro = false;
+            foreach (var ped in vend.Pedidos)
+            {
+                if (ped.Cliente.Situacao != "CONSULTAR") continue;
+                ped.Cliente.RetConsultaCadastro = await Task.Run(() => RetCad(DesmascararCNPJ(ped.Cliente.CNPJ), "MG", out erro));
+                ped.Cliente.Situacao = SituacaoCliente(ped.Cliente, erro);
+                EditarVendedor(vend);
+            }
+        }
 
-        public static void MonitorTXTPED()
+        public void MonitorTXTPED()
         {
             if (!Directory.Exists(dir_Pedidos))
             {
@@ -64,18 +117,21 @@ namespace FiscaliZi.Colinfo.ViewModel
             fsw.EnableRaisingEvents = true;
 
         }
-        private static void fswTXT_Created(object sender, FileSystemEventArgs e)
+        private void fswTXT_Created(object sender, FileSystemEventArgs e)
         {
-            const int NumberOfRetries = 3000;
+            var NumberOfRetries = 3000;
             const int DelayOnRetry = 10;
 
             for (var i = 1; i <= NumberOfRetries; ++i)
             {
                 try
                 {
-
                     var vnd = Coletor.getColeta(e.FullPath, e.Name);
                     dataService.AddVendedor(vnd);
+                    Vendedores = dataService.GetVendedores();
+                    ConsCad(vnd);
+                    //AtualizaVendedores();
+                    break;
                 }
                 catch (IOException)
                 {
@@ -87,6 +143,67 @@ namespace FiscaliZi.Colinfo.ViewModel
             }
         }
 
+        public static retConsCad RetCad(string CNPJ, string UF, out bool erro)
+        {
+            throw new NotImplementedException();
+        }
+        private static string DesmascararCNPJ(string cnpj)
+        {
+            return cnpj.Replace(".", "").Replace("/", "").Replace("-", "");
+        }
+        private string SituacaoCliente(Cliente cli, bool erro)
+        {
+            if (erro) return "ERRO";
+
+            if (cli.Situacao == "CONSULTAR")
+            {
+                if (cli.IE == "" || cli.IE == "ISENTO")
+                {
+                    if (cli.RetConsultaCadastro.infCons.infCad.Count > 0)
+                    {
+                        return "ERRO";
+                    }
+                    else
+                    {
+                        return "ISENTO";
+                    }
+                }
+                else
+                {
+                    if (cli.RetConsultaCadastro.infCons.infCad.Count > 0)
+                    {
+                        var sit = cli.RetConsultaCadastro.infCons.infCad.Find(s => s.IE == cli.IE.Replace(".", "").Replace("/", ""));
+                        if (sit != null)
+                        {
+                            if (sit.cSit == "1")
+                            {
+                                return "HABILITADO";
+                            }
+                            else if (sit.cSit == "0")
+                            {
+                                return "REJEIÇÃO";
+                            }
+                            else
+                            {
+                                return "?????";
+                            }
+                        }
+                    }
+                }
+            }
+            return "?????";
+        }
+        void EditarVendedor(Vendedor vnd)
+        {
+            /*dataService.EditarVendedor(vnd);
+            Vendedor = vnd;
+            Vendedor.ForcePropertyChanged("Pedidos");
+            RaisePropertyChanged("Vendedores");*/
+
+        }
+
         #endregion
+
+
     }
 }

@@ -6,10 +6,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:Metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     xmlns:Model="clr-namespace:FiscaliZi.Colinfo.Model"
-    xmlns:local="clr-namespace:FiscaliZi.Colinfo.Views"
+    xmlns:views="clr-namespace:FiscaliZi.Colinfo.Views"
+    xmlns:vm="clr-namespace:FiscaliZi.Colinfo.ViewModel"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     mc:Ignorable="d"
-    DataContext="{Binding Source={StaticResource Locator}, Path=ColetaVM}" BorderThickness="3">
+    BorderThickness="3"
+    DataContext="{Binding ColetaVM, Source={StaticResource Locator}}">
 
     <UserControl.Resources>
         <Model:TotalValPedsConverter x:Key="TotalValPedsConverter" />
@@ -30,110 +32,102 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
         <materialDesign:Card 
             Grid.Column="0" 
-            BorderThickness="3" MinHeight="700" MinWidth="399">
+            BorderThickness="3"
+            MinHeight="700" MinWidth="399">
             <Grid x:Name="grdVendedores">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10,0">
-                    <DatePicker Width="195" HorizontalAlignment="Left"  Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Text="05/02/2017" />
-                    <Button HorizontalAlignment="Right" Style="{StaticResource MaterialDesignToolForegroundButton}" Width="30" Padding="2 0 2 0"
+                <StackPanel 
+                    Grid.Row="0" 
+                    Orientation="Horizontal" 
+                    Margin="10,0">
+                    <DatePicker Width="195" HorizontalAlignment="Left" Text="05/02/2017" />
+                    <Button HorizontalAlignment="Right" Width="30" Padding="2 0 2 0"
                             materialDesign:RippleAssist.IsCentered="True">
                         <materialDesign:PackIcon Kind="Refresh" />
                     </Button>
-                    <materialDesign:PopupBox HorizontalAlignment="Right" Padding="2 0 2 0">
+                    <materialDesign:PopupBox HorizontalAlignment="Right" Padding="2 0 2 0" Foreground="#FF918B8B">
                         <StackPanel>
                             <Button Content="More"/>
                             <Button Content="Options"/>
                         </StackPanel>
                     </materialDesign:PopupBox>
+                    <Button HorizontalAlignment="Right" Width="30" Padding="2 0 2 0"
+                            materialDesign:RippleAssist.IsCentered="True"
+                            Style="{DynamicResource MaterialDesignFlatButton}">
+                        <materialDesign:PackIcon Kind="Close" />
+                    </Button>
                 </StackPanel>
                 <Separator Grid.Row="1" Style="{StaticResource MaterialDesignDarkSeparator}" Margin="8 0 8 0"/>
                 <ListBox 
-                        x:Name="lstVendedores" 
-                        ItemsSource="{Binding Vendedores}" 
+                    x:Name="lstVendedores" 
+                    ItemsSource="{Binding Path=Vendedores}" 
                         IsSynchronizedWithCurrentItem="True" 
                         SelectedIndex="-1" 
                         Margin="10,0" Grid.Row="2"
                         BorderThickness="3" >
-                    <ListBox.Resources>
-                        <Style x:Key="ListBoxItemStyle1" TargetType="{x:Type ListBoxItem}">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                        <TextBlock Text="{Binding}">
-                                            <TextBlock.Style>
-                                                <Style TargetType="{x:Type TextBlock}">
-                                                    <Style.Triggers>
-                                                        <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter Property="Background" Value="#1FFF0000"/>
-                                                        </Trigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </TextBlock.Style>
-                                        </TextBlock>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </ListBox.Resources>
                     <ListBox.Style>
                         <StaticResource ResourceKey="CustomMaterialDesignListBox"/>
                     </ListBox.Style>
                     <ListBox.ItemTemplate>
-                        <DataTemplate x:Name="TesteDT">
-                            <Grid Height="40">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="32"/>
-                                    <ColumnDefinition Width="104"/>
-                                    <ColumnDefinition Width="87"/>
-                                    <ColumnDefinition Width="109"/>
-                                    <ColumnDefinition Width="25"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="20"/>
-                                    <RowDefinition Height="20"/>
-                                </Grid.RowDefinitions>
-                                <Rectangle Fill="{StaticResource businessman}" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Margin="0,1"/>
-                                <TextBlock FontWeight="Bold" Grid.Column="1" Grid.Row="0" Width="Auto" Margin="3,3,0,0" FontSize="10.5" >
-                                    <TextBlock.Text>
-                                        <MultiBinding StringFormat="{}{0} ({1}) {2}">
-                                            <Binding Path="NumVendedor"/>
-                                            <Binding Path="Pedidos" Converter="{StaticResource RotaConverter}" />
-                                            <Binding Path="NomeVendedor" Converter="{StaticResource SimplificaNomeVendedorConverter}"/>
-                                        </MultiBinding>
-                                    </TextBlock.Text>
-                                </TextBlock>
-                                <TextBlock Grid.Column="1" Grid.Row="1" Margin="3,1,1,5.033"  Width="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Text="{Binding ArquivoVendedor}" FontSize="10.5" />
-                                <TextBlock Grid.Column="2" Grid.Row="0" Margin="5,3,0,0" Height="Auto" Width="Auto" FontSize="10.5" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"><Run Text="PED: " FontWeight="Bold"/><Run Text=" "/><Run Text="{Binding Pedidos.Count, Mode=OneWay}"/></TextBlock>
-                                <TextBlock Grid.Column="2" Grid.Row="1" Margin="5,1,0,5.033" Width="Auto" FontSize="10.5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ><Run Text="PES: " FontWeight="Bold"/><Run Text=" "/><Run Text="000.000,00"/></TextBlock>
-                                <TextBlock Grid.Column="3" Grid.Row="0" Margin="5,3,0,1" FontSize="10.5" Width="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"><Run Text="ENV: " FontWeight="Bold"/><Run Text=" "/><Run Text="{Binding DataEnvio, StringFormat=\{0:dd/MM hh:mm:ss\}}"/></TextBlock>
-                                <TextBlock Grid.Column="3" Grid.Row="1" Margin="5,1,0,3" FontSize="10.5" HorizontalAlignment="Stretch" Width="Auto"><Run Text="VAL: " FontWeight="Bold"/><Run Text=" "/><Run Text="{Binding Pedidos, Converter={StaticResource TotalValPedsConverter}}"/></TextBlock>
-                                <StackPanel Grid.Column="4" Grid.Row="0" Grid.RowSpan="2" Orientation="Vertical">
-                                    <materialDesign:PopupBox
-                                            Width="Auto">
-                                        <StackPanel>
-                                            <Button Content="More"/>
-                                            <Button Content="Options"/>
-                                        </StackPanel>
-                                    </materialDesign:PopupBox>
-                                    <materialDesign:PackIcon Kind="AccountOff" HorizontalAlignment="Right" />
-                                </StackPanel>
+                        <DataTemplate x:Name="dtVendedores">
+                            <Grid>
+                                <Grid Height="40">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="32"/>
+                                        <ColumnDefinition Width="104"/>
+                                        <ColumnDefinition Width="87"/>
+                                        <ColumnDefinition Width="109"/>
+                                        <ColumnDefinition Width="25"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="20"/>
+                                        <RowDefinition Height="20"/>
+                                    </Grid.RowDefinitions>
+                                    <Rectangle 
+                                        Fill="{StaticResource businessman}" 
+                                        Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"
+                                        Margin="0,1"/>
+                                    <TextBlock 
+                                        FontWeight="Bold" Grid.Column="1" Grid.Row="0" Width="Auto" Margin="3,3,0,0" FontSize="10.5" >
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="{}{0} ({1}) {2}">
+                                                <Binding Path="NumVendedor"/>
+                                                <Binding Path="Pedidos" Converter="{StaticResource RotaConverter}" />
+                                                <Binding Path="NomeVendedor" Converter="{StaticResource SimplificaNomeVendedorConverter}"/>
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                    <TextBlock Grid.Column="1" Grid.Row="1" Margin="3,1,1,5.033"  Width="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Text="{Binding ArquivoVendedor}" FontSize="10.5" />
+                                    <TextBlock Grid.Column="2" Grid.Row="0" Margin="5,3,0,0" Height="Auto" Width="Auto" FontSize="10.5" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"><Run Text="PED: " FontWeight="Bold"/><Run Text=" "/><Run Text="{Binding Pedidos.Count, Mode=OneWay}"/></TextBlock>
+                                    <TextBlock Grid.Column="2" Grid.Row="1" Margin="5,1,0,5.033" Width="Auto" FontSize="10.5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ><Run Text="PES: " FontWeight="Bold"/><Run Text=" "/><Run Text="000.000,00"/></TextBlock>
+                                    <TextBlock Grid.Column="3" Grid.Row="0" Margin="5,3,0,1" FontSize="10.5" Width="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"><Run Text="ENV: " FontWeight="Bold"/><Run Text=" "/><Run Text="{Binding DataEnvio, StringFormat=\{0:dd/MM hh:mm:ss\}}"/></TextBlock>
+                                    <TextBlock Grid.Column="3" Grid.Row="1" Margin="5,1,0,3" FontSize="10.5" HorizontalAlignment="Stretch" Width="Auto"><Run Text="VAL: " FontWeight="Bold"/><Run Text=" "/><Run Text="{Binding Pedidos, Converter={StaticResource TotalValPedsConverter}}"/></TextBlock>
+                                    <StackPanel Grid.Column="4" Grid.Row="0" Grid.RowSpan="2" Orientation="Vertical">
+                                        <Button HorizontalAlignment="Right" Width="Auto" Padding="2 0 2 0"
+                                                materialDesign:RippleAssist.IsCentered="True"
+                                                Style="{DynamicResource MaterialDesignFlatButton}" Height="Auto"
+                                                Command="{Binding ColetaVM.RemoverVendedorCommand, Source={StaticResource Locator}}" 
+                                                CommandParameter="{Binding SelectedItem, ElementName=lstVendedores}">
+                                            <materialDesign:PackIcon Kind="Close" />
+                                        </Button>
+                                        <materialDesign:PackIcon Kind="AccountOff" HorizontalAlignment="Right" />
+                                    </StackPanel>
+                                </Grid>
                             </Grid>
+
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
             </Grid>
         </materialDesign:Card>
         <DataGrid x:Name="dgPedidos" 
-                      ItemsSource="{Binding Vendedores/Pedidos}"
+                  ItemsSource="{Binding Vendedores/Pedidos}"
                   Grid.Column="1"
                       AutoGenerateColumns="False" 
                       CanUserAddRows="False" 
@@ -147,13 +141,14 @@
                       Style="{DynamicResource DatagridCustomMDesign}" 
                       CellStyle="{DynamicResource DatagridCellCustomMDesign}" 
                       RowStyle="{DynamicResource DataGridRowCustomMDesign}"
-                      ColumnHeaderStyle="{StaticResource CustomMaterialDesignDataGridColumnHeader}" Margin="10,0,0,0">
+                      ColumnHeaderStyle="{StaticResource CustomMaterialDesignDataGridColumnHeader}" 
+                  Margin="10,0,0,0">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Rota" 
+                <DataGridTextColumn Header="ROTA" 
                                         Binding="{Binding Cliente.Rota}" 
                                         CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}"
                                         CanUserResize="False" />
-                <DataGridTextColumn Header="Cliente" 
+                <DataGridTextColumn Header="CLIENTE" 
                                         CanUserResize="False" 
                                         Width="70">
                     <DataGridTextColumn.Binding>
@@ -163,11 +158,34 @@
                         </MultiBinding>
                     </DataGridTextColumn.Binding>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Razão" Binding="{Binding Cliente.Razao}" CanUserResize="False" />
+                <DataGridTextColumn Header="R. SOCIAL" Binding="{Binding Cliente.Razao}" CanUserResize="False" Width="200" />
                 <DataGridTextColumn Header="CNPJ" Binding="{Binding Cliente.CNPJ}"  CanUserResize="False" />
-                <DataGridTextColumn Header="IE" Binding="{Binding Cliente.IE}"  CanUserResize="False" Width="120" />
-                <DataGridTextColumn Header="Val. Ped" Binding="{Binding ValorTotal}" CanUserResize="False" Width="80" />
-                <DataGridTextColumn Header="Sit. IE\CNPJ" Binding="{Binding Cliente.Situacao, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" CanUserResize="False" />
+                <DataGridTextColumn 
+                    Header="INSCRIÇÃO" 
+                    Binding="{Binding Cliente.IE}"  
+                    CanUserResize="False" 
+                    Width="120">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Margin" Value="10,0,0,0" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="VAL. PED" Binding="{Binding ValorTotal}" CanUserResize="False" Width="80" />
+                <DataGridTemplateColumn Header="SIT. IE\CNPJ" CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Cliente.RetConsultaCadastro}" VerticalAlignment="Center"/>
+                                <Button 
+                                    Style="{DynamicResource MaterialDesignToolButton}"
+                                    Height="25" Width="40">
+                                    <materialDesign:PackIcon Kind="Refresh" HorizontalAlignment="Center" />
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTemplateColumn >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
