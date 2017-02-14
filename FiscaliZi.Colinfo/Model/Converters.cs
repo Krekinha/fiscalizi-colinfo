@@ -23,6 +23,7 @@ namespace FiscaliZi.Colinfo.Model
             return value;
         }
     }
+
     public class TotalValPedsConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -122,14 +123,26 @@ namespace FiscaliZi.Colinfo.Model
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            switch (value.ToString())
+            var cli = (Cliente) value;
+            if (cli.RetConsultaCadastro != null)
             {
-                case "0":
-                    return "Não Habilitado - Baixado";
-                case "1":
-                    return "Habilitado - Ativo";
+                return "CONSULTAR";
             }
-            return "";
+            else
+            {
+                if (cli.IE == "" || cli.IE == "ISENTO")
+                {
+                    if (cli.RetConsultaCadastro != null && cli.RetConsultaCadastro.infCons.infCad.Count > 0)
+                    {
+                        return "ERRO";
+                    }
+                    else
+                    {
+                        return "ISENTO";
+                    }
+                }
+                return "CONSULTAR";
+            }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

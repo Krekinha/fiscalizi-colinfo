@@ -248,6 +248,8 @@
     <Compile Include="Migrations\ColinfoContextModelSnapshot.cs" />
     <Compile Include="Model\CadCli.cs" />
     <Compile Include="Model\Cliente.cs" />
+    <Compile Include="Model\ConfiguracaoApp.cs" />
+    <Compile Include="Model\ConfiguracaoCsc.cs" />
     <Compile Include="Model\Converters.cs" />
     <Compile Include="Model\DataService.cs" />
     <Compile Include="Model\DesignDataService.cs" />
@@ -257,6 +259,7 @@
     <Compile Include="Model\Produto.cs" />
     <Compile Include="Model\Vendedor.cs" />
     <Compile Include="Utils\Coletor.cs" />
+    <Compile Include="Utils\Funcoes.cs" />
     <Compile Include="Utils\Monitors.cs" />
     <Compile Include="Utils\Unzip.cs" />
     <Compile Include="ViewModel\ColetaViewModel.cs" />
@@ -337,9 +340,17 @@
     <Resource Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Zeus\NFe.Servicos\NFe.Servicos.csproj">
+      <Project>{CCFDB136-3EE3-4AED-AA69-26ABBCB553C6}</Project>
+      <Name>NFe.Servicos</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Zeus\NFe.Classes\NFe.Classes.csproj">
       <Project>{29ca1da2-440d-484b-951a-cf1b2eb27984}</Project>
       <Name>NFe.Classes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zeus\NFe.Utils\NFe.Utils.csproj">
+      <Project>{E35E7C4A-5690-4979-8B43-002975B48EAA}</Project>
+      <Name>NFe.Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -11,7 +11,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     mc:Ignorable="d"
     BorderThickness="3"
-    DataContext="{Binding ColetaVM, Source={StaticResource Locator}}">
+    DataContext="{Binding Source={StaticResource Locator}, Path=ColetaVM}">
 
     <UserControl.Resources>
         <Model:TotalValPedsConverter x:Key="TotalValPedsConverter" />
@@ -176,7 +176,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding Cliente.RetConsultaCadastro}" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding Cliente, Converter={StaticResource SitCadastroClienteConverter}}" VerticalAlignment="Center"/>
                                 <Button 
                                     Style="{DynamicResource MaterialDesignToolButton}"
                                     Height="25" Width="40">

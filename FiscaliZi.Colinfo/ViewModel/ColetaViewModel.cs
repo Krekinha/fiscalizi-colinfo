@@ -7,9 +7,14 @@ using System.ComponentModel;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using FiscaliZi.Colinfo.Utils;
 using GalaSoft.MvvmLight.CommandWpf;
 using Microsoft.Practices.ServiceLocation;
+using NFe.Classes.Servicos.ConsultaCadastro;
+using NFe.Servicos;
+using NFe.Utils.Excecoes;
+using retConsCad = FiscaliZi.Colinfo.Model.retConsCad;
 
 namespace FiscaliZi.Colinfo.ViewModel
 {
@@ -22,7 +27,26 @@ namespace FiscaliZi.Colinfo.ViewModel
         public ColetaViewModel(IDataService _dataService)
         {
             dataService = _dataService;
-            Vendedores = dataService.GetVendedores();
+            if (IsInDesignMode)
+            {
+                Vendedores = new ObservableCollection<Vendedor>()
+                {
+                    new Vendedor
+                    {
+                        VendedorID = 1,
+                        NumVendedor = 308,
+                        DataColeta = DateTime.Now,
+                        DataEnvio = DateTime.Parse("03/05/2000 00:00:00"),
+                        NomeVendedor = "RAFAEL ALVES",
+                        ArquivoVendedor = "TXAA0600000308.TXT"
+                    }
+                };
+            }
+            else
+            {
+                Vendedores = dataService.GetVendedores();
+            }
+                    
             InitializeMonitor();
 
             #region Commands
@@ -60,6 +84,7 @@ namespace FiscaliZi.Colinfo.ViewModel
 
         #endregion
         public ObservableCollection<Vendedor> Vendedores { get; set; }
+        public ConfiguracaoApp Configuracoes { get; set; }
         #endregion
 
         #region · Constructors ·
@@ -98,7 +123,7 @@ namespace FiscaliZi.Colinfo.ViewModel
             }
         }
 
-        public void MonitorTXTPED()
+        private void MonitorTXTPED()
         {
             if (!Directory.Exists(dir_Pedidos))
             {
@@ -143,9 +168,34 @@ namespace FiscaliZi.Colinfo.ViewModel
             }
         }
 
-        public static retConsCad RetCad(string CNPJ, string UF, out bool erro)
+        private retConsCad RetCad(string CNPJ, string UF, out bool erro)
         {
-            throw new NotImplementedException();
+            try
+            {
+                #region Consulta Cadastro
+
+                var servicoNFe = new ServicosNFe(Configuracoes.CfgServico);
+                var retornoConsulta = servicoNFe.NfeConsultaCadastro(UF, 0, documento);
+               // TrataRetorno(retornoConsulta);
+
+                #endregion
+            }
+            catch (ComunicacaoException ex)
+            {
+               // Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
+            catch (ValidacaoSchemaException ex)
+            {
+               // Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
+            catch (Exception ex)
+            {
+                //if (!string.IsNullOrEmpty(ex.Message))
+                  //  Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
+
+            erro = false;
+            return null;
         }
         private static string DesmascararCNPJ(string cnpj)
         {
