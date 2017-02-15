@@ -340,6 +340,10 @@
     <Resource Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Zeus\DFe.Utils\DFe.Utils.csproj">
+      <Project>{B4E1A7A6-5D66-4326-8A8D-39338E6FC84C}</Project>
+      <Name>DFe.Utils</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Zeus\NFe.Servicos\NFe.Servicos.csproj">
       <Project>{CCFDB136-3EE3-4AED-AA69-26ABBCB553C6}</Project>
       <Name>NFe.Servicos</Name>

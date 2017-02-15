@@ -179,7 +179,9 @@
                                 <TextBlock Text="{Binding Cliente, Converter={StaticResource SitCadastroClienteConverter}}" VerticalAlignment="Center"/>
                                 <Button 
                                     Style="{DynamicResource MaterialDesignToolButton}"
-                                    Height="25" Width="40">
+                                    Height="25" Width="40"
+                                    Command="{Binding ColetaVM.ConsultaCadastroCommand, Source={StaticResource Locator}}"
+                                    CommandParameter="{Binding Cliente}">
                                     <materialDesign:PackIcon Kind="Refresh" HorizontalAlignment="Center" />
                                 </Button>
                             </StackPanel>

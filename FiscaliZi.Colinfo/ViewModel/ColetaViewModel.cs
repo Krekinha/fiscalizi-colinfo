@@ -8,11 +8,17 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using DFe.Utils.Assinatura;
 using FiscaliZi.Colinfo.Utils;
 using GalaSoft.MvvmLight.CommandWpf;
 using Microsoft.Practices.ServiceLocation;
+using NFe.Classes;
+using NFe.Classes.Informacoes.Emitente;
+using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Classes.Servicos.ConsultaCadastro;
+using NFe.Classes.Servicos.Tipos;
 using NFe.Servicos;
+using NFe.Utils;
 using NFe.Utils.Excecoes;
 using retConsCad = FiscaliZi.Colinfo.Model.retConsCad;
 
@@ -46,12 +52,15 @@ namespace FiscaliZi.Colinfo.ViewModel
             {
                 Vendedores = dataService.GetVendedores();
             }
-                    
+
+            Configuracoes = new ConfiguracaoApp();
+            CarregarConfiguracoes();
             InitializeMonitor();
 
             #region Commands
 
             RemoverVendedorCommand = new RelayCommand<Vendedor>(RemoverVendedor);
+            ConsultaCadastroCommand = new RelayCommand<Cliente>(ConsultaCadastro);
 
             #endregion
         }
@@ -81,10 +90,21 @@ namespace FiscaliZi.Colinfo.ViewModel
         #region Commands
 
         public RelayCommand<Vendedor> RemoverVendedorCommand { get; set; }
+        public RelayCommand<Cliente> ConsultaCadastroCommand { get; set; }
 
         #endregion
         public ObservableCollection<Vendedor> Vendedores { get; set; }
-        public ConfiguracaoApp Configuracoes { get; set; }
+
+        private ConfiguracaoApp _configuracoes;
+
+        public ConfiguracaoApp Configuracoes
+        {
+            get { return _configuracoes; }
+            set
+            {
+                Set(() => Configuracoes, ref _configuracoes, value);
+            }
+        }
         #endregion
 
         #region · Constructors ·
@@ -170,32 +190,64 @@ namespace FiscaliZi.Colinfo.ViewModel
 
         private retConsCad RetCad(string CNPJ, string UF, out bool erro)
         {
+
+            throw new NotImplementedException();
+        }
+
+        private void ConsultaCadastro(Cliente cli)
+        {
             try
             {
                 #region Consulta Cadastro
-
+                try
+                {
+                    var cert = CertificadoDigital.ListareObterDoRepositorio();
+                    Configuracoes.CfgServico.Certificado.Serial = cert.SerialNumber;
+                    //TxtValidade.Text = "Validade: " + cert.GetExpirationDateString();
+                }
+                catch (Exception ex)
+                {
+                    Funcoes.Mensagem(ex.Message, "ERRO", MessageBoxButton.OK);
+                }
                 var servicoNFe = new ServicosNFe(Configuracoes.CfgServico);
-                var retornoConsulta = servicoNFe.NfeConsultaCadastro(UF, 0, documento);
-               // TrataRetorno(retornoConsulta);
+                var retornoConsulta = servicoNFe.NfeConsultaCadastro("MG", (ConsultaCadastroTipoDocumento)0, cli.IE);
+                // TrataRetorno(retornoConsulta);
+                CarregarConfiguracoes();
 
                 #endregion
             }
             catch (ComunicacaoException ex)
             {
-               // Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+                // Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
             catch (ValidacaoSchemaException ex)
             {
-               // Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+                // Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
             catch (Exception ex)
             {
                 //if (!string.IsNullOrEmpty(ex.Message))
-                  //  Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+                //  Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
+        }
+        private void CarregarConfiguracoes()
+        {
+            var config = new ConfiguracaoApp();
+            config.CfgServico.Certificado.Serial = "29CC1C5B551BABA7";
+            config.CfgServico.TimeOut = 00000;
+            config.CfgServico.cUF = (Estado) 31;
+            config.CfgServico.tpAmb = TipoAmbiente.taProducao;
+            config.CfgServico.tpEmis = TipoEmissao.teNormal;
+            config.CfgServico.ModeloDocumento = (ModeloDocumento) 55;
+            config.CfgServico.VersaoNfeConsultaCadastro = VersaoServico.ve100;
+            config.CfgServico.SalvarXmlServicos = false;
 
-            erro = false;
-            return null;
+            config.Emitente.CNPJ = "21795927000488";
+            config.Emitente.CRT = (CRT) 1;
+
+            config.EnderecoEmitente.UF = "MG";
+
+            Configuracoes = config;
         }
         private static string DesmascararCNPJ(string cnpj)
         {
