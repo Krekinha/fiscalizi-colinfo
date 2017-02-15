@@ -8,6 +8,8 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using DFe.Classes.Entidades;
+using DFe.Classes.Flags;
 using DFe.Utils.Assinatura;
 using FiscaliZi.Colinfo.Utils;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -21,6 +23,7 @@ using NFe.Servicos;
 using NFe.Utils;
 using NFe.Utils.Excecoes;
 using retConsCad = FiscaliZi.Colinfo.Model.retConsCad;
+using TipoAmbiente = NFe.Classes.Informacoes.Identificacao.Tipos.TipoAmbiente;
 
 namespace FiscaliZi.Colinfo.ViewModel
 {
@@ -112,7 +115,7 @@ namespace FiscaliZi.Colinfo.ViewModel
         private void InitializeMonitor()
         {
             MonitorTXTPED();
-            Monitors.MonitorGZPTPED(@"D:\SOF\VDWIN\PTPED");
+            Monitors.MonitorGZPTPED(@"F:\SOF\VDWIN\PTPED");
             Monitors.MonitorGZPED();
             
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using DFe.Utils;
 using FiscaliZi.Colinfo.Properties;
 using FiscaliZi.Colinfo.Utils;
 using NFe.Classes.Informacoes.Emitente;
