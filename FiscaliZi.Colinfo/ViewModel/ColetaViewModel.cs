@@ -115,7 +115,7 @@ namespace FiscaliZi.Colinfo.ViewModel
         private void InitializeMonitor()
         {
             MonitorTXTPED();
-            Monitors.MonitorGZPTPED(@"F:\SOF\VDWIN\PTPED");
+            Monitors.MonitorGZPTPED(@"D:\SOF\VDWIN\PTPED");
             Monitors.MonitorGZPED();
             
         }
@@ -221,16 +221,16 @@ namespace FiscaliZi.Colinfo.ViewModel
             }
             catch (ComunicacaoException ex)
             {
-                // Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+                 Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
             catch (ValidacaoSchemaException ex)
             {
-                // Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+                 Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
             catch (Exception ex)
             {
-                //if (!string.IsNullOrEmpty(ex.Message))
-                //  Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+                if (!string.IsNullOrEmpty(ex.Message))
+                  Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
         }
         private void CarregarConfiguracoes()
@@ -242,8 +242,9 @@ namespace FiscaliZi.Colinfo.ViewModel
             config.CfgServico.tpAmb = TipoAmbiente.taProducao;
             config.CfgServico.tpEmis = TipoEmissao.teNormal;
             config.CfgServico.ModeloDocumento = (ModeloDocumento) 55;
-            config.CfgServico.VersaoNfeConsultaCadastro = VersaoServico.ve100;
+            config.CfgServico.VersaoNfeConsultaCadastro = VersaoServico.ve200;
             config.CfgServico.SalvarXmlServicos = false;
+            config.CfgServico.DiretorioSalvarXml = @"..\..\Schemas";
 
             config.Emitente.CNPJ = "21795927000488";
             config.Emitente.CRT = (CRT) 1;
