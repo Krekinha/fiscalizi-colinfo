@@ -5,6 +5,7 @@ using PropertyChanged;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,6 +21,7 @@ using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Classes.Servicos.ConsultaCadastro;
 using NFe.Classes.Servicos.Tipos;
 using NFe.Servicos;
+using NFe.Servicos.Retorno;
 using NFe.Utils;
 using NFe.Utils.Excecoes;
 using retConsCad = FiscaliZi.Colinfo.Model.retConsCad;
@@ -56,14 +58,13 @@ namespace FiscaliZi.Colinfo.ViewModel
                 Vendedores = dataService.GetVendedores();
             }
 
-            Configuracoes = new ConfiguracaoApp();
-            CarregarConfiguracoes();
+            Configuracoes = CarregarConfiguracoes();
             InitializeMonitor();
 
             #region Commands
 
             RemoverVendedorCommand = new RelayCommand<Vendedor>(RemoverVendedor);
-            ConsultaCadastroCommand = new RelayCommand<Cliente>(ConsultaCadastro);
+            ConsultaCadastroCommand = new RelayCommand<Pedido>(ConsultaCadastro);
 
             #endregion
         }
@@ -93,7 +94,7 @@ namespace FiscaliZi.Colinfo.ViewModel
         #region Commands
 
         public RelayCommand<Vendedor> RemoverVendedorCommand { get; set; }
-        public RelayCommand<Cliente> ConsultaCadastroCommand { get; set; }
+        public RelayCommand<Pedido> ConsultaCadastroCommand { get; set; }
 
         #endregion
         public ObservableCollection<Vendedor> Vendedores { get; set; }
@@ -133,6 +134,14 @@ namespace FiscaliZi.Colinfo.ViewModel
         {
             dataService.RemoverVendedor(vnd);
             AtualizaVendedores();
+        }
+        private void EditarVendedor(Vendedor vnd)
+        {
+            dataService.EditarVendedor(vnd);
+            /*Vendedor = vnd;
+            Vendedor.ForcePropertyChanged("Pedidos");*/
+            RaisePropertyChanged("Vendedores");
+
         }
         private async void ConsCad(Vendedor vend)
         {
@@ -197,27 +206,15 @@ namespace FiscaliZi.Colinfo.ViewModel
             throw new NotImplementedException();
         }
 
-        private void ConsultaCadastro(Cliente cli)
+        private void ConsultaCadastro(Pedido ped)
         {
             try
             {
-                #region Consulta Cadastro
-                try
-                {
-                    var cert = CertificadoDigital.ListareObterDoRepositorio();
-                    Configuracoes.CfgServico.Certificado.Serial = cert.SerialNumber;
-                    //TxtValidade.Text = "Validade: " + cert.GetExpirationDateString();
-                }
-                catch (Exception ex)
-                {
-                    Funcoes.Mensagem(ex.Message, "ERRO", MessageBoxButton.OK);
-                }
                 var servicoNFe = new ServicosNFe(Configuracoes.CfgServico);
-                var retornoConsulta = servicoNFe.NfeConsultaCadastro("MG", (ConsultaCadastroTipoDocumento)0, cli.IE);
-                // TrataRetorno(retornoConsulta);
-                CarregarConfiguracoes();
-
-                #endregion
+                //var cert = CertificadoDigital.ListareObterDoRepositorio();
+                //Configuracoes.CfgServico.Certificado.Serial = cert.SerialNumber;
+                var retornoConsulta = servicoNFe.NfeConsultaCadastro("MG", (ConsultaCadastroTipoDocumento)0, ped.Cliente.IE.Replace(".", "").Replace("/", ""));
+                ped.Cliente.RetConsultaCadastro = (NFe.Classes.Servicos.ConsultaCadastro.retConsCad)retornoConsulta.Retorno;
             }
             catch (ComunicacaoException ex)
             {
@@ -233,25 +230,28 @@ namespace FiscaliZi.Colinfo.ViewModel
                   Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
         }
-        private void CarregarConfiguracoes()
+        private ConfiguracaoApp CarregarConfiguracoes()
         {
             var config = new ConfiguracaoApp();
             config.CfgServico.Certificado.Serial = "29CC1C5B551BABA7";
-            config.CfgServico.TimeOut = 00000;
+            config.CfgServico.Certificado.ManterDadosEmCache = true;
+            config.CfgServico.TimeOut = 5000;
             config.CfgServico.cUF = (Estado) 31;
             config.CfgServico.tpAmb = TipoAmbiente.taProducao;
             config.CfgServico.tpEmis = TipoEmissao.teNormal;
             config.CfgServico.ModeloDocumento = (ModeloDocumento) 55;
             config.CfgServico.VersaoNfeConsultaCadastro = VersaoServico.ve200;
             config.CfgServico.SalvarXmlServicos = false;
-            config.CfgServico.DiretorioSalvarXml = @"..\..\Schemas";
+            config.CfgServico.DiretorioSchemas = @"..\..\Schemas";
+
+            config.CfgServico.ProtocoloDeSeguranca = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls;
 
             config.Emitente.CNPJ = "21795927000488";
             config.Emitente.CRT = (CRT) 1;
 
             config.EnderecoEmitente.UF = "MG";
 
-            Configuracoes = config;
+            return config;
         }
         private static string DesmascararCNPJ(string cnpj)
         {
@@ -298,14 +298,6 @@ namespace FiscaliZi.Colinfo.ViewModel
                 }
             }
             return "?????";
-        }
-        void EditarVendedor(Vendedor vnd)
-        {
-            /*dataService.EditarVendedor(vnd);
-            Vendedor = vnd;
-            Vendedor.ForcePropertyChanged("Pedidos");
-            RaisePropertyChanged("Vendedores");*/
-
         }
 
         #endregion

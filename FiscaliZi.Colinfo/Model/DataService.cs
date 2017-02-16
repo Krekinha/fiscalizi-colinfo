@@ -9,6 +9,7 @@ namespace FiscaliZi.Colinfo.Model
         ObservableCollection<Vendedor> GetVendedores();
         void AddVendedor(Vendedor vnd);
         void RemoverVendedor(Vendedor vnd);
+        void EditarVendedor(Vendedor vnd);
     }
 
     public class DataService : IDataService
@@ -61,6 +62,15 @@ namespace FiscaliZi.Colinfo.Model
                 }
             }
 
+        }
+
+        public void EditarVendedor(Vendedor vnd)
+        {
+            using (var context = new ColinfoContext())
+            {
+                context.Entry(vnd).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                context.SaveChanges();
+            }
         }
     }
 }
