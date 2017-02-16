@@ -10,6 +10,7 @@ namespace FiscaliZi.Colinfo.Model
         void AddVendedor(Vendedor vnd);
         void RemoverVendedor(Vendedor vnd);
         void EditarVendedor(Vendedor vnd);
+        void EditarPedido(Pedido ped);
     }
 
     public class DataService : IDataService
@@ -68,7 +69,19 @@ namespace FiscaliZi.Colinfo.Model
         {
             using (var context = new ColinfoContext())
             {
-                context.Entry(vnd).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                context.Entry(vnd).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+
+        public void EditarPedido(Pedido ped)
+        {
+            using (var context = new ColinfoContext())
+            {
+                var vend = context.Vendedores.Find(ped.VendedorID);
+                var pedA = vend.Pedidos.Find(ped2 => ped2.PedidoID == ped.PedidoID);
+                pedA.Cliente.RetConsultaCadastro = ped.Cliente.RetConsultaCadastro;
+                context.Entry(vend).State = EntityState.Modified;
                 context.SaveChanges();
             }
         }

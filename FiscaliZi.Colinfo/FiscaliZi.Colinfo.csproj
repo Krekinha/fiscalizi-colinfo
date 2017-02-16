@@ -141,6 +141,9 @@
     <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.2-beta2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="NFe.Classes, Version=1.0.1.456, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Zeus.Net.NFe.NFCe.1.0.1.485\lib\net40\NFe.Classes.dll</HintPath>
     </Reference>
@@ -279,6 +282,7 @@
     <Compile Include="Utils\Coletor.cs" />
     <Compile Include="Utils\Funcoes.cs" />
     <Compile Include="Utils\Monitors.cs" />
+    <Compile Include="Utils\ObjectClone.cs" />
     <Compile Include="Utils\Unzip.cs" />
     <Compile Include="ViewModel\ColetaViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />

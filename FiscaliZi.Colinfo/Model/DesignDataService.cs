@@ -1380,5 +1380,15 @@ namespace FiscaliZi.Colinfo.Model
         {
             throw new NotImplementedException();
         }
+
+        public void EditarVendedor(Vendedor vnd)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void EditarPedido(Pedido ped)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -24,8 +24,10 @@ using NFe.Servicos;
 using NFe.Servicos.Retorno;
 using NFe.Utils;
 using NFe.Utils.Excecoes;
-using retConsCad = FiscaliZi.Colinfo.Model.retConsCad;
 using TipoAmbiente = NFe.Classes.Informacoes.Identificacao.Tipos.TipoAmbiente;
+using System.Linq;
+using DFe.Utils;
+using NFe = NFe.Classes.NFe;
 
 namespace FiscaliZi.Colinfo.ViewModel
 {
@@ -143,6 +145,14 @@ namespace FiscaliZi.Colinfo.ViewModel
             RaisePropertyChanged("Vendedores");
 
         }
+        private void EditarPedido(Pedido ped)
+        {
+            dataService.EditarPedido(ped);
+            /*Vendedor = vnd;
+            Vendedor.ForcePropertyChanged("Pedidos");*/
+            RaisePropertyChanged("Vendedores");
+
+        }
         private async void ConsCad(Vendedor vend)
         {
             var erro = false;
@@ -200,7 +210,7 @@ namespace FiscaliZi.Colinfo.ViewModel
             }
         }
 
-        private retConsCad RetCad(string CNPJ, string UF, out bool erro)
+        private Model.retConsCad RetCad(string CNPJ, string UF, out bool erro)
         {
 
             throw new NotImplementedException();
@@ -214,7 +224,9 @@ namespace FiscaliZi.Colinfo.ViewModel
                 //var cert = CertificadoDigital.ListareObterDoRepositorio();
                 //Configuracoes.CfgServico.Certificado.Serial = cert.SerialNumber;
                 var retornoConsulta = servicoNFe.NfeConsultaCadastro("MG", (ConsultaCadastroTipoDocumento)0, ped.Cliente.IE.Replace(".", "").Replace("/", ""));
-                ped.Cliente.RetConsultaCadastro = (NFe.Classes.Servicos.ConsultaCadastro.retConsCad)retornoConsulta.Retorno;
+                ped.Cliente.RetConsultaCadastro = retornoConsulta.Retorno.CloneJson();
+                EditarPedido(ped);
+                
             }
             catch (ComunicacaoException ex)
             {

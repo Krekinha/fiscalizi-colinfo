@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Serialization;
@@ -7,13 +8,18 @@ namespace FiscaliZi.Colinfo.Model
 {
     [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/nfe")]
 
-    public class retConsCad : INotifyPropertyChanged
+    public class retConsCad : INotifyPropertyChanged,  ICloneable
     {
         #region NotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
         public void ForcePropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public object Clone()
+        {
+            return this;
         }
         #endregion
 
