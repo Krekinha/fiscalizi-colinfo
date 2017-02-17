@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
+using MaterialDesignThemes.Wpf;
 
 namespace FiscaliZi.Colinfo.Model
 {
@@ -160,35 +161,21 @@ namespace FiscaliZi.Colinfo.Model
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var items = (List<Pedido>)value;
-            int err = 0;
-            int con = 0;
-            int hab = 0;
-
-            if (items == null) return null;
-            if (items.Count > 0)
+            switch ((string)value)
             {
-                foreach (var ped in items)
-                {
-                    switch (ped.Cliente.Situacao)
-                    {
-                        case "REJEIÇÃO":
-                            err += 1;
-                            break;
-                        case "ERRO":
-                            err += 1;
-                            break;
-                        case "CONSULTAR":
-                            con += 1;
-                            break;
-                        case "HABILITADO":
-                            hab += 1;
-                            break;
-                    }
-                }
-                return retornaImagem(err, con);
+                case "CONSULTAR":
+                    return new SolidColorBrush(Colors.RoyalBlue);
+                case "HABILITADO":
+                    return new SolidColorBrush(Colors.MediumSeaGreen);
+                case "ISENTO":
+                    return new SolidColorBrush(Colors.LightSeaGreen);
+                case "REJEIÇÃO":
+                    return new SolidColorBrush(Colors.Red);
+                case "ERRO":
+                    return new SolidColorBrush(Colors.Red);
+                default:
+                    return null;
             }
-            return retornaImagem(err, con);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -196,24 +183,34 @@ namespace FiscaliZi.Colinfo.Model
             return value;
         }
 
-        private DrawingBrush retornaImagem(int err, int con)
-        {
-            ResourceDictionary dic = new ResourceDictionary();
-            dic = (ResourceDictionary)Application.LoadComponent(new Uri("/FiscaliZi.Colinfo;component/Resources/Dictionaries/dicImages.xaml", UriKind.RelativeOrAbsolute));
+    }
 
-            if (err > 0)
+    public class SituacaoCNPJIconConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            switch ((string)value)
             {
-                return (DrawingBrush)dic["statusErro"];
-            }
-            else
-            {
-                if (con > 0)
-                {
-                    return (DrawingBrush)dic["statusWarning"];
-                }
-                return (DrawingBrush)dic["statusOK"];
+                case "CONSULTAR":
+                    return PackIconKind.HelpCircle;
+                case "HABILITADO":
+                    return PackIconKind.CheckCircle;
+                case "ISENTO":
+                    return PackIconKind.CheckCircle;
+                case "REJEIÇÃO":
+                    return PackIconKind.Alert;
+                case "ERRO":
+                    return PackIconKind.Alert;
+                default:
+                    return null;
             }
         }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value;
+        }
+
     }
 
     public class RejeicoesCNPJConverter : IValueConverter

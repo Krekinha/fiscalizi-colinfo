@@ -24,6 +24,7 @@
         <Model:RotaConverter x:Key="RotaConverter" />
         <Model:SimplificaNomeVendedorConverter x:Key="SimplificaNomeVendedorConverter" />
         <Model:SituacaoCNPJColorConverter x:Key="SituacaoCNPJColorConverter" />
+        <Model:SituacaoCNPJIconConverter x:Key="SituacaoCNPJIconConverter" />
         <Model:CurrentAccentColorConverter x:Key="CurrentAccentColorConverter" />
     </UserControl.Resources>
 
@@ -172,12 +173,14 @@
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
                 <DataGridTextColumn Header="VAL. PED" Binding="{Binding ValorTotal}" CanUserResize="False" Width="80" />
-                <DataGridTemplateColumn Header="SIT. IE\CNPJ" CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}">
+                <DataGridTemplateColumn x:Name="dataGridTemplateColumn" Header="SIT. IE\CNPJ" CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon Kind="CheckCircle" VerticalAlignment="Center" Foreground="MediumSeaGreen" Margin="0,0,5,0"/>
-                                <TextBlock Text="{Binding Converter={StaticResource SitCadastroClienteConverter}}" VerticalAlignment="Center" Width="60"/>
+                                <materialDesign:PackIcon Kind="{Binding Text, ElementName=txtSituacao, Converter={StaticResource SituacaoCNPJIconConverter}}" 
+                                                         VerticalAlignment="Center" 
+                                                         Foreground="{Binding Text, ElementName=txtSituacao, Converter={StaticResource SituacaoCNPJColorConverter}}" Margin="0,0,5,0"/>
+                                <TextBlock x:Name="txtSituacao" Text="{Binding Converter={StaticResource SitCadastroClienteConverter}}" VerticalAlignment="Center" Width="60"/>
                                 <Button 
                                     Style="{DynamicResource MaterialDesignToolButton}"
                                     Height="25" Width="40"
