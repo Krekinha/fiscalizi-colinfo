@@ -118,7 +118,7 @@ namespace FiscaliZi.Colinfo.ViewModel
         private void InitializeMonitor()
         {
             MonitorTXTPED();
-            Monitors.MonitorGZPTPED(@"D:\SOF\VDWIN\PTPED");
+            Monitors.MonitorGZPTPED(@"F:\SOF\VDWIN\PTPED");
             Monitors.MonitorGZPED();
             
         }
