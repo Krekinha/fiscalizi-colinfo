@@ -12,6 +12,7 @@ namespace FiscaliZi.Colinfo.Model
         void RemoverVendedor(Vendedor vnd);
         void EditarVendedor(Vendedor vnd);
         void EditarPedido(Pedido ped);
+        Vendedor GetVendedor(int id);
     }
 
     public class DataService : IDataService
@@ -90,6 +91,14 @@ namespace FiscaliZi.Colinfo.Model
                 pedA.Cliente.RetConsultaCadastro = ped.Cliente.RetConsultaCadastro;
                 context.Entry(vend).State = EntityState.Modified;
                 context.SaveChanges();
+            }
+        }
+
+        public Vendedor GetVendedor(int id)
+        {
+            using (var context = new ColinfoContext())
+            {
+                return context.Vendedores.Find(id);
             }
         }
     }

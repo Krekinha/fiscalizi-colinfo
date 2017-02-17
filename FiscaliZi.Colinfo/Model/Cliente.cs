@@ -1,12 +1,13 @@
 ﻿using NFe.Classes.Servicos.ConsultaCadastro;
 using PropertyChanged;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace FiscaliZi.Colinfo.Model
 {
     [ImplementPropertyChanged]
-    public class Cliente
+    public class Cliente : INotifyPropertyChanged
     {
         [Key]
         public int ClienteID { get; set; }
@@ -26,6 +27,14 @@ namespace FiscaliZi.Colinfo.Model
 
         #region Navigation Properties
         public virtual ICollection<Pedido> NavPedidos { get; set; }
+        #endregion
+
+        #region NotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void ForcePropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
         #endregion
 
     }

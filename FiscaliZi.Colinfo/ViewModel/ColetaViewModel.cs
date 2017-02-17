@@ -71,26 +71,6 @@ namespace FiscaliZi.Colinfo.ViewModel
             #endregion
         }
 
-        /*public ColetaViewModel()
-        {
-            if (IsInDesignMode)
-            {
-                Vendedores = new ObservableCollection<Vendedor>()
-                {
-                    new Vendedor
-                    {
-                        VendedorID = 1,
-                        NumVendedor = 308,
-                        DataColeta = DateTime.Now,
-                        DataEnvio = DateTime.Parse("03/05/2000 00:00:00"),
-                        NomeVendedor = "RAFAEL ALVES",
-                        ArquivoVendedor = "TXAA0600000308.TXT"
-                    }
-                };
-            }
-
-        }*/
-
         #region · Properties ·
 
         #region Commands
@@ -148,9 +128,9 @@ namespace FiscaliZi.Colinfo.ViewModel
         private void EditarPedido(Pedido ped)
         {
             dataService.EditarPedido(ped);
-            /*Vendedor = vnd;
-            Vendedor.ForcePropertyChanged("Pedidos");*/
-            RaisePropertyChanged("Vendedores");
+            var vnd = Vendedores.FirstOrDefault(v => v.VendedorID == ped.VendedorID);
+            //var vnd = dataService.GetVendedor(ped.VendedorID);
+            vnd.ForcePropertyChanged("Pedidos");
 
         }
         private async void ConsCad(Vendedor vend)
@@ -223,10 +203,10 @@ namespace FiscaliZi.Colinfo.ViewModel
                 var servicoNFe = new ServicosNFe(Configuracoes.CfgServico);
                 //var cert = CertificadoDigital.ListareObterDoRepositorio();
                 //Configuracoes.CfgServico.Certificado.Serial = cert.SerialNumber;
-                var retornoConsulta = servicoNFe.NfeConsultaCadastro("MG", (ConsultaCadastroTipoDocumento)0, ped.Cliente.IE.Replace(".", "").Replace("/", ""));
+                var retornoConsulta = servicoNFe.NfeConsultaCadastro("MG", (ConsultaCadastroTipoDocumento)1, ped.Cliente.CNPJ.Replace(".", "").Replace("/", "").Replace("-", ""));
                 var recRet = FuncoesXml.XmlStringParaClasse<Model.retConsCad>(retornoConsulta.RetornoCompletoStr);
                 ped.Cliente.RetConsultaCadastro = recRet;
-                EditarPedido(ped);             
+                EditarPedido(ped);
             }
             catch (ComunicacaoException ex)
             {

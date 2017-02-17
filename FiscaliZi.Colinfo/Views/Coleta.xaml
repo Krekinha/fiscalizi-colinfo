@@ -173,7 +173,10 @@
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
                 <DataGridTextColumn Header="VAL. PED" Binding="{Binding ValorTotal}" CanUserResize="False" Width="80" />
-                <DataGridTemplateColumn x:Name="dataGridTemplateColumn" Header="SIT. IE\CNPJ" CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}">
+                <DataGridTemplateColumn 
+                    x:Name="dataGridTemplateColumn" 
+                    Header="SITUAÇÃO IE\CNPJ" 
+                    CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">

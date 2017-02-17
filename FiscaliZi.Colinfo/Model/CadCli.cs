@@ -8,7 +8,7 @@ namespace FiscaliZi.Colinfo.Model
 {
     [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/nfe")]
 
-    public class retConsCad : INotifyPropertyChanged,  ICloneable
+    public class retConsCad : INotifyPropertyChanged, ICloneable
     {
         #region NotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
@@ -68,8 +68,11 @@ namespace FiscaliZi.Colinfo.Model
         public List<infCad> infCad { get; set; }
 
         public int retConsCadID { get; set; }
+
+        #endregion
+
+
     }
-    #endregion
 
     public class infCad : INotifyPropertyChanged
     {

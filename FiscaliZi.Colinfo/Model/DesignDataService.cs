@@ -1390,5 +1390,10 @@ namespace FiscaliZi.Colinfo.Model
         {
             throw new NotImplementedException();
         }
+
+        public Vendedor GetVendedor(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
