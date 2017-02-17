@@ -123,25 +123,30 @@ namespace FiscaliZi.Colinfo.Model
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var cli = (Cliente) value;
-            if (cli.RetConsultaCadastro != null)
-            {
-                return "CONSULTAR";
-            }
-            else
+            var ped = (Pedido) value;
+            var cli = ped?.Cliente;
+
+            if (cli?.RetConsultaCadastro == null)
             {
                 if (cli.IE == "" || cli.IE == "ISENTO")
                 {
-                    if (cli.RetConsultaCadastro != null && cli.RetConsultaCadastro.infCons.infCad.Count > 0)
-                    {
-                        return "ERRO";
-                    }
-                    else
-                    {
-                        return "ISENTO";
-                    }
+                    return cli.RetConsultaCadastro != null && cli.RetConsultaCadastro.infCons.infCad.Count > 0 ? "ERRO" : "ISENTO";
                 }
                 return "CONSULTAR";
+            }
+                
+            if (cli.RetConsultaCadastro.infCons.infCad.Count <= 0) return "CONSULTAR";
+
+            var sit = cli.RetConsultaCadastro.infCons.infCad.Find(s => s.IE == cli.IE.Replace(".", "").Replace("/", ""));
+            if (sit == null) return "CONSULTAR";
+            switch (sit.cSit)
+            {
+                case "1":
+                    return "HABILITADO";
+                case "0":
+                    return "REJEIÇÃO";
+                default:
+                    return "?????";
             }
         }
 

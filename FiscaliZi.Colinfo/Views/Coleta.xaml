@@ -176,12 +176,20 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding Cliente, Converter={StaticResource SitCadastroClienteConverter}}" VerticalAlignment="Center"/>
+                                <materialDesign:PackIcon Kind="CheckCircle" VerticalAlignment="Center" Foreground="MediumSeaGreen" Margin="0,0,5,0"/>
+                                <TextBlock Text="{Binding Converter={StaticResource SitCadastroClienteConverter}}" VerticalAlignment="Center" Width="60"/>
                                 <Button 
                                     Style="{DynamicResource MaterialDesignToolButton}"
                                     Height="25" Width="40"
                                     Command="{Binding ColetaVM.ConsultaCadastroCommand, Source={StaticResource Locator}}"
-                                    CommandParameter="{Binding Cliente}">
+                                    CommandParameter="{Binding}">
+                                    <materialDesign:PackIcon Kind="ClipboardText" HorizontalAlignment="Center" />
+                                </Button>
+                                <Button 
+                                    Style="{DynamicResource MaterialDesignToolButton}"
+                                    Height="25" Width="40"
+                                    Command="{Binding ColetaVM.ConsultaCadastroCommand, Source={StaticResource Locator}}"
+                                    CommandParameter="{Binding}">
                                     <materialDesign:PackIcon Kind="Refresh" HorizontalAlignment="Center" />
                                 </Button>
                             </StackPanel>

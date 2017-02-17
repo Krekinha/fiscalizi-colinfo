@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
 namespace FiscaliZi.Colinfo.Model
@@ -23,7 +24,10 @@ namespace FiscaliZi.Colinfo.Model
 
                 var vends = context.Vendedores
                     .Include(vnd => vnd.Pedidos)
-                    .ThenInclude(cli => cli.Cliente);
+                    .ThenInclude(cli => cli.Cliente)
+                    .ThenInclude(ret => ret.RetConsultaCadastro)
+                    .ThenInclude(inf => inf.infCons)
+                    .ThenInclude(inf2 => inf2.infCad);
 
                 foreach (var item in vends)
                 {
@@ -78,8 +82,11 @@ namespace FiscaliZi.Colinfo.Model
         {
             using (var context = new ColinfoContext())
             {
-                var vend = context.Vendedores.Find(ped.VendedorID);
-                var pedA = vend.Pedidos.Find(ped2 => ped2.PedidoID == ped.PedidoID);
+                var vend = context.Vendedores
+                    .Include(vnd => vnd.Pedidos)
+                    .ThenInclude(cli => cli.Cliente)
+                    .FirstOrDefault(x => x.VendedorID == ped.VendedorID);
+                var pedA = vend.Pedidos.Find(x => x.PedidoID == ped.PedidoID);
                 pedA.Cliente.RetConsultaCadastro = ped.Cliente.RetConsultaCadastro;
                 context.Entry(vend).State = EntityState.Modified;
                 context.SaveChanges();

@@ -224,9 +224,9 @@ namespace FiscaliZi.Colinfo.ViewModel
                 //var cert = CertificadoDigital.ListareObterDoRepositorio();
                 //Configuracoes.CfgServico.Certificado.Serial = cert.SerialNumber;
                 var retornoConsulta = servicoNFe.NfeConsultaCadastro("MG", (ConsultaCadastroTipoDocumento)0, ped.Cliente.IE.Replace(".", "").Replace("/", ""));
-                ped.Cliente.RetConsultaCadastro = retornoConsulta.Retorno.CloneJson();
-                EditarPedido(ped);
-                
+                var recRet = FuncoesXml.XmlStringParaClasse<Model.retConsCad>(retornoConsulta.RetornoCompletoStr);
+                ped.Cliente.RetConsultaCadastro = recRet;
+                EditarPedido(ped);             
             }
             catch (ComunicacaoException ex)
             {

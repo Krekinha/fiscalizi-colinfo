@@ -7,7 +7,6 @@
 
     <Style x:Key="DatagridCustomMDesign" TargetType="{x:Type DataGrid}" BasedOn="{StaticResource MaterialDesignDataGrid}">
         <Setter Property="FontSize" Value="11"/>
-        <Setter Property="Background" Value="Transparent"/>
     </Style>
 
     <Style x:Key="DatagridCellCustomMDesign" TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource MaterialDesignDataGridCell}">
