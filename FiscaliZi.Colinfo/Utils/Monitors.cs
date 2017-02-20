@@ -8,7 +8,7 @@ namespace FiscaliZi.Colinfo.Utils
 {
     public class Monitors
     {
-        static string dir_Pedidos = @"..\Pedidos\";
+        static string dir_Pedidos = @"Pedidos\";
 
         public static void MonitorGZPTPED(string pathPTPED)
         {

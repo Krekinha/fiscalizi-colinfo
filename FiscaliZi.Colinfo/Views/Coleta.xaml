@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:Metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+    xmlns:Metro="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:Model="clr-namespace:FiscaliZi.Colinfo.Model"
     xmlns:views="clr-namespace:FiscaliZi.Colinfo.Views"
     xmlns:vm="clr-namespace:FiscaliZi.Colinfo.ViewModel"
@@ -15,6 +15,7 @@
 
     <UserControl.Resources>
         <Model:TotalValPedsConverter x:Key="TotalValPedsConverter" />
+        <Model:IsCNPJConverter x:Key="IsCnpjConverter"/>
         <Model:TotalPedsConverter x:Key="TotalPedsConverter" />
         <Model:ColetadosConverter x:Key="ColetadosConverter" />
         <Model:SitCadastroClienteConverter x:Key="SitCadastroClienteConverter" />
@@ -145,10 +146,11 @@
                       ColumnHeaderStyle="{StaticResource CustomMaterialDesignDataGridColumnHeader}" 
                   Margin="10,0,0,0">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ROTA" 
-                                        Binding="{Binding Cliente.Rota}" 
-                                        CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}"
-                                        CanUserResize="False" />
+                <DataGridTextColumn 
+                    Header="ROTA" 
+                    Binding="{Binding Cliente.Rota}"                                         
+                    CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}"
+                    CanUserResize="False" />
                 <DataGridTextColumn Header="CLIENTE" 
                                         CanUserResize="False" 
                                         Width="70">
@@ -172,7 +174,10 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="VAL. PED" Binding="{Binding ValorTotal}" CanUserResize="False" Width="80" />
+                <DataGridTextColumn Header="VAL. PED" 
+                                    Binding="{Binding ValorTotal}" 
+                                    CanUserResize="False" 
+                                    Width="80" />
                 <DataGridTemplateColumn 
                     x:Name="dataGridTemplateColumn" 
                     Header="SITUAÇÃO IE\CNPJ" 
@@ -182,25 +187,25 @@
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="{Binding Text, ElementName=txtSituacao, Converter={StaticResource SituacaoCNPJIconConverter}}" 
                                                          VerticalAlignment="Center" 
-                                                         Foreground="{Binding Text, ElementName=txtSituacao, Converter={StaticResource SituacaoCNPJColorConverter}}" Margin="0,0,5,0"/>
+                                                         Foreground="{Binding Text, ElementName=txtSituacao, Converter={StaticResource SituacaoCNPJColorConverter}}" 
+                                                         Margin="0,0,5,0"/>
                                 <TextBlock 
                                     x:Name="txtSituacao" 
-                                    Text="{Binding Converter={StaticResource SitCadastroClienteConverter}}" 
+                                    Text="{Binding Path=Cliente, Converter={StaticResource SitCadastroClienteConverter}, Mode=OneWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
                                     VerticalAlignment="Center" 
                                     Width="63"/>
                                 <Button 
                                     Style="{DynamicResource MaterialDesignToolButton}"
-                                    Height="25" Width="40"
-                                    Command="{Binding ColetaVM.ConsultaCadastroCommand, Source={StaticResource Locator}}"
-                                    CommandParameter="{Binding}">
-                                    <materialDesign:PackIcon Kind="ClipboardText" HorizontalAlignment="Center" />
+                                    Height="25" Width="40">
+                                    <materialDesign:PackIcon x:Name="icoDetalhe" Kind="ClipboardText" HorizontalAlignment="Center" />
                                 </Button>
                                 <Button 
                                     Style="{DynamicResource MaterialDesignToolButton}"
+                                    IsEnabled="{Binding Cliente.CNPJ, Converter={StaticResource IsCnpjConverter}}"
                                     Height="25" Width="40"
                                     Command="{Binding ColetaVM.ConsultaCadastroCommand, Source={StaticResource Locator}}"
                                     CommandParameter="{Binding}">
-                                    <materialDesign:PackIcon Kind="Refresh" HorizontalAlignment="Center" />
+                                    <materialDesign:PackIcon x:Name="icoRefresh" Kind="Refresh" HorizontalAlignment="Center" />
                                 </Button>
                             </StackPanel>
                         </DataTemplate>
@@ -209,7 +214,18 @@
                 <DataGridTemplateColumn >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="DETALHE" Height="19" FontSize="10" Margin="0,3,5,3" Metro:ControlsHelper.ContentCharacterCasing="Upper" Width="66" Grid.IsSharedSizeScope="True" Padding="0,0,0,1" FontWeight="Normal" />
+                            <Button 
+                                Content="ITENS" 
+                                Command="{Binding ColetaVM.ShowPedidoFlyoutCommand, Source={StaticResource Locator}}"
+                                CommandParameter="{Binding}"
+                                Height="19" 
+                                FontSize="10" 
+                                Margin="0,3,5,3"
+                                Metro:ControlsHelper.ContentCharacterCasing="Upper" 
+                                Width="66" 
+                                Grid.IsSharedSizeScope="True" 
+                                Padding="0,0,0,1" 
+                                FontWeight="Normal" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

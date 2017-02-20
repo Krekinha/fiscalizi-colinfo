@@ -124,8 +124,11 @@ namespace FiscaliZi.Colinfo.Model
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var ped = (Pedido) value;
-            var cli = ped?.Cliente;
+            var cli = (Cliente) value;
+            var digts = Tools.SoString(cli.CNPJ);
+            var idx = digts.Length - 6;
+            if (digts.Substring(idx, 4) == "0000")
+                return "ISENTO";
 
             if (cli?.RetConsultaCadastro == null)
             {
@@ -202,7 +205,7 @@ namespace FiscaliZi.Colinfo.Model
                 case "ERRO":
                     return PackIconKind.Alert;
                 default:
-                    return null;
+                    return PackIconKind.Read;
             }
         }
 
@@ -349,6 +352,35 @@ namespace FiscaliZi.Colinfo.Model
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotSupportedException();
+        }
+    }
+
+    public class IsCNPJConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return Tools.IsCNPJ((string)value);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotSupportedException();
+        }
+    }
+
+    public static class Tools
+    {
+        public static string SoString(string str)
+        {
+            return str.Replace(".", "").Replace("/", "").Replace("-", "");
+        }
+
+        public static bool IsCNPJ(string cnpj)
+        {
+            var digts = cnpj.Replace(".", "").Replace("/", "").Replace("-", "");
+            var idx = digts.Length - 6;
+
+            return digts.Substring(idx, 4) != "0000";
         }
     }
 }

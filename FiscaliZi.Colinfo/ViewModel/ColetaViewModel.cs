@@ -26,6 +26,7 @@ using NFe.Utils;
 using NFe.Utils.Excecoes;
 using TipoAmbiente = NFe.Classes.Informacoes.Identificacao.Tipos.TipoAmbiente;
 using System.Linq;
+using System.Runtime.InteropServices;
 using DFe.Utils;
 using NFe = NFe.Classes.NFe;
 
@@ -35,7 +36,7 @@ namespace FiscaliZi.Colinfo.ViewModel
     public class ColetaViewModel : ViewModelBase
     {
         private readonly IDataService dataService;
-        const string dir_Pedidos = @"..\Pedidos\";
+        const string dir_Pedidos = @"Pedidos\";
 
         public ColetaViewModel(IDataService _dataService)
         {
@@ -67,6 +68,7 @@ namespace FiscaliZi.Colinfo.ViewModel
 
             RemoverVendedorCommand = new RelayCommand<Vendedor>(RemoverVendedor);
             ConsultaCadastroCommand = new RelayCommand<Pedido>(ConsultaCadastro);
+            ShowPedidoFlyoutCommand = new RelayCommand<Pedido>(ShowPedidoFlyout);
 
             #endregion
         }
@@ -77,6 +79,7 @@ namespace FiscaliZi.Colinfo.ViewModel
 
         public RelayCommand<Vendedor> RemoverVendedorCommand { get; set; }
         public RelayCommand<Pedido> ConsultaCadastroCommand { get; set; }
+        public RelayCommand<Pedido> ShowPedidoFlyoutCommand { get; set; }
 
         #endregion
         public ObservableCollection<Vendedor> Vendedores { get; set; }
@@ -97,8 +100,12 @@ namespace FiscaliZi.Colinfo.ViewModel
 
         private void InitializeMonitor()
         {
+            var path = @"F:\SOF\VDWIN\PTPED";
+            if (Environment.MachineName == "ATAIDE-PC")
+                path = @"D:\SOF\VDWIN\PTPED";
+
             MonitorTXTPED();
-            Monitors.MonitorGZPTPED(@"F:\SOF\VDWIN\PTPED");
+            Monitors.MonitorGZPTPED(path);
             Monitors.MonitorGZPED();
             
         }
@@ -128,21 +135,9 @@ namespace FiscaliZi.Colinfo.ViewModel
         private void EditarPedido(Pedido ped)
         {
             dataService.EditarPedido(ped);
-            var vnd = Vendedores.FirstOrDefault(v => v.VendedorID == ped.VendedorID);
-            //var vnd = dataService.GetVendedor(ped.VendedorID);
-            vnd.ForcePropertyChanged("Pedidos");
+            ped.ForcePropertyChanged("Cliente");
+            RaisePropertyChanged("Vendedores");
 
-        }
-        private async void ConsCad(Vendedor vend)
-        {
-            var erro = false;
-            foreach (var ped in vend.Pedidos)
-            {
-                if (ped.Cliente.Situacao != "CONSULTAR") continue;
-                ped.Cliente.RetConsultaCadastro = await Task.Run(() => RetCad(DesmascararCNPJ(ped.Cliente.CNPJ), "MG", out erro));
-                ped.Cliente.Situacao = SituacaoCliente(ped.Cliente, erro);
-                EditarVendedor(vend);
-            }
         }
 
         private void MonitorTXTPED()
@@ -175,8 +170,13 @@ namespace FiscaliZi.Colinfo.ViewModel
                 {
                     var vnd = Coletor.getColeta(e.FullPath, e.Name);
                     dataService.AddVendedor(vnd);
-                    Vendedores = dataService.GetVendedores();
-                    ConsCad(vnd);
+                    File.Delete(e.FullPath);
+                    Application.Current.Dispatcher.Invoke(delegate
+                        {
+                            Vendedores.Add(vnd);
+                        });
+                    
+                    ConsultaCadastros(vnd);
                     //AtualizaVendedores();
                     break;
                 }
@@ -190,37 +190,45 @@ namespace FiscaliZi.Colinfo.ViewModel
             }
         }
 
-        private Model.retConsCad RetCad(string CNPJ, string UF, out bool erro)
-        {
-
-            throw new NotImplementedException();
-        }
-
         private void ConsultaCadastro(Pedido ped)
         {
-            try
+            Task.Run(() =>
             {
-                var servicoNFe = new ServicosNFe(Configuracoes.CfgServico);
-                //var cert = CertificadoDigital.ListareObterDoRepositorio();
-                //Configuracoes.CfgServico.Certificado.Serial = cert.SerialNumber;
-                var retornoConsulta = servicoNFe.NfeConsultaCadastro("MG", (ConsultaCadastroTipoDocumento)1, ped.Cliente.CNPJ.Replace(".", "").Replace("/", "").Replace("-", ""));
-                var recRet = FuncoesXml.XmlStringParaClasse<Model.retConsCad>(retornoConsulta.RetornoCompletoStr);
-                ped.Cliente.RetConsultaCadastro = recRet;
-                EditarPedido(ped);
-            }
-            catch (ComunicacaoException ex)
+                try
+                {
+                    var servicoNFe = new ServicosNFe(Configuracoes.CfgServico);
+                    //var cert = CertificadoDigital.ListareObterDoRepositorio();
+                    //Configuracoes.CfgServico.Certificado.Serial = cert.SerialNumber;
+                    var retornoConsulta = servicoNFe.NfeConsultaCadastro("MG", (ConsultaCadastroTipoDocumento)1, ped.Cliente.CNPJ.Replace(".", "").Replace("/", "").Replace("-", ""));
+                    var recRet = FuncoesXml.XmlStringParaClasse<Model.retConsCad>(retornoConsulta.RetornoCompletoStr);
+                    ped.Cliente.RetConsultaCadastro = recRet;
+                    EditarPedido(ped);
+                    ped.ForcePropertyChanged("Cliente");
+                }
+                catch (ComunicacaoException ex)
+                {
+                    Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+                }
+                catch (ValidacaoSchemaException ex)
+                {
+                    Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+                }
+                catch (Exception ex)
+                {
+                    if (!string.IsNullOrEmpty(ex.Message))
+                        Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+                }
+            });
+
+        }
+        private void ConsultaCadastros(Vendedor vnd)
+        {
+            foreach (var ped in vnd.Pedidos)
             {
-                 Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+                if (IsCNPJ(ped.Cliente.CNPJ))
+                    ConsultaCadastro(ped);
             }
-            catch (ValidacaoSchemaException ex)
-            {
-                 Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
-            }
-            catch (Exception ex)
-            {
-                if (!string.IsNullOrEmpty(ex.Message))
-                  Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
-            }
+
         }
         private ConfiguracaoApp CarregarConfiguracoes()
         {
@@ -234,7 +242,7 @@ namespace FiscaliZi.Colinfo.ViewModel
             config.CfgServico.ModeloDocumento = (ModeloDocumento) 55;
             config.CfgServico.VersaoNfeConsultaCadastro = VersaoServico.ve200;
             config.CfgServico.SalvarXmlServicos = false;
-            config.CfgServico.DiretorioSchemas = @"..\..\Schemas";
+            config.CfgServico.DiretorioSchemas = @"Schemas";
 
             config.CfgServico.ProtocoloDeSeguranca = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls;
 
@@ -290,6 +298,20 @@ namespace FiscaliZi.Colinfo.ViewModel
                 }
             }
             return "?????";
+        }
+
+        private static bool IsCNPJ(string cnpj)
+        {
+            var digts = cnpj.Replace(".", "").Replace("/", "").Replace("-", "");
+            var idx = digts.Length - 6;
+
+            return digts.Substring(idx, 4) != "0000";
+        }
+
+        private void ShowPedidoFlyout( Pedido ped)
+        {
+            ((MainWindow)Application.Current.MainWindow).LeftFlyout.IsOpen = !((MainWindow)Application.Current.MainWindow).LeftFlyout.IsOpen;
+            ((MainWindow) Application.Current.MainWindow).LeftFlyout.DataContext = ped;
         }
 
         #endregion

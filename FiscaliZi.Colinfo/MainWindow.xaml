@@ -1,15 +1,18 @@
-﻿<Metro:MetroWindow x:Class="FiscaliZi.Colinfo.MainWindow"        
-                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"                
-                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"                   
-                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"       
+﻿<Metro:MetroWindow 
+    x:Class="FiscaliZi.Colinfo.MainWindow"                         
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"                   
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"       
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"        
                    xmlns:Metro="http://metro.mahapps.com/winfx/xaml/controls" 
                    xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
                    xmlns:dockablz="clr-namespace:Dragablz.Dockablz;assembly=Dragablz"
+    xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
                    xmlns:local="clr-namespace:FiscaliZi.Colinfo" 
                    xmlns:views="clr-namespace:FiscaliZi.Colinfo.Views"
+                   xmlns:materialDesignMahApps="http://materialdesigninxaml.net/winfx/xaml/themes"
                    mc:Ignorable="d"       
-                   Title="MainWindow" Width="1250"
+                   Title="MainWindow" Width="1300"
                    GlowBrush="{DynamicResource AccentColorBrush}"
                    DataContext="{Binding Source={StaticResource Locator}, Path=Main}" 
                    BorderBrush="{DynamicResource WindowTitleColorBrush}" 
@@ -17,6 +20,18 @@
 
     <Window.Resources>
     </Window.Resources>
+    <Metro:MetroWindow.Flyouts>
+        <Metro:FlyoutsControl>
+            <Metro:Flyout 
+                x:Name="LeftFlyout" 
+                Position="Left" 
+                Header="Items" 
+                materialDesignMahApps:FlyoutAssist.HeaderColorMode="Accent" 
+                Background="{DynamicResource AccentColorBrush}">
+                <views:FlyPedido />
+            </Metro:Flyout>
+        </Metro:FlyoutsControl>
+    </Metro:MetroWindow.Flyouts>
 
     <dockablz:Layout>
         <dragablz:TabablzControl BorderThickness="0"
@@ -33,7 +48,5 @@
             </TabItem>
         </dragablz:TabablzControl>
     </dockablz:Layout>
-
-
 
 </Metro:MetroWindow>

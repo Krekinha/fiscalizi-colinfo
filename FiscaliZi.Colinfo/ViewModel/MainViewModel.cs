@@ -1,19 +1,8 @@
 using GalaSoft.MvvmLight;
+using Microsoft.EntityFrameworkCore;
 
 namespace FiscaliZi.Colinfo.ViewModel
 {
-    /// <summary>
-    /// This class contains properties that the main View can data bind to.
-    /// <para>
-    /// Use the <strong>mvvminpc</strong> snippet to add bindable properties to this ViewModel.
-    /// </para>
-    /// <para>
-    /// You can also use Blend to data bind with the tool's support.
-    /// </para>
-    /// <para>
-    /// See http://www.galasoft.ch/mvvm
-    /// </para>
-    /// </summary>
     public class MainViewModel : ViewModelBase
     {
         /// <summary>
@@ -21,6 +10,7 @@ namespace FiscaliZi.Colinfo.ViewModel
         /// </summary>
         public MainViewModel()
         {
+            //MigrationUpdate();
             ////if (IsInDesignMode)
             ////{
             ////    // Code runs in Blend --> create design time data.
@@ -29,6 +19,19 @@ namespace FiscaliZi.Colinfo.ViewModel
             ////{
             ////    // Code runs "for real"
             ////}
+        }
+
+        private void MigrationUpdate()
+        {
+            using (var context = new ColinfoContext())
+            {
+                if (context.Database.EnsureCreated())
+                {
+                    context.Database.Migrate();
+                }
+                //context.Database.Migrate();
+
+            }
         }
     }
 }
