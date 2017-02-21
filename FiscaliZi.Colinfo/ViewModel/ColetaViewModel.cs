@@ -209,16 +209,24 @@ namespace FiscaliZi.Colinfo.ViewModel
                 }
                 catch (ComunicacaoException ex)
                 {
-                    Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+                    ped.Cliente.RetConsultaCadastro = new Model.retConsCad() {ErrorCode = "err_dives", ErrorMessage = ex.Message};
+                    EditarPedido(ped);
+                    ped.ForcePropertyChanged("Cliente");
                 }
                 catch (ValidacaoSchemaException ex)
                 {
-                    Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+                    ped.Cliente.RetConsultaCadastro = new Model.retConsCad() { ErrorCode = "err_dives", ErrorMessage = ex.Message };
+                    EditarPedido(ped);
+                    ped.ForcePropertyChanged("Cliente");
                 }
                 catch (Exception ex)
                 {
                     if (!string.IsNullOrEmpty(ex.Message))
-                        Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+                    {
+                        ped.Cliente.RetConsultaCadastro = new Model.retConsCad() { ErrorCode = "err_dives", ErrorMessage = ex.Message };
+                        EditarPedido(ped);
+                        ped.ForcePropertyChanged("Cliente");
+                    }
                 }
             });
 

@@ -141,6 +141,8 @@ namespace FiscaliZi.Colinfo.Model
                 
             if (cli.RetConsultaCadastro.infCons.infCad.Count <= 0) return "CONSULTAR";
 
+            if (cli.RetConsultaCadastro.ErrorCode == "err_divers") return "ERRO";
+
             var sit = cli.RetConsultaCadastro.infCons.infCad.Find(s => s.IE == cli.IE.Replace(".", "").Replace("/", ""));
             if (sit == null) return "CONSULTAR";
             switch (sit.cSit)
