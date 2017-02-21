@@ -27,6 +27,7 @@
         <Model:SituacaoCNPJColorConverter x:Key="SituacaoCNPJColorConverter" />
         <Model:SituacaoCNPJIconConverter x:Key="SituacaoCNPJIconConverter" />
         <Model:CurrentAccentColorConverter x:Key="CurrentAccentColorConverter" />
+        <Model:SituacaoCNPJIconVendConverter x:Key="SituacaoCnpjIconVendConverter"></Model:SituacaoCNPJIconVendConverter>
     </UserControl.Resources>
 
     <Grid >
@@ -118,7 +119,7 @@
                                                 CommandParameter="{Binding SelectedItem, ElementName=lstVendedores}">
                                             <materialDesign:PackIcon Kind="Close" />
                                         </Button>
-                                        <materialDesign:PackIcon Kind="AccountOff" HorizontalAlignment="Right" />
+                                        <materialDesign:PackIcon Kind="{Binding Converter={StaticResource SituacaoCnpjIconVendConverter}}" HorizontalAlignment="Right" />
                                     </StackPanel>
                                 </Grid>
                             </Grid>

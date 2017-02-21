@@ -201,7 +201,7 @@ namespace FiscaliZi.Colinfo.Model
                 case "ISENTO":
                     return PackIconKind.CheckCircle;
                 case "REJEIÇÃO":
-                    return PackIconKind.Alert;
+                    return PackIconKind.AccountOff;
                 case "ERRO":
                     return PackIconKind.Alert;
                 default:
@@ -366,6 +366,36 @@ namespace FiscaliZi.Colinfo.Model
         {
             throw new NotSupportedException();
         }
+    }
+
+    public class SituacaoCNPJIconVendConverter : IValueConverter
+    {
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var vnd = (Vendedor)value;
+            foreach (var ped in vnd.Pedidos)
+            {
+                if (ped.Cliente != null && ped.Cliente.RetConsultaCadastro != null)
+                {
+                    var sit =
+                        ped.Cliente.RetConsultaCadastro.infCons.infCad.Find(
+                            p => p.IE == ped.Cliente.IE.Replace(".", "").Replace("/", ""));
+
+                    if (sit != null && sit.cSit == "0")
+                        return PackIconKind.AccountOff;
+
+
+                }
+            }
+            return PackIconKind.CheckCircle;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value;
+        }
+
     }
 
     public static class Tools

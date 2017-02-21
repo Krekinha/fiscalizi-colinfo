@@ -169,15 +169,17 @@ namespace FiscaliZi.Colinfo.ViewModel
                 try
                 {
                     var vnd = Coletor.getColeta(e.FullPath, e.Name);
-                    dataService.AddVendedor(vnd);
                     File.Delete(e.FullPath);
-                    Application.Current.Dispatcher.Invoke(delegate
+
+                    if (vnd != null)
+                    {
+                        dataService.AddVendedor(vnd);
+                        Application.Current.Dispatcher.Invoke(delegate
                         {
                             Vendedores.Add(vnd);
                         });
-                    
-                    ConsultaCadastros(vnd);
-                    //AtualizaVendedores();
+                        ConsultaCadastros(vnd);
+                    }
                     break;
                 }
                 catch (IOException)
