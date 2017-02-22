@@ -83,13 +83,29 @@ namespace FiscaliZi.Colinfo.Model
         {
             using (var context = new ColinfoContext())
             {
-                var vend = context.Vendedores
+                /*var vend = context.Vendedores
                     .Include(vnd => vnd.Pedidos)
                     .ThenInclude(cli => cli.Cliente)
+                    .ThenInclude(cons => cons.RetConsultaCadastro)
+                    .ThenInclude(inf => inf.infCons)
+                    .ThenInclude(cad => cad.infCad)
                     .FirstOrDefault(x => x.VendedorID == ped.VendedorID);
                 var pedA = vend.Pedidos.Find(x => x.PedidoID == ped.PedidoID);
-                pedA.Cliente.RetConsultaCadastro = ped.Cliente.RetConsultaCadastro;
-                context.Entry(vend).State = EntityState.Modified;
+                pedA.Cliente.RetConsultaCadastro = new retConsCad()
+                {
+
+                    ErrorCode = consulta.ErrorCode,
+                    ErrorMessage = consulta.ErrorMessage,
+                    ErrorDetail = consulta.ErrorDetail,
+                    versao = consulta.versao,
+                    infCons = consulta.infCons
+                    
+                    
+                };
+                context.Entry(pedA).State = EntityState.Modified;
+                context.Entry(pedA.Cliente).State = EntityState.Modified;
+                context.Entry(vend).State = EntityState.Modified;*/
+                context.Entry(ped).State = EntityState.Modified;
                 context.SaveChanges();
             }
         }

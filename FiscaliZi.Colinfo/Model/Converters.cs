@@ -138,22 +138,29 @@ namespace FiscaliZi.Colinfo.Model
                 }
                 return "CONSULTAR";
             }
-                
-            if (cli.RetConsultaCadastro.infCons.infCad.Count <= 0) return "CONSULTAR";
 
-            if (cli.RetConsultaCadastro.ErrorCode == "err_divers") return "ERRO";
+            if (cli.RetConsultaCadastro.ErrorCode == "err_dives") return "ERRO";
 
-            var sit = cli.RetConsultaCadastro.infCons.infCad.Find(s => s.IE == cli.IE.Replace(".", "").Replace("/", ""));
-            if (sit == null) return "CONSULTAR";
-            switch (sit.cSit)
+            if (cli?.RetConsultaCadastro?.infCons?.infCad?.Count <= 0) return "CONSULTAR";
+
+            
+
+            if (cli.RetConsultaCadastro.infCons != null)
             {
-                case "1":
-                    return "HABILITADO";
-                case "0":
-                    return "REJEIÇÃO";
-                default:
-                    return "?????";
+                var sit = cli.RetConsultaCadastro.infCons.infCad.Find(s => s.IE == cli.IE.Replace(".", "").Replace("/", ""));
+                if (sit == null) return "CONSULTAR";
+                switch (sit.cSit)
+                {
+                    case "1":
+                        return "HABILITADO";
+                    case "0":
+                        return "REJEIÇÃO";
+                    default:
+                        return "?????";
+                }
             }
+
+            return "CONSULTAR";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -378,16 +385,19 @@ namespace FiscaliZi.Colinfo.Model
             var vnd = (Vendedor)value;
             foreach (var ped in vnd.Pedidos)
             {
-                if (ped.Cliente != null && ped.Cliente.RetConsultaCadastro != null)
+                var sit =
+                    ped.Cliente?.RetConsultaCadastro?.infCons?.infCad.Find(
+                        p => p.IE == ped.Cliente.IE.Replace(".", "").Replace("/", ""));
+
+                if (sit != null && sit.cSit == "0")
+                    return PackIconKind.AccountOff;
+            }
+
+            foreach (var ped in vnd.Pedidos)
+            {
+                if (ped.Cliente.RetConsultaCadastro != null && ped.Cliente.RetConsultaCadastro.ErrorCode == "err_dives")
                 {
-                    var sit =
-                        ped.Cliente.RetConsultaCadastro.infCons.infCad.Find(
-                            p => p.IE == ped.Cliente.IE.Replace(".", "").Replace("/", ""));
-
-                    if (sit != null && sit.cSit == "0")
-                        return PackIconKind.AccountOff;
-
-
+                        return PackIconKind.CloseCircle;
                 }
             }
             return PackIconKind.CheckCircle;

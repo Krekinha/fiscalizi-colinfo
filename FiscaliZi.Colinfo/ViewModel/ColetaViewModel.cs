@@ -28,6 +28,7 @@ using TipoAmbiente = NFe.Classes.Informacoes.Identificacao.Tipos.TipoAmbiente;
 using System.Linq;
 using System.Runtime.InteropServices;
 using DFe.Utils;
+using Microsoft.EntityFrameworkCore;
 using NFe = NFe.Classes.NFe;
 
 namespace FiscaliZi.Colinfo.ViewModel
@@ -134,7 +135,7 @@ namespace FiscaliZi.Colinfo.ViewModel
         }
         private void EditarPedido(Pedido ped)
         {
-            dataService.EditarPedido(ped);
+            //dataService.EditarPedido(ped);
             ped.ForcePropertyChanged("Cliente");
             RaisePropertyChanged("Vendedores");
 
@@ -204,27 +205,49 @@ namespace FiscaliZi.Colinfo.ViewModel
                     var retornoConsulta = servicoNFe.NfeConsultaCadastro("MG", (ConsultaCadastroTipoDocumento)1, ped.Cliente.CNPJ.Replace(".", "").Replace("/", "").Replace("-", ""));
                     var recRet = FuncoesXml.XmlStringParaClasse<Model.retConsCad>(retornoConsulta.RetornoCompletoStr);
                     ped.Cliente.RetConsultaCadastro = recRet;
-                    EditarPedido(ped);
+                    dataService.EditarPedido(ped);
                     ped.ForcePropertyChanged("Cliente");
                 }
                 catch (ComunicacaoException ex)
                 {
-                    ped.Cliente.RetConsultaCadastro = new Model.retConsCad() {ErrorCode = "err_dives", ErrorMessage = ex.Message};
-                    EditarPedido(ped);
+                    ped.Cliente.RetConsultaCadastro = new Model.retConsCad()
+                    {
+                        ErrorCode = "err_dives",
+                        ErrorMessage = ex.Message
+                    };
+                    dataService.EditarPedido(ped);
                     ped.ForcePropertyChanged("Cliente");
                 }
                 catch (ValidacaoSchemaException ex)
                 {
-                    ped.Cliente.RetConsultaCadastro = new Model.retConsCad() { ErrorCode = "err_dives", ErrorMessage = ex.Message };
-                    EditarPedido(ped);
+                    ped.Cliente.RetConsultaCadastro = new Model.retConsCad()
+                    {
+                        ErrorCode = "err_dives",
+                        ErrorMessage = ex.Message
+                    };
+                    dataService.EditarPedido(ped);
+                    ped.ForcePropertyChanged("Cliente");
+                }
+                catch (DbUpdateException ex)
+                {
+                    ped.Cliente.RetConsultaCadastro = new Model.retConsCad()
+                    {
+                        ErrorCode = "err_dives",
+                        ErrorMessage = ex.Message
+                    };
+                    dataService.EditarPedido(ped);
                     ped.ForcePropertyChanged("Cliente");
                 }
                 catch (Exception ex)
                 {
                     if (!string.IsNullOrEmpty(ex.Message))
                     {
-                        ped.Cliente.RetConsultaCadastro = new Model.retConsCad() { ErrorCode = "err_dives", ErrorMessage = ex.Message };
-                        EditarPedido(ped);
+                        ped.Cliente.RetConsultaCadastro = new Model.retConsCad()
+                        {
+                            ErrorCode = "err_dives",
+                            ErrorMessage = ex.Message
+                        };
+                        dataService.EditarPedido(ped);
                         ped.ForcePropertyChanged("Cliente");
                     }
                 }

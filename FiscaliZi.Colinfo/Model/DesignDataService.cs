@@ -1395,5 +1395,10 @@ namespace FiscaliZi.Colinfo.Model
         {
             throw new NotImplementedException();
         }
+
+        public void EditarPedido(Pedido ped, retConsCad consulta)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
