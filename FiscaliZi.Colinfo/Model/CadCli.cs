@@ -1,21 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Serialization;
+using PostSharp.Patterns.Model;
 
 namespace FiscaliZi.Colinfo.Model
 {
     [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/nfe")]
-
-    public class retConsCad : INotifyPropertyChanged, ICloneable
+    [NotifyPropertyChanged]
+    public class retConsCad : ICloneable
     {
-        #region NotifyPropertyChanged
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void ForcePropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        #region Clone
 
         public object Clone()
         {
@@ -37,16 +32,9 @@ namespace FiscaliZi.Colinfo.Model
         #endregion
     }
 
-    public class infCons : INotifyPropertyChanged
+    [NotifyPropertyChanged]
+    public class infCons
     {
-        #region NotifyPropertyChanged
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void ForcePropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        #endregion
-
         #region Properties
         [Key]
         public int InfConsID { get; set; }
@@ -70,20 +58,11 @@ namespace FiscaliZi.Colinfo.Model
         public int retConsCadID { get; set; }
 
         #endregion
-
-
     }
 
-    public class infCad : INotifyPropertyChanged
+    [NotifyPropertyChanged]
+    public class infCad
     {
-        #region NotifyPropertyChanged
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void ForcePropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        #endregion
-
         #region Properties
         [Key]
         public int infCadID { get; set; }
@@ -120,16 +99,9 @@ namespace FiscaliZi.Colinfo.Model
         #endregion
     }
 
-    public class ender : INotifyPropertyChanged
+    [NotifyPropertyChanged]
+    public class ender
     {
-        #region NotifyPropertyChanged
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void ForcePropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        #endregion
-
         #region Properties
         [Key]
         public int enderID { get; set; }

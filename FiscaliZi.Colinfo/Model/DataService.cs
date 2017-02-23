@@ -11,7 +11,7 @@ namespace FiscaliZi.Colinfo.Model
         void AddVendedor(Vendedor vnd);
         void RemoverVendedor(Vendedor vnd);
         void EditarVendedor(Vendedor vnd);
-        void EditarPedido(Pedido ped);
+        void EditarPedido(Pedido ped, retConsCad consulta);
         Vendedor GetVendedor(int id);
     }
 
@@ -79,11 +79,11 @@ namespace FiscaliZi.Colinfo.Model
             }
         }
 
-        public void EditarPedido(Pedido ped)
+        public void EditarPedido(Pedido ped, retConsCad consulta)
         {
             using (var context = new ColinfoContext())
             {
-                /*var vend = context.Vendedores
+                var vend = context.Vendedores
                     .Include(vnd => vnd.Pedidos)
                     .ThenInclude(cli => cli.Cliente)
                     .ThenInclude(cons => cons.RetConsultaCadastro)
@@ -98,14 +98,12 @@ namespace FiscaliZi.Colinfo.Model
                     ErrorMessage = consulta.ErrorMessage,
                     ErrorDetail = consulta.ErrorDetail,
                     versao = consulta.versao,
-                    infCons = consulta.infCons
-                    
+                    infCons = consulta.infCons 
                     
                 };
                 context.Entry(pedA).State = EntityState.Modified;
                 context.Entry(pedA.Cliente).State = EntityState.Modified;
-                context.Entry(vend).State = EntityState.Modified;*/
-                context.Entry(ped).State = EntityState.Modified;
+                context.Entry(vend).State = EntityState.Modified;
                 context.SaveChanges();
             }
         }

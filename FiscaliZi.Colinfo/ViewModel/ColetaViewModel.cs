@@ -1,7 +1,6 @@
 ﻿using System;
 using FiscaliZi.Colinfo.Model;
 using GalaSoft.MvvmLight;
-using PropertyChanged;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
@@ -11,30 +10,23 @@ using System.Threading.Tasks;
 using System.Windows;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
-using DFe.Utils.Assinatura;
 using FiscaliZi.Colinfo.Utils;
 using GalaSoft.MvvmLight.CommandWpf;
-using Microsoft.Practices.ServiceLocation;
-using NFe.Classes;
 using NFe.Classes.Informacoes.Emitente;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Classes.Servicos.ConsultaCadastro;
 using NFe.Classes.Servicos.Tipos;
 using NFe.Servicos;
-using NFe.Servicos.Retorno;
-using NFe.Utils;
 using NFe.Utils.Excecoes;
 using TipoAmbiente = NFe.Classes.Informacoes.Identificacao.Tipos.TipoAmbiente;
-using System.Linq;
-using System.Runtime.InteropServices;
 using DFe.Utils;
 using Microsoft.EntityFrameworkCore;
-using NFe = NFe.Classes.NFe;
+using PostSharp.Patterns.Model;
 
 namespace FiscaliZi.Colinfo.ViewModel
 {
-    [ImplementPropertyChanged]
-    public class ColetaViewModel : ViewModelBase
+    [NotifyPropertyChanged]
+    public class ColetaViewModel
     {
         private readonly IDataService dataService;
         const string dir_Pedidos = @"Pedidos\";
@@ -42,26 +34,8 @@ namespace FiscaliZi.Colinfo.ViewModel
         public ColetaViewModel(IDataService _dataService)
         {
             dataService = _dataService;
-            if (IsInDesignMode)
-            {
-                Vendedores = new ObservableCollection<Vendedor>()
-                {
-                    new Vendedor
-                    {
-                        VendedorID = 1,
-                        NumVendedor = 308,
-                        DataColeta = DateTime.Now,
-                        DataEnvio = DateTime.Parse("03/05/2000 00:00:00"),
-                        NomeVendedor = "RAFAEL ALVES",
-                        ArquivoVendedor = "TXAA0600000308.TXT"
-                    }
-                };
-            }
-            else
-            {
-                Vendedores = dataService.GetVendedores();
-            }
 
+            Vendedores = dataService.GetVendedores();
             Configuracoes = CarregarConfiguracoes();
             InitializeMonitor();
 
@@ -85,16 +59,7 @@ namespace FiscaliZi.Colinfo.ViewModel
         #endregion
         public ObservableCollection<Vendedor> Vendedores { get; set; }
 
-        private ConfiguracaoApp _configuracoes;
-
-        public ConfiguracaoApp Configuracoes
-        {
-            get { return _configuracoes; }
-            set
-            {
-                Set(() => Configuracoes, ref _configuracoes, value);
-            }
-        }
+        public ConfiguracaoApp Configuracoes { get; set; }
         #endregion
 
         #region · Constructors ·
@@ -130,14 +95,14 @@ namespace FiscaliZi.Colinfo.ViewModel
             dataService.EditarVendedor(vnd);
             /*Vendedor = vnd;
             Vendedor.ForcePropertyChanged("Pedidos");*/
-            RaisePropertyChanged("Vendedores");
+            //RaisePropertyChanged("Vendedores");
 
         }
         private void EditarPedido(Pedido ped)
         {
             //dataService.EditarPedido(ped);
-            ped.ForcePropertyChanged("Cliente");
-            RaisePropertyChanged("Vendedores");
+            //ped.ForcePropertyChanged("Cliente");
+            //RaisePropertyChanged("Vendedores");
 
         }
 
@@ -195,6 +160,7 @@ namespace FiscaliZi.Colinfo.ViewModel
 
         private void ConsultaCadastro(Pedido ped)
         {
+            var recRet = new Model.retConsCad();
             Task.Run(() =>
             {
                 try
@@ -203,10 +169,15 @@ namespace FiscaliZi.Colinfo.ViewModel
                     //var cert = CertificadoDigital.ListareObterDoRepositorio();
                     //Configuracoes.CfgServico.Certificado.Serial = cert.SerialNumber;
                     var retornoConsulta = servicoNFe.NfeConsultaCadastro("MG", (ConsultaCadastroTipoDocumento)1, ped.Cliente.CNPJ.Replace(".", "").Replace("/", "").Replace("-", ""));
-                    var recRet = FuncoesXml.XmlStringParaClasse<Model.retConsCad>(retornoConsulta.RetornoCompletoStr);
+                    recRet = FuncoesXml.XmlStringParaClasse<Model.retConsCad>(retornoConsulta.RetornoCompletoStr);
                     ped.Cliente.RetConsultaCadastro = recRet;
-                    dataService.EditarPedido(ped);
-                    ped.ForcePropertyChanged("Cliente");
+                    dataService.EditarPedido(ped, recRet);
+                    NotifyPropertyChangedServices.RaiseEventsImmediate(ped);
+                    NotifyPropertyChangedServices.RaiseEventsImmediate("Pedido");
+                    NotifyPropertyChangedServices.RaiseEventsImmediate("Cliente");
+                    NotifyPropertyChangedServices.RaiseEventsImmediate("Vendedor");
+
+                    //ped.ForcePropertyChanged("Cliente");
                 }
                 catch (ComunicacaoException ex)
                 {
@@ -215,8 +186,8 @@ namespace FiscaliZi.Colinfo.ViewModel
                         ErrorCode = "err_dives",
                         ErrorMessage = ex.Message
                     };
-                    dataService.EditarPedido(ped);
-                    ped.ForcePropertyChanged("Cliente");
+                    dataService.EditarPedido(ped, recRet);
+                    //ped.ForcePropertyChanged("Cliente");
                 }
                 catch (ValidacaoSchemaException ex)
                 {
@@ -225,8 +196,8 @@ namespace FiscaliZi.Colinfo.ViewModel
                         ErrorCode = "err_dives",
                         ErrorMessage = ex.Message
                     };
-                    dataService.EditarPedido(ped);
-                    ped.ForcePropertyChanged("Cliente");
+                    dataService.EditarPedido(ped, recRet);
+                    //ped.ForcePropertyChanged("Cliente");
                 }
                 catch (DbUpdateException ex)
                 {
@@ -235,8 +206,8 @@ namespace FiscaliZi.Colinfo.ViewModel
                         ErrorCode = "err_dives",
                         ErrorMessage = ex.Message
                     };
-                    dataService.EditarPedido(ped);
-                    ped.ForcePropertyChanged("Cliente");
+                    dataService.EditarPedido(ped, recRet);
+                    //ped.ForcePropertyChanged("Cliente");
                 }
                 catch (Exception ex)
                 {
@@ -247,8 +218,8 @@ namespace FiscaliZi.Colinfo.ViewModel
                             ErrorCode = "err_dives",
                             ErrorMessage = ex.Message
                         };
-                        dataService.EditarPedido(ped);
-                        ped.ForcePropertyChanged("Cliente");
+                        dataService.EditarPedido(ped, recRet);
+                        //ped.ForcePropertyChanged("Cliente");
                     }
                 }
             });

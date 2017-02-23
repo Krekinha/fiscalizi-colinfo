@@ -1,12 +1,11 @@
-﻿using PropertyChanged;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using PostSharp.Patterns.Model;
 
 namespace FiscaliZi.Colinfo.Model
 {
-    [ImplementPropertyChanged]
-    public class Pedido : INotifyPropertyChanged
+    [NotifyPropertyChanged]
+    public class Pedido
     {
         [Key]
         public int PedidoID { get; set; }
@@ -25,15 +24,5 @@ namespace FiscaliZi.Colinfo.Model
         public int VendedorID { get; set; }
         public int ClienteID { get; set; }
         #endregion
-
-        #region NotifyPropertyChanged
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void ForcePropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        #endregion
-
-
     }
 }

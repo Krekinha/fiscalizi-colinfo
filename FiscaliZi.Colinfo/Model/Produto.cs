@@ -1,9 +1,9 @@
-﻿using PropertyChanged;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using PostSharp.Patterns.Model;
 
 namespace FiscaliZi.Colinfo.Model
 {
-    [ImplementPropertyChanged]
+    //[NotifyPropertyChanged]
     public class Produto
     {
         [Key]
