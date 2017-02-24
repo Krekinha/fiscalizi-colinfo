@@ -1,9 +1,9 @@
-using GalaSoft.MvvmLight;
+using Caliburn.Micro;
 using Microsoft.EntityFrameworkCore;
 
 namespace FiscaliZi.Colinfo.ViewModel
 {
-    public class MainViewModel : ViewModelBase
+    public class MainViewModel : PropertyChangedBase
     {
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.

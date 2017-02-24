@@ -7,7 +7,7 @@ namespace FiscaliZi.Colinfo
         public MainWindow()
         {
             InitializeComponent();
-            Closing += (s, e) => ViewModelLocator.Cleanup();
+            //Closing += (s, e) => ColinfoBootstrapper.Cleanup();
         }
     }
 }

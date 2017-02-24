@@ -1,17 +1,16 @@
 ﻿using System;
 using FiscaliZi.Colinfo.Model;
-using GalaSoft.MvvmLight;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using Caliburn.Micro;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using FiscaliZi.Colinfo.Utils;
-using GalaSoft.MvvmLight.CommandWpf;
 using NFe.Classes.Informacoes.Emitente;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Classes.Servicos.ConsultaCadastro;
@@ -25,8 +24,7 @@ using PostSharp.Patterns.Model;
 
 namespace FiscaliZi.Colinfo.ViewModel
 {
-    [NotifyPropertyChanged]
-    public class ColetaViewModel
+    public class ColetaViewModel : PropertyChangedBase
     {
         private readonly IDataService dataService;
         const string dir_Pedidos = @"Pedidos\";
@@ -40,10 +38,9 @@ namespace FiscaliZi.Colinfo.ViewModel
             InitializeMonitor();
 
             #region Commands
-
-            RemoverVendedorCommand = new RelayCommand<Vendedor>(RemoverVendedor);
+            /*RemoverVendedorCommand = new RelayCommand<Vendedor>(RemoverVendedor);
             ConsultaCadastroCommand = new RelayCommand<Pedido>(ConsultaCadastro);
-            ShowPedidoFlyoutCommand = new RelayCommand<Pedido>(ShowPedidoFlyout);
+            ShowPedidoFlyoutCommand = new RelayCommand<Pedido>(ShowPedidoFlyout);*/
 
             #endregion
         }
@@ -52,12 +49,23 @@ namespace FiscaliZi.Colinfo.ViewModel
 
         #region Commands
 
-        public RelayCommand<Vendedor> RemoverVendedorCommand { get; set; }
+        /*public RelayCommand<Vendedor> RemoverVendedorCommand { get; set; }
         public RelayCommand<Pedido> ConsultaCadastroCommand { get; set; }
-        public RelayCommand<Pedido> ShowPedidoFlyoutCommand { get; set; }
+        public RelayCommand<Pedido> ShowPedidoFlyoutCommand { get; set; }*/
 
         #endregion
-        public ObservableCollection<Vendedor> Vendedores { get; set; }
+
+        private ObservableCollection<Vendedor> _vendedores { get; set; }
+
+        public ObservableCollection<Vendedor> Vendedores
+        {
+            get { return _vendedores; }
+            set
+            {
+                _vendedores = value;
+                NotifyOfPropertyChange(() => Vendedores);
+            }
+        }
 
         public ConfiguracaoApp Configuracoes { get; set; }
         #endregion
@@ -170,12 +178,9 @@ namespace FiscaliZi.Colinfo.ViewModel
                     //Configuracoes.CfgServico.Certificado.Serial = cert.SerialNumber;
                     var retornoConsulta = servicoNFe.NfeConsultaCadastro("MG", (ConsultaCadastroTipoDocumento)1, ped.Cliente.CNPJ.Replace(".", "").Replace("/", "").Replace("-", ""));
                     recRet = FuncoesXml.XmlStringParaClasse<Model.retConsCad>(retornoConsulta.RetornoCompletoStr);
-                    ped.Cliente.RetConsultaCadastro = recRet;
+                    //ped.Cliente.RetConsultaCadastro = recRet;
                     dataService.EditarPedido(ped, recRet);
-                    NotifyPropertyChangedServices.RaiseEventsImmediate(ped);
-                    NotifyPropertyChangedServices.RaiseEventsImmediate("Pedido");
-                    NotifyPropertyChangedServices.RaiseEventsImmediate("Cliente");
-                    NotifyPropertyChangedServices.RaiseEventsImmediate("Vendedor");
+
 
                     //ped.ForcePropertyChanged("Cliente");
                 }
@@ -223,6 +228,13 @@ namespace FiscaliZi.Colinfo.ViewModel
                     }
                 }
             });
+            NotifyPropertyChangedServices.RaiseEventsImmediate(Vendedores);
+            ped.Cliente.RetConsultaCadastro = recRet;
+            var cli = Vendedores.FirstOrDefault(v => v.VendedorID == ped.VendedorID).Pedidos.Find(p => p.PedidoID == ped.PedidoID).Cliente;
+            NotifyPropertyChangedServices.RaiseEventsImmediate(cli);
+            NotifyPropertyChangedServices.SignalPropertyChanged(cli, "RetConsultaCadastro");
+            NotifyPropertyChangedServices.RaiseEventsImmediate(cli);
+            NotifyPropertyChangedServices.RaiseEventsImmediate(this);
 
         }
         private void ConsultaCadastros(Vendedor vnd)

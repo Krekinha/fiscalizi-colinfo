@@ -13,7 +13,7 @@
     <Application.Resources>
         
         <ResourceDictionary>
-            <vm:ViewModelLocator x:Key="Locator" 
+            <vm:ColinfoBootstrapper x:Key="Locator" 
                            d:IsDataSource="True" />
 
 

@@ -10,8 +10,7 @@
     xmlns:vm="clr-namespace:FiscaliZi.Colinfo.ViewModel"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     mc:Ignorable="d"
-    BorderThickness="3"
-    DataContext="{Binding Source={StaticResource Locator}, Path=ColetaVM}">
+    BorderThickness="3">
 
     <UserControl.Resources>
         <Model:TotalValPedsConverter x:Key="TotalValPedsConverter" />
@@ -68,12 +67,12 @@
                 </StackPanel>
                 <Separator Grid.Row="1" Style="{StaticResource MaterialDesignDarkSeparator}" Margin="8 0 8 0"/>
                 <ListBox 
-                    x:Name="lstVendedores" 
-                    ItemsSource="{Binding Path=Vendedores}" 
+                    x:Name="Vendedores" 
                         IsSynchronizedWithCurrentItem="True" 
                         SelectedIndex="-1" 
                         Margin="10,0" Grid.Row="2"
-                        BorderThickness="3" >
+                        BorderThickness="3"
+                    ItemsSource="{Binding Vendedores}">
                     <ListBox.Style>
                         <StaticResource ResourceKey="CustomMaterialDesignListBox"/>
                     </ListBox.Style>
@@ -116,7 +115,7 @@
                                                 materialDesign:RippleAssist.IsCentered="True"
                                                 Style="{DynamicResource MaterialDesignFlatButton}" Height="Auto"
                                                 Command="{Binding ColetaVM.RemoverVendedorCommand, Source={StaticResource Locator}}" 
-                                                CommandParameter="{Binding SelectedItem, ElementName=lstVendedores}">
+                                                CommandParameter="{Binding SelectedItem, ElementName=Vendedores}">
                                             <materialDesign:PackIcon Kind="Close" />
                                         </Button>
                                         <materialDesign:PackIcon Kind="{Binding Converter={StaticResource SituacaoCnpjIconVendConverter}}" HorizontalAlignment="Right" />
@@ -212,6 +211,10 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
+                <DataGridTextColumn Header="SIT" 
+                                    Binding="{Binding Cliente.RetConsultaCadastro.infCons.cStat}" 
+                                    CanUserResize="False" 
+                                    Width="80" />
                 <DataGridTemplateColumn >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

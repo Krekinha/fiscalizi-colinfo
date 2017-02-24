@@ -15,7 +15,6 @@
     Title="MainWindow" 
     Width="1350" Height="800"
     GlowBrush="{DynamicResource AccentColorBrush}"
-    DataContext="{Binding Source={StaticResource Locator}, Path=Main}" 
     BorderBrush="{DynamicResource WindowTitleColorBrush}" 
     BorderThickness="2" >
 
