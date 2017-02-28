@@ -1,7 +1,4 @@
-﻿using FiscaliZi.Colinfo.ViewModel;
-using FiscaliZi.Colinfo.Model;
-using Microsoft.Practices.ServiceLocation;
-using System.IO;
+﻿using System.IO;
 using System.Threading;
 
 namespace FiscaliZi.Colinfo.Utils

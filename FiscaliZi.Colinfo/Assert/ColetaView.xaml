@@ -1,14 +1,16 @@
 ﻿<UserControl
-    x:Class="FiscaliZi.Colinfo.Views.Coleta"
+    x:Class="FiscaliZi.Colinfo.Assert.ColetaView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:Metro="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:Model="clr-namespace:FiscaliZi.Colinfo.Model"
-    xmlns:views="clr-namespace:FiscaliZi.Colinfo.Views"
-    xmlns:vm="clr-namespace:FiscaliZi.Colinfo.ViewModel"
+    xmlns:assert="clr-namespace:FiscaliZi.Colinfo.Assert"
+    xmlns:cal="http://www.caliburnproject.org"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
     mc:Ignorable="d"
     BorderThickness="3">
 
@@ -26,7 +28,8 @@
         <Model:SituacaoCNPJColorConverter x:Key="SituacaoCNPJColorConverter" />
         <Model:SituacaoCNPJIconConverter x:Key="SituacaoCNPJIconConverter" />
         <Model:CurrentAccentColorConverter x:Key="CurrentAccentColorConverter" />
-        <Model:SituacaoCNPJIconVendConverter x:Key="SituacaoCnpjIconVendConverter"></Model:SituacaoCNPJIconVendConverter>
+        <Model:SituacaoCNPJIconVendConverter x:Key="SituacaoCnpjIconVendConverter"/>
+        <Model:ShowConsultaConverter x:Key="ShowConsultaConverter" />
     </UserControl.Resources>
 
     <Grid >
@@ -71,8 +74,7 @@
                         IsSynchronizedWithCurrentItem="True" 
                         SelectedIndex="-1" 
                         Margin="10,0" Grid.Row="2"
-                        BorderThickness="3"
-                    ItemsSource="{Binding Vendedores}">
+                        BorderThickness="3">
                     <ListBox.Style>
                         <StaticResource ResourceKey="CustomMaterialDesignListBox"/>
                     </ListBox.Style>
@@ -114,9 +116,8 @@
                                         <Button HorizontalAlignment="Right" Width="Auto" Padding="2 0 2 0"
                                                 materialDesign:RippleAssist.IsCentered="True"
                                                 Style="{DynamicResource MaterialDesignFlatButton}" Height="Auto"
-                                                Command="{Binding ColetaVM.RemoverVendedorCommand, Source={StaticResource Locator}}" 
-                                                CommandParameter="{Binding SelectedItem, ElementName=Vendedores}">
-                                            <materialDesign:PackIcon Kind="Close" />
+                                                cal:Message.Attach="RemoverVendedor($this)">
+                                            <materialDesign:PackIcon Kind="Close"/>
                                         </Button>
                                         <materialDesign:PackIcon Kind="{Binding Converter={StaticResource SituacaoCnpjIconVendConverter}}" HorizontalAlignment="Right" />
                                     </StackPanel>
@@ -128,22 +129,22 @@
                 </ListBox>
             </Grid>
         </materialDesign:Card>
-        <DataGrid x:Name="dgPedidos" 
+        <DataGrid x:Name="Pedidos"
                   ItemsSource="{Binding Vendedores/Pedidos}"
                   Grid.Column="1"
-                      AutoGenerateColumns="False" 
-                      CanUserAddRows="False" 
-                      CanUserResizeColumns="False" 
-                      CanUserReorderColumns="False" 
-                      CanUserDeleteRows="False" 
-                      CanUserResizeRows="False" 
-                      IsReadOnly="True" 
-                      HeadersVisibility="Column"
-                      IsSynchronizedWithCurrentItem="True" 
-                      Style="{DynamicResource DatagridCustomMDesign}" 
-                      CellStyle="{DynamicResource DatagridCellCustomMDesign}" 
-                      RowStyle="{DynamicResource DataGridRowCustomMDesign}"
-                      ColumnHeaderStyle="{StaticResource CustomMaterialDesignDataGridColumnHeader}" 
+                  AutoGenerateColumns="False" 
+                  CanUserAddRows="False" 
+                  CanUserResizeColumns="False" 
+                  CanUserReorderColumns="False" 
+                  CanUserDeleteRows="False" 
+                  CanUserResizeRows="False" 
+                  IsReadOnly="True" 
+                  HeadersVisibility="Column"
+                  IsSynchronizedWithCurrentItem="True" 
+                  Style="{DynamicResource DatagridCustomMDesign}" 
+                  CellStyle="{DynamicResource DatagridCellCustomMDesign}" 
+                  RowStyle="{DynamicResource DataGridRowCustomMDesign}"
+                  ColumnHeaderStyle="{StaticResource CustomMaterialDesignDataGridColumnHeader}" 
                   Margin="10,0,0,0">
             <DataGrid.Columns>
                 <DataGridTextColumn 
@@ -191,20 +192,28 @@
                                                          Margin="0,0,5,0"/>
                                 <TextBlock 
                                     x:Name="txtSituacao" 
-                                    Text="{Binding Path=Cliente, Converter={StaticResource SitCadastroClienteConverter}, Mode=OneWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" 
                                     VerticalAlignment="Center" 
-                                    Width="63"/>
+                                    Width="63">
+                                    <TextBlock.Text>
+                                        <MultiBinding Converter="{StaticResource SitCadastroClienteConverter}" >
+                                            <Binding Path="Cliente.RetConsultaCadastro"/>
+                                            <Binding Path="Cliente.CNPJ"/>
+                                            <Binding Path="Cliente.IE"/>
+                                    </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
                                 <Button 
+                                    cal:Message.Attach="ShowConsulta($this)"
                                     Style="{DynamicResource MaterialDesignToolButton}"
+                                    IsEnabled="{Binding Cliente.RetConsultaCadastro, Converter={StaticResource ShowConsultaConverter}}"
                                     Height="25" Width="40">
                                     <materialDesign:PackIcon x:Name="icoDetalhe" Kind="ClipboardText" HorizontalAlignment="Center" />
                                 </Button>
                                 <Button 
+                                    cal:Message.Attach="ConsultaCadastro($this)"
                                     Style="{DynamicResource MaterialDesignToolButton}"
                                     IsEnabled="{Binding Cliente.CNPJ, Converter={StaticResource IsCnpjConverter}}"
-                                    Height="25" Width="40"
-                                    Command="{Binding ColetaVM.ConsultaCadastroCommand, Source={StaticResource Locator}}"
-                                    CommandParameter="{Binding}">
+                                    Height="25" Width="40">
                                     <materialDesign:PackIcon x:Name="icoRefresh" Kind="Refresh" HorizontalAlignment="Center" />
                                 </Button>
                             </StackPanel>
@@ -220,8 +229,7 @@
                         <DataTemplate>
                             <Button 
                                 Content="ITENS" 
-                                Command="{Binding ColetaVM.ShowPedidoFlyoutCommand, Source={StaticResource Locator}}"
-                                CommandParameter="{Binding}"
+                                cal:Message.Attach="ShowPedidoFlyout($this)"
                                 Height="19" 
                                 FontSize="10" 
                                 Margin="0,3,5,3"

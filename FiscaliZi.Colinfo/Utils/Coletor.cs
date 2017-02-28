@@ -3,8 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using FiscaliZi.Colinfo.Assert;
 using FiscaliZi.Colinfo.Model;
-using FiscaliZi.Colinfo.ViewModel;
 
 namespace FiscaliZi.Colinfo.Utils
 {
@@ -14,7 +14,7 @@ namespace FiscaliZi.Colinfo.Utils
         {
             decimal val = 0;
 
-            var vm = ServiceLocator.Current.GetInstance<ColetaViewModel>();
+            //var vm = ServiceLocator.Current.GetInstance<ColetaViewModel>();
 
             List<Cliente> clientes = new List<Cliente>();
             List<Pedido> peds = new List<Pedido>();

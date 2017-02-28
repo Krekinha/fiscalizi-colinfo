@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FiscaliZi.Colinfo.Views
+namespace FiscaliZi.Colinfo.Assert
 {
     /// <summary>
-    /// Interação lógica para FlyPedido.xam
+    /// Interação lógica para Dialog_ErroConsulta.xam
     /// </summary>
-    public partial class FlyPedido : UserControl
+    public partial class Dialog_ErroConsulta : UserControl
     {
-        public FlyPedido()
+        public Dialog_ErroConsulta()
         {
             InitializeComponent();
         }

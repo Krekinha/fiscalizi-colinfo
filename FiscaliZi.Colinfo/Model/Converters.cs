@@ -119,34 +119,28 @@ namespace FiscaliZi.Colinfo.Model
         }
     }
 
-    public class SitCadastroClienteConverter : IValueConverter
+    public class SitCadastroClienteConverter : IMultiValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            var cli = (Cliente) value;
-            var digts = Tools.SoString(cli.CNPJ);
+            var consulta = (retConsCad)values[0];
+            var cnpj = (string)values[1];
+            var ie = (string) values[2];
+
+            var digts = Tools.SoString(cnpj);
             var idx = digts.Length - 6;
-            if (digts.Substring(idx, 4) == "0000")
-                return "ISENTO";
+            if (digts.Substring(idx, 4) == "0000") return "ISENTO";
 
-            if (cli?.RetConsultaCadastro == null)
+            if (consulta != null)
             {
-                if (cli.IE == "" || cli.IE == "ISENTO")
+                if (consulta.ErrorCode == "err_dives") return "ERRO";
+
+                if (ie == "" || ie == "ISENTO")
                 {
-                    return cli.RetConsultaCadastro != null && cli.RetConsultaCadastro.infCons.infCad.Count > 0 ? "ERRO" : "ISENTO";
+                    return consulta.infCons?.infCad?.Count > 0 ? "ERRO" : "ISENTO";
                 }
-                return "CONSULTAR";
-            }
 
-            if (cli.RetConsultaCadastro.ErrorCode == "err_dives") return "ERRO";
-
-            if (cli?.RetConsultaCadastro?.infCons?.infCad?.Count <= 0) return "CONSULTAR";
-
-            
-
-            if (cli.RetConsultaCadastro.infCons != null)
-            {
-                var sit = cli.RetConsultaCadastro.infCons.infCad.Find(s => s.IE == cli.IE.Replace(".", "").Replace("/", ""));
+                var sit = consulta.infCons?.infCad.Find(s => s.IE == ie.Replace(".", "").Replace("/", ""));
                 if (sit == null) return "CONSULTAR";
                 switch (sit.cSit)
                 {
@@ -158,13 +152,18 @@ namespace FiscaliZi.Colinfo.Model
                         return "?????";
                 }
             }
+            else
+            {
+                if (ie == "" || ie == "ISENTO") return "ISENTO";
+                return "CONSULTAR";
+            }
 
-            return "CONSULTAR";
+           // if (consulta.infCons?.infCad?.Count <= 0) return "CONSULTAR";
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
-            return value;
+            throw new NotImplementedException();
         }
     }
 
@@ -376,6 +375,23 @@ namespace FiscaliZi.Colinfo.Model
         }
     }
 
+    public class ShowConsultaConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value != null)
+            {
+                return true;
+            };
+            return false;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotSupportedException();
+        }
+    }
+    
     public class SituacaoCNPJIconVendConverter : IValueConverter
     {
 

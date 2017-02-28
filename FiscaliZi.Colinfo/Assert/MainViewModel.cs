@@ -1,25 +1,17 @@
 using Caliburn.Micro;
 using Microsoft.EntityFrameworkCore;
 
-namespace FiscaliZi.Colinfo.ViewModel
+namespace FiscaliZi.Colinfo.Assert
 {
     public class MainViewModel : PropertyChangedBase
     {
-        /// <summary>
-        /// Initializes a new instance of the MainViewModel class.
-        /// </summary>
         public MainViewModel()
         {
-            //MigrationUpdate();
-            ////if (IsInDesignMode)
-            ////{
-            ////    // Code runs in Blend --> create design time data.
-            ////}
-            ////else
-            ////{
-            ////    // Code runs "for real"
-            ////}
+            IEventAggregator events = new EventAggregator();
+            ColetaVM = new ColetaViewModel(events);
         }
+
+        public ColetaViewModel ColetaVM { get; set; }
 
         private void MigrationUpdate()
         {

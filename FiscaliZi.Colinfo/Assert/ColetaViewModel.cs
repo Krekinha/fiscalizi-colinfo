@@ -19,53 +19,35 @@ using NFe.Servicos;
 using NFe.Utils.Excecoes;
 using TipoAmbiente = NFe.Classes.Informacoes.Identificacao.Tipos.TipoAmbiente;
 using DFe.Utils;
+using MaterialDesignThemes.Wpf;
 using Microsoft.EntityFrameworkCore;
 using PostSharp.Patterns.Model;
 
-namespace FiscaliZi.Colinfo.ViewModel
+namespace FiscaliZi.Colinfo.Assert
 {
+    [NotifyPropertyChanged]
     public class ColetaViewModel : PropertyChangedBase
     {
         private readonly IDataService dataService;
         const string dir_Pedidos = @"Pedidos\";
+        private IEventAggregator _events;
 
-        public ColetaViewModel(IDataService _dataService)
+        public ColetaViewModel(IEventAggregator events)
         {
-            dataService = _dataService;
+            _events = events;
+            _events.Subscribe(this);
+            dataService = new DataService();
 
             Vendedores = dataService.GetVendedores();
             Configuracoes = CarregarConfiguracoes();
             InitializeMonitor();
-
-            #region Commands
-            /*RemoverVendedorCommand = new RelayCommand<Vendedor>(RemoverVendedor);
-            ConsultaCadastroCommand = new RelayCommand<Pedido>(ConsultaCadastro);
-            ShowPedidoFlyoutCommand = new RelayCommand<Pedido>(ShowPedidoFlyout);*/
-
-            #endregion
         }
 
         #region · Properties ·
 
-        #region Commands
-
-        /*public RelayCommand<Vendedor> RemoverVendedorCommand { get; set; }
-        public RelayCommand<Pedido> ConsultaCadastroCommand { get; set; }
-        public RelayCommand<Pedido> ShowPedidoFlyoutCommand { get; set; }*/
-
-        #endregion
-
         private ObservableCollection<Vendedor> _vendedores { get; set; }
 
-        public ObservableCollection<Vendedor> Vendedores
-        {
-            get { return _vendedores; }
-            set
-            {
-                _vendedores = value;
-                NotifyOfPropertyChange(() => Vendedores);
-            }
-        }
+        public ObservableCollection<Vendedor> Vendedores { get; set; }
 
         public ConfiguracaoApp Configuracoes { get; set; }
         #endregion
@@ -93,7 +75,7 @@ namespace FiscaliZi.Colinfo.ViewModel
                 Vendedores.Add(vnd);
             }
         }
-        private void RemoverVendedor(Vendedor vnd)
+        public void RemoverVendedor(Vendedor vnd)
         {
             dataService.RemoverVendedor(vnd);
             AtualizaVendedores();
@@ -166,8 +148,9 @@ namespace FiscaliZi.Colinfo.ViewModel
             }
         }
 
-        private void ConsultaCadastro(Pedido ped)
+        public void ConsultaCadastro(Pedido ped)
         {
+            
             var recRet = new Model.retConsCad();
             Task.Run(() =>
             {
@@ -179,62 +162,59 @@ namespace FiscaliZi.Colinfo.ViewModel
                     var retornoConsulta = servicoNFe.NfeConsultaCadastro("MG", (ConsultaCadastroTipoDocumento)1, ped.Cliente.CNPJ.Replace(".", "").Replace("/", "").Replace("-", ""));
                     recRet = FuncoesXml.XmlStringParaClasse<Model.retConsCad>(retornoConsulta.RetornoCompletoStr);
                     //ped.Cliente.RetConsultaCadastro = recRet;
-                    dataService.EditarPedido(ped, recRet);
 
+                    using (var context = new ColinfoContext())
+                    {
+                        var vnd = context.Vendedores
+                        .Include(vd => vd.Pedidos)
+                        .ThenInclude(cli => cli.Cliente)
+                        .ThenInclude(cons => cons.RetConsultaCadastro)
+                        .ThenInclude(inf => inf.infCons)
+                        .ThenInclude(cad => cad.infCad)
+                        .FirstOrDefault(v => v.VendedorID == ped.VendedorID);
 
-                    //ped.ForcePropertyChanged("Cliente");
+                        var oldPed = vnd.Pedidos.FirstOrDefault(pd => pd.PedidoID == ped.PedidoID);
+                        var ctxPed = Vendedores.FirstOrDefault(v => v.VendedorID == ped.VendedorID).Pedidos.Find(p => p.PedidoID == ped.PedidoID);
+
+                        oldPed.Cliente.RetConsultaCadastro = recRet;
+                        context.Entry(oldPed).State = EntityState.Modified;
+                        context.SaveChanges();
+
+                        ctxPed.Cliente.RetConsultaCadastro = recRet;
+                    }
                 }
                 catch (ComunicacaoException ex)
                 {
-                    ped.Cliente.RetConsultaCadastro = new Model.retConsCad()
+                    var consulta = new Model.retConsCad()
                     {
                         ErrorCode = "err_dives",
                         ErrorMessage = ex.Message
                     };
-                    dataService.EditarPedido(ped, recRet);
-                    //ped.ForcePropertyChanged("Cliente");
+                    EditarPedido(ped, consulta);
                 }
                 catch (ValidacaoSchemaException ex)
                 {
-                    ped.Cliente.RetConsultaCadastro = new Model.retConsCad()
+                    var consulta = new Model.retConsCad()
                     {
                         ErrorCode = "err_dives",
                         ErrorMessage = ex.Message
                     };
-                    dataService.EditarPedido(ped, recRet);
-                    //ped.ForcePropertyChanged("Cliente");
+                    EditarPedido(ped, consulta);
                 }
                 catch (DbUpdateException ex)
                 {
-                    ped.Cliente.RetConsultaCadastro = new Model.retConsCad()
+                    throw;
+                }
+                catch (Exception ex)
+                {
+                    var consulta = new Model.retConsCad()
                     {
                         ErrorCode = "err_dives",
                         ErrorMessage = ex.Message
                     };
-                    dataService.EditarPedido(ped, recRet);
-                    //ped.ForcePropertyChanged("Cliente");
-                }
-                catch (Exception ex)
-                {
-                    if (!string.IsNullOrEmpty(ex.Message))
-                    {
-                        ped.Cliente.RetConsultaCadastro = new Model.retConsCad()
-                        {
-                            ErrorCode = "err_dives",
-                            ErrorMessage = ex.Message
-                        };
-                        dataService.EditarPedido(ped, recRet);
-                        //ped.ForcePropertyChanged("Cliente");
-                    }
+                    EditarPedido(ped, consulta);
                 }
             });
-            NotifyPropertyChangedServices.RaiseEventsImmediate(Vendedores);
-            ped.Cliente.RetConsultaCadastro = recRet;
-            var cli = Vendedores.FirstOrDefault(v => v.VendedorID == ped.VendedorID).Pedidos.Find(p => p.PedidoID == ped.PedidoID).Cliente;
-            NotifyPropertyChangedServices.RaiseEventsImmediate(cli);
-            NotifyPropertyChangedServices.SignalPropertyChanged(cli, "RetConsultaCadastro");
-            NotifyPropertyChangedServices.RaiseEventsImmediate(cli);
-            NotifyPropertyChangedServices.RaiseEventsImmediate(this);
 
         }
         private void ConsultaCadastros(Vendedor vnd)
@@ -326,8 +306,61 @@ namespace FiscaliZi.Colinfo.ViewModel
 
         private void ShowPedidoFlyout( Pedido ped)
         {
-            ((MainWindow)Application.Current.MainWindow).LeftFlyout.IsOpen = !((MainWindow)Application.Current.MainWindow).LeftFlyout.IsOpen;
-            ((MainWindow) Application.Current.MainWindow).LeftFlyout.DataContext = ped;
+            //((MainView)Application.Current.MainWindow).LeftFlyout.IsOpen = !((MainView)Application.Current.MainWindow).LeftFlyout.IsOpen;
+            //((MainView) Application.Current.MainWindow).LeftFlyout.DataContext = ped;
+        }
+
+        private void EditarPedido(Pedido ped, Model.retConsCad consulta)
+        {
+            using (var context = new ColinfoContext())
+            {
+                var vnd = context.Vendedores
+                    .Include(vd => vd.Pedidos)
+                    .ThenInclude(cli => cli.Cliente)
+                    .ThenInclude(cons => cons.RetConsultaCadastro)
+                    .ThenInclude(inf => inf.infCons)
+                    .ThenInclude(cad => cad.infCad)
+                    .FirstOrDefault(v => v.VendedorID == ped.VendedorID);
+
+                var oldPed = vnd.Pedidos.FirstOrDefault(pd => pd.PedidoID == ped.PedidoID);
+                var ctxPed = Vendedores.FirstOrDefault(v => v.VendedorID == ped.VendedorID).Pedidos.Find(p => p.PedidoID == ped.PedidoID);
+
+                oldPed.Cliente.RetConsultaCadastro = consulta;
+                context.Entry(oldPed).State = EntityState.Modified;
+                context.SaveChanges();
+
+                ctxPed.Cliente.RetConsultaCadastro = consulta;
+            }
+        }
+
+        public async void ShowConsulta(Pedido ped)
+        {
+            var consulta = ped.Cliente.RetConsultaCadastro;
+
+            if (consulta?.ErrorCode == "err_dives")
+            {
+                var view = new Dialog_ErroConsulta()
+                {
+                    DataContext = consulta
+                };
+
+                var result = await DialogHost.Show(view, "RootDialog", ClosingEventHandler);
+            }
+            else
+            {
+                var view = new Dialog_Conculta()
+                {
+                    DataContext = ped
+                };
+
+                var result = await DialogHost.Show(view, "RootDialog", ClosingEventHandler);
+            }
+            
+        }
+
+        private void ClosingEventHandler(object sender, DialogClosingEventArgs eventArgs)
+        {
+            Console.WriteLine("You can intercept the closing event, and cancel here.");
         }
 
         #endregion

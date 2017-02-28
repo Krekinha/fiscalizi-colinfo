@@ -279,6 +279,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Assert\Dialog_Conculta.xaml.cs">
+      <DependentUpon>Dialog_Conculta.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Assert\Dialog_ErroConsulta.xaml.cs">
+      <DependentUpon>Dialog_ErroConsulta.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ColinfoContext.cs" />
     <Compile Include="Migrations\20170220033647_mig.cs" />
     <Compile Include="Migrations\20170220033647_mig.designer.cs">
@@ -301,16 +307,24 @@
     <Compile Include="Utils\Funcoes.cs" />
     <Compile Include="Utils\Monitors.cs" />
     <Compile Include="Utils\Unzip.cs" />
-    <Compile Include="ViewModel\ColetaViewModel.cs" />
-    <Compile Include="ViewModel\ColinfoBootstrapper.cs" />
-    <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="Views\Coleta.xaml.cs">
-      <DependentUpon>Coleta.xaml</DependentUpon>
+    <Compile Include="Assert\ColetaViewModel.cs" />
+    <Compile Include="Assert\ColinfoBootstrapper.cs" />
+    <Compile Include="Assert\MainViewModel.cs" />
+    <Compile Include="Assert\ColetaView.xaml.cs">
+      <DependentUpon>ColetaView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\FlyPedido.xaml.cs">
+    <Compile Include="Assert\FlyPedido.xaml.cs">
       <DependentUpon>FlyPedido.xaml</DependentUpon>
     </Compile>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Assert\Dialog_Conculta.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assert\Dialog_ErroConsulta.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assert\MainView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -318,8 +332,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="Assert\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Resources\Dictionaries\CustomAccents\CustomAccent.xaml">
@@ -346,11 +360,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Coleta.xaml">
+    <Page Include="Assert\ColetaView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\FlyPedido.xaml">
+    <Page Include="Assert\FlyPedido.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -102,7 +102,6 @@ namespace FiscaliZi.Colinfo.Model
                     
                 };
                 context.Entry(pedA).State = EntityState.Modified;
-                context.Entry(pedA.Cliente).State = EntityState.Modified;
                 context.Entry(vend).State = EntityState.Modified;
                 context.SaveChanges();
             }

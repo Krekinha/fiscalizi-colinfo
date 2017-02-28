@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FiscaliZi.Colinfo.Views
+namespace FiscaliZi.Colinfo.Assert
 {
     /// <summary>
-    /// Interação lógica para Coleta.xam
+    /// Interação lógica para Dialog_Conculta.xam
     /// </summary>
-    public partial class Coleta : UserControl
+    public partial class Dialog_Conculta : UserControl
     {
-        public Coleta()
+        public Dialog_Conculta()
         {
             InitializeComponent();
         }

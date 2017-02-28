@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using Caliburn.Micro;
 
-namespace FiscaliZi.Colinfo.ViewModel
+namespace FiscaliZi.Colinfo.Assert
 {
     public class ColinfoBootstrapper : BootstrapperBase
     {
@@ -13,7 +13,7 @@ namespace FiscaliZi.Colinfo.ViewModel
 
         protected override void OnStartup(object sender, StartupEventArgs e)
         {
-            DisplayRootViewFor<ColetaViewModel>();
+            DisplayRootViewFor<MainViewModel>();
         }
 
     }
