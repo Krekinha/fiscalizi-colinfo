@@ -296,8 +296,7 @@
     <Compile Include="Model\ConfiguracaoApp.cs" />
     <Compile Include="Model\ConfiguracaoCsc.cs" />
     <Compile Include="Model\Converters.cs" />
-    <Compile Include="Model\DataService.cs" />
-    <Compile Include="Model\DesignDataService.cs" />
+    <Compile Include="Model\DesignData.cs" />
     <Compile Include="Model\Info.cs" />
     <Compile Include="Model\Item.cs" />
     <Compile Include="Model\Pedido.cs" />

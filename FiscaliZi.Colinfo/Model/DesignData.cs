@@ -1,30 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using PostSharp.Patterns.Model;
 
 namespace FiscaliZi.Colinfo.Model
 {
-
-    public class DesignDataService : IDataService
+    public class DesignData
     {
-        public ObservableCollection<Vendedor> GetVendedores()
+        public DesignData()
         {
-            return new ObservableCollection<Vendedor>()
-            {
-                new Vendedor
-                {
-                    VendedorID = 1,
-                    NumVendedor = 308,
-                    DataColeta = DateTime.Now,
-                    DataEnvio = DateTime.Parse("03/05/2000 00:00:00"),
-                    NomeVendedor = "RAFAEL ALVES",
-                    ArquivoVendedor = "TXAA0600000308.TXT"
-                }
-            };
+            Vendedores = GetVendedores();
+            Pedido = GetPedido();
         }
 
-        public ObservableCollection<Vendedor> testData =>
-            new ObservableCollection<Vendedor>
+        public ObservableCollection<Vendedor> Vendedores { get; set; }
+
+        public Pedido Pedido { get; set; }
+
+        public ObservableCollection<Vendedor> GetVendedores()
+        {
+            return new ObservableCollection<Vendedor>
             {
                 new Vendedor
                 {
@@ -1370,35 +1365,51 @@ namespace FiscaliZi.Colinfo.Model
                     }
                 }
             };
-
-        public void AddVendedor(Vendedor vnd)
-        {
-            throw new NotImplementedException();
         }
 
-        public void RemoverVendedor(Vendedor vnd)
+        private Pedido GetPedido()
         {
-            throw new NotImplementedException();
+            return new Pedido
+            {
+                Cliente = new Cliente
+                {
+                    Razao = "RESTAURANTE LEAO E CARVALHO LTDA",
+                    CNPJ = "08.454.523/0001-10",
+                    IE = "001022.887/0038",
+
+                    RetConsultaCadastro = new retConsCad
+                    {
+                        infCons = new infCons
+                        {
+                            CNPJ = "08454523000110",
+                            UF = "MG",
+                            cStat = "111",
+                            cUF = "31",
+                            dhCons = "2017-02-27T19:23:54",
+                            xMotivo = "Consulta cadastro com uma ocorrencia",
+                            infCad = new List<infCad>
+                            {
+                                new infCad
+                                {
+                                    CNAE = "5611201",
+                                    CNPJ = "08454523000110",
+                                    IE = "0010228870038",
+                                    IEAtual = "0010228870038",
+                                    UF = "MG",
+                                    cSit = "1",
+                                    dIniAtiv = "2006-12-01",
+                                    dBaixa = null,
+                                    xFant = "RESTAURANTE E LANCHONETE CAFE PRETTO",
+                                    xNome = "RESTAURANTE LEAO E CARVALHO LTDA - EPP",
+                                    xRegApur = "SIMPLES NACIONAL",
+                                    ender = null
+                                }
+                            }
+                        }
+                    }
+                }
+            };
         }
 
-        public void EditarVendedor(Vendedor vnd)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void EditarPedido(Pedido ped)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Vendedor GetVendedor(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void EditarPedido(Pedido ped, retConsCad consulta)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

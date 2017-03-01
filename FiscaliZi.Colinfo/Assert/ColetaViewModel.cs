@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using FiscaliZi.Colinfo.Model;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -7,6 +8,7 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Documents;
 using Caliburn.Micro;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
@@ -28,7 +30,6 @@ namespace FiscaliZi.Colinfo.Assert
     [NotifyPropertyChanged]
     public class ColetaViewModel : PropertyChangedBase
     {
-        private readonly IDataService dataService;
         const string dir_Pedidos = @"Pedidos\";
         private IEventAggregator _events;
 
@@ -36,16 +37,31 @@ namespace FiscaliZi.Colinfo.Assert
         {
             _events = events;
             _events.Subscribe(this);
-            dataService = new DataService();
 
-            Vendedores = dataService.GetVendedores();
+            Vendedores = GetVendedores();
+
             Configuracoes = CarregarConfiguracoes();
             InitializeMonitor();
+            test();
+        }
+
+        void test()
+        {
+            var peds = new List<Pedido>();
+            foreach (var vnd in Vendedores)
+            {
+                foreach (var ped in vnd.Pedidos)
+                {
+                    if (ped?.Cliente?.RetConsultaCadastro?.infCons?.infCad?.Count > 0)
+                    {
+                        peds.Add(ped);
+                    }
+                }
+            }
+            var ic = 0;
         }
 
         #region · Properties ·
-
-        private ObservableCollection<Vendedor> _vendedores { get; set; }
 
         public ObservableCollection<Vendedor> Vendedores { get; set; }
 
@@ -67,26 +83,13 @@ namespace FiscaliZi.Colinfo.Assert
         }
         private void AtualizaVendedores()
         {
-            var vnds = dataService.GetVendedores();
+            var vnds = GetVendedores();
             if(Vendedores.Count > 0)
                 Vendedores.Clear();
             foreach (var vnd in vnds)
             {
                 Vendedores.Add(vnd);
             }
-        }
-        public void RemoverVendedor(Vendedor vnd)
-        {
-            dataService.RemoverVendedor(vnd);
-            AtualizaVendedores();
-        }
-        private void EditarVendedor(Vendedor vnd)
-        {
-            dataService.EditarVendedor(vnd);
-            /*Vendedor = vnd;
-            Vendedor.ForcePropertyChanged("Pedidos");*/
-            //RaisePropertyChanged("Vendedores");
-
         }
         private void EditarPedido(Pedido ped)
         {
@@ -129,7 +132,7 @@ namespace FiscaliZi.Colinfo.Assert
 
                     if (vnd != null)
                     {
-                        dataService.AddVendedor(vnd);
+                        AddVendedor(vnd);
                         Application.Current.Dispatcher.Invoke(delegate
                         {
                             Vendedores.Add(vnd);
@@ -310,29 +313,6 @@ namespace FiscaliZi.Colinfo.Assert
             //((MainView) Application.Current.MainWindow).LeftFlyout.DataContext = ped;
         }
 
-        private void EditarPedido(Pedido ped, Model.retConsCad consulta)
-        {
-            using (var context = new ColinfoContext())
-            {
-                var vnd = context.Vendedores
-                    .Include(vd => vd.Pedidos)
-                    .ThenInclude(cli => cli.Cliente)
-                    .ThenInclude(cons => cons.RetConsultaCadastro)
-                    .ThenInclude(inf => inf.infCons)
-                    .ThenInclude(cad => cad.infCad)
-                    .FirstOrDefault(v => v.VendedorID == ped.VendedorID);
-
-                var oldPed = vnd.Pedidos.FirstOrDefault(pd => pd.PedidoID == ped.PedidoID);
-                var ctxPed = Vendedores.FirstOrDefault(v => v.VendedorID == ped.VendedorID).Pedidos.Find(p => p.PedidoID == ped.PedidoID);
-
-                oldPed.Cliente.RetConsultaCadastro = consulta;
-                context.Entry(oldPed).State = EntityState.Modified;
-                context.SaveChanges();
-
-                ctxPed.Cliente.RetConsultaCadastro = consulta;
-            }
-        }
-
         public async void ShowConsulta(Pedido ped)
         {
             var consulta = ped.Cliente.RetConsultaCadastro;
@@ -365,6 +345,83 @@ namespace FiscaliZi.Colinfo.Assert
 
         #endregion
 
+        #region · CRUD ·
 
+        public void EditarPedido(Pedido ped, Model.retConsCad consulta)
+        {
+            using (var context = new ColinfoContext())
+            {
+                var vnd = context.Vendedores
+                    .Include(vd => vd.Pedidos)
+                    .ThenInclude(cli => cli.Cliente)
+                    .ThenInclude(cons => cons.RetConsultaCadastro)
+                    .ThenInclude(inf => inf.infCons)
+                    .ThenInclude(cad => cad.infCad)
+                    .FirstOrDefault(v => v.VendedorID == ped.VendedorID);
+
+                var oldPed = vnd.Pedidos.FirstOrDefault(pd => pd.PedidoID == ped.PedidoID);
+                var ctxPed = Vendedores.FirstOrDefault(v => v.VendedorID == ped.VendedorID).Pedidos.Find(p => p.PedidoID == ped.PedidoID);
+
+                oldPed.Cliente.RetConsultaCadastro = consulta;
+                context.Entry(oldPed).State = EntityState.Modified;
+                context.SaveChanges();
+
+                ctxPed.Cliente.RetConsultaCadastro = consulta;
+            }
+        }
+        public void RemoverVendedor(Vendedor vnd)
+        {
+            using (var context = new ColinfoContext())
+            {
+                try
+                {
+                    context.Remove(vnd);
+                    context.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    var msg = "";
+                    if (!string.IsNullOrEmpty(ex.Message))
+                    {
+                        msg = ex.InnerException?.Message ?? ex.Message;
+                        //ShowDialogErrorAsync(msg);
+                    }
+                }
+            }
+
+            AtualizaVendedores();
+        }
+        public void AddVendedor(Vendedor vnd)
+        {
+            using (var context = new ColinfoContext())
+            {
+                context.Add(vnd);
+                context.SaveChanges();
+            }
+
+        }
+        private ObservableCollection<Vendedor> GetVendedores()
+        {
+            using (var context = new ColinfoContext())
+            {
+                var Vends = new ObservableCollection<Vendedor>();
+
+                var vends = context.Vendedores
+                    .Include(vnd => vnd.Pedidos)
+                    .ThenInclude(cli => cli.Cliente)
+                    .ThenInclude(ret => ret.RetConsultaCadastro)
+                    .ThenInclude(inf => inf.infCons)
+                    .ThenInclude(inf2 => inf2.infCad);
+
+                foreach (var item in vends)
+                {
+                    Vends.Add(item);
+                }
+
+                return Vends;
+            }
+        }
+
+        #endregion
     }
 }

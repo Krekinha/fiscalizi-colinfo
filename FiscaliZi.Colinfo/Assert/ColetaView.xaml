@@ -12,7 +12,9 @@
     xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
     xmlns:system="clr-namespace:System;assembly=mscorlib"
     mc:Ignorable="d"
-    BorderThickness="3">
+    BorderThickness="3"
+    d:DataContext="{d:DesignInstance Type=Model:DesignData, IsDesignTimeCreatable=True}"
+    cal:Bind.AtDesignTime="True">
 
     <UserControl.Resources>
         <Model:TotalValPedsConverter x:Key="TotalValPedsConverter" />
@@ -71,10 +73,11 @@
                 <Separator Grid.Row="1" Style="{StaticResource MaterialDesignDarkSeparator}" Margin="8 0 8 0"/>
                 <ListBox 
                     x:Name="Vendedores" 
-                        IsSynchronizedWithCurrentItem="True" 
-                        SelectedIndex="-1" 
-                        Margin="10,0" Grid.Row="2"
-                        BorderThickness="3">
+                    ItemsSource="{Binding Vendedores}"
+                    IsSynchronizedWithCurrentItem="True" 
+                    SelectedIndex="-1" 
+                    Margin="10,0" Grid.Row="2"
+                    BorderThickness="3">
                     <ListBox.Style>
                         <StaticResource ResourceKey="CustomMaterialDesignListBox"/>
                     </ListBox.Style>
@@ -199,7 +202,7 @@
                                             <Binding Path="Cliente.RetConsultaCadastro"/>
                                             <Binding Path="Cliente.CNPJ"/>
                                             <Binding Path="Cliente.IE"/>
-                                    </MultiBinding>
+                                        </MultiBinding>
                                     </TextBlock.Text>
                                 </TextBlock>
                                 <Button 
@@ -220,10 +223,6 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="SIT" 
-                                    Binding="{Binding Cliente.RetConsultaCadastro.infCons.cStat}" 
-                                    CanUserResize="False" 
-                                    Width="80" />
                 <DataGridTemplateColumn >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

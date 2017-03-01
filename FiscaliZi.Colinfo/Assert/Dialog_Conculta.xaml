@@ -4,43 +4,102 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FiscaliZi.Colinfo.Assert"
+             xmlns:Model="clr-namespace:FiscaliZi.Colinfo.Model"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid Margin="16">
+             d:DesignHeight="300" d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance Type=Model:DesignData, IsDesignTimeCreatable=True}">
+    
+    <UserControl.Resources>
+        <Model:FormatIEConverter x:Key="FormatIeConverter"/>
+        <Model:SitCadastroClientecSitConverter x:Key="SitCadastroClientecSitConverter"/>
+    </UserControl.Resources>
+    
+    <StackPanel x:Name="Root" Margin="16" d:DataContext="{Binding Pedido}">
+        
+        <StackPanel x:Name="DadosMain" 
+                    Orientation="Vertical"
+                    Margin="0 16 0 0">
+            <TextBlock Text="DADOS DA CONSULTA" FontWeight="Bold" Margin="0,0,0,10" />
+            <TextBlock Text="{Binding Cliente.Razao}" FontSize="10.667" />
+            <TextBlock>
+                <Run Text="CNPJ: " FontWeight="Bold" FontSize="10.667"/>
+                <Run Text="{Binding Cliente.CNPJ}" FontSize="10.667"/>
+            </TextBlock>
+            <TextBlock>
+                <Run Text="IE: " FontWeight="Bold" FontSize="10.667"/>
+                <Run Text="{Binding Cliente.IE}" FontSize="10.667"/>
+            </TextBlock>
+        </StackPanel>
+        
+        <StackPanel x:Name="Inscricoes" 
+                    Orientation="Vertical"
+                    Margin="0 16 0 0">
+            <TextBlock>
+                <Run Text="INSCRIÇÕES" FontWeight="Bold" />
+                <Run Text="{Binding Cliente.RetConsultaCadastro.infCons.infCad.Count, Mode=OneWay, StringFormat='({0})'}" FontWeight="Bold" />
+            </TextBlock>
+            <ListBox 
+                    x:Name="lsConsulta" 
+                    ItemsSource="{Binding Cliente.RetConsultaCadastro.infCons.infCad}"
+                    IsSynchronizedWithCurrentItem="True" 
+                    Margin="10,0" 
+                    BorderThickness="3">
+                <ListBox.ItemTemplate>
+                    <DataTemplate x:Name="dtVendedores">
+                        <StackPanel>
+                            <StackPanel x:Name="DadosHome"
+                                        Orientation="Horizontal">
+                                <Rectangle 
+                                        Fill="{StaticResource businessman}" 
+                                        Margin="0,1" Width="30" Height="35"/>
+                                <StackPanel>
+                                    <TextBlock
+                                    Margin="5,3,0,0" 
+                                    Height="Auto" 
+                                    Width="Auto" 
+                                    FontSize="10.5" 
+                                    Text="{Binding xNome}" 
+                                    FontWeight="Bold"/>
+                                    <TextBlock
+                                        Margin="5,3,0,0" 
+                                        Height="Auto" 
+                                        Width="Auto" 
+                                        FontSize="10.5" >
+                                        <Run Text="IE: " FontWeight="Bold"/>
+                                        <Run Text="{Binding IE, Converter={StaticResource FormatIeConverter}}"/>
+                                    </TextBlock>
+                                    <TextBlock
+                                        Margin="5,3,0,0" 
+                                        Height="Auto" 
+                                        Width="Auto" 
+                                        FontSize="10.5" >
+                                        <Run Text="SIT: " FontWeight="Bold"/>
+                                        <Run Text="{Binding cSit, Converter={StaticResource SitCadastroClientecSitConverter}}"/>
+                                    </TextBlock>
+                                </StackPanel>
 
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <TextBlock>New contact:</TextBlock>
-        <TextBox materialDesign:HintAssist.Hint="Name" Style="{DynamicResource MaterialDesignFloatingHintTextBox}"                 
-                 Margin="0 6 0 0"
-                 FontSize="18" Grid.Row="1">
-        </TextBox>
-        <TextBox materialDesign:HintAssist.Hint="Number" Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
-                 Margin="0 8 0 0"
-                 FontSize="16" Grid.Row="2"
-                 />
-        <StackPanel Orientation="Horizontal" Grid.Row="3"
+                            </StackPanel>
+                        </StackPanel>
+
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+        
+        <StackPanel x:Name="Buttons" 
+                    Orientation="Horizontal"
                     Margin="0 16 0 0">
             <Button IsDefault="True" Style="{DynamicResource MaterialDesignFlatButton}"
                     Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
                 <Button.CommandParameter>
                     <system:Boolean>True</system:Boolean>
                 </Button.CommandParameter>
-                ACCEPT
-            </Button>
-            <Button IsCancel="True" Margin="8 0 0 0" Style="{DynamicResource MaterialDesignFlatButton}"
-                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
-                <Button.CommandParameter>
-                    <system:Boolean>False</system:Boolean>
-                </Button.CommandParameter>
-                CANCEL
+                OK
             </Button>
         </StackPanel>
-    </Grid>
+        
+    </StackPanel>
+    
 </UserControl>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Data;
 using System.Windows.Media;
 using MaterialDesignThemes.Wpf;
@@ -162,6 +163,27 @@ namespace FiscaliZi.Colinfo.Model
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class SitCadastroClientecSitConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            switch (value?.ToString())
+            {
+                case "1":
+                    return "HABILITADO - ATIVO";
+                case "0":
+                    return "BAIXADA";
+                default:
+                    return value;
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }
@@ -423,6 +445,20 @@ namespace FiscaliZi.Colinfo.Model
             return value;
         }
 
+    }
+
+    public class FormatIEConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var reg = (string)value;
+            return $"{reg.Substring(0,6)}.{reg.Substring(6, 3)}/{reg.Substring(9, 4)}";
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotSupportedException();
+        }
     }
 
     public static class Tools
