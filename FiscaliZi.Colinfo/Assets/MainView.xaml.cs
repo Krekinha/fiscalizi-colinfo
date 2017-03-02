@@ -1,4 +1,4 @@
-﻿namespace FiscaliZi.Colinfo.Assert
+﻿namespace FiscaliZi.Colinfo.Assets
 {
     public partial class MainView
     {

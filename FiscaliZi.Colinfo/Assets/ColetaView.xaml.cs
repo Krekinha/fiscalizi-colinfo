@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace FiscaliZi.Colinfo.Assert
+namespace FiscaliZi.Colinfo.Assets
 {
 
     public partial class ColetaView : UserControl

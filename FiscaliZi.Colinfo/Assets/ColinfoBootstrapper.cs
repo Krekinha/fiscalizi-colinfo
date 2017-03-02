@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using Caliburn.Micro;
 
-namespace FiscaliZi.Colinfo.Assert
+namespace FiscaliZi.Colinfo.Assets
 {
     public class ColinfoBootstrapper : BootstrapperBase
     {

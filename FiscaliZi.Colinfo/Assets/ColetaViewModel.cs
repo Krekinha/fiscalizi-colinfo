@@ -25,7 +25,7 @@ using MaterialDesignThemes.Wpf;
 using Microsoft.EntityFrameworkCore;
 using PostSharp.Patterns.Model;
 
-namespace FiscaliZi.Colinfo.Assert
+namespace FiscaliZi.Colinfo.Assets
 {
     [NotifyPropertyChanged]
     public class ColetaViewModel : PropertyChangedBase
@@ -64,6 +64,8 @@ namespace FiscaliZi.Colinfo.Assert
         #region · Properties ·
 
         public ObservableCollection<Vendedor> Vendedores { get; set; }
+
+        public Vendedor Vendedor { get; set; }
 
         public ConfiguracaoApp Configuracoes { get; set; }
         #endregion
@@ -153,7 +155,8 @@ namespace FiscaliZi.Colinfo.Assert
 
         public void ConsultaCadastro(Pedido ped)
         {
-            
+            int NumOfRetries = 3;
+            int trys = 0;
             var recRet = new Model.retConsCad();
             Task.Run(() =>
             {
@@ -178,16 +181,30 @@ namespace FiscaliZi.Colinfo.Assert
 
                         var oldPed = vnd.Pedidos.FirstOrDefault(pd => pd.PedidoID == ped.PedidoID);
                         var ctxPed = Vendedores.FirstOrDefault(v => v.VendedorID == ped.VendedorID).Pedidos.Find(p => p.PedidoID == ped.PedidoID);
+                        var ctxVnd = Vendedores.FirstOrDefault(v => v.VendedorID == ped.VendedorID);
 
                         oldPed.Cliente.RetConsultaCadastro = recRet;
                         context.Entry(oldPed).State = EntityState.Modified;
                         context.SaveChanges();
 
                         ctxPed.Cliente.RetConsultaCadastro = recRet;
+
+                        Vendedor = ctxVnd;
+                        
+                        NotifyOfPropertyChange(() => ctxVnd.Pedidos);
+                        NotifyPropertyChangedServices.RaiseEventsImmediate(ctxVnd?.Pedidos);
+
+                        NotifyOfPropertyChange(() => Vendedor.Pedidos);
+                        NotifyPropertyChangedServices.RaiseEventsImmediate(Vendedor?.Pedidos);
                     }
                 }
                 catch (ComunicacaoException ex)
                 {
+                    if (trys < NumOfRetries)
+                    {
+                        trys += 1;
+                        throw;
+                    }
                     var consulta = new Model.retConsCad()
                     {
                         ErrorCode = "err_dives",

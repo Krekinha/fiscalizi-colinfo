@@ -1,7 +1,7 @@
 using Caliburn.Micro;
 using Microsoft.EntityFrameworkCore;
 
-namespace FiscaliZi.Colinfo.Assert
+namespace FiscaliZi.Colinfo.Assets
 {
     public class MainViewModel : PropertyChangedBase
     {

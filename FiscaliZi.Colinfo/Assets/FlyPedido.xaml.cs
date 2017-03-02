@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace FiscaliZi.Colinfo.Assert
+namespace FiscaliZi.Colinfo.Assets
 {
     /// <summary>
     /// Interação lógica para FlyPedido.xam

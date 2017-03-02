@@ -419,8 +419,8 @@ namespace FiscaliZi.Colinfo.Model
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var vnd = (Vendedor)value;
-            foreach (var ped in vnd.Pedidos)
+            var peds = (List<Pedido>)value;
+            foreach (var ped in peds)
             {
                 var sit =
                     ped.Cliente?.RetConsultaCadastro?.infCons?.infCad.Find(
@@ -428,15 +428,25 @@ namespace FiscaliZi.Colinfo.Model
 
                 if (sit != null && sit.cSit == "0")
                     return PackIconKind.AccountOff;
+
             }
 
-            foreach (var ped in vnd.Pedidos)
+            foreach (var ped in peds)
             {
-                if (ped.Cliente.RetConsultaCadastro != null && ped.Cliente.RetConsultaCadastro.ErrorCode == "err_dives")
+                if (ped.Cliente?.RetConsultaCadastro?.ErrorCode == "err_dives")
                 {
                         return PackIconKind.CloseCircle;
                 }
             }
+
+            foreach (var ped in peds)
+            {
+                if (Tools.IsCNPJ(ped?.Cliente?.CNPJ) && ped?.Cliente?.RetConsultaCadastro?.infCons == null)
+                {if(ped?.Cliente?.IE != "ISENTO")
+                    return PackIconKind.HelpCircle;
+                }
+            }
+
             return PackIconKind.CheckCircle;
         }
 
