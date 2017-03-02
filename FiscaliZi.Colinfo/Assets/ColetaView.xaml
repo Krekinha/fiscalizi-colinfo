@@ -32,6 +32,7 @@
         <Model:CurrentAccentColorConverter x:Key="CurrentAccentColorConverter" />
         <Model:SituacaoCNPJIconVendConverter x:Key="SituacaoCnpjIconVendConverter"/>
         <Model:ShowConsultaConverter x:Key="ShowConsultaConverter" />
+        <Model:SituacaoCNPJIconVendBackgroundConverter x:Key="SituacaoCNPJIconVendBackgroundConverter"/>
     </UserControl.Resources>
 
     <Grid >
@@ -124,7 +125,7 @@
                                         </Button>
                                         <materialDesign:PackIcon 
                                             Kind="{Binding Pedidos, Converter={StaticResource SituacaoCnpjIconVendConverter}}"
-                                            HorizontalAlignment="Right" />
+                                            HorizontalAlignment="Right" Foreground="{Binding Kind, RelativeSource={RelativeSource Self}, Converter={StaticResource SituacaoCNPJIconVendBackgroundConverter}}" />
                                     </StackPanel>
                                 </Grid>
                             </Grid>

@@ -456,7 +456,33 @@ namespace FiscaliZi.Colinfo.Model
         }
 
     }
+    public class SituacaoCNPJIconVendBackgroundConverter : IValueConverter
+    {
 
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+
+            switch ((PackIconKind)value)
+            {
+                case PackIconKind.AccountOff:
+                    return new SolidColorBrush(Colors.Red);
+                case PackIconKind.CloseCircle:
+                    return new SolidColorBrush(Colors.Red);
+                case PackIconKind.HelpCircle:
+                    return new SolidColorBrush(Colors.RoyalBlue);
+                case PackIconKind.CheckCircle:
+                    return new SolidColorBrush(Colors.MediumSeaGreen);
+                default:
+                    return new SolidColorBrush(Colors.DimGray);
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value;
+        }
+
+    }
     public class FormatIEConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
