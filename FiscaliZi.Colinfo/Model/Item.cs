@@ -1,9 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using PostSharp.Patterns.Model;
 
 namespace FiscaliZi.Colinfo.Model
 {
-    [NotifyPropertyChanged]
     public class Item
     {
         [Key]

@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Serialization;
-using PostSharp.Patterns.Model;
 
 namespace FiscaliZi.Colinfo.Model
 {
     [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/nfe")]
-    [NotifyPropertyChanged]
+
     public class retConsCad : ICloneable
     {
         #region Clone
@@ -32,7 +31,6 @@ namespace FiscaliZi.Colinfo.Model
         #endregion
     }
 
-    [NotifyPropertyChanged]
     public class infCons
     {
         #region Properties
@@ -60,7 +58,6 @@ namespace FiscaliZi.Colinfo.Model
         #endregion
     }
 
-    [NotifyPropertyChanged]
     public class infCad
     {
         #region Properties
@@ -99,7 +96,6 @@ namespace FiscaliZi.Colinfo.Model
         #endregion
     }
 
-    [NotifyPropertyChanged]
     public class ender
     {
         #region Properties

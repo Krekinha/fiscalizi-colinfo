@@ -23,11 +23,9 @@ using TipoAmbiente = NFe.Classes.Informacoes.Identificacao.Tipos.TipoAmbiente;
 using DFe.Utils;
 using MaterialDesignThemes.Wpf;
 using Microsoft.EntityFrameworkCore;
-using PostSharp.Patterns.Model;
 
 namespace FiscaliZi.Colinfo.Assets
 {
-    [NotifyPropertyChanged]
     public class ColetaViewModel : PropertyChangedBase
     {
         const string dir_Pedidos = @"Pedidos\";
@@ -83,7 +81,7 @@ namespace FiscaliZi.Colinfo.Assets
             Monitors.MonitorGZPED();
             
         }
-        private void AtualizaVendedores()
+        public void AtualizaVendedores()
         {
             var vnds = GetVendedores();
             if(Vendedores.Count > 0)
@@ -192,10 +190,11 @@ namespace FiscaliZi.Colinfo.Assets
                         Vendedor = ctxVnd;
                         
                         NotifyOfPropertyChange(() => ctxVnd.Pedidos);
-                        NotifyPropertyChangedServices.RaiseEventsImmediate(ctxVnd?.Pedidos);
 
                         NotifyOfPropertyChange(() => Vendedor.Pedidos);
-                        NotifyPropertyChangedServices.RaiseEventsImmediate(Vendedor?.Pedidos);
+
+                        Vendedor.ForcePropertyChanged("Pedidos");
+                        ctxPed.Cliente.ForcePropertyChanged("RetConsultaCadastro");
                     }
                 }
                 catch (ComunicacaoException ex)
@@ -324,10 +323,10 @@ namespace FiscaliZi.Colinfo.Assets
             return digts.Substring(idx, 4) != "0000";
         }
 
-        private void ShowPedidoFlyout( Pedido ped)
+        public void ShowPedidoFlyout( Pedido ped)
         {
-            //((MainView)Application.Current.MainWindow).LeftFlyout.IsOpen = !((MainView)Application.Current.MainWindow).LeftFlyout.IsOpen;
-            //((MainView) Application.Current.MainWindow).LeftFlyout.DataContext = ped;
+            ((MainView)Application.Current.MainWindow).LeftFlyout.IsOpen = !((MainView)Application.Current.MainWindow).LeftFlyout.IsOpen;
+            ((MainView) Application.Current.MainWindow).LeftFlyout.DataContext = ped;
         }
 
         public async void ShowConsulta(Pedido ped)

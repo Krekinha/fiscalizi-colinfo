@@ -17,7 +17,7 @@
     Width="1350" Height="800"
     GlowBrush="{DynamicResource AccentColorBrush}"
     BorderBrush="{DynamicResource WindowTitleColorBrush}" 
-    BorderThickness="2" >
+    BorderThickness="2" WindowStartupLocation="CenterScreen" >
 
     <Window.Resources>
     </Window.Resources>
@@ -29,7 +29,7 @@
                 Header="Items" 
                 materialDesignMahApps:FlyoutAssist.HeaderColorMode="Accent" 
                 Background="{DynamicResource AccentColorBrush}">
-                <!--<Assert:FlyPedido />-->
+                <Assets:FlyPedido />
             </Metro:Flyout>
         </Metro:FlyoutsControl>
     </Metro:MetroWindow.Flyouts>

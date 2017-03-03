@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using PostSharp.Patterns.Model;
 
 namespace FiscaliZi.Colinfo.Model
 {

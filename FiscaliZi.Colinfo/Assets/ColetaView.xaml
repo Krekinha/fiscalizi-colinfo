@@ -55,8 +55,11 @@
                     Orientation="Horizontal" 
                     Margin="10,0">
                     <DatePicker Width="195" HorizontalAlignment="Left" Text="05/02/2017" />
-                    <Button HorizontalAlignment="Right" Width="30" Padding="2 0 2 0"
-                            materialDesign:RippleAssist.IsCentered="True">
+                    <Button 
+                        cal:Message.Attach="AtualizaVendedores"
+                        HorizontalAlignment="Right" 
+                        Width="30" Padding="2 0 2 0"
+                        materialDesign:RippleAssist.IsCentered="True">
                         <materialDesign:PackIcon Kind="Refresh" />
                     </Button>
                     <materialDesign:PopupBox HorizontalAlignment="Right" Padding="2 0 2 0" Foreground="#FF918B8B">
@@ -151,7 +154,7 @@
                   CellStyle="{DynamicResource DatagridCellCustomMDesign}" 
                   RowStyle="{DynamicResource DataGridRowCustomMDesign}"
                   ColumnHeaderStyle="{StaticResource CustomMaterialDesignDataGridColumnHeader}" 
-                  Margin="10,0,0,0">
+                  Margin="10,0,0,0" SelectionUnit="CellOrRowHeader">
             <DataGrid.Columns>
                 <DataGridTextColumn 
                     Header="ROTA" 
