@@ -26,12 +26,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FiscaliZi.Colinfo.Assets
 {
-    public class ColetaViewModel : PropertyChangedBase
+    public class EntradaViewModel : PropertyChangedBase
     {
         const string dir_Pedidos = @"Pedidos\";
         private IEventAggregator _events;
 
-        public ColetaViewModel(IEventAggregator events)
+        public EntradaViewModel(IEventAggregator events)
         {
             _events = events;
             _events.Subscribe(this);
@@ -127,7 +127,7 @@ namespace FiscaliZi.Colinfo.Assets
             {
                 try
                 {
-                    var vnd = Coletor.getColeta(e.FullPath, e.Name);
+                    var vnd = Coletor.getArquivo(e.FullPath, e.Name);
                     File.Delete(e.FullPath);
 
                     if (vnd != null)

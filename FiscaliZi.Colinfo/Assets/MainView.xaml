@@ -39,10 +39,13 @@
         <dragablz:TabablzControl BorderThickness="0"
                                  Margin="0,-1,0,1" 
                                  FixedHeaderCount="2" >
-            <TabItem Header="COLETA">
+                <TabItem Header="ENTRADA">
+                    <Assets:EntradaView cal:View.Model="{Binding EntradaVM}" Margin="8"/>
+                </TabItem>
+                <TabItem Header="COLETA">
                     <Assets:ColetaView cal:View.Model="{Binding ColetaVM}" Margin="8"/>
-            </TabItem>
-            <TabItem Header="OPÇÕES">
+                </TabItem>
+                <TabItem Header="OPÇÕES">
                 <dragablz:TabablzControl FixedHeaderCount="2"  >
                     <TabItem Header="Tab 1"/>
                     <TabItem Header="Tab 2"/>

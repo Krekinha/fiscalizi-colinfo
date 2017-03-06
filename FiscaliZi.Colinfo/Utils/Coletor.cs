@@ -10,11 +10,9 @@ namespace FiscaliZi.Colinfo.Utils
 {
     public class Coletor
     {
-        public static Vendedor getColeta(string path, string nome)
+        public static Vendedor getArquivo(string path, string nome)
         {
             decimal val = 0;
-
-            //var vm = ServiceLocator.Current.GetInstance<ColetaViewModel>();
 
             List<Cliente> clientes = new List<Cliente>();
             List<Pedido> peds = new List<Pedido>();
@@ -124,6 +122,30 @@ namespace FiscaliZi.Colinfo.Utils
                 }
 
                 return vend;
+            }
+            return null;
+
+        }
+
+        public static List<Pedido> GetPedidos(string path)
+        {
+            var peds = new List<Pedido>();
+
+            var Lines = File.ReadLines(path).Select(a => a.Split(';'));
+
+            foreach (var line in Lines)
+            {
+                var item = new Item
+                {
+                    Produto = new Produto { Codigo = int.Parse(line[6]) },
+                    Quantidade = int.Parse(line[8]),
+
+                    ValorUnid = ToDecimal(line[16]),
+                    ValorTotal = ToDecimal(line[11])
+                };
+                if (true)
+                {
+                }
             }
             return null;
 
