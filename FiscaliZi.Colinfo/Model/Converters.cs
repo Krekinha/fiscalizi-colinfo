@@ -46,7 +46,7 @@ namespace FiscaliZi.Colinfo.Model
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var items = (ObservableCollection<Vendedor>)value;
+            var items = (ObservableCollection<Arquivo>)value;
             if (items == null) return 0;
             int totPeds = 0;
             foreach (var item in items)
@@ -67,7 +67,7 @@ namespace FiscaliZi.Colinfo.Model
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var items = (ObservableCollection<Vendedor>)value;
+            var items = (ObservableCollection<Arquivo>)value;
             if (items == null) return 0;
             int? totBols = 0;
             foreach (var item in items)
@@ -90,8 +90,9 @@ namespace FiscaliZi.Colinfo.Model
             var items = (List<Pedido>)value;
             if (items == null) return "";
 
-            var total = items.Cast<Pedido>().Count(p => p.NumPedido > 0);
-            return total;
+            //var total = items.Cast<Pedido>().Count(p => p.NumPedido > 0);
+            //return total;
+            return null;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -297,7 +298,7 @@ namespace FiscaliZi.Colinfo.Model
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var items = (ObservableCollection<Vendedor>)value;
+            var items = (ObservableCollection<Arquivo>)value;
             int rej = 0;
             int err = 0;
             int hab = 0;

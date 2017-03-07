@@ -10,8 +10,8 @@ namespace FiscaliZi.Colinfo.Model
         public int PedidoID { get; set; }
 
         #region Properties
-        public int NumPedido { get; set; }
-        public int NumVendedor { get; set; }
+        public string NumPedido { get; set; }
+        public string CodVendedor { get; set; }
         public string NumPedPalm { get; set; }
         public string FormPgt { get; set; }
         public Cliente Cliente { get; set; }
@@ -20,7 +20,7 @@ namespace FiscaliZi.Colinfo.Model
         #endregion
 
         #region Foreign Keys
-        public int VendedorID { get; set; }
+        public int ArquivoID { get; set; }
         public int ClienteID { get; set; }
         #endregion
 

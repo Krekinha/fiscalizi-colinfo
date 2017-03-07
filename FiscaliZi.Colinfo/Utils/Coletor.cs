@@ -10,7 +10,7 @@ namespace FiscaliZi.Colinfo.Utils
 {
     public class Coletor
     {
-        public static Vendedor getArquivo(string path, string nome)
+        public static Arquivo getArquivo(string path, string nome)
         {
             decimal val = 0;
 
@@ -51,7 +51,7 @@ namespace FiscaliZi.Colinfo.Utils
                                 NumPedPalm = line[8],
                                 ValorTotal = val,
                                 FormPgt = line[21],
-                                NumVendedor = int.Parse(line[2]),
+                                CodVendedor = line[2],
                                 Itens = new List<Item>(),
                                 Cliente = cli
                             });
@@ -77,8 +77,8 @@ namespace FiscaliZi.Colinfo.Utils
 
                     Item item = new Item
                     {
-                        Produto = new Produto { Codigo = int.Parse(line[6]) },
-                        Quantidade = int.Parse(line[8]),
+                        Produto = line[6],
+                        QntCX = int.Parse(line[8]),
 
                         ValorUnid = ToDecimal(line[16]),
                         ValorTotal = ToDecimal(line[11])
@@ -107,10 +107,10 @@ namespace FiscaliZi.Colinfo.Utils
                 }*/
                 #endregion
 
-                var vend = new Vendedor
+                var vend = new Arquivo
                 {
                     NomeVendedor = "seu ze",
-                    NumVendedor = peds.First().NumVendedor,
+                    CodVendedor = peds.First().CodVendedor,
                     ArquivoVendedor = nome,
                     Pedidos = new List<Pedido>(),
                     DataEnvio = DateTime.Now,
@@ -135,17 +135,35 @@ namespace FiscaliZi.Colinfo.Utils
 
             foreach (var line in Lines)
             {
+                if (line[0] == "Pedido") continue;
                 var item = new Item
                 {
-                    Produto = new Produto { Codigo = int.Parse(line[6]) },
-                    Quantidade = int.Parse(line[8]),
-
-                    ValorUnid = ToDecimal(line[16]),
-                    ValorTotal = ToDecimal(line[11])
+                    Produto = line[34],
+                    QntCX = int.Parse(line[45]),
+                    QntUND = int.Parse(line[46]),
+                    ValorCusto = ToDecimal(line[40]),
+                    ValorUnid = ToDecimal(line[39]),
+                    ValorTotal = ToDecimal(line[37])
                 };
-                if (true)
+                var ped = peds.Find(p => p.NumPedido == line[0]);
+
+                if (ped == null)
                 {
+                    peds.Add(
+                        new Pedido
+                        {
+                            NumPedido = line[0],
+                            CodVendedor = line[6],
+                            Itens = new List<Item>{ item}
+                        }
+                        );
                 }
+                else
+                {
+                    ped.Itens.Add(item);
+                }
+
+                
             }
             return null;
 

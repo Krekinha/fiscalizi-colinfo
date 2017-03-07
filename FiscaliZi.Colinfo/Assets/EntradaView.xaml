@@ -56,7 +56,7 @@
                     Margin="10,0">
                     <DatePicker Width="195" HorizontalAlignment="Left" Text="05/02/2017" />
                     <Button 
-                        cal:Message.Attach="AtualizaVendedores"
+                        cal:Message.Attach="AtualizaArquivos"
                         HorizontalAlignment="Right" 
                         Width="30" Padding="2 0 2 0"
                         materialDesign:RippleAssist.IsCentered="True">
@@ -76,8 +76,8 @@
                 </StackPanel>
                 <Separator Grid.Row="1" Style="{StaticResource MaterialDesignDarkSeparator}" Margin="8 0 8 0"/>
                 <ListBox 
-                    x:Name="Vendedores" 
-                    ItemsSource="{Binding Vendedores}"
+                    x:Name="Arquivos" 
+                    ItemsSource="{Binding Arquivos}"
                     IsSynchronizedWithCurrentItem="True" 
                     SelectedIndex="-1" 
                     Margin="10,0" Grid.Row="2"
@@ -86,7 +86,7 @@
                         <StaticResource ResourceKey="CustomMaterialDesignListBox"/>
                     </ListBox.Style>
                     <ListBox.ItemTemplate>
-                        <DataTemplate x:Name="dtVendedores">
+                        <DataTemplate x:Name="dtArquivos">
                             <Grid>
                                 <Grid Height="40">
                                     <Grid.ColumnDefinitions>
@@ -108,7 +108,7 @@
                                         FontWeight="Bold" Grid.Column="1" Grid.Row="0" Width="Auto" Margin="3,3,0,0" FontSize="10.5" >
                                         <TextBlock.Text>
                                             <MultiBinding StringFormat="{}{0} ({1}) {2}">
-                                                <Binding Path="NumVendedor"/>
+                                                <Binding Path="CodVendedor"/>
                                                 <Binding Path="Pedidos" Converter="{StaticResource RotaConverter}" />
                                                 <Binding Path="NomeVendedor" Converter="{StaticResource SimplificaNomeVendedorConverter}"/>
                                             </MultiBinding>
@@ -123,7 +123,7 @@
                                         <Button HorizontalAlignment="Right" Width="Auto" Padding="2 0 2 0"
                                                 materialDesign:RippleAssist.IsCentered="True"
                                                 Style="{DynamicResource MaterialDesignFlatButton}" Height="Auto"
-                                                cal:Message.Attach="RemoverVendedor($this)">
+                                                cal:Message.Attach="RemoverArquivo($this)">
                                             <materialDesign:PackIcon Kind="Close"/>
                                         </Button>
                                         <materialDesign:PackIcon 
@@ -139,7 +139,7 @@
             </Grid>
         </materialDesign:Card>
         <DataGrid x:Name="Pedidos"
-                  ItemsSource="{Binding Vendedores/Pedidos}"
+                  ItemsSource="{Binding Arquivos/Pedidos}"
                   Grid.Column="1"
                   AutoGenerateColumns="False" 
                   CanUserAddRows="False" 

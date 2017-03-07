@@ -5,13 +5,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FiscaliZi.Colinfo.Model
 {
-    public class Vendedor : INotifyPropertyChanged
+    public class Arquivo : INotifyPropertyChanged
     {
         [Key]
-        public int VendedorID { get; set; }      
+        public int ArquivoID { get; set; }      
 
         #region Properties
-        public int NumVendedor { get; set; }
+        public string CodVendedor { get; set; }
         public string NomeVendedor { get; set; }
         public string ArquivoVendedor { get; set; }
         public DateTime DataColeta { get; set; }

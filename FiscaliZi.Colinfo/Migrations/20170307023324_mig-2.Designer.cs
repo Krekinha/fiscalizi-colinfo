@@ -8,9 +8,10 @@ using FiscaliZi.Colinfo;
 namespace FiscaliZi.Colinfo.Migrations
 {
     [DbContext(typeof(ColinfoContext))]
-    partial class ColinfoContextModelSnapshot : ModelSnapshot
+    [Migration("20170307023324_mig-2")]
+    partial class mig2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
@@ -23,13 +24,13 @@ namespace FiscaliZi.Colinfo.Migrations
 
                     b.Property<string>("ArquivoVendedor");
 
-                    b.Property<string>("CodVendedor");
-
                     b.Property<DateTime>("DataColeta");
 
                     b.Property<DateTime>("DataEnvio");
 
                     b.Property<string>("NomeVendedor");
+
+                    b.Property<int>("NumVendedor");
 
                     b.HasKey("ArquivoID");
 
@@ -212,13 +213,13 @@ namespace FiscaliZi.Colinfo.Migrations
 
                     b.Property<int>("ClienteID");
 
-                    b.Property<string>("CodVendedor");
-
                     b.Property<string>("FormPgt");
 
                     b.Property<string>("NumPedPalm");
 
-                    b.Property<string>("NumPedido");
+                    b.Property<int>("NumPedido");
+
+                    b.Property<int>("NumVendedor");
 
                     b.Property<decimal>("ValorTotal");
 

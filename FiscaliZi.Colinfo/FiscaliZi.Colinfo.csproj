@@ -283,6 +283,26 @@
     <Compile Include="Migrations\20170220033647_mig.designer.cs">
       <DependentUpon>20170220033647_mig.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20170306034133_mig-1.cs" />
+    <Compile Include="Migrations\20170306034133_mig-1.designer.cs">
+      <DependentUpon>20170306034133_mig-1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20170307023324_mig-2.cs" />
+    <Compile Include="Migrations\20170307023324_mig-2.designer.cs">
+      <DependentUpon>20170307023324_mig-2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20170307031455_mig-3.cs" />
+    <Compile Include="Migrations\20170307031455_mig-3.designer.cs">
+      <DependentUpon>20170307031455_mig-3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20170307032344_mig-4.cs" />
+    <Compile Include="Migrations\20170307032344_mig-4.designer.cs">
+      <DependentUpon>20170307032344_mig-4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20170307032858_mig-5.cs" />
+    <Compile Include="Migrations\20170307032858_mig-5.designer.cs">
+      <DependentUpon>20170307032858_mig-5.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\ColinfoContextModelSnapshot.cs" />
     <Compile Include="Model\CadCli.cs" />
     <Compile Include="Model\Cliente.cs" />
@@ -294,7 +314,7 @@
     <Compile Include="Model\Item.cs" />
     <Compile Include="Model\Pedido.cs" />
     <Compile Include="Model\Produto.cs" />
-    <Compile Include="Model\Vendedor.cs" />
+    <Compile Include="Model\Arquivo.cs" />
     <Compile Include="Utils\Coletor.cs" />
     <Compile Include="Utils\Funcoes.cs" />
     <Compile Include="Utils\Monitors.cs" />

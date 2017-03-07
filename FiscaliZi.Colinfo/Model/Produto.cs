@@ -9,7 +9,7 @@ namespace FiscaliZi.Colinfo.Model
         public int ProdutoID { get; set; }
 
         #region Properties
-        public int Codigo { get; set; }
+        public string Codigo { get; set; }
         public string Descricao { get; set; }
         public int Unidades { get; set; }
         public decimal Preco { get; set; }

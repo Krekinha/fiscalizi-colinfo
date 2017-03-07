@@ -36,7 +36,7 @@ namespace FiscaliZi.Colinfo.Assets
             _events = events;
             _events.Subscribe(this);
 
-            Vendedores = GetVendedores();
+            Arquivos = GetArquivos();
 
             Configuracoes = CarregarConfiguracoes();
             InitializeMonitor();
@@ -46,7 +46,7 @@ namespace FiscaliZi.Colinfo.Assets
         void test()
         {
             var peds = new List<Pedido>();
-            foreach (var vnd in Vendedores)
+            foreach (var vnd in Arquivos)
             {
                 foreach (var ped in vnd.Pedidos)
                 {
@@ -61,9 +61,9 @@ namespace FiscaliZi.Colinfo.Assets
 
         #region · Properties ·
 
-        public ObservableCollection<Vendedor> Vendedores { get; set; }
+        public ObservableCollection<Arquivo> Arquivos { get; set; }
 
-        public Vendedor Vendedor { get; set; }
+        public Arquivo Arquivo { get; set; }
 
         public ConfiguracaoApp Configuracoes { get; set; }
         #endregion
@@ -81,22 +81,15 @@ namespace FiscaliZi.Colinfo.Assets
             Monitors.MonitorGZPED();
             
         }
-        public void AtualizaVendedores()
+        public void AtualizaArquivos()
         {
-            var vnds = GetVendedores();
-            if(Vendedores.Count > 0)
-                Vendedores.Clear();
+            var vnds = GetArquivos();
+            if(Arquivos.Count > 0)
+                Arquivos.Clear();
             foreach (var vnd in vnds)
             {
-                Vendedores.Add(vnd);
+                Arquivos.Add(vnd);
             }
-        }
-        private void EditarPedido(Pedido ped)
-        {
-            //dataService.EditarPedido(ped);
-            //ped.ForcePropertyChanged("Cliente");
-            //RaisePropertyChanged("Vendedores");
-
         }
 
         private void MonitorTXTPED()
@@ -132,10 +125,10 @@ namespace FiscaliZi.Colinfo.Assets
 
                     if (vnd != null)
                     {
-                        AddVendedor(vnd);
+                        AddArquivo(vnd);
                         Application.Current.Dispatcher.Invoke(delegate
                         {
-                            Vendedores.Add(vnd);
+                            Arquivos.Add(vnd);
                         });
                         ConsultaCadastros(vnd);
                     }
@@ -169,17 +162,17 @@ namespace FiscaliZi.Colinfo.Assets
 
                     using (var context = new ColinfoContext())
                     {
-                        var vnd = context.Vendedores
+                        var vnd = context.Arquivos
                         .Include(vd => vd.Pedidos)
                         .ThenInclude(cli => cli.Cliente)
                         .ThenInclude(cons => cons.RetConsultaCadastro)
                         .ThenInclude(inf => inf.infCons)
                         .ThenInclude(cad => cad.infCad)
-                        .FirstOrDefault(v => v.VendedorID == ped.VendedorID);
+                        .FirstOrDefault(v => v.ArquivoID == ped.ArquivoID);
 
                         var oldPed = vnd.Pedidos.FirstOrDefault(pd => pd.PedidoID == ped.PedidoID);
-                        var ctxPed = Vendedores.FirstOrDefault(v => v.VendedorID == ped.VendedorID).Pedidos.Find(p => p.PedidoID == ped.PedidoID);
-                        var ctxVnd = Vendedores.FirstOrDefault(v => v.VendedorID == ped.VendedorID);
+                        var ctxPed = Arquivos.FirstOrDefault(v => v.ArquivoID == ped.ArquivoID).Pedidos.Find(p => p.PedidoID == ped.PedidoID);
+                        var ctxVnd = Arquivos.FirstOrDefault(v => v.ArquivoID == ped.ArquivoID);
 
                         oldPed.Cliente.RetConsultaCadastro = recRet;
                         context.Entry(oldPed).State = EntityState.Modified;
@@ -187,13 +180,13 @@ namespace FiscaliZi.Colinfo.Assets
 
                         ctxPed.Cliente.RetConsultaCadastro = recRet;
 
-                        Vendedor = ctxVnd;
+                        Arquivo = ctxVnd;
                         
                         NotifyOfPropertyChange(() => ctxVnd.Pedidos);
 
-                        NotifyOfPropertyChange(() => Vendedor.Pedidos);
+                        NotifyOfPropertyChange(() => Arquivo.Pedidos);
 
-                        Vendedor.ForcePropertyChanged("Pedidos");
+                        Arquivo.ForcePropertyChanged("Pedidos");
                         ctxPed.Cliente.ForcePropertyChanged("RetConsultaCadastro");
                     }
                 }
@@ -236,7 +229,7 @@ namespace FiscaliZi.Colinfo.Assets
             });
 
         }
-        private void ConsultaCadastros(Vendedor vnd)
+        private void ConsultaCadastros(Arquivo vnd)
         {
             foreach (var ped in vnd.Pedidos)
             {
@@ -367,16 +360,16 @@ namespace FiscaliZi.Colinfo.Assets
         {
             using (var context = new ColinfoContext())
             {
-                var vnd = context.Vendedores
+                var vnd = context.Arquivos
                     .Include(vd => vd.Pedidos)
                     .ThenInclude(cli => cli.Cliente)
                     .ThenInclude(cons => cons.RetConsultaCadastro)
                     .ThenInclude(inf => inf.infCons)
                     .ThenInclude(cad => cad.infCad)
-                    .FirstOrDefault(v => v.VendedorID == ped.VendedorID);
+                    .FirstOrDefault(v => v.ArquivoID == ped.ArquivoID);
 
                 var oldPed = vnd.Pedidos.FirstOrDefault(pd => pd.PedidoID == ped.PedidoID);
-                var ctxPed = Vendedores.FirstOrDefault(v => v.VendedorID == ped.VendedorID).Pedidos.Find(p => p.PedidoID == ped.PedidoID);
+                var ctxPed = Arquivos.FirstOrDefault(v => v.ArquivoID == ped.ArquivoID).Pedidos.Find(p => p.PedidoID == ped.PedidoID);
 
                 oldPed.Cliente.RetConsultaCadastro = consulta;
                 context.Entry(oldPed).State = EntityState.Modified;
@@ -385,7 +378,7 @@ namespace FiscaliZi.Colinfo.Assets
                 ctxPed.Cliente.RetConsultaCadastro = consulta;
             }
         }
-        public void RemoverVendedor(Vendedor vnd)
+        public void RemoverArquivo(Arquivo vnd)
         {
             using (var context = new ColinfoContext())
             {
@@ -405,9 +398,9 @@ namespace FiscaliZi.Colinfo.Assets
                 }
             }
 
-            AtualizaVendedores();
+            AtualizaArquivos();
         }
-        public void AddVendedor(Vendedor vnd)
+        public void AddArquivo(Arquivo vnd)
         {
             using (var context = new ColinfoContext())
             {
@@ -416,25 +409,25 @@ namespace FiscaliZi.Colinfo.Assets
             }
 
         }
-        private ObservableCollection<Vendedor> GetVendedores()
+        private ObservableCollection<Arquivo> GetArquivos()
         {
             using (var context = new ColinfoContext())
             {
-                var Vends = new ObservableCollection<Vendedor>();
+                var Arqs = new ObservableCollection<Arquivo>();
 
-                var vends = context.Vendedores
+                var arqs = context.Arquivos
                     .Include(vnd => vnd.Pedidos)
                     .ThenInclude(cli => cli.Cliente)
                     .ThenInclude(ret => ret.RetConsultaCadastro)
                     .ThenInclude(inf => inf.infCons)
                     .ThenInclude(inf2 => inf2.infCad);
 
-                foreach (var item in vends)
+                foreach (var item in arqs)
                 {
-                    Vends.Add(item);
+                    Arqs.Add(item);
                 }
 
-                return Vends;
+                return Arqs;
             }
         }
 

@@ -8,9 +8,10 @@ using FiscaliZi.Colinfo;
 namespace FiscaliZi.Colinfo.Migrations
 {
     [DbContext(typeof(ColinfoContext))]
-    partial class ColinfoContextModelSnapshot : ModelSnapshot
+    [Migration("20170306034133_mig-1")]
+    partial class mig1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
@@ -23,13 +24,13 @@ namespace FiscaliZi.Colinfo.Migrations
 
                     b.Property<string>("ArquivoVendedor");
 
-                    b.Property<string>("CodVendedor");
-
                     b.Property<DateTime>("DataColeta");
 
                     b.Property<DateTime>("DataEnvio");
 
                     b.Property<string>("NomeVendedor");
+
+                    b.Property<int>("NumVendedor");
 
                     b.HasKey("ArquivoID");
 
@@ -184,13 +185,7 @@ namespace FiscaliZi.Colinfo.Migrations
 
                     b.Property<int>("PedidoID");
 
-                    b.Property<string>("Produto");
-
-                    b.Property<int>("QntCX");
-
-                    b.Property<int>("QntUND");
-
-                    b.Property<decimal>("ValorCusto");
+                    b.Property<int>("Quantidade");
 
                     b.Property<decimal>("ValorTotal");
 
@@ -208,19 +203,21 @@ namespace FiscaliZi.Colinfo.Migrations
                     b.Property<int>("PedidoID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("ArquivoID");
+                    b.Property<int?>("ArquivoID");
 
                     b.Property<int>("ClienteID");
-
-                    b.Property<string>("CodVendedor");
 
                     b.Property<string>("FormPgt");
 
                     b.Property<string>("NumPedPalm");
 
-                    b.Property<string>("NumPedido");
+                    b.Property<int>("NumPedido");
+
+                    b.Property<int>("NumVendedor");
 
                     b.Property<decimal>("ValorTotal");
+
+                    b.Property<int>("VendedorID");
 
                     b.HasKey("PedidoID");
 
@@ -229,6 +226,31 @@ namespace FiscaliZi.Colinfo.Migrations
                     b.HasIndex("ClienteID");
 
                     b.ToTable("Pedidos");
+                });
+
+            modelBuilder.Entity("FiscaliZi.Colinfo.Model.Produto", b =>
+                {
+                    b.Property<int>("ProdutoID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Codigo");
+
+                    b.Property<string>("Descricao");
+
+                    b.Property<int>("ItemID");
+
+                    b.Property<decimal>("Peso");
+
+                    b.Property<decimal>("Preco");
+
+                    b.Property<int>("Unidades");
+
+                    b.HasKey("ProdutoID");
+
+                    b.HasIndex("ItemID")
+                        .IsUnique();
+
+                    b.ToTable("Produto");
                 });
 
             modelBuilder.Entity("FiscaliZi.Colinfo.Model.retConsCad", b =>
@@ -298,12 +320,19 @@ namespace FiscaliZi.Colinfo.Migrations
                 {
                     b.HasOne("FiscaliZi.Colinfo.Model.Arquivo")
                         .WithMany("Pedidos")
-                        .HasForeignKey("ArquivoID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ArquivoID");
 
                     b.HasOne("FiscaliZi.Colinfo.Model.Cliente", "Cliente")
                         .WithMany("NavPedidos")
                         .HasForeignKey("ClienteID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("FiscaliZi.Colinfo.Model.Produto", b =>
+                {
+                    b.HasOne("FiscaliZi.Colinfo.Model.Item")
+                        .WithOne("Produto")
+                        .HasForeignKey("FiscaliZi.Colinfo.Model.Produto", "ItemID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
