@@ -154,7 +154,8 @@ namespace FiscaliZi.Colinfo.Utils
                         {
                             NumPedido = line[0],
                             CodVendedor = line[6],
-                            Itens = new List<Item>{ item}
+                            Itens = new List<Item>{ item},
+                            Cliente = GetClienteByCode("")
                         }
                         );
                 }
@@ -166,6 +167,25 @@ namespace FiscaliZi.Colinfo.Utils
                 
             }
             return null;
+
+        }
+
+        private static Cliente GetClienteByCode(string code)
+        {
+            var cz = code.Split('-');
+            using (var context = new ColinfoContext())
+            {
+                var cli = context.Clientes.FirstOrDefault(cl => cl.RegiaoCliente == int.Parse(cz[0]) && cl.NumCliente == int.Parse(cz[1]));
+                if (cli == null)
+                {
+                    return new Cliente
+                    {
+                        RegiaoCliente = int.Parse(cz[0]),
+                        NumCliente = int.Parse(cz[1])
+                    };
+                }
+                return cli;
+            }
 
         }
 

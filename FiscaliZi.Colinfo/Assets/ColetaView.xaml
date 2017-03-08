@@ -8,8 +8,21 @@
              xmlns:MDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
+    <StackPanel>
+        <MDesign:Card Background="{DynamicResource MaterialDesignBackground}"
+                             Margin="0 24 0 0">
+            <Expander HorizontalAlignment="Stretch"
+                      Header="301 (25)">
+            <StackPanel Orientation="Vertical"
+                            TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
+                            Margin="24,8,24,16">
+                <TextBlock Text="Your Content" />
+                <TextBlock Opacity=".68" Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                               TextWrapping="Wrap"/>
+            </StackPanel>
+        </Expander>
+        </MDesign:Card>
         <TextBlock>COLETADOS</TextBlock>
         <Button cal:Message.Attach="AtualizaPedidos">TESTE</Button>
-    </Grid>
+    </StackPanel>
 </UserControl>
