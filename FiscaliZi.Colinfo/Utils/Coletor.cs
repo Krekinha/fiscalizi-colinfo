@@ -155,7 +155,7 @@ namespace FiscaliZi.Colinfo.Utils
                             NumPedido = line[0],
                             CodVendedor = line[6],
                             Itens = new List<Item>{ item},
-                            Cliente = GetClienteByCode("")
+                            Cliente = GetClienteByCode(line[3])
                         }
                         );
                 }
@@ -166,7 +166,7 @@ namespace FiscaliZi.Colinfo.Utils
 
                 
             }
-            return null;
+            return peds;
 
         }
 

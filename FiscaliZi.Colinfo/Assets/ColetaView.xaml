@@ -4,10 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FiscaliZi.Colinfo.Assets"
+             xmlns:Model="clr-namespace:FiscaliZi.Colinfo.Model"
              xmlns:cal="http://www.caliburnproject.org"
              xmlns:MDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance Type=Model:DesignData, IsDesignTimeCreatable=True}">
     <StackPanel>
         <MDesign:Card Background="{DynamicResource MaterialDesignBackground}"
                              Margin="0 24 0 0">
@@ -17,8 +19,7 @@
                             TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
                             Margin="24,8,24,16">
                 <TextBlock Text="Your Content" />
-                <TextBlock Opacity=".68" Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                               TextWrapping="Wrap"/>
+                <ListBox x:Name="Pedidos" ItemsSource="{Binding Pedidos}"/>
             </StackPanel>
         </Expander>
         </MDesign:Card>
