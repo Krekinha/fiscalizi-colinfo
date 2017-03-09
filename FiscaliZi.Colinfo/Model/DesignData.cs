@@ -10,9 +10,13 @@ namespace FiscaliZi.Colinfo.Model
         {
             Arquivos = GetArquivos();
             Pedido = GetPedido();
+            Pedidos = GetPedidos();
         }
 
+
+
         public ObservableCollection<Arquivo> Arquivos { get; set; }
+        public ObservableCollection<Pedido> Pedidos { get; set; }
 
         public Pedido Pedido { get; set; }
 
@@ -862,6 +866,17 @@ namespace FiscaliZi.Colinfo.Model
                 }
             };
         }
-
+        private ObservableCollection<Pedido> GetPedidos()
+        {
+            var peds = new ObservableCollection<Pedido>();
+            foreach (var arq in Arquivos)
+            {
+                foreach (var ped in arq.Pedidos)
+                {
+                    peds.Add(ped);
+                }
+            }
+            return peds;
+        }
     }
 }
