@@ -143,7 +143,14 @@ namespace FiscaliZi.Colinfo.Model
                 }
 
                 var sit = consulta.infCons?.infCad.Find(s => s.IE == ie.Replace(".", "").Replace("/", ""));
-                if (sit == null) return "CONSULTAR";
+                if (sit == null)
+                {
+                    if (!string.IsNullOrEmpty(consulta.infCons.cStat))
+                    {
+                        return "ERRO";
+                    }
+                    return "CONSULTAR";
+                }
                 switch (sit.cSit)
                 {
                     case "1":
