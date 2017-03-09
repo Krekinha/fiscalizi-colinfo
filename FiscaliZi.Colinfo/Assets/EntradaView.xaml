@@ -34,7 +34,7 @@
         <Model:ShowConsultaConverter x:Key="ShowConsultaConverter" />
         <Model:SituacaoCNPJIconVendBackgroundConverter x:Key="SituacaoCNPJIconVendBackgroundConverter"/>
     </UserControl.Resources>
-
+    
     <Grid >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
@@ -249,4 +249,5 @@
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
+    
 </UserControl>

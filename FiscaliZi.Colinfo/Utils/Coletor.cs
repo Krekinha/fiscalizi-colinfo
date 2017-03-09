@@ -135,7 +135,8 @@ namespace FiscaliZi.Colinfo.Utils
 
             foreach (var line in Lines)
             {
-                if (line[0] == "Pedido") continue;
+                if (!IsValidPed(line, new DateTime(2017, 3, 1))) continue;
+                
                 var item = new Item
                 {
                     Produto = line[34],
@@ -221,6 +222,24 @@ namespace FiscaliZi.Colinfo.Utils
             {
                 return 0;
             }
+        }
+
+        private static bool IsValidPed(string[] line, DateTime dataPed)
+        {
+            try
+            {
+                if (line[0] == "Pedido") return false;
+
+                if (!dataPed.Equals(DateTime.Parse(line[29]))) return false;
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return true;
+            }
+
         }
     }
 }
