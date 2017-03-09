@@ -229,9 +229,9 @@ namespace FiscaliZi.Colinfo.Assets
             });
 
         }
-        private void ConsultaCadastros(Arquivo vnd)
+        private void ConsultaCadastros(Arquivo arq)
         {
-            foreach (var ped in vnd.Pedidos)
+            foreach (var ped in arq.Pedidos)
             {
                 if (IsCNPJ(ped.Cliente.CNPJ))
                     ConsultaCadastro(ped);
@@ -378,13 +378,13 @@ namespace FiscaliZi.Colinfo.Assets
                 ctxPed.Cliente.RetConsultaCadastro = consulta;
             }
         }
-        public void RemoverArquivo(Arquivo vnd)
+        public void RemoverArquivo(Arquivo arq)
         {
             using (var context = new ColinfoContext())
             {
                 try
                 {
-                    context.Remove(vnd);
+                    context.Remove(arq);
                     context.SaveChanges();
                 }
                 catch (Exception ex)
@@ -400,11 +400,11 @@ namespace FiscaliZi.Colinfo.Assets
 
             AtualizaArquivos();
         }
-        public void AddArquivo(Arquivo vnd)
+        public void AddArquivo(Arquivo arq)
         {
             using (var context = new ColinfoContext())
             {
-                context.Add(vnd);
+                context.Add(arq);
                 context.SaveChanges();
             }
 

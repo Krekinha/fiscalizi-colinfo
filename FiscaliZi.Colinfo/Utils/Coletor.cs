@@ -135,7 +135,7 @@ namespace FiscaliZi.Colinfo.Utils
 
             foreach (var line in Lines)
             {
-                if (!IsValidPed(line, new DateTime(2017, 3, 1))) continue;
+                if (!IsValidPed(line, new DateTime(2017, 2, 14))) continue;
                 
                 var item = new Item
                 {
@@ -155,6 +155,7 @@ namespace FiscaliZi.Colinfo.Utils
                         {
                             NumPedido = line[0],
                             CodVendedor = line[6],
+                            DataPedido = DateTime.Parse(line[29]),
                             Itens = new List<Item>{ item},
                             Cliente = GetClienteByCode(line[3])
                         }

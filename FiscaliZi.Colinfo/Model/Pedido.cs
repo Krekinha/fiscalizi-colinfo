@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -17,6 +18,7 @@ namespace FiscaliZi.Colinfo.Model
         public Cliente Cliente { get; set; }
         public List<Item> Itens { get; set; }
         public decimal ValorTotal { get; set; }
+        public DateTime DataPedido { get; set; }
         #endregion
 
         #region Foreign Keys

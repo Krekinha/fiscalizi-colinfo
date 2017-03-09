@@ -51,7 +51,7 @@
                     Margin="10,0">
                     <DatePicker Width="195" HorizontalAlignment="Left" Text="05/02/2017" />
                     <Button 
-                        cal:Message.Attach="AtualizaArquivos"
+                        cal:Message.Attach="AtualizaPedidos"
                         HorizontalAlignment="Right" 
                         Width="30" Padding="2 0 2 0"
                         MDesign:RippleAssist.IsCentered="True">
@@ -71,8 +71,8 @@
                 </StackPanel>
                 <Separator Grid.Row="1" Style="{StaticResource MaterialDesignDarkSeparator}" Margin="8 0 8 0"/>
                 <ListBox 
-                    x:Name="Arquivos" 
-                    ItemsSource="{Binding Arquivos}"
+                    x:Name="Vendas" 
+                    ItemsSource="{Binding Vendas}"
                     IsSynchronizedWithCurrentItem="True" 
                     SelectedIndex="-1" 
                     Margin="10,0" Grid.Row="2"
@@ -81,7 +81,7 @@
                         <StaticResource ResourceKey="CustomMaterialDesignListBox"/>
                     </ListBox.Style>
                     <ListBox.ItemTemplate>
-                        <DataTemplate x:Name="dtArquivos">
+                        <DataTemplate x:Name="dtVendas">
                             <Grid>
                                 <Grid Height="40">
                                     <Grid.ColumnDefinitions>
@@ -102,10 +102,9 @@
                                     <TextBlock 
                                         FontWeight="Bold" Grid.Column="1" Grid.Row="0" Width="Auto" Margin="3,3,0,0" FontSize="10.5" >
                                         <TextBlock.Text>
-                                            <MultiBinding StringFormat="{}{0} ({1}) {2}">
+                                            <MultiBinding StringFormat="{}{0} ({1})">
                                                 <Binding Path="CodVendedor"/>
                                                 <Binding Path="Pedidos" Converter="{StaticResource RotaConverter}" />
-                                                <Binding Path="NomeVendedor" Converter="{StaticResource SimplificaNomeVendedorConverter}"/>
                                             </MultiBinding>
                                         </TextBlock.Text>
                                     </TextBlock>

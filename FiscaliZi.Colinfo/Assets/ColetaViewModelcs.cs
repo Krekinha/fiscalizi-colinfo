@@ -4,6 +4,8 @@ using FiscaliZi.Colinfo.Model;
 using FiscaliZi.Colinfo.Utils;
 using System.Collections.ObjectModel;
 using System.Windows.Data;
+using System.Linq;
+using System;
 
 namespace FiscaliZi.Colinfo.Assets
 {
@@ -12,30 +14,44 @@ namespace FiscaliZi.Colinfo.Assets
 
         public ColetaViewModel(IEventAggregator events)
         {
-            Pedidos = new ObservableCollection<Pedido>();
-            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(Pedidos);
-            PropertyGroupDescription groupDescription = new PropertyGroupDescription("CodVendedor");
-            view.GroupDescriptions.Add(groupDescription);
             
         }
 
+        #region · Properties ·
+        public ObservableCollection<Venda> Vendas { get; set; }
+        #endregion
         public void AtualizaPedidos()
+
         {
-            var peds = Coletor.GetPedidos(@"C:\Users\krekm\Desktop\PEDIDOS.CSV");
-            //var peds = Coletor.GetPedidos(@"C:\Users\CPD\Documents\DIU\PEDIDOS.CSV");
+            //var peds = Coletor.GetPedidos(@"C:\Users\krekm\Desktop\PEDIDOS.CSV");
+            var peds = Coletor.GetPedidos(@"C:\Users\CPD\Documents\DIU\PEDIDOS.CSV");
 
-            if (Pedidos == null)
-                Pedidos = new ObservableCollection<Pedido>();
+            if (Vendas == null)
+                Vendas = new ObservableCollection<Venda>();
 
-            if (Pedidos.Count > 0)
-                Pedidos.Clear();
+            if (Vendas.Count > 0)
+                Vendas.Clear();
 
             foreach (var ped in peds)
             {
-                Pedidos.Add(ped);
+                var vnd = Vendas.FirstOrDefault(vd => vd.CodVendedor == ped.CodVendedor);
+                if (vnd == null)
+                {
+                    Vendas.Add(new Venda
+                    {
+                        CodVendedor = ped.CodVendedor,
+                        DataColeta = ped.DataPedido,
+                        Pedidos = new List<Pedido>{ped}
+                    });
+                }
+                else
+                {
+                    vnd.Pedidos.Add(ped);
+                }
+                NotifyOfPropertyChange(() => Vendas);
             }
         }
 
-        public ObservableCollection<Pedido> Pedidos { get; set; }
+
     }
 }
