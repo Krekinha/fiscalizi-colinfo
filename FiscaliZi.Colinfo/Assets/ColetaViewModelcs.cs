@@ -14,7 +14,7 @@ namespace FiscaliZi.Colinfo.Assets
 
         public ColetaViewModel(IEventAggregator events)
         {
-            
+            Vendas = new ObservableCollection<Venda>();
         }
 
         #region · Properties ·
@@ -23,8 +23,8 @@ namespace FiscaliZi.Colinfo.Assets
         public void AtualizaPedidos()
 
         {
-            //var peds = Coletor.GetPedidos(@"C:\Users\krekm\Desktop\PEDIDOS.CSV");
-            var peds = Coletor.GetPedidos(@"C:\Users\CPD\Documents\DIU\PEDIDOS.CSV");
+            var peds = Coletor.GetPedidos(@"C:\Users\krekm\Desktop\PEDIDOS.CSV");
+            //var peds = Coletor.GetPedidos(@"C:\Users\CPD\Documents\DIU\PEDIDOS.CSV");
 
             if (Vendas == null)
                 Vendas = new ObservableCollection<Venda>();
@@ -50,6 +50,11 @@ namespace FiscaliZi.Colinfo.Assets
                 }
                 NotifyOfPropertyChange(() => Vendas);
             }
+        }
+
+        public void RemoverVenda(Venda vnd)
+        {
+            Vendas.Remove(vnd);
         }
 
 

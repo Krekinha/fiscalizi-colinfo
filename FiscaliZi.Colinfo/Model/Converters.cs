@@ -449,7 +449,7 @@ namespace FiscaliZi.Colinfo.Model
 
             foreach (var ped in peds)
             {
-                if (Tools.IsCNPJ(ped?.Cliente?.CNPJ) && ped?.Cliente?.RetConsultaCadastro?.infCons == null)
+                if (ped?.Cliente?.CNPJ != null && (Tools.IsCNPJ(ped?.Cliente?.CNPJ) && ped?.Cliente?.RetConsultaCadastro?.infCons == null))
                 {if(ped?.Cliente?.IE != "ISENTO")
                     return PackIconKind.HelpCircle;
                 }
