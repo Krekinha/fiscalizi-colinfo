@@ -76,7 +76,6 @@
                     x:Name="lsVendas" 
                     ItemsSource="{Binding Vendas}"
                     IsSynchronizedWithCurrentItem="True" 
-                    SelectedIndex="0" 
                     Margin="10,0" Grid.Row="2"
                     BorderThickness="3">
                     <ListBox.Style>
@@ -209,47 +208,6 @@
                     Binding="{Binding ValorTotal}" 
                     CanUserResize="False" 
                     Width="80" />
-                <DataGridTemplateColumn 
-                    x:Name="dataGridTemplateColumn" 
-                    Header="SITUAÇÃO IE\CNPJ" 
-                    CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <MDesign:PackIcon Kind="{Binding Text, ElementName=txtSituacao, Converter={StaticResource SituacaoCNPJIconConverter}}" 
-                                                         VerticalAlignment="Center" 
-                                                         Foreground="{Binding Text, ElementName=txtSituacao, Converter={StaticResource SituacaoCNPJColorConverter}}" 
-                                                         Margin="0,0,5,0"/>
-                                <TextBlock 
-                                    x:Name="txtSituacao" 
-                                    VerticalAlignment="Center" 
-                                    Width="63">
-                                    <TextBlock.Text>
-                                        <MultiBinding Converter="{StaticResource SitCadastroClienteConverter}" >
-                                            <Binding Path="Cliente.RetConsultaCadastro"/>
-                                            <Binding Path="Cliente.CNPJ"/>
-                                            <Binding Path="Cliente.IE"/>
-                                        </MultiBinding>
-                                    </TextBlock.Text>
-                                </TextBlock>
-                                <Button 
-                                    cal:Message.Attach="ShowConsulta($this)"
-                                    Style="{DynamicResource MaterialDesignToolButton}"
-                                    IsEnabled="{Binding Cliente.RetConsultaCadastro, Converter={StaticResource ShowConsultaConverter}}"
-                                    Height="25" Width="40">
-                                    <MDesign:PackIcon x:Name="icoDetalhe" Kind="ClipboardText" HorizontalAlignment="Center" />
-                                </Button>
-                                <Button 
-                                    cal:Message.Attach="ConsultaCadastro($this)"
-                                    Style="{DynamicResource MaterialDesignToolButton}"
-                                    IsEnabled="{Binding Cliente.CNPJ, Converter={StaticResource IsCnpjConverter}}"
-                                    Height="25" Width="40">
-                                    <MDesign:PackIcon x:Name="icoRefresh" Kind="Refresh" HorizontalAlignment="Center" />
-                                </Button>
-                            </StackPanel>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
                 <DataGridTemplateColumn >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
