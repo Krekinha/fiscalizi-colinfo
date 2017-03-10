@@ -135,7 +135,7 @@ namespace FiscaliZi.Colinfo.Utils
 
             foreach (var line in Lines)
             {
-                if (!IsValidPed(line, new DateTime(2017, 3, 7))) continue;
+                if (!IsValidPed(line, new DateTime(2017, 2, 14))) continue;
                 
                 var item = new Item
                 {
