@@ -1,5 +1,6 @@
 #r ".\bin\Debug\FiscaliZi.Colinfo.exe"
 using FiscaliZi.Colinfo.Model;
+using FiscaliZi.Colinfo.Utils;
 
 var items = new List<Item>
             {
@@ -16,16 +17,31 @@ var above = result.Where(x => x.ValorTotal >= points).OrderBy(x => x.ValorTotal)
 var below = result.Where(x => x.ValorTotal < points).OrderByDescending(x => x.ValorTotal).Take(4);
 var filtered = above.Union(below).OrderByDescending(x => x.ValorTotal).ThenBy(x => x.Produto);
 
-var result = items
+var result2 = items
     .GroupBy(l => l.Produto)
-.Select(cl => new Item()
-{
-Produto = cl.First().Produto,
-QntCX = cl.Sum(c => c.QntCX),
-ValorTotal = cl.Sum(c => c.ValorTotal),
-}).ToList();
+    .Select(cl => new Item()
+    {
+        Produto = cl.First().Produto,
+        QntCX = cl.Sum(c => c.QntCX),
+        ValorTotal = cl.Sum(c => c.ValorTotal),
+    }).ToList();
 
-foreach (var v in result)
+var items2 = Coletor.GetPedidos(@"C:\Users\CPD\Documents\DIU\PEDIDOS.CSV")
+    .Where(x => x.CodVendedor == "308")
+    .SelectMany(it => it.Itens);
+
+var result3 = items2
+    .GroupBy(l => l.Produto)
+    .Select(cl => new Item()
+    {
+        Produto = cl.First().Produto,
+        QntCX = cl.Sum(c => c.QntCX),
+        ValorTotal = cl.Sum(c => c.ValorTotal),
+    })
+    .OrderByDescending(x => x.ValorTotal)
+    .ToList();
+
+foreach (var v in result3)
 {
     var res = $"{v.QntCX} | {v.Produto} | {v.ValorTotal}";
     Console.WriteLine(res);

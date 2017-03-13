@@ -558,9 +558,13 @@ namespace FiscaliZi.Colinfo.Model
             //var rnk = rank.Find(p => p.Produto == "900090");
 
             var rank = items
-                .GroupBy(x => x.Produto)
-                .SelectMany(x => x)
-                .ToList();
+                .GroupBy(l => l.Produto)
+                .Select(cl => new Item()
+                {
+                    Produto = cl.First().Produto,
+                    QntCX = cl.Sum(c => c.QntCX),
+                    ValorTotal = cl.Sum(c => c.ValorTotal),
+                }).ToList();
 
             return rank.ToArray();
         }
@@ -576,9 +580,14 @@ namespace FiscaliZi.Colinfo.Model
             };
 
             var rank = items
-                .GroupBy(x => x.Produto)
-                .SelectMany(x => x)
-                .ToList();
+                .GroupBy(l => l.Produto)
+                .Select(cl => new Item()
+                {
+                    Produto = cl.First().Produto,
+                    QntCX = cl.Sum(c => c.QntCX),
+                    ValorTotal = cl.Sum(c => c.ValorTotal),
+                }).ToList();
+
 
 
 
