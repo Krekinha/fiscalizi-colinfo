@@ -16,7 +16,16 @@ var above = result.Where(x => x.ValorTotal >= points).OrderBy(x => x.ValorTotal)
 var below = result.Where(x => x.ValorTotal < points).OrderByDescending(x => x.ValorTotal).Take(4);
 var filtered = above.Union(below).OrderByDescending(x => x.ValorTotal).ThenBy(x => x.Produto);
 
-foreach (var v in filtered)
+var result = items
+    .GroupBy(l => l.Produto)
+.Select(cl => new Item()
+{
+Produto = cl.First().Produto,
+QntCX = cl.Sum(c => c.QntCX),
+ValorTotal = cl.Sum(c => c.ValorTotal),
+}).ToList();
+
+foreach (var v in result)
 {
     var res = $"{v.QntCX} | {v.Produto} | {v.ValorTotal}";
     Console.WriteLine(res);

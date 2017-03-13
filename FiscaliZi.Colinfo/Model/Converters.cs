@@ -580,6 +580,8 @@ namespace FiscaliZi.Colinfo.Model
                 .SelectMany(x => x)
                 .ToList();
 
+
+
             var res = $"{rank[0].QntCX} {rank[0].Produto} | {rank[1].QntCX} {rank[1].Produto}";
 
             Console.WriteLine(res);
