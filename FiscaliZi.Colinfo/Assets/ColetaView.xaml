@@ -21,6 +21,7 @@
         <Model:Total_RejeicoesCNPJConverter x:Key="Total_RejeicoesCNPJConverter" />
         <Model:Total_FormPgtConverter x:Key="Total_FormPgtConverter" />
         <Model:RotaConverter x:Key="RotaConverter" />
+        <Model:ResumoVendasConverter x:Key="ResumoVendasConverter" />
         <Model:SimplificaNomeVendedorConverter x:Key="SimplificaNomeVendedorConverter" />
         <Model:SituacaoCNPJColorConverter x:Key="SituacaoCNPJColorConverter" />
         <Model:SituacaoCNPJIconConverter x:Key="SituacaoCNPJIconConverter" />
@@ -149,8 +150,8 @@
             </Grid>
         </MDesign:Card>
         <DataGrid 
-            x:Name="dgPedidos"
-            ItemsSource="{Binding Vendas/Pedidos}"
+            x:Name="dgResumoVendas"
+            ItemsSource="{Binding Vendas}"
             Grid.Column="1"
             AutoGenerateColumns="False" 
             CanUserAddRows="False"
@@ -168,46 +169,28 @@
             Margin="10,0,0,0">
             <DataGrid.Columns>
                 <DataGridTextColumn 
-                    Header="ROTA" 
-                    Binding="{Binding Cliente.Rota}"                                         
+                    Header="VEND" 
+                    Binding="{Binding CodVendedor}"
+                    CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}"
+                    CanUserResize="False" 
+                    Width="60" />
+                <DataGridTextColumn 
+                    Header="PEDS" 
+                    Binding="{Binding Pedidos.Count}"                                        
                     CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}"
                     CanUserResize="False" />
                 <DataGridTextColumn 
-                    Header="CLIENTE"
-                    CanUserResize="False"
-                    Width="70">
-                    <DataGridTextColumn.Binding>
-                        <MultiBinding StringFormat=" {0}-{1}">
-                            <Binding Path="Cliente.RegiaoCliente" />
-                            <Binding Path="Cliente.NumCliente" />
-                        </MultiBinding>
-                    </DataGridTextColumn.Binding>
-                </DataGridTextColumn>
-                <DataGridTextColumn 
-                    Header="R. SOCIAL" 
-                    Binding="{Binding Cliente.Razao}"
-                    CanUserResize="False" 
-                    Width="200" />
-                <DataGridTextColumn 
-                    Header="CNPJ" 
-                    Binding="{Binding Cliente.CNPJ}"  
+                    Header="ROTA" 
+                    Binding="{Binding Pedidos, Converter={StaticResource RotaConverter}}"                                        
+                    CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}"
                     CanUserResize="False" />
                 <DataGridTextColumn 
-                    Header="INSCRIÇÃO" 
-                    Binding="{Binding Cliente.IE}"  
-                    CanUserResize="False" 
-                    Width="120">
-                    <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="{x:Type TextBlock}">
-                            <Setter Property="Margin" Value="10,0,0,0" />
-                        </Style>
-                    </DataGridTextColumn.ElementStyle>
+                    Header="RESUMO DE VENDAS"
+                    Binding="{Binding Pedidos, Converter={StaticResource ResumoVendasConverter}}"  
+                    CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}"
+                    CanUserResize="False"
+                    Width="250">
                 </DataGridTextColumn>
-                <DataGridTextColumn 
-                    Header="VAL. PED" 
-                    Binding="{Binding ValorTotal}" 
-                    CanUserResize="False" 
-                    Width="80" />
                 <DataGridTemplateColumn >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

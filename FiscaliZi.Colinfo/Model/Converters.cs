@@ -4,8 +4,10 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using MaterialDesignThemes.Wpf;
 
 namespace FiscaliZi.Colinfo.Model
@@ -112,6 +114,27 @@ namespace FiscaliZi.Colinfo.Model
 
             var Trota = total.Aggregate("", (current, rota) => current + (rota + ", "));
             return Trota.Remove(Trota.LastIndexOf(','));
+
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value;
+        }
+    }
+
+    public class ResumoVendasConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var peds = (List<Pedido>)value;
+            if (peds == null) return "";
+
+            var items = peds?.SelectMany(it => it.Itens);
+
+            var rankedItems = Tools.RankProd(items);
+
+            return $"{rankedItems[0].QntCX} {rankedItems[0].Produto} | {rankedItems[1].QntCX} {rankedItems[1].Produto}";
 
         }
 
@@ -518,6 +541,49 @@ namespace FiscaliZi.Colinfo.Model
             var idx = digts.Length - 6;
 
             return digts.Substring(idx, 4) != "0000";
+        }
+
+        public static Item[] RankProd(IEnumerable<Item> items)
+        {
+            var RankItems = new string[]{ "900090", "900090", "900090", "900090", "900090" };
+
+            /*var rank = items
+                .OrderBy(x => x.Produto == RankItems[0])
+                .ThenBy(x => x.Produto == RankItems[1])
+                .ThenBy(x => x.Produto == RankItems[2])
+                .ThenBy(x => x.Produto == RankItems[3])
+                .ThenBy(x => x.Produto == RankItems[4])
+                .OrderByDescending(x => x.QntCX)
+                .ToList();*/
+            //var rnk = rank.Find(p => p.Produto == "900090");
+
+            var rank = items
+                .GroupBy(x => x.Produto)
+                .SelectMany(x => x)
+                .ToList();
+
+            return rank.ToArray();
+        }
+        
+        public static void Test()
+        {
+            
+            var items = new List<Item>
+            {
+                new Item{ Produto = "900090", QntCX = 50, ValorTotal = 300},
+                new Item{ Produto = "900090", QntCX = 40, ValorTotal = 20},
+                new Item{ Produto = "900023", QntCX = 25, ValorTotal = 520}
+            };
+
+            var rank = items
+                .GroupBy(x => x.Produto)
+                .SelectMany(x => x)
+                .ToList();
+
+            var res = $"{rank[0].QntCX} {rank[0].Produto} | {rank[1].QntCX} {rank[1].Produto}";
+
+            Console.WriteLine(res);
+
         }
     }
 }
