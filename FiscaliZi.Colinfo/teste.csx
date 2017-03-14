@@ -26,7 +26,7 @@ var result2 = items
         ValorTotal = cl.Sum(c => c.ValorTotal),
     }).ToList();
 
-var items2 = Coletor.GetPedidos(@"C:\Users\CPD\Documents\DIU\PEDIDOS.CSV")
+var items2 = Coletor.GetPedidos(@"C:\Users\krekm\Desktop\PEDIDOS.CSV")
     .Where(x => x.CodVendedor == "308")
     .SelectMany(it => it.Itens);
 

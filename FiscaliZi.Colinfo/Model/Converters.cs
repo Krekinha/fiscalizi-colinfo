@@ -8,6 +8,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using FiscaliZi.Colinfo.Utils;
 using MaterialDesignThemes.Wpf;
 
 namespace FiscaliZi.Colinfo.Model
@@ -134,7 +135,7 @@ namespace FiscaliZi.Colinfo.Model
 
             var rankedItems = Tools.RankProd(items);
 
-            return $"{rankedItems[0].QntCX} {rankedItems[0].Produto} | {rankedItems[1].QntCX} {rankedItems[1].Produto}";
+            return $"{rankedItems[0].QntCX} {Tools.GetItemNickProd(rankedItems[0].Produto)} | {rankedItems[1].QntCX} {Tools.GetItemNickProd(rankedItems[1].Produto)}";
 
         }
 
@@ -545,18 +546,6 @@ namespace FiscaliZi.Colinfo.Model
 
         public static Item[] RankProd(IEnumerable<Item> items)
         {
-            var RankItems = new string[]{ "900090", "900090", "900090", "900090", "900090" };
-
-            /*var rank = items
-                .OrderBy(x => x.Produto == RankItems[0])
-                .ThenBy(x => x.Produto == RankItems[1])
-                .ThenBy(x => x.Produto == RankItems[2])
-                .ThenBy(x => x.Produto == RankItems[3])
-                .ThenBy(x => x.Produto == RankItems[4])
-                .OrderByDescending(x => x.QntCX)
-                .ToList();*/
-            //var rnk = rank.Find(p => p.Produto == "900090");
-
             var rank = items
                 .GroupBy(l => l.Produto)
                 .Select(cl => new Item()
@@ -564,36 +553,104 @@ namespace FiscaliZi.Colinfo.Model
                     Produto = cl.First().Produto,
                     QntCX = cl.Sum(c => c.QntCX),
                     ValorTotal = cl.Sum(c => c.ValorTotal),
-                }).ToList();
+                })
+                .OrderByDescending(x => x.ValorTotal)
+                .ToList();
+
+            var best2 = rank.FindAll(Tools.FindItem);
+
+            if (best2.Count >= 2)
+                return best2.ToArray();
+
+            if (best2.Count == 1)
+                return new[]{best2.First(), rank.First()};
 
             return rank.ToArray();
         }
         
         public static void Test()
         {
-            
-            var items = new List<Item>
-            {
-                new Item{ Produto = "900090", QntCX = 50, ValorTotal = 300},
-                new Item{ Produto = "900090", QntCX = 40, ValorTotal = 20},
-                new Item{ Produto = "900023", QntCX = 25, ValorTotal = 520}
-            };
+            var items = Coletor.GetPedidos(@"C:\Users\krekm\Desktop\PEDIDOS.CSV")
+                .Where(x => x.CodVendedor == "308")
+                .SelectMany(it => it.Itens);
 
-            var rank = items
+            var result = items
                 .GroupBy(l => l.Produto)
                 .Select(cl => new Item()
                 {
                     Produto = cl.First().Produto,
                     QntCX = cl.Sum(c => c.QntCX),
                     ValorTotal = cl.Sum(c => c.ValorTotal),
-                }).ToList();
+                })
+                .OrderByDescending(x => x.ValorTotal)
+                .ToList();
 
+            var best2 = result.FindAll(Tools.FindItem);
 
+            foreach (var v in result)
+            {
+                var res = $"{v.QntCX} | {v.Produto} | {v.ValorTotal}";
+                Console.WriteLine(res);
+            }
 
+            Console.WriteLine($"Best 2: {best2.Count()}");
 
-            var res = $"{rank[0].QntCX} {rank[0].Produto} | {rank[1].QntCX} {rank[1].Produto}";
+            foreach (var v in best2)
+            {
+                var res = $"{v.QntCX} | {v.Produto} | {v.ValorTotal}";
+                Console.WriteLine(res);
+            }
+        }
 
-            Console.WriteLine(res);
+        public static bool FindItem(Item itm)
+        {
+            switch (itm.Produto)
+            {
+                case "0000901133":
+                    return true;
+                case "0000900090":
+                    return true;
+                case "0000900416":
+                    return true;
+                case "0000900089":
+                    return true;
+                case "0000902411":
+                    return true;
+                case "0000902432":
+                    return true;
+                case "0000902410":
+                    return true;
+                case "0000902406":
+                    return true;
+                default:
+                    return false;
+            }
+
+        }
+
+        public static string GetItemNickProd(string prod)
+        {
+            switch (prod)
+            {
+                case "0000901133":
+                    return "GLALIT";
+                case "0000900090":
+                    return "GLA600";
+                case "0000900416":
+                    return "GLA473";
+                case "0000900089":
+                    return "GLALAT";
+                case "0000902411":
+                    return "SCH600";
+                case "0000902432":
+                    return "SCHLIT";
+                case "0000902410":
+                    return "SCH473";
+                case "0000902406":
+                    return "SCHLAT";
+                default:
+                    return prod;
+            }
 
         }
     }
