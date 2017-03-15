@@ -20,12 +20,13 @@ namespace FiscaliZi.Colinfo.Assets
         #region · Properties ·
         public ObservableCollection<Venda> Vendas { get; set; }
         #endregion
-        public void AtualizaPedidos(DateTime data)
+        public void AtualizaPedidos(DateTime date)
 
         {
-            var peds = Coletor.GetPedidos(@"C:\Users\krekm\Desktop\PEDIDOS.CSV", data);
+            //var peds = Coletor.GetPedidos(@"C:\Users\krekm\Desktop\PEDIDOS.CSV", data);
             //var peds = Coletor.GetPedidos(@"C:\Users\CPD\Documents\DIU\PEDIDOS.CSV");
-            //var peds = Coletor.GetPedidos(@"F:\SOF\VDWIN\EXP\PEDIDOS.CSV");
+            var peds = Coletor.GetPedidos(@"F:\SOF\VDWIN\EXP\PEDIDOS.CSV", date);
+            var vendas = new ObservableCollection<Venda>();
 
             if (Vendas == null)
                 Vendas = new ObservableCollection<Venda>();
@@ -35,10 +36,10 @@ namespace FiscaliZi.Colinfo.Assets
 
             foreach (var ped in peds)
             {
-                var vnd = Vendas.FirstOrDefault(vd => vd.CodVendedor == ped.CodVendedor);
+                var vnd = vendas.FirstOrDefault(vd => vd.CodVendedor == ped.CodVendedor);
                 if (vnd == null && ped.CodVendedor != 900)
                 {
-                    Vendas.Add(new Venda
+                    vendas.Add(new Venda
                     {
                         CodVendedor = ped.CodVendedor,
                         DataColeta = ped.DataPedido,
@@ -49,9 +50,15 @@ namespace FiscaliZi.Colinfo.Assets
                 {
                     if (ped.CodVendedor == 900) continue;
                     vnd.Pedidos.Add(ped);
-                }
-                NotifyOfPropertyChange(() => Vendas);
+                }                
             }
+
+            var vendas2 = vendas.OrderBy(x => x.CodVendedor);
+            foreach (var vd in vendas2)
+            {
+                Vendas.Add(vd);
+            }
+            
         }
 
         public void RemoverVenda(Venda vnd)

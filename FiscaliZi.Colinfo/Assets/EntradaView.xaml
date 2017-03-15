@@ -8,9 +8,9 @@
     xmlns:Model="clr-namespace:FiscaliZi.Colinfo.Model"
     xmlns:Assets="clr-namespace:FiscaliZi.Colinfo.Assets"
     xmlns:cal="http://www.caliburnproject.org"
-    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:MDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-    xmlns:system="clr-namespace:System;assembly=mscorlib"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     mc:Ignorable="d"
     BorderThickness="3"
     d:DataContext="{d:DesignInstance Type=Model:DesignData, IsDesignTimeCreatable=True}"
@@ -40,7 +40,7 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <materialDesign:Card 
+        <MDesign:Card 
             Grid.Column="0" 
             BorderThickness="3"
             MinHeight="700" MinWidth="399">
@@ -54,25 +54,32 @@
                     Grid.Row="0" 
                     Orientation="Horizontal" 
                     Margin="10,0">
-                    <DatePicker Width="195" HorizontalAlignment="Left" Text="05/02/2017" />
-                    <Button 
-                        cal:Message.Attach="AtualizaArquivos"
-                        HorizontalAlignment="Right" 
-                        Width="30" Padding="2 0 2 0"
-                        materialDesign:RippleAssist.IsCentered="True">
-                        <materialDesign:PackIcon Kind="Refresh" />
+                    <DatePicker x:Name="datPedidos" 
+                                SelectedDate="{x:Static sys:DateTime.Now}"
+                                Language="pt-BR"
+                                Width="90" 
+                                HorizontalAlignment="Left" 
+                                Margin="0,10,0,5"/>
+                    <Button x:Name="btnAtualizaArquivos"
+                            cal:Message.Attach="AtualizaArquivos" 
+                            HorizontalAlignment="Right" 
+                            Width="25" Height="25"
+                            Padding="2 0 2 0"
+                            Margin="15,10,0,5"
+                            MDesign:RippleAssist.IsCentered="True">
+                        <MDesign:PackIcon Kind="Refresh" />
                     </Button>
-                    <materialDesign:PopupBox HorizontalAlignment="Right" Padding="2 0 2 0" Foreground="#FF918B8B">
+                    <MDesign:PopupBox 
+                        HorizontalAlignment="Right" 
+                        Padding="2 0 2 0" 
+                        Foreground="#FF918B8B" 
+                        Margin="215,10,0,5"
+                        Width="25" Height="25">
                         <StackPanel>
                             <Button Content="More"/>
                             <Button Content="Options"/>
                         </StackPanel>
-                    </materialDesign:PopupBox>
-                    <Button HorizontalAlignment="Right" Width="30" Padding="2 0 2 0"
-                            materialDesign:RippleAssist.IsCentered="True"
-                            Style="{DynamicResource MaterialDesignFlatButton}">
-                        <materialDesign:PackIcon Kind="Close" />
-                    </Button>
+                    </MDesign:PopupBox>
                 </StackPanel>
                 <Separator Grid.Row="1" Style="{StaticResource MaterialDesignDarkSeparator}" Margin="8 0 8 0"/>
                 <ListBox 
@@ -121,12 +128,12 @@
                                     <TextBlock Grid.Column="3" Grid.Row="1" Margin="5,1,0,3" FontSize="10.5" HorizontalAlignment="Stretch" Width="Auto"><Run Text="VAL: " FontWeight="Bold"/><Run Text=" "/><Run Text="{Binding Pedidos, Converter={StaticResource TotalValPedsConverter}}"/></TextBlock>
                                     <StackPanel Grid.Column="4" Grid.Row="0" Grid.RowSpan="2" Orientation="Vertical">
                                         <Button HorizontalAlignment="Right" Width="Auto" Padding="2 0 2 0"
-                                                materialDesign:RippleAssist.IsCentered="True"
+                                                MDesign:RippleAssist.IsCentered="True"
                                                 Style="{DynamicResource MaterialDesignFlatButton}" Height="Auto"
                                                 cal:Message.Attach="RemoverArquivo($this)">
-                                            <materialDesign:PackIcon Kind="Close"/>
+                                            <MDesign:PackIcon Kind="Close"/>
                                         </Button>
-                                        <materialDesign:PackIcon 
+                                        <MDesign:PackIcon 
                                             Kind="{Binding Pedidos, Converter={StaticResource SituacaoCnpjIconVendConverter}}"
                                             HorizontalAlignment="Right" Foreground="{Binding Kind, RelativeSource={RelativeSource Self}, Converter={StaticResource SituacaoCNPJIconVendBackgroundConverter}}" />
                                     </StackPanel>
@@ -137,7 +144,7 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
             </Grid>
-        </materialDesign:Card>
+        </MDesign:Card>
         <DataGrid x:Name="Pedidos"
                   ItemsSource="{Binding Arquivos/Pedidos}"
                   Grid.Column="1"
@@ -195,7 +202,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon Kind="{Binding Text, ElementName=txtSituacao, Converter={StaticResource SituacaoCNPJIconConverter}}" 
+                                <MDesign:PackIcon Kind="{Binding Text, ElementName=txtSituacao, Converter={StaticResource SituacaoCNPJIconConverter}}" 
                                                          VerticalAlignment="Center" 
                                                          Foreground="{Binding Text, ElementName=txtSituacao, Converter={StaticResource SituacaoCNPJColorConverter}}" 
                                                          Margin="0,0,5,0"/>
@@ -216,14 +223,14 @@
                                     Style="{DynamicResource MaterialDesignToolButton}"
                                     IsEnabled="{Binding Cliente.RetConsultaCadastro, Converter={StaticResource ShowConsultaConverter}}"
                                     Height="25" Width="40">
-                                    <materialDesign:PackIcon x:Name="icoDetalhe" Kind="ClipboardText" HorizontalAlignment="Center" />
+                                    <MDesign:PackIcon x:Name="icoDetalhe" Kind="ClipboardText" HorizontalAlignment="Center" />
                                 </Button>
                                 <Button 
                                     cal:Message.Attach="ConsultaCadastro($this)"
                                     Style="{DynamicResource MaterialDesignToolButton}"
                                     IsEnabled="{Binding Cliente.CNPJ, Converter={StaticResource IsCnpjConverter}}"
                                     Height="25" Width="40">
-                                    <materialDesign:PackIcon x:Name="icoRefresh" Kind="Refresh" HorizontalAlignment="Center" />
+                                    <MDesign:PackIcon x:Name="icoRefresh" Kind="Refresh" HorizontalAlignment="Center" />
                                 </Button>
                             </StackPanel>
                         </DataTemplate>
