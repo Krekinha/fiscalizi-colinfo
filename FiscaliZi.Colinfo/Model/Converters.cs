@@ -135,7 +135,7 @@ namespace FiscaliZi.Colinfo.Model
 
             var rankedItems = Tools.RankProd(items);
 
-            return $"{rankedItems[0].QntCX} {Tools.GetItemNickProd(rankedItems[0].Produto)} | {rankedItems[1].QntCX} {Tools.GetItemNickProd(rankedItems[1].Produto)}";
+            return $"{rankedItems[0].QntCX} {Tools.GetItemNickProd(rankedItems[0].Produto)}  |  {rankedItems[1].QntCX} {Tools.GetItemNickProd(rankedItems[1].Produto)}";
 
         }
 
@@ -528,7 +528,24 @@ namespace FiscaliZi.Colinfo.Model
             throw new NotSupportedException();
         }
     }
+    public class StringToIntConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (int.TryParse((string)value, out int res))
+            {
+                return res;
+            }
 
+            return value;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value;
+        }
+
+    }
     public static class Tools
     {
         public static string SoString(string str)
@@ -571,7 +588,7 @@ namespace FiscaliZi.Colinfo.Model
         public static void Test()
         {
             var items = Coletor.GetPedidos(@"C:\Users\krekm\Desktop\PEDIDOS.CSV")
-                .Where(x => x.CodVendedor == "308")
+                .Where(x => x.CodVendedor == 308)
                 .SelectMany(it => it.Itens);
 
             var result = items

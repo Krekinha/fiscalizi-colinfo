@@ -29,6 +29,7 @@
         <Model:SituacaoCNPJIconVendConverter x:Key="SituacaoCnpjIconVendConverter"/>
         <Model:ShowConsultaConverter x:Key="ShowConsultaConverter" />
         <Model:SituacaoCNPJIconVendBackgroundConverter x:Key="SituacaoCNPJIconVendBackgroundConverter"/>
+        <Model:StringToIntConverter x:Key="StringToIntConverter"/>
     </UserControl.Resources>
 
     <Grid >
@@ -169,19 +170,14 @@
             Margin="10,0,0,0">
             <DataGrid.Columns>
                 <DataGridTextColumn 
-                    Header="VEND" 
+                    Header="VEND"
                     Binding="{Binding CodVendedor}"
                     CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}"
                     CanUserResize="False" 
-                    Width="60" />
+                    Width="60" SortDirection="Ascending" SortMemberPath="CodVendedor" />
                 <DataGridTextColumn 
                     Header="PEDS" 
                     Binding="{Binding Pedidos.Count}"                                        
-                    CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}"
-                    CanUserResize="False" />
-                <DataGridTextColumn 
-                    Header="ROTA" 
-                    Binding="{Binding Pedidos, Converter={StaticResource RotaConverter}}"                                        
                     CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}"
                     CanUserResize="False" />
                 <DataGridTextColumn 
@@ -189,7 +185,7 @@
                     Binding="{Binding Pedidos, Converter={StaticResource ResumoVendasConverter}}"  
                     CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}"
                     CanUserResize="False"
-                    Width="250">
+                    Width="150">
                 </DataGridTextColumn>
                 <DataGridTemplateColumn >
                     <DataGridTemplateColumn.CellTemplate>

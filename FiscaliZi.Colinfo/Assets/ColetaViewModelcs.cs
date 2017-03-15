@@ -23,8 +23,9 @@ namespace FiscaliZi.Colinfo.Assets
         public void AtualizaPedidos()
 
         {
-            var peds = Coletor.GetPedidos(@"C:\Users\krekm\Desktop\PEDIDOS.CSV");
+            //var peds = Coletor.GetPedidos(@"C:\Users\krekm\Desktop\PEDIDOS.CSV");
             //var peds = Coletor.GetPedidos(@"C:\Users\CPD\Documents\DIU\PEDIDOS.CSV");
+            var peds = Coletor.GetPedidos(@"F:\SOF\VDWIN\EXP\PEDIDOS.CSV");
 
             if (Vendas == null)
                 Vendas = new ObservableCollection<Venda>();
@@ -35,7 +36,7 @@ namespace FiscaliZi.Colinfo.Assets
             foreach (var ped in peds)
             {
                 var vnd = Vendas.FirstOrDefault(vd => vd.CodVendedor == ped.CodVendedor);
-                if (vnd == null)
+                if (vnd == null && ped.CodVendedor != 900)
                 {
                     Vendas.Add(new Venda
                     {
@@ -46,6 +47,7 @@ namespace FiscaliZi.Colinfo.Assets
                 }
                 else
                 {
+                    if (ped.CodVendedor == 900) continue;
                     vnd.Pedidos.Add(ped);
                 }
                 NotifyOfPropertyChange(() => Vendas);

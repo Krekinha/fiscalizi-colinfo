@@ -12,7 +12,7 @@ namespace FiscaliZi.Colinfo.Model
 
         #region Properties
         public string NumPedido { get; set; }
-        public string CodVendedor { get; set; }
+        public int CodVendedor { get; set; }
         public string NumPedPalm { get; set; }
         public string FormPgt { get; set; }
         public Cliente Cliente { get; set; }

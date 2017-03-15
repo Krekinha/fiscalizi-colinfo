@@ -23,7 +23,7 @@ namespace FiscaliZi.Colinfo.Migrations
 
                     b.Property<string>("ArquivoVendedor");
 
-                    b.Property<string>("CodVendedor");
+                    b.Property<int>("CodVendedor");
 
                     b.Property<DateTime>("DataColeta");
 
@@ -212,7 +212,7 @@ namespace FiscaliZi.Colinfo.Migrations
 
                     b.Property<int>("ClienteID");
 
-                    b.Property<string>("CodVendedor");
+                    b.Property<int>("CodVendedor");
 
                     b.Property<DateTime>("DataPedido");
 
@@ -265,7 +265,7 @@ namespace FiscaliZi.Colinfo.Migrations
                     b.Property<int>("VendaID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("CodVendedor");
+                    b.Property<int>("CodVendedor");
 
                     b.Property<DateTime>("DataColeta");
 

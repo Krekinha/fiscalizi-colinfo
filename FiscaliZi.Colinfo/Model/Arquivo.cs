@@ -11,7 +11,7 @@ namespace FiscaliZi.Colinfo.Model
         public int ArquivoID { get; set; }      
 
         #region Properties
-        public string CodVendedor { get; set; }
+        public int CodVendedor { get; set; }
         public string NomeVendedor { get; set; }
         public string ArquivoVendedor { get; set; }
         public DateTime DataColeta { get; set; }

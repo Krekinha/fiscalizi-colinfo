@@ -8,7 +8,7 @@ using FiscaliZi.Colinfo;
 namespace FiscaliZi.Colinfo.Migrations
 {
     [DbContext(typeof(ColinfoContext))]
-    [Migration("20170220033647_mig")]
+    [Migration("20170314174811_mig")]
     partial class mig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -16,6 +16,26 @@ namespace FiscaliZi.Colinfo.Migrations
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
                 .HasAnnotation("ProductVersion", "1.1.0-rtm-22752");
+
+            modelBuilder.Entity("FiscaliZi.Colinfo.Model.Arquivo", b =>
+                {
+                    b.Property<int>("ArquivoID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ArquivoVendedor");
+
+                    b.Property<string>("CodVendedor");
+
+                    b.Property<DateTime>("DataColeta");
+
+                    b.Property<DateTime>("DataEnvio");
+
+                    b.Property<string>("NomeVendedor");
+
+                    b.HasKey("ArquivoID");
+
+                    b.ToTable("Arquivos");
+                });
 
             modelBuilder.Entity("FiscaliZi.Colinfo.Model.Cliente", b =>
                 {
@@ -165,7 +185,13 @@ namespace FiscaliZi.Colinfo.Migrations
 
                     b.Property<int>("PedidoID");
 
-                    b.Property<int>("Quantidade");
+                    b.Property<string>("Produto");
+
+                    b.Property<int>("QntCX");
+
+                    b.Property<int>("QntUND");
+
+                    b.Property<decimal>("ValorCusto");
 
                     b.Property<decimal>("ValorTotal");
 
@@ -183,52 +209,33 @@ namespace FiscaliZi.Colinfo.Migrations
                     b.Property<int>("PedidoID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("ArquivoID");
+
                     b.Property<int>("ClienteID");
+
+                    b.Property<int>("CodVendedor");
+
+                    b.Property<DateTime>("DataPedido");
 
                     b.Property<string>("FormPgt");
 
                     b.Property<string>("NumPedPalm");
 
-                    b.Property<int>("NumPedido");
-
-                    b.Property<int>("NumVendedor");
+                    b.Property<string>("NumPedido");
 
                     b.Property<decimal>("ValorTotal");
 
-                    b.Property<int>("VendedorID");
+                    b.Property<int?>("VendaID");
 
                     b.HasKey("PedidoID");
 
+                    b.HasIndex("ArquivoID");
+
                     b.HasIndex("ClienteID");
 
-                    b.HasIndex("VendedorID");
+                    b.HasIndex("VendaID");
 
                     b.ToTable("Pedidos");
-                });
-
-            modelBuilder.Entity("FiscaliZi.Colinfo.Model.Produto", b =>
-                {
-                    b.Property<int>("ProdutoID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("Codigo");
-
-                    b.Property<string>("Descricao");
-
-                    b.Property<int>("ItemID");
-
-                    b.Property<decimal>("Peso");
-
-                    b.Property<decimal>("Preco");
-
-                    b.Property<int>("Unidades");
-
-                    b.HasKey("ProdutoID");
-
-                    b.HasIndex("ItemID")
-                        .IsUnique();
-
-                    b.ToTable("Produto");
                 });
 
             modelBuilder.Entity("FiscaliZi.Colinfo.Model.retConsCad", b =>
@@ -254,24 +261,18 @@ namespace FiscaliZi.Colinfo.Migrations
                     b.ToTable("retConsCad");
                 });
 
-            modelBuilder.Entity("FiscaliZi.Colinfo.Model.Vendedor", b =>
+            modelBuilder.Entity("FiscaliZi.Colinfo.Model.Venda", b =>
                 {
-                    b.Property<int>("VendedorID")
+                    b.Property<int>("VendaID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ArquivoVendedor");
+                    b.Property<int>("CodVendedor");
 
                     b.Property<DateTime>("DataColeta");
 
-                    b.Property<DateTime>("DataEnvio");
+                    b.HasKey("VendaID");
 
-                    b.Property<string>("NomeVendedor");
-
-                    b.Property<int>("NumVendedor");
-
-                    b.HasKey("VendedorID");
-
-                    b.ToTable("Vendedores");
+                    b.ToTable("Vendas");
                 });
 
             modelBuilder.Entity("FiscaliZi.Colinfo.Model.ender", b =>
@@ -316,23 +317,19 @@ namespace FiscaliZi.Colinfo.Migrations
 
             modelBuilder.Entity("FiscaliZi.Colinfo.Model.Pedido", b =>
                 {
+                    b.HasOne("FiscaliZi.Colinfo.Model.Arquivo")
+                        .WithMany("Pedidos")
+                        .HasForeignKey("ArquivoID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("FiscaliZi.Colinfo.Model.Cliente", "Cliente")
                         .WithMany("NavPedidos")
                         .HasForeignKey("ClienteID")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("FiscaliZi.Colinfo.Model.Vendedor")
+                    b.HasOne("FiscaliZi.Colinfo.Model.Venda")
                         .WithMany("Pedidos")
-                        .HasForeignKey("VendedorID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("FiscaliZi.Colinfo.Model.Produto", b =>
-                {
-                    b.HasOne("FiscaliZi.Colinfo.Model.Item")
-                        .WithOne("Produto")
-                        .HasForeignKey("FiscaliZi.Colinfo.Model.Produto", "ItemID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("VendaID");
                 });
 
             modelBuilder.Entity("FiscaliZi.Colinfo.Model.retConsCad", b =>

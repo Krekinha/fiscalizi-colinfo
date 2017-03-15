@@ -8,8 +8,8 @@ using FiscaliZi.Colinfo;
 namespace FiscaliZi.Colinfo.Migrations
 {
     [DbContext(typeof(ColinfoContext))]
-    [Migration("20170309062439_mig-6")]
-    partial class mig6
+    [Migration("20170314185923_mig-2")]
+    partial class mig2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,7 +24,7 @@ namespace FiscaliZi.Colinfo.Migrations
 
                     b.Property<string>("ArquivoVendedor");
 
-                    b.Property<string>("CodVendedor");
+                    b.Property<int>("CodVendedor");
 
                     b.Property<DateTime>("DataColeta");
 
@@ -213,7 +213,9 @@ namespace FiscaliZi.Colinfo.Migrations
 
                     b.Property<int>("ClienteID");
 
-                    b.Property<string>("CodVendedor");
+                    b.Property<int>("CodVendedor");
+
+                    b.Property<DateTime>("DataPedido");
 
                     b.Property<string>("FormPgt");
 
@@ -264,7 +266,7 @@ namespace FiscaliZi.Colinfo.Migrations
                     b.Property<int>("VendaID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("CodVendedor");
+                    b.Property<int>("CodVendedor");
 
                     b.Property<DateTime>("DataColeta");
 
