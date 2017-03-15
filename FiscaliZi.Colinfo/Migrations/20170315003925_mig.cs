@@ -16,7 +16,7 @@ namespace FiscaliZi.Colinfo.Migrations
                     ArquivoID = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     ArquivoVendedor = table.Column<string>(nullable: true),
-                    CodVendedor = table.Column<string>(nullable: true),
+                    CodVendedor = table.Column<int>(nullable: false),
                     DataColeta = table.Column<DateTime>(nullable: false),
                     DataEnvio = table.Column<DateTime>(nullable: false),
                     NomeVendedor = table.Column<string>(nullable: true)

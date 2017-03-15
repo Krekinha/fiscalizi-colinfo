@@ -135,7 +135,7 @@ namespace FiscaliZi.Colinfo.Utils
 
             foreach (var line in Lines)
             {
-                if (!IsValidPed(line, new DateTime(2017, 3, 14))) continue;
+                if (!IsValidPed(line, new DateTime(2017, 3, 13))) continue;
                 //if (!IsValidPed(line, new DateTime(2017, 3, 7))) continue;
 
                 var item = new Item
@@ -172,7 +172,6 @@ namespace FiscaliZi.Colinfo.Utils
             return peds;
 
         }
-
         private static Cliente GetClienteByCode(string code)
         {
             var cz = code.Split('-');

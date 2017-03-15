@@ -74,87 +74,11 @@
                     </Button>
                 </StackPanel>
                 <Separator Grid.Row="1" Style="{StaticResource MaterialDesignDarkSeparator}" Margin="8 0 8 0"/>
-                <ListBox 
-                    x:Name="lsVendas" 
+                <DataGrid 
+                    x:Name="dgResumoVendas"
+                    Grid.Row="2"
                     ItemsSource="{Binding Vendas}"
-                    IsSynchronizedWithCurrentItem="True" 
-                    Margin="10,0" Grid.Row="2"
-                    BorderThickness="3">
-                    <ListBox.Style>
-                        <StaticResource ResourceKey="CustomMaterialDesignListBox"/>
-                    </ListBox.Style>
-                    <ListBox.ItemTemplate>
-                        <DataTemplate 
-                            x:Name="dtVendas">
-                            <StackPanel
-                                Orientation="Horizontal">
-                                <MDesign:PackIcon 
-                                        Kind="LibraryBooks" 
-                                        Grid.Column="0" Grid.Row="0"
-                                        Margin="0,1"/>
-                                <TextBlock 
-                                    FontWeight="Bold" 
-                                    Width="Auto"
-                                    Margin="3,3,0,0" 
-                                    FontSize="10.5" VerticalAlignment="Top" >
-                                    <TextBlock.Text>
-                                        <MultiBinding StringFormat="{}{0} ({1})">
-                                            <Binding Path="CodVendedor"/>
-                                            <Binding Path="Pedidos.Count" />
-                                        </MultiBinding>
-                                    </TextBlock.Text>
-                                </TextBlock>
-                                <Separator 
-                                    Style="{StaticResource MaterialDesignDarkSeparator}"
-                                    Margin="3,3,0,0" />
-                                <TextBlock 
-                                    Margin="5,3,0,0" 
-                                    FontSize="10.5" VerticalAlignment="Top">
-                                    <Run Text="R:" FontWeight="Bold"/>
-                                    <Run Text="{Binding Pedidos, Converter={StaticResource RotaConverter}}" />
-                                </TextBlock>
-                                <TextBlock 
-                                    Margin="3,3,0,0" 
-                                    Width="Auto" 
-                                    FontSize="10.5" 
-                                    VerticalAlignment="Top">
-                                    <Run Text="P:" FontWeight="Bold"/>
-                                    <Run Text="000.000,00"/>
-                                </TextBlock>
-                                <TextBlock
-                                    Margin="3,3,0,0" 
-                                    FontSize="10.5" 
-                                    Width="Auto" VerticalAlignment="Top">
-                                    <Run Text="D:" FontWeight="Bold"/>
-                                    <Run Text="{Binding DataColeta, StringFormat=\{0:dd/MM/yy\}}"/></TextBlock>
-                                <TextBlock 
-                                    Margin="3,3,0,0"  
-                                    FontSize="10.5"
-                                    Width="Auto" 
-                                    VerticalAlignment="Top">
-                                    <Run Text="V:" FontWeight="Bold"/>
-                                    <Run Text="{Binding Pedidos, Converter={StaticResource TotalValPedsConverter}}"/>
-                                </TextBlock>
-                                <Button 
-                                    HorizontalAlignment="Right" 
-                                    Width="Auto" 
-                                    Padding="2 0 2 0"
-                                    MDesign:RippleAssist.IsCentered="True"
-                                    Style="{DynamicResource MaterialDesignFlatButton}" Height="Auto"
-                                    cal:Message.Attach="RemoverVenda($this)" Margin="10,0,0,0">
-                                    <MDesign:PackIcon Kind="Close"/>
-                                </Button>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </Grid>
-        </MDesign:Card>
-        <DataGrid 
-            x:Name="dgResumoVendas"
-            ItemsSource="{Binding Vendas}"
-            Grid.Column="1"
-            AutoGenerateColumns="False" 
+                    AutoGenerateColumns="False" 
             CanUserAddRows="False"
             CanUserResizeColumns="False" 
             CanUserReorderColumns="False" 
@@ -168,44 +92,30 @@
             RowStyle="{DynamicResource DataGridRowCustomMDesign}"
             ColumnHeaderStyle="{StaticResource CustomMaterialDesignDataGridColumnHeader}" 
             Margin="10,0,0,0">
-            <DataGrid.Columns>
-                <DataGridTextColumn 
+                    <DataGrid.Columns>
+                        <DataGridTextColumn 
                     Header="VEND"
                     Binding="{Binding CodVendedor}"
                     CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}"
                     CanUserResize="False" 
                     Width="60" SortDirection="Ascending" SortMemberPath="CodVendedor" />
-                <DataGridTextColumn 
+                        <DataGridTextColumn 
                     Header="PEDS" 
                     Binding="{Binding Pedidos.Count}"                                        
                     CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}"
                     CanUserResize="False" />
-                <DataGridTextColumn 
+                        <DataGridTextColumn 
                     Header="RESUMO DE VENDAS"
                     Binding="{Binding Pedidos, Converter={StaticResource ResumoVendasConverter}}"  
                     CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}"
                     CanUserResize="False"
                     Width="150">
-                </DataGridTextColumn>
-                <DataGridTemplateColumn >
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button 
-                                Content="ITENS" 
-                                cal:Message.Attach="ShowPedidoFlyout($this)"
-                                Height="19" 
-                                FontSize="10" 
-                                Margin="0,3,5,3"
-                                controls:ControlsHelper.ContentCharacterCasing="Upper" 
-                                Width="66" 
-                                Grid.IsSharedSizeScope="True" 
-                                Padding="0,0,0,1" 
-                                FontWeight="Normal" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
+                        </DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </MDesign:Card>
+
     </Grid>
 
 </UserControl>
