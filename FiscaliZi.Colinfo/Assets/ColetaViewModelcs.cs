@@ -20,10 +20,10 @@ namespace FiscaliZi.Colinfo.Assets
         #region · Properties ·
         public ObservableCollection<Venda> Vendas { get; set; }
         #endregion
-        public void AtualizaPedidos()
+        public void AtualizaPedidos(DateTime data)
 
         {
-            var peds = Coletor.GetPedidos(@"C:\Users\krekm\Desktop\PEDIDOS.CSV");
+            var peds = Coletor.GetPedidos(@"C:\Users\krekm\Desktop\PEDIDOS.CSV", data);
             //var peds = Coletor.GetPedidos(@"C:\Users\CPD\Documents\DIU\PEDIDOS.CSV");
             //var peds = Coletor.GetPedidos(@"F:\SOF\VDWIN\EXP\PEDIDOS.CSV");
 

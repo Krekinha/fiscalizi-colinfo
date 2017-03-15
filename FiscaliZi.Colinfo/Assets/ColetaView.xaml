@@ -8,6 +8,7 @@
              xmlns:cal="http://www.caliburnproject.org"
              xmlns:MDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=Model:DesignData, IsDesignTimeCreatable=True}">
 
@@ -51,27 +52,25 @@
                     Grid.Row="0" 
                     Orientation="Horizontal" 
                     Margin="10,0">
-                    <DatePicker 
-                        Width="195" 
-                        HorizontalAlignment="Left" Text="05/02/2017" />
+                    <DatePicker x:Name="datPedidos" 
+                                SelectedDate="{x:Static sys:DateTime.Now}"
+                                Width="195" 
+                                HorizontalAlignment="Left"/>
                     <Button 
-                        cal:Message.Attach="AtualizaPedidos"
+                        cal:Message.Attach="AtualizaPedidos(datPedidos.Text)" 
                         HorizontalAlignment="Right" 
-                        Width="30" Padding="2 0 2 0"
+                        Width="30" 
+                        Padding="2 0 2 0"
+                        Margin="15,0,0,0"
                         MDesign:RippleAssist.IsCentered="True">
                         <MDesign:PackIcon Kind="Refresh" />
                     </Button>
-                    <MDesign:PopupBox HorizontalAlignment="Right" Padding="2 0 2 0" Foreground="#FF918B8B">
+                    <MDesign:PopupBox HorizontalAlignment="Right" Padding="2 0 2 0" Foreground="#FF918B8B" Margin="100,0,0,0">
                         <StackPanel>
                             <Button Content="More"/>
                             <Button Content="Options"/>
                         </StackPanel>
                     </MDesign:PopupBox>
-                    <Button HorizontalAlignment="Right" Width="30" Padding="2 0 2 0"
-                            MDesign:RippleAssist.IsCentered="True"
-                            Style="{DynamicResource MaterialDesignFlatButton}">
-                        <MDesign:PackIcon Kind="Close" />
-                    </Button>
                 </StackPanel>
                 <Separator Grid.Row="1" Style="{StaticResource MaterialDesignDarkSeparator}" Margin="8 0 8 0"/>
                 <DataGrid 
@@ -79,19 +78,19 @@
                     Grid.Row="2"
                     ItemsSource="{Binding Vendas}"
                     AutoGenerateColumns="False" 
-            CanUserAddRows="False"
-            CanUserResizeColumns="False" 
-            CanUserReorderColumns="False" 
-            CanUserDeleteRows="False" 
-            CanUserResizeRows="False"
-            IsReadOnly="True" 
-            HeadersVisibility="Column"
-            IsSynchronizedWithCurrentItem="True"
-            Style="{DynamicResource DatagridCustomMDesign}" 
-            CellStyle="{DynamicResource DatagridCellCustomMDesign}" 
-            RowStyle="{DynamicResource DataGridRowCustomMDesign}"
-            ColumnHeaderStyle="{StaticResource CustomMaterialDesignDataGridColumnHeader}" 
-            Margin="10,0,0,0">
+                    CanUserAddRows="False"
+                    CanUserResizeColumns="False" 
+                    CanUserReorderColumns="False" 
+                    CanUserDeleteRows="False" 
+                    CanUserResizeRows="False"
+                    IsReadOnly="True" 
+                    HeadersVisibility="Column"
+                    IsSynchronizedWithCurrentItem="True"
+                    Style="{DynamicResource DatagridCustomMDesign}" 
+                    CellStyle="{DynamicResource DatagridCellCustomMDesign}" 
+                    RowStyle="{DynamicResource DataGridRowCustomMDesign}"
+                    ColumnHeaderStyle="{StaticResource CustomMaterialDesignDataGridColumnHeader}" 
+                    Margin="10,0,0,0" RowHeight="25">
                     <DataGrid.Columns>
                         <DataGridTextColumn 
                     Header="VEND"

@@ -587,7 +587,7 @@ namespace FiscaliZi.Colinfo.Model
         
         public static void Test()
         {
-            var items = Coletor.GetPedidos(@"C:\Users\krekm\Desktop\PEDIDOS.CSV")
+            var items = Coletor.GetPedidos(@"C:\Users\krekm\Desktop\PEDIDOS.CSV", DateTime.Now)
                 .Where(x => x.CodVendedor == 308)
                 .SelectMany(it => it.Itens);
 

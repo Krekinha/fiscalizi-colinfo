@@ -127,7 +127,7 @@ namespace FiscaliZi.Colinfo.Utils
 
         }
 
-        public static List<Pedido> GetPedidos(string path)
+        public static List<Pedido> GetPedidos(string path, DateTime date)
         {
             var peds = new List<Pedido>();
 
@@ -135,7 +135,7 @@ namespace FiscaliZi.Colinfo.Utils
 
             foreach (var line in Lines)
             {
-                if (!IsValidPed(line, new DateTime(2017, 3, 13))) continue;
+                if (!IsValidPed(line, date)) continue;
                 //if (!IsValidPed(line, new DateTime(2017, 3, 7))) continue;
 
                 var item = new Item
