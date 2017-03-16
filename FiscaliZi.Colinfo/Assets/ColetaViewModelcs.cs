@@ -23,9 +23,9 @@ namespace FiscaliZi.Colinfo.Assets
         public void AtualizaPedidos(DateTime date)
 
         {
-            //var peds = Coletor.GetPedidos(@"C:\Users\krekm\Desktop\PEDIDOS.CSV", data);
+            var peds = Coletor.GetPedidos(@"C:\Users\krekm\Desktop\PEDIDOS.CSV", date);
             //var peds = Coletor.GetPedidos(@"C:\Users\CPD\Documents\DIU\PEDIDOS.CSV");
-            var peds = Coletor.GetPedidos(@"F:\SOF\VDWIN\EXP\PEDIDOS.CSV", date);
+            //var peds = Coletor.GetPedidos(@"F:\SOF\VDWIN\EXP\PEDIDOS.CSV", date);
             var vendas = new ObservableCollection<Venda>();
 
             if (Vendas == null)

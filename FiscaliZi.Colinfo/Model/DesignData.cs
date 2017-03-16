@@ -841,6 +841,7 @@ namespace FiscaliZi.Colinfo.Model
                             NumPedido = "0",
                             NumPedPalm = "20160611102653",
                             CodVendedor = 308,
+                            Pasta = "3081",
                             ValorTotal = 645.10m,
                             Cliente = new Cliente
                             {
@@ -849,7 +850,7 @@ namespace FiscaliZi.Colinfo.Model
                                 NumCliente = 28,
                                 Razao = "SILVIO BATISTA ALVES - ME",
                                 Sigla = "",
-                                Rota = 0,
+                                Rota = 1,
                                 CNPJ = "64.436.249/0001-27",
                                 IE = "333647.589/0096",
                                 Situacao = "REJEIÇÃO"
@@ -972,6 +973,7 @@ namespace FiscaliZi.Colinfo.Model
                             NumPedido = "0",
                             NumPedPalm = "20160611092020",
                             CodVendedor = 308,
+                            Pasta = "3081",
                             ValorTotal = 426.00m,
                             Cliente = new Cliente
                             {
@@ -1003,6 +1005,7 @@ namespace FiscaliZi.Colinfo.Model
                             NumPedido = "0",
                             NumPedPalm = "20160611074516",
                             CodVendedor = 308,
+                            Pasta = "3081",
                             ValorTotal = 2249.88m,
                             Cliente =
                                 new Cliente
@@ -1175,6 +1178,7 @@ namespace FiscaliZi.Colinfo.Model
                             NumPedido = "0",
                             NumPedPalm = "20160611110832",
                             CodVendedor = 308,
+                            Pasta = "3081",
                             ValorTotal = 348.00m,
                             Cliente =
                                 new Cliente
@@ -1207,6 +1211,7 @@ namespace FiscaliZi.Colinfo.Model
                             NumPedido = "0",
                             NumPedPalm = "20160611081132",
                             CodVendedor = 308,
+                            Pasta = "3081",
                             ValorTotal = 273.22m,
                             Cliente =
                                 new Cliente
@@ -1309,6 +1314,7 @@ namespace FiscaliZi.Colinfo.Model
                             NumPedido = "0",
                             NumPedPalm = "20160611084522",
                             CodVendedor = 308,
+                            Pasta = "3081",
                             ValorTotal = 983.85m,
                             Cliente =
                                 new Cliente
@@ -1421,6 +1427,7 @@ namespace FiscaliZi.Colinfo.Model
                             NumPedido = "0",
                             NumPedPalm = "20160611080243",
                             CodVendedor = 308,
+                            Pasta = "3081",
                             ValorTotal = 292.01m,
                             Cliente =
                                 new Cliente
@@ -1543,6 +1550,7 @@ namespace FiscaliZi.Colinfo.Model
                             NumPedido = "0",
                             NumPedPalm = "20160611073614",
                             CodVendedor = 308,
+                            Pasta = "3081",
                             ValorTotal = 156.00m,
                             Cliente =
                                 new Cliente

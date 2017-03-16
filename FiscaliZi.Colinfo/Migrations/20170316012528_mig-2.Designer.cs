@@ -8,9 +8,10 @@ using FiscaliZi.Colinfo;
 namespace FiscaliZi.Colinfo.Migrations
 {
     [DbContext(typeof(ColinfoContext))]
-    partial class ColinfoContextModelSnapshot : ModelSnapshot
+    [Migration("20170316012528_mig-2")]
+    partial class mig2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)

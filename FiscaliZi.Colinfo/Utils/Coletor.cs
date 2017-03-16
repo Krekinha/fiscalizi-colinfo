@@ -158,7 +158,8 @@ namespace FiscaliZi.Colinfo.Utils
                             CodVendedor = int.Parse(line[6]),
                             DataPedido = DateTime.Parse(line[29]),
                             Itens = new List<Item>{ item},
-                            Cliente = GetClienteByCode(line[3])
+                            Cliente = GetClienteByCode(line[3]),
+                            Pasta = line[30]
                         }
                         );
                 }

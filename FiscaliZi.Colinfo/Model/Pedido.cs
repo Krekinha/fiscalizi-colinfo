@@ -19,6 +19,7 @@ namespace FiscaliZi.Colinfo.Model
         public List<Item> Itens { get; set; }
         public decimal ValorTotal { get; set; }
         public DateTime DataPedido { get; set; }
+        public string Pasta { get; set; }
         #endregion
 
         #region Foreign Keys

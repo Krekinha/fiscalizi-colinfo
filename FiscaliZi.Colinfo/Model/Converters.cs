@@ -124,6 +124,26 @@ namespace FiscaliZi.Colinfo.Model
         }
     }
 
+    public class RotaConverter2 : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var items = (List<Pedido>)value;
+            if (items == null) return "";
+
+            var Tpasta = items.Cast<Pedido>().Select(p => p.Pasta[p.Pasta.Length -1]).Distinct();
+
+            var Trota = Tpasta.Aggregate("", (current, rota) => current + (rota + ", "));
+            return Trota.Remove(Trota.LastIndexOf(','));
+
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value;
+        }
+    }
+
     public class ResumoVendasConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -669,6 +689,11 @@ namespace FiscaliZi.Colinfo.Model
                     return prod;
             }
 
+        }
+
+        public static string GetPastaToRota()
+        {
+            return null;
         }
     }
 }
