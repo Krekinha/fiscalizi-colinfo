@@ -211,7 +211,11 @@
                     ColumnHeaderStyle="{StaticResource CustomMaterialDesignDataGridColumnHeader}" SelectionMode="Single" Height="700">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="PROD" 
-                            Binding="{Binding Produto}"                                         
+                            Binding="{Binding Produto.Codigo}"                                         
+                            CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}"
+                            CanUserResize="False" />
+                        <DataGridTextColumn Header="DESCRIÇÃO" 
+                            Binding="{Binding Produto.Descricao}"                                         
                             CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}"
                             CanUserResize="False" />
                         <DataGridTextColumn Header="Q. CX" 

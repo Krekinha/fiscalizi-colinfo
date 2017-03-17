@@ -8,9 +8,10 @@ using FiscaliZi.Colinfo;
 namespace FiscaliZi.Colinfo.Migrations
 {
     [DbContext(typeof(ColinfoContext))]
-    partial class ColinfoContextModelSnapshot : ModelSnapshot
+    [Migration("20170317170706_mig-2")]
+    partial class mig2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
@@ -250,7 +251,7 @@ namespace FiscaliZi.Colinfo.Migrations
 
                     b.Property<string>("Familia");
 
-                    b.Property<int?>("ItemID");
+                    b.Property<int>("ItemID");
 
                     b.Property<decimal>("PesoEmb");
 
@@ -368,7 +369,8 @@ namespace FiscaliZi.Colinfo.Migrations
                 {
                     b.HasOne("FiscaliZi.Colinfo.Model.Item")
                         .WithOne("Produto")
-                        .HasForeignKey("FiscaliZi.Colinfo.Model.Produto", "ItemID");
+                        .HasForeignKey("FiscaliZi.Colinfo.Model.Produto", "ItemID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("FiscaliZi.Colinfo.Model.retConsCad", b =>

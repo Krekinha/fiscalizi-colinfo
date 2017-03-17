@@ -146,7 +146,7 @@ namespace FiscaliZi.Colinfo.Model
 
             var rankedItems = Tools.RankProd(items);
 
-            return $"{rankedItems[0].QntCX} {Tools.GetItemNickProd(rankedItems[0].Produto)}  |  {rankedItems[1].QntCX} {Tools.GetItemNickProd(rankedItems[1].Produto)}";
+            return $"{rankedItems[0].QntCX} {Tools.GetItemNickProd(rankedItems[0].Produto.Codigo)}  |  {rankedItems[1].QntCX} {Tools.GetItemNickProd(rankedItems[1].Produto.Codigo)}";
 
         }
 
@@ -680,7 +680,7 @@ namespace FiscaliZi.Colinfo.Model
 
         public static bool FindItem(Item itm)
         {
-            switch (itm.Produto)
+            switch (itm.Produto.Codigo)
             {
                 case "0000901133":
                     return true;

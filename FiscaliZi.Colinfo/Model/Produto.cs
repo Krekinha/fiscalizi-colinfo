@@ -20,7 +20,7 @@ namespace FiscaliZi.Colinfo.Model
         #endregion
 
         #region Foreign Keys
-        public int ItemID { get; set; }
+        public int? ItemID { get; set; }
         #endregion
 
         #region NotifyPropertyChanged

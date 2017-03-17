@@ -78,7 +78,7 @@ namespace FiscaliZi.Colinfo.Utils
 
                     Item item = new Item
                     {
-                        Produto = line[6],
+                        Produto = new Produto { Codigo = line[6] },
                         QntCX = int.Parse(line[8]),
 
                         ValorUnid = ToDecimal(line[16]),
@@ -133,45 +133,52 @@ namespace FiscaliZi.Colinfo.Utils
 
             var Lines = File.ReadLines(path).Select(a => a.Split(';'));
 
-            foreach (var line in Lines)
+            using (var context = new ColinfoContext())
             {
-                if (!IsValidPed(line, date)) continue;
-                //if (!IsValidPed(line, new DateTime(2017, 3, 7))) continue;
-
-                var item = new Item
+                foreach (var line in Lines)
                 {
-                    Produto = line[34],
-                    QntCX = int.Parse(line[45]),
-                    QntUND = int.Parse(line[46]),
-                    ValorCusto = ToDecimal(line[40]),
-                    ValorUnid = ToDecimal(line[39]),
-                    ValorTotal = ToDecimal(line[37])
-                };
-                var ped = peds.Find(p => p.NumPedido == line[0]);
+                    if (!IsValidPed(line, date)) continue;
 
-                if (ped == null)
-                {
-                    if (line[24] != "009")
-                        peds.Add(
-                            new Pedido
-                            {
-                                NumPedido = line[0],
-                                CodVendedor = int.Parse(line[6]),
-                                DataPedido = DateTime.Parse(line[29]),
-                                Itens = new List<Item> {item},
-                                Cliente = GetClienteByCode(line[3]),
-                                Pasta = line[30],
-                                SitPed = line[24]
-                            }
-                        );
+                    var prod = new Produto { Codigo = line[34] };// context.Produtos.FirstOrDefault(p => p.Codigo == line[34]);
+                    if (prod == null)
+                        prod = new Produto { Codigo = line[34] };
+
+                    var item = new Item
+                    {
+                        Produto = prod,
+                        QntCX = int.Parse(line[45]),
+                        QntUND = int.Parse(line[46]),
+                        ValorCusto = ToDecimal(line[40]),
+                        ValorUnid = ToDecimal(line[39]),
+                        ValorTotal = ToDecimal(line[37])
+                    };
+                    var ped = peds.Find(p => p.NumPedido == line[0]);
+
+                    if (ped == null)
+                    {
+                        if (line[24] != "009")
+                            peds.Add(
+                                new Pedido
+                                {
+                                    NumPedido = line[0],
+                                    CodVendedor = int.Parse(line[6]),
+                                    DataPedido = DateTime.Parse(line[29]),
+                                    Itens = new List<Item> { item },
+                                    Cliente = GetClienteByCode(line[3]),
+                                    Pasta = line[30],
+                                    SitPed = line[24]
+                                }
+                            );
+                    }
+                    else
+                    {
+                        ped.Itens.Add(item);
+                    }
+
+
                 }
-                else
-                {
-                    ped.Itens.Add(item);
-                }
-
-                
             }
+            
             return peds;
 
         }
@@ -191,18 +198,22 @@ namespace FiscaliZi.Colinfo.Utils
 
                     if (prod == null)
                     {
-                        var prd = new Produto
+                        if (line[29] != "0")
                         {
-                            Codigo = line[2],
-                            Descricao = line[4],
-                            Sigla = line[8],
-                            Familia = line[0],
-                            Unidades = int.Parse(line[11]),
-                            PesoUnd = ToDecimal(line[12]),
-                            PesoEmb = ToDecimal(line[13])
-                        };
-                        context.Produtos.Add(prd);
-                        context.SaveChanges();
+                            var prd = new Produto
+                            {
+                                Codigo = line[2],
+                                Descricao = line[4],
+                                Sigla = line[8],
+                                Familia = line[0],
+                                Unidades = int.Parse(line[11]),
+                                PesoUnd = ToDecimal(line[12]),
+                                PesoEmb = ToDecimal(line[13])
+                            };
+                            context.Produtos.Add(prd);
+                            context.SaveChanges();
+                        }
+
                     }
                     else
                     {
@@ -298,6 +309,8 @@ namespace FiscaliZi.Colinfo.Utils
         {
             try
             {
+                if (line[0] == "Familia") return false;
+
                 if (line[29] == "0") return false;
                 return true;
             }

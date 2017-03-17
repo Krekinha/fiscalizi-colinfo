@@ -288,6 +288,14 @@
     <Compile Include="Migrations\20170316193145_mig.designer.cs">
       <DependentUpon>20170316193145_mig.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20170317170706_mig-2.cs" />
+    <Compile Include="Migrations\20170317170706_mig-2.designer.cs">
+      <DependentUpon>20170317170706_mig-2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20170317172630_mig-3.cs" />
+    <Compile Include="Migrations\20170317172630_mig-3.designer.cs">
+      <DependentUpon>20170317172630_mig-3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\ColinfoContextModelSnapshot.cs" />
     <Compile Include="Model\CadCli.cs" />
     <Compile Include="Model\Cliente.cs" />
