@@ -14,6 +14,7 @@
 
     <UserControl.Resources>
         <Model:TotalValPedsConverter x:Key="TotalValPedsConverter" />
+        <Model:TotalValItemsConverter x:Key="TotalValItemsConverter" />
         <Model:IsCNPJConverter x:Key="IsCnpjConverter"/>
         <Model:TotalPedsConverter x:Key="TotalPedsConverter" />
         <Model:ColetadosConverter x:Key="ColetadosConverter" />
@@ -23,6 +24,7 @@
         <Model:Total_FormPgtConverter x:Key="Total_FormPgtConverter" />
         <Model:RotaConverter x:Key="RotaConverter" />
         <Model:RotaConverter2 x:Key="RotaConverter2" />
+        <Model:RotaConverter3 x:Key="RotaConverter3" />
         <Model:ResumoVendasConverter x:Key="ResumoVendasConverter" />
         <Model:SimplificaNomeVendedorConverter x:Key="SimplificaNomeVendedorConverter" />
         <Model:SituacaoCNPJColorConverter x:Key="SituacaoCNPJColorConverter" />
@@ -32,10 +34,12 @@
         <Model:ShowConsultaConverter x:Key="ShowConsultaConverter" />
         <Model:SituacaoCNPJIconVendBackgroundConverter x:Key="SituacaoCNPJIconVendBackgroundConverter"/>
         <Model:StringToIntConverter x:Key="StringToIntConverter"/>
+        <Model:PedNumConverter x:Key="PedNumConverter"/>
     </UserControl.Resources>
 
-    <Grid >
+    <Grid>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition/>
@@ -43,8 +47,8 @@
         <MDesign:Card 
             Grid.Column="0" 
             BorderThickness="3"
-            MinHeight="700" MinWidth="399">
-            <Grid x:Name="grdVendas">
+            MinHeight="700" Width="350">
+            <Grid x:Name="grdVendas" Height="700">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -73,7 +77,7 @@
                         HorizontalAlignment="Right" 
                         Padding="2 0 2 0" 
                         Foreground="#FF918B8B" 
-                        Margin="215,10,0,5"
+                        Margin="89,10,0,5"
                         Width="25" Height="25">
                         <StackPanel>
                             <Button Content="More"/>
@@ -123,65 +127,110 @@
                                     Style="{StaticResource MaterialDesignDarkSeparator}" 
                                     Margin="8,5,8,0" Height="Auto"/>
                             </StackPanel>
-                            
+
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
             </Grid>
         </MDesign:Card>
-        <DataGrid x:Name="dgPedidos"
-            ItemsSource="{Binding Vendas/Pedidos}"
-            Grid.Column="1"
-            AutoGenerateColumns="False" 
-            CanUserAddRows="False" 
-            CanUserResizeColumns="False" 
-            CanUserReorderColumns="False" 
-            CanUserDeleteRows="False" 
-            CanUserResizeRows="False" 
-            IsReadOnly="True" 
-            HeadersVisibility="Column"
-            IsSynchronizedWithCurrentItem="True" 
-            Style="{DynamicResource DatagridCustomMDesign}" 
-            CellStyle="{DynamicResource DatagridCellCustomMDesign}" 
-            RowStyle="{DynamicResource DataGridRowCustomMDesign}"
-            ColumnHeaderStyle="{StaticResource CustomMaterialDesignDataGridColumnHeader}" 
-            Margin="10,0,0,0" SelectionMode="Single">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="PED" 
-                                    Binding="{Binding NumPedido}"                                         
-                                    CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}"
-                                    CanUserResize="False" />
-                <DataGridTextColumn Header="ROTA" 
-                                    Binding="{Binding Cliente.Rota}"                                         
-                                    CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}"
-                                    CanUserResize="False" />
-                <DataGridTextColumn Header="CLIENTE" 
-                    CanUserResize="False" 
-                    Width="70">
-                    <DataGridTextColumn.Binding>
-                        <MultiBinding StringFormat=" {0}-{1}">
-                            <Binding Path="Cliente.RegiaoCliente" />
-                            <Binding Path="Cliente.NumCliente" />
-                        </MultiBinding>
-                    </DataGridTextColumn.Binding>
-                </DataGridTextColumn>
-                <DataGridTextColumn Header="R. SOCIAL" 
-                                    Binding="{Binding Cliente.Razao}" 
-                                    CanUserResize="False" 
-                                    Width="200" />
-                <DataGridTextColumn Header="VAL. PED" 
-                                    Binding="{Binding ValorTotal}" 
-                                    CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}"
-                                    CanUserResize="False"
-                                    Width="80" />
-                <DataGridTextColumn Header="PESO"  
-                                    CanUserResize="False"
-                                    Width="80" />
-            </DataGrid.Columns>
-        </DataGrid>
+        <MDesign:Card 
+            Grid.Column="1" 
+            BorderThickness="3"
+            MinHeight="700" UniformCornerRadius="0" Margin="5,0,0,0">
+            <Grid x:Name="grdPEDS" Height="700">
+                <DataGrid x:Name="dgPedidos"
+                          ItemsSource="{Binding Vendas/Pedidos}"
+                          AutoGenerateColumns="False" 
+                          CanUserAddRows="False" 
+                          CanUserResizeColumns="False" 
+                          CanUserReorderColumns="False" 
+                          CanUserDeleteRows="False" 
+                          CanUserResizeRows="False" 
+                          IsReadOnly="True" 
+                          HeadersVisibility="Column"
+                          IsSynchronizedWithCurrentItem="True" 
+                          Style="{DynamicResource DatagridCustomMDesign}" 
+                          CellStyle="{DynamicResource DatagridCellCustomMDesign}" 
+                          RowStyle="{DynamicResource DataGridRowCustomMDesign}"
+                          ColumnHeaderStyle="{StaticResource CustomMaterialDesignDataGridColumnHeader}" SelectionMode="Single" Height="700">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="PED" 
+                                            Binding="{Binding NumPedido, Converter={StaticResource PedNumConverter}}" 
+                                            CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}"
+                                            CanUserResize="False" />
+                        <DataGridTextColumn Header="ROTA" 
+                        Binding="{Binding Pasta, Converter={StaticResource RotaConverter3}}"                                         
+                        CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}"
+                        CanUserResize="False" />
+                        <DataGridTextColumn Header="CLIENTE" 
+                        CanUserResize="False" 
+                        Width="70">
+                            <DataGridTextColumn.Binding>
+                                <MultiBinding StringFormat=" {0}-{1}">
+                                    <Binding Path="Cliente.RegiaoCliente" />
+                                    <Binding Path="Cliente.NumCliente" />
+                                </MultiBinding>
+                            </DataGridTextColumn.Binding>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="R. SOCIAL" 
+                        Binding="{Binding Cliente.Razao}" 
+                        CanUserResize="False" 
+                        Width="200" />
+                        <DataGridTextColumn Header="VAL. PED" 
+                        Binding="{Binding Itens, Converter={StaticResource TotalValItemsConverter}}" 
+                        CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}"
+                        CanUserResize="False"
+                        Width="80" />
+                        <DataGridTextColumn Header="PESO"  
+                        CanUserResize="False"
+                        Width="80" />
+                    </DataGrid.Columns>
+                </DataGrid>
 
+            </Grid>
+        </MDesign:Card>
+        <MDesign:Card 
+            Grid.Column="2" 
+            BorderThickness="3"
+            MinHeight="700" UniformCornerRadius="0" Margin="5,0,0,0">
+            <Grid x:Name="grdPEDS1" Height="700">
+                <DataGrid x:Name="dgPedidos1"
+                    ItemsSource="{Binding Vendas/Pedidos/Itens}"
+                    AutoGenerateColumns="False" 
+                    CanUserAddRows="False" 
+                    CanUserResizeColumns="False" 
+                    CanUserReorderColumns="False" 
+                    CanUserDeleteRows="False" 
+                    CanUserResizeRows="False" 
+                    IsReadOnly="True" 
+                    HeadersVisibility="Column"
+                    IsSynchronizedWithCurrentItem="True" 
+                    Style="{DynamicResource DatagridCustomMDesign}" 
+                    CellStyle="{DynamicResource DatagridCellCustomMDesign}" 
+                    RowStyle="{DynamicResource DataGridRowCustomMDesign}"
+                    ColumnHeaderStyle="{StaticResource CustomMaterialDesignDataGridColumnHeader}" SelectionMode="Single" Height="700">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="PROD" 
+                            Binding="{Binding Produto}"                                         
+                            CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}"
+                            CanUserResize="False" />
+                        <DataGridTextColumn Header="Q. CX" 
+                            Binding="{Binding QntCX}"
+                            CanUserResize="False" />
+                        <DataGridTextColumn Header="Q. UND" 
+                            Binding="{Binding QntUND}"
+                            CanUserResize="False" />
+                        <DataGridTextColumn Header="V. UND" 
+                            Binding="{Binding ValorUnid}"
+                            CanUserResize="False" />
+                        <DataGridTextColumn Header="V. TOTAL" 
+                            Binding="{Binding ValorTotal}"
+                            CanUserResize="False" />
+                    </DataGrid.Columns>
+                </DataGrid>
 
+            </Grid>
+        </MDesign:Card>
     </Grid>
-
 </UserControl>
 

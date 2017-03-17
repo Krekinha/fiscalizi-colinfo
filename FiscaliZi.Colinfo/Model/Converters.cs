@@ -13,79 +13,6 @@ using MaterialDesignThemes.Wpf;
 
 namespace FiscaliZi.Colinfo.Model
 {
-    public class CurrentAccentColorConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            //var cor = AppearanceManager.Current.AccentColor;
-            //return new SolidColorBrush(cor);
-            return 0;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return value;
-        }
-    }
-
-    public class TotalValPedsConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            var items = (List<Pedido>)value;
-            if (items == null) return "";
-
-            var total = items.Cast<Pedido>().Sum(ped => ped.ValorTotal);
-            return total.ToString("N2", CultureInfo.CreateSpecificCulture("pt-BR"));
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return value;
-        }
-    }
-
-    public class TotalPedsConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            var items = (ObservableCollection<Arquivo>)value;
-            if (items == null) return 0;
-            int totPeds = 0;
-            foreach (var item in items)
-            {
-                if (item.Pedidos != null)
-                    totPeds += item.Pedidos.Count;
-            }
-            return totPeds;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return value;
-        }
-    }
-
-    public class Total_FormPgtConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            var items = (ObservableCollection<Arquivo>)value;
-            if (items == null) return 0;
-            int? totBols = 0;
-            foreach (var item in items)
-            {
-                totBols += item.Pedidos?.Cast<Pedido>().Count(ped => ped.FormPgt == "4");
-            }
-            return totBols;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return value;
-        }
-    }
-
     public class ColetadosConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -103,19 +30,13 @@ namespace FiscaliZi.Colinfo.Model
             return value;
         }
     }
-
-    public class RotaConverter : IValueConverter
+    public class CurrentAccentColorConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var items = (List<Pedido>)value;
-            if (items == null) return "";
-
-            var total = items.Cast<Pedido>().Select(p => p.Cliente.Rota).Distinct();
-
-            var Trota = total.Aggregate("", (current, rota) => current + (rota + ", "));
-            return Trota.Remove(Trota.LastIndexOf(','));
-
+            //var cor = AppearanceManager.Current.AccentColor;
+            //return new SolidColorBrush(cor);
+            return 0;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -123,19 +44,90 @@ namespace FiscaliZi.Colinfo.Model
             return value;
         }
     }
+    public class FormatIEConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var reg = (string)value;
+            return $"{reg.Substring(0, 6)}.{reg.Substring(6, 3)}/{reg.Substring(9, 4)}";
+        }
 
-    public class RotaConverter2 : IValueConverter
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotSupportedException();
+        }
+    }
+    public class IsCNPJConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return Tools.IsCNPJ((string)value);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotSupportedException();
+        }
+    }
+    public class PedNumConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var pedn = value?.ToString();
+
+            if (!string.IsNullOrEmpty(pedn))
+            {
+                if (pedn.Length > 8)
+                    return pedn.Substring(8, 4);
+            }
+            return string.Empty;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotSupportedException();
+        }
+    }
+    public class RejeicoesCNPJConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var items = (List<Pedido>)value;
-            if (items == null) return "";
+            int rej = 0;
+            int err = 0;
+            int hab = 0;
+            if (items == null) return 0;
+            if (items.Count > 0)
+            {
+                foreach (var ped in items)
+                {
+                    switch (ped.Cliente.Situacao)
+                    {
+                        case "REJEIÇÃO":
+                            rej += 1;
+                            break;
+                        case "ERRO":
+                            err += 1;
+                            break;
+                        case "HABILITADO":
+                            hab += 1;
+                            break;
+                    }
+                }
 
-            var Tpasta = items.Cast<Pedido>().Select(p => p.Pasta[p.Pasta.Length -1]).Distinct();
+                switch (parameter.ToString())
+                {
+                    case "REJ":
+                        return rej;
+                    case "ERR":
+                        return err;
+                    case "HAB":
+                        return hab;
+                }
+            }
 
-            var Trota = Tpasta.Aggregate("", (current, rota) => current + (rota + ", "));
-            return Trota.Remove(Trota.LastIndexOf(','));
-
+            //var total = items.Cast<Vendedor>().Where(p => p.Pedidos.Select());
+            return 0;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -143,7 +135,6 @@ namespace FiscaliZi.Colinfo.Model
             return value;
         }
     }
-
     public class ResumoVendasConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -164,7 +155,97 @@ namespace FiscaliZi.Colinfo.Model
             return value;
         }
     }
+    public class RotaConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var items = (List<Pedido>)value;
+            if (items == null) return "";
 
+            var total = items.Cast<Pedido>().Select(p => p.Cliente.Rota).Distinct();
+
+            var Trota = total.Aggregate("", (current, rota) => current + (rota + ", "));
+            return Trota.Remove(Trota.LastIndexOf(','));
+
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value;
+        }
+    }
+    public class RotaConverter2 : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var items = (List<Pedido>)value;
+            if (items == null) return "";
+
+            var Tpasta = items.Cast<Pedido>().Select(p => p.Pasta[p.Pasta.Length - 1]).Distinct();
+
+            var Trota = Tpasta.Aggregate("", (current, rota) => current + (rota + ", "));
+            return Trota.Remove(Trota.LastIndexOf(','));
+
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value;
+        }
+    }
+    public class RotaConverter3 : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+
+
+            var pasta = value?.ToString();
+
+            var Tpasta = pasta[pasta.Length - 1];
+
+            return Tpasta;
+
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value;
+        }
+    }
+    public class SimplificaNomeVendedorConverter : IValueConverter
+    {
+        private string res = string.Empty;
+
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null)
+            {
+                return string.Empty;
+            }
+
+            var nome = value.ToString().Split();
+
+            if (nome.Count() > 1)
+            {
+                res = $"{nome[0]} {nome[1].Substring(0, 1)}";
+                return res;
+            }
+
+            if (nome.Count() == 1)
+            {
+                res = nome[0];
+                return res;
+            }
+
+            return res;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotSupportedException();
+        }
+    }
     public class SitCadastroClienteConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
@@ -219,7 +300,6 @@ namespace FiscaliZi.Colinfo.Model
             throw new NotImplementedException();
         }
     }
-
     public class SitCadastroClientecSitConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -240,7 +320,6 @@ namespace FiscaliZi.Colinfo.Model
             throw new NotImplementedException();
         }
     }
-
     public class SituacaoCNPJColorConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -268,7 +347,6 @@ namespace FiscaliZi.Colinfo.Model
         }
 
     }
-
     public class SituacaoCNPJIconConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -296,47 +374,122 @@ namespace FiscaliZi.Colinfo.Model
         }
 
     }
-
-    public class RejeicoesCNPJConverter : IValueConverter
+    public class SituacaoCNPJIconVendBackgroundConverter : IValueConverter
     {
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var items = (List<Pedido>)value;
-            int rej = 0;
-            int err = 0;
-            int hab = 0;
-            if (items == null) return 0;
-            if (items.Count > 0)
-            {
-                foreach (var ped in items)
-                {
-                    switch (ped.Cliente.Situacao)
-                    {
-                        case "REJEIÇÃO":
-                            rej += 1;
-                            break;
-                        case "ERRO":
-                            err += 1;
-                            break;
-                        case "HABILITADO":
-                            hab += 1;
-                            break;
-                    }
-                }
 
-                switch (parameter.ToString())
+            switch ((PackIconKind)value)
+            {
+                case PackIconKind.AccountOff:
+                    return new SolidColorBrush(Colors.Red);
+                case PackIconKind.CloseCircle:
+                    return new SolidColorBrush(Colors.Red);
+                case PackIconKind.HelpCircle:
+                    return new SolidColorBrush(Colors.RoyalBlue);
+                case PackIconKind.CheckCircle:
+                    return new SolidColorBrush(Colors.MediumSeaGreen);
+                default:
+                    return new SolidColorBrush(Colors.DimGray);
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value;
+        }
+
+    }
+    public class SituacaoCNPJIconVendConverter : IValueConverter
+    {
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var peds = (List<Pedido>)value;
+            foreach (var ped in peds)
+            {
+                var sit =
+                    ped.Cliente?.RetConsultaCadastro?.infCons?.infCad.Find(
+                        p => p.IE == ped.Cliente.IE.Replace(".", "").Replace("/", ""));
+
+                if (sit != null && sit.cSit == "0")
+                    return PackIconKind.AccountOff;
+
+            }
+
+            foreach (var ped in peds)
+            {
+                if (ped.Cliente?.RetConsultaCadastro?.ErrorCode == "err_dives")
                 {
-                    case "REJ":
-                        return rej;
-                    case "ERR":
-                        return err;
-                    case "HAB":
-                        return hab;
+                    return PackIconKind.CloseCircle;
                 }
             }
 
-            //var total = items.Cast<Vendedor>().Where(p => p.Pedidos.Select());
-            return 0;
+            foreach (var ped in peds)
+            {
+                if (ped?.Cliente?.CNPJ != null && (Tools.IsCNPJ(ped?.Cliente?.CNPJ) && ped?.Cliente?.RetConsultaCadastro?.infCons == null))
+                {
+                    if (ped?.Cliente?.IE != "ISENTO")
+                        return PackIconKind.HelpCircle;
+                }
+            }
+
+            return PackIconKind.CheckCircle;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value;
+        }
+
+    }
+    public class ShowConsultaConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value != null)
+            {
+                return true;
+            };
+            return false;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotSupportedException();
+        }
+    }
+    public class StringToIntConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (int.TryParse((string)value, out int res))
+            {
+                return res;
+            }
+
+            return value;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value;
+        }
+
+    }
+    public class Total_FormPgtConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var items = (ObservableCollection<Arquivo>)value;
+            if (items == null) return 0;
+            int? totBols = 0;
+            foreach (var item in items)
+            {
+                totBols += item.Pedidos?.Cast<Pedido>().Count(ped => ped.FormPgt == "4");
+            }
+            return totBols;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -344,7 +497,6 @@ namespace FiscaliZi.Colinfo.Model
             return value;
         }
     }
-
     public class Total_RejeicoesCNPJConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -400,172 +552,59 @@ namespace FiscaliZi.Colinfo.Model
             return value;
         }
     }
-
-    public class SimplificaNomeVendedorConverter : IValueConverter
-    {
-        private string res = string.Empty;
-
-
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value == null)
-            {
-                return string.Empty;
-            }
-
-            var nome = value.ToString().Split();
-
-            if (nome.Count() > 1)
-            {
-                res = $"{nome[0]} {nome[1].Substring(0, 1)}";
-                return res;
-            }
-
-            if (nome.Count() == 1)
-            {
-                res = nome[0];
-                return res;
-            }
-
-            return res;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotSupportedException();
-        }
-    }
-
-    public class IsCNPJConverter : IValueConverter
+    public class TotalPedsConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return Tools.IsCNPJ((string)value);
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotSupportedException();
-        }
-    }
-
-    public class ShowConsultaConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value != null)
+            var items = (ObservableCollection<Arquivo>)value;
+            if (items == null) return 0;
+            int totPeds = 0;
+            foreach (var item in items)
             {
-                return true;
-            };
-            return false;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotSupportedException();
-        }
-    }
-    
-    public class SituacaoCNPJIconVendConverter : IValueConverter
-    {
-
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            var peds = (List<Pedido>)value;
-            foreach (var ped in peds)
-            {
-                var sit =
-                    ped.Cliente?.RetConsultaCadastro?.infCons?.infCad.Find(
-                        p => p.IE == ped.Cliente.IE.Replace(".", "").Replace("/", ""));
-
-                if (sit != null && sit.cSit == "0")
-                    return PackIconKind.AccountOff;
-
+                if (item.Pedidos != null)
+                    totPeds += item.Pedidos.Count;
             }
-
-            foreach (var ped in peds)
-            {
-                if (ped.Cliente?.RetConsultaCadastro?.ErrorCode == "err_dives")
-                {
-                        return PackIconKind.CloseCircle;
-                }
-            }
-
-            foreach (var ped in peds)
-            {
-                if (ped?.Cliente?.CNPJ != null && (Tools.IsCNPJ(ped?.Cliente?.CNPJ) && ped?.Cliente?.RetConsultaCadastro?.infCons == null))
-                {if(ped?.Cliente?.IE != "ISENTO")
-                    return PackIconKind.HelpCircle;
-                }
-            }
-
-            return PackIconKind.CheckCircle;
+            return totPeds;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return value;
         }
-
     }
-    public class SituacaoCNPJIconVendBackgroundConverter : IValueConverter
+    public class TotalValItemsConverter : IValueConverter
     {
-
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            var items = (List<Item>)value;
+            if (items == null) return "";
 
-            switch ((PackIconKind)value)
-            {
-                case PackIconKind.AccountOff:
-                    return new SolidColorBrush(Colors.Red);
-                case PackIconKind.CloseCircle:
-                    return new SolidColorBrush(Colors.Red);
-                case PackIconKind.HelpCircle:
-                    return new SolidColorBrush(Colors.RoyalBlue);
-                case PackIconKind.CheckCircle:
-                    return new SolidColorBrush(Colors.MediumSeaGreen);
-                default:
-                    return new SolidColorBrush(Colors.DimGray);
-            }
+            var total = items.Sum(itm => itm.ValorTotal);
+            return total.ToString("N2", CultureInfo.CreateSpecificCulture("pt-BR"));
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return value;
         }
-
     }
-    public class FormatIEConverter : IValueConverter
+    public class TotalValPedsConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var reg = (string)value;
-            return $"{reg.Substring(0,6)}.{reg.Substring(6, 3)}/{reg.Substring(9, 4)}";
-        }
+            var items = (List<Pedido>)value;
+            if (items == null) return "";
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotSupportedException();
-        }
-    }
-    public class StringToIntConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (int.TryParse((string)value, out int res))
-            {
-                return res;
-            }
-
-            return value;
+            var total = items.Cast<Pedido>().Sum(ped => ped.ValorTotal);
+            return total.ToString("N2", CultureInfo.CreateSpecificCulture("pt-BR"));
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return value;
         }
-
     }
+
     public static class Tools
     {
         public static string SoString(string str)
