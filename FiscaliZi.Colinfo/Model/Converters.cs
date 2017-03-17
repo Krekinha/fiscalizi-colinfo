@@ -145,8 +145,11 @@ namespace FiscaliZi.Colinfo.Model
             var items = peds?.SelectMany(it => it.Itens);
 
             var rankedItems = Tools.RankProd(items);
+            var rank2 = "?";
+            if (rankedItems.Length > 1)
+                rank2 = $"{rankedItems[1]?.QntCX} {Tools.GetItemNickProd(rankedItems[1]?.Produto.Codigo)}";
 
-            return $"{rankedItems[0].QntCX} {Tools.GetItemNickProd(rankedItems[0].Produto.Codigo)}  |  {rankedItems[1].QntCX} {Tools.GetItemNickProd(rankedItems[1].Produto.Codigo)}";
+            return $"{rankedItems[0].QntCX} {Tools.GetItemNickProd(rankedItems[0].Produto.Codigo)}  |  {rank2}";
 
         }
 
