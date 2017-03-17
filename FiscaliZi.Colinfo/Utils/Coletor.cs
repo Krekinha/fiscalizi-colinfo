@@ -149,7 +149,7 @@ namespace FiscaliZi.Colinfo.Utils
                 };
                 var ped = peds.Find(p => p.NumPedido == line[0]);
 
-                if (ped == null)
+                if (ped == null && line[25] != "9")
                 {
                     peds.Add(
                         new Pedido
@@ -159,7 +159,8 @@ namespace FiscaliZi.Colinfo.Utils
                             DataPedido = DateTime.Parse(line[29]),
                             Itens = new List<Item>{ item},
                             Cliente = GetClienteByCode(line[3]),
-                            Pasta = line[30]
+                            Pasta = line[30],
+                            SitPed = line[25]
                         }
                         );
                 }

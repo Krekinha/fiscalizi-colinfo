@@ -8,8 +8,8 @@ using FiscaliZi.Colinfo;
 namespace FiscaliZi.Colinfo.Migrations
 {
     [DbContext(typeof(ColinfoContext))]
-    [Migration("20170316012528_mig-2")]
-    partial class mig2
+    [Migration("20170316193145_mig")]
+    partial class mig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -224,6 +224,8 @@ namespace FiscaliZi.Colinfo.Migrations
                     b.Property<string>("NumPedido");
 
                     b.Property<string>("Pasta");
+
+                    b.Property<string>("SitPed");
 
                     b.Property<decimal>("ValorTotal");
 

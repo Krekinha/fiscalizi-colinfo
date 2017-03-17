@@ -224,6 +224,8 @@ namespace FiscaliZi.Colinfo.Migrations
 
                     b.Property<string>("Pasta");
 
+                    b.Property<string>("SitPed");
+
                     b.Property<decimal>("ValorTotal");
 
                     b.Property<int?>("VendaID");

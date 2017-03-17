@@ -117,6 +117,8 @@ namespace FiscaliZi.Colinfo.Migrations
                     FormPgt = table.Column<string>(nullable: true),
                     NumPedPalm = table.Column<string>(nullable: true),
                     NumPedido = table.Column<string>(nullable: true),
+                    Pasta = table.Column<string>(nullable: true),
+                    SitPed = table.Column<string>(nullable: true),
                     ValorTotal = table.Column<decimal>(nullable: false),
                     VendaID = table.Column<int>(nullable: true)
                 },
