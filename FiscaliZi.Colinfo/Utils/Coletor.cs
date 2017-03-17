@@ -126,7 +126,6 @@ namespace FiscaliZi.Colinfo.Utils
             return null;
 
         }
-
         public static List<Pedido> GetPedidos(string path, DateTime date)
         {
             var peds = new List<Pedido>();
@@ -175,6 +174,38 @@ namespace FiscaliZi.Colinfo.Utils
             return peds;
 
         }
+        public static void GetProdutos(string path)
+        {
+            var prods = new List<Produto>();
+
+            var Lines = File.ReadLines(path).Select(a => a.Split(';'));
+
+            using (var context = new ColinfoContext())
+            {
+                foreach (var line in Lines)
+                {
+                    if (!IsValidProduto(line)) continue;
+
+                    var prod = context.Produtos.FirstOrDefault(p => p.Codigo == line[2]);
+
+                    if (prod == null)
+                    {
+                        var prd = new Produto
+                        {
+                            Codigo = line[2],
+                            Descricao = line[4],
+                            Unidades = int.Parse(line[11]),
+                            Preco = 0,
+                            Peso = 0
+    };
+                    }
+
+
+                }
+                
+            }
+        }
+
         private static Cliente GetClienteByCode(string code)
         {
             var cz = code.Split('-');
@@ -193,6 +224,7 @@ namespace FiscaliZi.Colinfo.Utils
             }
 
         }
+
 
         private static string MascararCNPJ(string cnpj)
         {
@@ -236,6 +268,20 @@ namespace FiscaliZi.Colinfo.Utils
 
                 if (!dataPed.Equals(DateTime.Parse(line[29]))) return false;
 
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return true;
+            }
+
+        }
+        private static bool IsValidProduto(string[] line)
+        {
+            try
+            {
+                if (line[29] == "0") return false;
                 return true;
             }
             catch (Exception ex)
