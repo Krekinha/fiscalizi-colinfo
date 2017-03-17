@@ -273,6 +273,10 @@
       <DependentUpon>ColetaView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Assets\ColetaViewModelcs.cs" />
+    <Compile Include="Assets\ConfigView.xaml.cs">
+      <DependentUpon>ConfigView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Assets\ConfigViewModel.cs" />
     <Compile Include="Assets\Dialog_Conculta.xaml.cs">
       <DependentUpon>Dialog_Conculta.xaml</DependentUpon>
     </Compile>
@@ -311,6 +315,10 @@
       <DependentUpon>FlyPedido.xaml</DependentUpon>
     </Compile>
     <Page Include="Assets\ColetaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\ConfigView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

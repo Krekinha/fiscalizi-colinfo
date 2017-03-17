@@ -60,7 +60,7 @@ namespace FiscaliZi.Colinfo.Model
                                 new Item
                                 {
                                     ItemID = 1,
-                                    Produto = "900089",
+                                    Produto = new Produto{Codigo = "900089"},
                                     QntCX = 5,
                                     ValorUnid = 1830.00m,
                                     ValorTotal = 9150.00m
@@ -69,7 +69,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 2,
-                                        Produto = "900090",
+                                        Produto = new Produto{Codigo = "900090"},
                                         QntCX = 2,
                                         ValorUnid = 5800.00m,
                                         ValorTotal = 11600.00m
@@ -79,7 +79,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 3,
-                                        Produto = "900350",
+                                        Produto = new Produto{Codigo = "900350"},
                                         QntCX = 1,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 1850.00m
@@ -89,7 +89,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 4,
-                                        Produto = "902410",
+                                        Produto = new Produto{Codigo = "902410"},
                                         QntCX = 2,
                                         ValorUnid = 2360.00m,
                                         ValorTotal = 4720.00m
@@ -99,7 +99,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 5,
-                                        Produto = "902780",
+                                        Produto = new Produto{Codigo = "902780"},
                                         QntCX = 6,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 11100.00m
@@ -109,7 +109,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 6,
-                                        Produto = "902795",
+                                        Produto = new Produto{Codigo = "902795"},
                                         QntCX = 3,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 5550.00m
@@ -119,7 +119,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 7,
-                                        Produto = "902802",
+                                        Produto = new Produto{Codigo = "902802"},
                                         QntCX = 2,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 3700.00m
@@ -129,7 +129,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 8,
-                                        Produto = "902809",
+                                        Produto = new Produto{Codigo = "902809"},
                                         QntCX = 4,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 7400.00m
@@ -139,7 +139,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 9,
-                                        Produto = "902815",
+                                        Produto = new Produto{Codigo = "902815"},
                                         QntCX = 2,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 3700.00m
@@ -149,7 +149,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 10,
-                                        Produto = "902817",
+                                        Produto = new Produto{Codigo = "902817"},
                                         QntCX = 2,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 3700.00m
@@ -159,7 +159,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 11,
-                                        Produto = "903122",
+                                        Produto = new Produto{Codigo = "903122"},
                                         QntCX = 1,
                                         ValorUnid = 2040.00m,
                                         ValorTotal = 2040.00m
@@ -191,7 +191,7 @@ namespace FiscaliZi.Colinfo.Model
                                 new Item
                                 {
                                     ItemID = 12,
-                                    Produto = "900416",
+                                    Produto = new Produto{Codigo = "900416"},
                                     QntCX = 20,
                                     ValorUnid = 2130.00m,
                                     ValorTotal = 42600.00m
@@ -223,7 +223,7 @@ namespace FiscaliZi.Colinfo.Model
                                 new Item
                                 {
                                     ItemID = 13,
-                                    Produto = "900032",
+                                    Produto = new Produto{Codigo = "900032"},
                                     QntCX = 2,
                                     ValorUnid = 1420.00m,
                                     ValorTotal = 2840.00m
@@ -232,7 +232,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 14,
-                                        Produto = "900320",
+                                        Produto = new Produto{Codigo = "900320"},
                                         QntCX = 3,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 5550.00m
@@ -242,7 +242,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 15,
-                                        Produto = "900350",
+                                        Produto = new Produto{Codigo = "900350"},
                                         QntCX = 3,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 5550.00m
@@ -252,7 +252,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 16,
-                                        Produto = "900362",
+                                        Produto = new Produto{Codigo = "902900362410"},
                                         QntCX = 1,
                                         ValorUnid = 2040.00m,
                                         ValorTotal = 2040.00m
@@ -262,7 +262,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 17,
-                                        Produto = "900416",
+                                        Produto = new Produto{Codigo = "900416"},
                                         QntCX = 50,
                                         ValorUnid = 2130.00m,
                                         ValorTotal = 106500.00m
@@ -272,7 +272,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 18,
-                                        Produto = "902410",
+                                        Produto = new Produto{Codigo = "902410"},
                                         QntCX = 10,
                                         ValorUnid = 2360.00m,
                                         ValorTotal = 23600.00m
@@ -282,7 +282,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 19,
-                                        Produto = "902417",
+                                        Produto = new Produto{Codigo = "902417"},
                                         QntCX = 2,
                                         ValorUnid = 1629.00m,
                                         ValorTotal = 3258.00m
@@ -292,7 +292,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 20,
-                                        Produto = "902430",
+                                        Produto = new Produto{Codigo = "902430"},
                                         QntCX = 3,
                                         ValorUnid = 2400.00m,
                                         ValorTotal = 7200.00m
@@ -302,7 +302,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 21,
-                                        Produto = "902778",
+                                        Produto = new Produto{Codigo = "902778"},
                                         QntCX = 3,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 5550.00m
@@ -312,7 +312,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 22,
-                                        Produto = "902780",
+                                        Produto = new Produto{Codigo = "902780"},
                                         QntCX = 5,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 9250.00m
@@ -322,7 +322,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 23,
-                                        Produto = "900416",
+                                        Produto = new Produto{Codigo = "900416"},
                                         QntCX = 10,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 18500.00m
@@ -332,7 +332,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 24,
-                                        Produto = "902802",
+                                        Produto = new Produto{Codigo = "902802"},
                                         QntCX = 1,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 1850.00m
@@ -342,7 +342,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 25,
-                                        Produto = "902809",
+                                        Produto = new Produto{Codigo = "902809"},
                                         QntCX = 10,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 18500.00m
@@ -352,7 +352,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 26,
-                                        Produto = "902815",
+                                        Produto = new Produto{Codigo = "902815"},
                                         QntCX = 3,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 5550.00m
@@ -362,7 +362,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 27,
-                                        Produto = "902817",
+                                        Produto = new Produto{Codigo = "902817"},
                                         QntCX = 5,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 9250.00m
@@ -395,7 +395,7 @@ namespace FiscaliZi.Colinfo.Model
                                 new Item
                                 {
                                     ItemID = 28,
-                                    Produto = "900089",
+                                    Produto = new Produto{Codigo = "900089"},
                                     QntCX = 20,
                                     ValorUnid = 1740.00m,
                                     ValorTotal = 34800.00m
@@ -427,7 +427,7 @@ namespace FiscaliZi.Colinfo.Model
                                 new Item
                                 {
                                     ItemID = 29,
-                                    Produto = "900032",
+                                    Produto = new Produto{Codigo = "900032"},
                                     QntCX = 1,
                                     ValorUnid = 1420.00m,
                                     ValorTotal = 1420.00m
@@ -436,7 +436,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 30,
-                                        Produto = "900089",
+                                        Produto = new Produto{Codigo = "900089"},
                                         QntCX = 4,
                                         ValorUnid = 1830.00m,
                                         ValorTotal = 7320.00m
@@ -446,7 +446,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 31,
-                                        Produto = "900362",
+                                        Produto = new Produto{Codigo = "900362"},
                                         QntCX = 1,
                                         ValorUnid = 2040.00m,
                                         ValorTotal = 2040.00m
@@ -456,7 +456,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 32,
-                                        Produto = "902410",
+                                        Produto = new Produto{Codigo = "902410"},
                                         QntCX = 3,
                                         ValorUnid = 2360.00m,
                                         ValorTotal = 7080.00m
@@ -466,7 +466,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 33,
-                                        Produto = "902430",
+                                        Produto = new Produto{Codigo = "902430"},
                                         QntCX = 1,
                                         ValorUnid = 2400.00m,
                                         ValorTotal = 2400.00m
@@ -476,7 +476,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 34,
-                                        Produto = "902817",
+                                        Produto = new Produto{Codigo = "902817"},
                                         QntCX = 2,
                                         ValorUnid = 1930.00m,
                                         ValorTotal = 3860.00m
@@ -486,7 +486,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 35,
-                                        Produto = "903122",
+                                        Produto = new Produto{Codigo = "903122"},
                                         QntCX = 1,
                                         ValorUnid = 2040.00m,
                                         ValorTotal = 2040.00m
@@ -496,7 +496,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 36,
-                                        Produto = "903190",
+                                        Produto = new Produto{Codigo = "903190"},
                                         QntCX = 1,
                                         ValorUnid = 1040.00m,
                                         ValorTotal = 1040.00m
@@ -529,7 +529,7 @@ namespace FiscaliZi.Colinfo.Model
                                 new Item
                                 {
                                     ItemID = 37,
-                                    Produto = "900023",
+                                    Produto = new Produto{Codigo = "900023"},
                                     QntCX = 1,
                                     ValorUnid = 1150.00m,
                                     ValorTotal = 1150.00m
@@ -538,7 +538,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 38,
-                                        Produto = "900089",
+                                        Produto = new Produto{Codigo = "900089"},
                                         QntCX = 30,
                                         ValorUnid = 1740.00m,
                                         ValorTotal = 52200.00m
@@ -548,7 +548,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 39,
-                                        Produto = "900350",
+                                        Produto = new Produto{Codigo = "900350"},
                                         QntCX = 2,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 3700.00m
@@ -558,7 +558,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 40,
-                                        Produto = "902780",
+                                        Produto = new Produto{Codigo = "902780"},
                                         QntCX = 5,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 9250.00m
@@ -568,7 +568,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 41,
-                                        Produto = "902795",
+                                        Produto = new Produto{Codigo = "902795"},
                                         QntCX = 5,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 9250.00m
@@ -578,7 +578,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 42,
-                                        Produto = "902802",
+                                        Produto = new Produto{Codigo = "902802"},
                                         QntCX = 2,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 3700.00m
@@ -588,7 +588,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 43,
-                                        Produto = "902809",
+                                        Produto = new Produto{Codigo = "902809"},
                                         QntCX = 5,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 9250.00m
@@ -598,7 +598,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 44,
-                                        Produto = "902815",
+                                        Produto = new Produto{Codigo = "902815"},
                                         QntCX = 2,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 3700.00m
@@ -608,7 +608,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 45,
-                                        Produto = "902817",
+                                        Produto = new Produto{Codigo = "902817"},
                                         QntCX = 3,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 5550.00m
@@ -641,7 +641,7 @@ namespace FiscaliZi.Colinfo.Model
                                 new Item
                                 {
                                     ItemID = 46,
-                                    Produto = "900032",
+                                    Produto = new Produto{Codigo = "900032"},
                                     QntCX = 3,
                                     ValorUnid = 1420.00m,
                                     ValorTotal = 4260.00m
@@ -650,7 +650,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 47,
-                                        Produto = "900089",
+                                        Produto = new Produto{Codigo = "900089"},
                                         QntCX = 3,
                                         ValorUnid = 1830.00m,
                                         ValorTotal = 5490.00m
@@ -660,7 +660,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 48,
-                                        Produto = "902417",
+                                        Produto = new Produto{Codigo = "902417"},
                                         QntCX = 1,
                                         ValorUnid = 1530.00m,
                                         ValorTotal = 1530.00m
@@ -670,7 +670,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 49,
-                                        Produto = "902430",
+                                        Produto = new Produto{Codigo = "902430"},
                                         QntCX = 2,
                                         ValorUnid = 2400.00m,
                                         ValorTotal = 4800.00m
@@ -680,7 +680,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 50,
-                                        Produto = "902780",
+                                        Produto = new Produto{Codigo = "902780"},
                                         QntCX = 1,
                                         ValorUnid = 1930.00m,
                                         ValorTotal = 1930.00m
@@ -690,7 +690,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 51,
-                                        Produto = "902817",
+                                        Produto = new Produto{Codigo = "902817"},
                                         QntCX = 2,
                                         ValorUnid = 1930.00m,
                                         ValorTotal = 3860.00m
@@ -700,7 +700,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 52,
-                                        Produto = "903122",
+                                        Produto = new Produto{Codigo = "903122"},
                                         QntCX = 2,
                                         ValorUnid = 2040.00m,
                                         ValorTotal = 4080.00m
@@ -710,7 +710,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 53,
-                                        Produto = "903189",
+                                        Produto = new Produto{Codigo = "903189"},
                                         QntCX = 1,
                                         ValorUnid = 1040.00m,
                                         ValorTotal = 1040.00m
@@ -720,7 +720,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 54,
-                                        Produto = "903190",
+                                        Produto = new Produto{Codigo = "903190"},
                                         QntCX = 1,
                                         ValorUnid = 1040.00m,
                                         ValorTotal = 1040.00m
@@ -730,7 +730,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 55,
-                                        Produto = "903201",
+                                        Produto = new Produto{Codigo = "903201"},
                                         QntCX = 1,
                                         ValorUnid = 1040.00m,
                                         ValorTotal = 1040.00m
@@ -763,7 +763,7 @@ namespace FiscaliZi.Colinfo.Model
                                 new Item
                                 {
                                     ItemID = 56,
-                                    Produto = "900032",
+                                    Produto = new Produto{Codigo = "900032"},
                                     QntCX = 1,
                                     ValorUnid = 1420.00m,
                                     ValorTotal = 1420.00m
@@ -772,7 +772,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 57,
-                                        Produto = "900362",
+                                        Produto = new Produto{Codigo = "900362"},
                                         QntCX = 1,
                                         ValorUnid = 2040.00m,
                                         ValorTotal = 2040.00m
@@ -782,7 +782,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 58,
-                                        Produto = "900368",
+                                        Produto = new Produto{Codigo = "900368"},
                                         QntCX = 1,
                                         ValorUnid = 2040.00m,
                                         ValorTotal = 2040.00m
@@ -792,7 +792,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 59,
-                                        Produto = "902372",
+                                        Produto = new Produto{Codigo = "902372"},
                                         QntCX = 1,
                                         ValorUnid = 5000.00m,
                                         ValorTotal = 5000.00m
@@ -802,7 +802,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 60,
-                                        Produto = "902417",
+                                        Produto = new Produto{Codigo = "902417"},
                                         QntCX = 2,
                                         ValorUnid = 1530.00m,
                                         ValorTotal = 3060.00m
@@ -812,7 +812,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 61,
-                                        Produto = "903122",
+                                        Produto = new Produto{Codigo = "903122"},
                                         QntCX = 1,
                                         ValorUnid = 2040.00m,
                                         ValorTotal = 2040.00m
@@ -860,7 +860,7 @@ namespace FiscaliZi.Colinfo.Model
                                 new Item
                                 {
                                     ItemID = 1,
-                                    Produto = "900089",
+                                    Produto = new Produto{Codigo = "902410"}"900089",
                                     QntCX = 5,
                                     ValorUnid = 1830.00m,
                                     ValorTotal = 9150.00m
@@ -869,7 +869,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 2,
-                                        Produto = "900090",
+                                        Produto = new Produto{Codigo = "902410"}"900090",
                                         QntCX = 2,
                                         ValorUnid = 5800.00m,
                                         ValorTotal = 11600.00m
@@ -879,7 +879,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 3,
-                                        Produto = "900350",
+                                        Produto = new Produto{Codigo = "902410"}"900350",
                                         QntCX = 1,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 1850.00m
@@ -889,7 +889,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 4,
-                                        Produto = "902410",
+                                        Produto = new Produto{Codigo = "902410"}"902410",
                                         QntCX = 2,
                                         ValorUnid = 2360.00m,
                                         ValorTotal = 4720.00m
@@ -899,7 +899,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 5,
-                                        Produto = "902780",
+                                        Produto = new Produto{Codigo = "902410"}"902780",
                                         QntCX = 6,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 11100.00m
@@ -909,7 +909,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 6,
-                                        Produto = "902795",
+                                        Produto = new Produto{Codigo = "902410"}"902795",
                                         QntCX = 3,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 5550.00m
@@ -919,7 +919,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 7,
-                                        Produto = "902802",
+                                        Produto = new Produto{Codigo = "902410"}"902802",
                                         QntCX = 2,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 3700.00m
@@ -929,7 +929,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 8,
-                                        Produto = "902809",
+                                        Produto = new Produto{Codigo = "902410"}"902809",
                                         QntCX = 4,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 7400.00m
@@ -939,7 +939,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 9,
-                                        Produto = "902815",
+                                        Produto = new Produto{Codigo = "902410"}"902815",
                                         QntCX = 2,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 3700.00m
@@ -949,7 +949,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 10,
-                                        Produto = "902817",
+                                        Produto = new Produto{Codigo = "902410"}"902817",
                                         QntCX = 2,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 3700.00m
@@ -959,7 +959,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 11,
-                                        Produto = "903122",
+                                        Produto = new Produto{Codigo = "902410"}"903122",
                                         QntCX = 1,
                                         ValorUnid = 2040.00m,
                                         ValorTotal = 2040.00m
@@ -992,7 +992,7 @@ namespace FiscaliZi.Colinfo.Model
                                 new Item
                                 {
                                     ItemID = 12,
-                                    Produto = "900416",
+                                    Produto = new Produto{Codigo = "902410"}"900416",
                                     QntCX = 20,
                                     ValorUnid = 2130.00m,
                                     ValorTotal = 42600.00m
@@ -1025,7 +1025,7 @@ namespace FiscaliZi.Colinfo.Model
                                 new Item
                                 {
                                     ItemID = 13,
-                                    Produto = "900032",
+                                    Produto = new Produto{Codigo = "902410"}"900032",
                                     QntCX = 2,
                                     ValorUnid = 1420.00m,
                                     ValorTotal = 2840.00m
@@ -1034,7 +1034,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 14,
-                                        Produto = "900320",
+                                        Produto = new Produto{Codigo = "902410"}"900320",
                                         QntCX = 3,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 5550.00m
@@ -1044,7 +1044,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 15,
-                                        Produto = "900350",
+                                        Produto = new Produto{Codigo = "902410"}"900350",
                                         QntCX = 3,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 5550.00m
@@ -1054,7 +1054,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 16,
-                                        Produto = "900362",
+                                        Produto = new Produto{Codigo = "902410"}"900362",
                                         QntCX = 1,
                                         ValorUnid = 2040.00m,
                                         ValorTotal = 2040.00m
@@ -1064,7 +1064,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 17,
-                                        Produto = "900416",
+                                        Produto = new Produto{Codigo = "902410"}"900416",
                                         QntCX = 50,
                                         ValorUnid = 2130.00m,
                                         ValorTotal = 106500.00m
@@ -1074,7 +1074,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 18,
-                                        Produto = "902410",
+                                        Produto = new Produto{Codigo = "902410"}"902410",
                                         QntCX = 10,
                                         ValorUnid = 2360.00m,
                                         ValorTotal = 23600.00m
@@ -1084,7 +1084,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 19,
-                                        Produto = "902417",
+                                        Produto = new Produto{Codigo = "902410"}"902417",
                                         QntCX = 2,
                                         ValorUnid = 1629.00m,
                                         ValorTotal = 3258.00m
@@ -1094,7 +1094,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 20,
-                                        Produto = "902430",
+                                        Produto = new Produto{Codigo = "902410"}"902430",
                                         QntCX = 3,
                                         ValorUnid = 2400.00m,
                                         ValorTotal = 7200.00m
@@ -1104,7 +1104,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 21,
-                                        Produto = "902778",
+                                        Produto = new Produto{Codigo = "902410"}"902778",
                                         QntCX = 3,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 5550.00m
@@ -1114,7 +1114,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 22,
-                                        Produto = "902780",
+                                        Produto = new Produto{Codigo = "902410"}"902780",
                                         QntCX = 5,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 9250.00m
@@ -1124,7 +1124,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 23,
-                                        Produto = "900416",
+                                        Produto = new Produto{Codigo = "902410"}"900416",
                                         QntCX = 10,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 18500.00m
@@ -1134,7 +1134,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 24,
-                                        Produto = "902802",
+                                        Produto = new Produto{Codigo = "902410"}"902802",
                                         QntCX = 1,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 1850.00m
@@ -1144,7 +1144,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 25,
-                                        Produto = "902809",
+                                        Produto = new Produto{Codigo = "902410"}"902809",
                                         QntCX = 10,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 18500.00m
@@ -1154,7 +1154,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 26,
-                                        Produto = "902815",
+                                        Produto = new Produto{Codigo = "902410"}"902815",
                                         QntCX = 3,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 5550.00m
@@ -1164,7 +1164,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 27,
-                                        Produto = "902817",
+                                        Produto = new Produto{Codigo = "902410"}"902817",
                                         QntCX = 5,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 9250.00m
@@ -1198,7 +1198,7 @@ namespace FiscaliZi.Colinfo.Model
                                 new Item
                                 {
                                     ItemID = 28,
-                                    Produto = "900089",
+                                    Produto = new Produto{Codigo = "902410"}"900089",
                                     QntCX = 20,
                                     ValorUnid = 1740.00m,
                                     ValorTotal = 34800.00m
@@ -1231,7 +1231,7 @@ namespace FiscaliZi.Colinfo.Model
                                 new Item
                                 {
                                     ItemID = 29,
-                                    Produto = "900032",
+                                    Produto = new Produto{Codigo = "902410"}"900032",
                                     QntCX = 1,
                                     ValorUnid = 1420.00m,
                                     ValorTotal = 1420.00m
@@ -1240,7 +1240,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 30,
-                                        Produto = "900089",
+                                        Produto = new Produto{Codigo = "902410"}"900089",
                                         QntCX = 4,
                                         ValorUnid = 1830.00m,
                                         ValorTotal = 7320.00m
@@ -1250,7 +1250,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 31,
-                                        Produto = "900362",
+                                        Produto = new Produto{Codigo = "902410"}"900362",
                                         QntCX = 1,
                                         ValorUnid = 2040.00m,
                                         ValorTotal = 2040.00m
@@ -1260,7 +1260,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 32,
-                                        Produto = "902410",
+                                        Produto = new Produto{Codigo = "902410"}"902410",
                                         QntCX = 3,
                                         ValorUnid = 2360.00m,
                                         ValorTotal = 7080.00m
@@ -1270,7 +1270,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 33,
-                                        Produto = "902430",
+                                        Produto = new Produto{Codigo = "902410"}"902430",
                                         QntCX = 1,
                                         ValorUnid = 2400.00m,
                                         ValorTotal = 2400.00m
@@ -1280,7 +1280,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 34,
-                                        Produto = "902817",
+                                        Produto = new Produto{Codigo = "902410"}"902817",
                                         QntCX = 2,
                                         ValorUnid = 1930.00m,
                                         ValorTotal = 3860.00m
@@ -1290,7 +1290,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 35,
-                                        Produto = "903122",
+                                        Produto = new Produto{Codigo = "902410"}"903122",
                                         QntCX = 1,
                                         ValorUnid = 2040.00m,
                                         ValorTotal = 2040.00m
@@ -1300,7 +1300,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 36,
-                                        Produto = "903190",
+                                        Produto = new Produto{Codigo = "902410"}"903190",
                                         QntCX = 1,
                                         ValorUnid = 1040.00m,
                                         ValorTotal = 1040.00m
@@ -1334,7 +1334,7 @@ namespace FiscaliZi.Colinfo.Model
                                 new Item
                                 {
                                     ItemID = 37,
-                                    Produto = "900023",
+                                    Produto = new Produto{Codigo = "902410"}"900023",
                                     QntCX = 1,
                                     ValorUnid = 1150.00m,
                                     ValorTotal = 1150.00m
@@ -1343,7 +1343,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 38,
-                                        Produto = "900089",
+                                        Produto = new Produto{Codigo = "902410"}"900089",
                                         QntCX = 30,
                                         ValorUnid = 1740.00m,
                                         ValorTotal = 52200.00m
@@ -1353,7 +1353,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 39,
-                                        Produto = "900350",
+                                        Produto = new Produto{Codigo = "902410"}"900350",
                                         QntCX = 2,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 3700.00m
@@ -1363,7 +1363,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 40,
-                                        Produto = "902780",
+                                        Produto = new Produto{Codigo = "902410"}"902780",
                                         QntCX = 5,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 9250.00m
@@ -1373,7 +1373,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 41,
-                                        Produto = "902795",
+                                        Produto = new Produto{Codigo = "902410"}"902795",
                                         QntCX = 5,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 9250.00m
@@ -1383,7 +1383,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 42,
-                                        Produto = "902802",
+                                        Produto = new Produto{Codigo = "902410"}"902802",
                                         QntCX = 2,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 3700.00m
@@ -1393,7 +1393,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 43,
-                                        Produto = "902809",
+                                        Produto = new Produto{Codigo = "902410"}"902809",
                                         QntCX = 5,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 9250.00m
@@ -1403,7 +1403,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 44,
-                                        Produto = "902815",
+                                        Produto = new Produto{Codigo = "902410"}"902815",
                                         QntCX = 2,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 3700.00m
@@ -1413,7 +1413,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 45,
-                                        Produto = "902817",
+                                        Produto = new Produto{Codigo = "902410"}"902817",
                                         QntCX = 3,
                                         ValorUnid = 1850.00m,
                                         ValorTotal = 5550.00m
@@ -1447,7 +1447,7 @@ namespace FiscaliZi.Colinfo.Model
                                 new Item
                                 {
                                     ItemID = 46,
-                                    Produto = "900032",
+                                    Produto = new Produto{Codigo = "902410"}"900032",
                                     QntCX = 3,
                                     ValorUnid = 1420.00m,
                                     ValorTotal = 4260.00m
@@ -1456,7 +1456,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 47,
-                                        Produto = "900089",
+                                        Produto = new Produto{Codigo = "902410"}"900089",
                                         QntCX = 3,
                                         ValorUnid = 1830.00m,
                                         ValorTotal = 5490.00m
@@ -1466,7 +1466,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 48,
-                                        Produto = "902417",
+                                        Produto = new Produto{Codigo = "902410"}"902417",
                                         QntCX = 1,
                                         ValorUnid = 1530.00m,
                                         ValorTotal = 1530.00m
@@ -1476,7 +1476,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 49,
-                                        Produto = "902430",
+                                        Produto = new Produto{Codigo = "902410"}"902430",
                                         QntCX = 2,
                                         ValorUnid = 2400.00m,
                                         ValorTotal = 4800.00m
@@ -1486,7 +1486,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 50,
-                                        Produto = "902780",
+                                        Produto = new Produto{Codigo = "902410"}"902780",
                                         QntCX = 1,
                                         ValorUnid = 1930.00m,
                                         ValorTotal = 1930.00m
@@ -1496,7 +1496,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 51,
-                                        Produto = "902817",
+                                        Produto = new Produto{Codigo = "902410"}"902817",
                                         QntCX = 2,
                                         ValorUnid = 1930.00m,
                                         ValorTotal = 3860.00m
@@ -1506,7 +1506,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 52,
-                                        Produto = "903122",
+                                        Produto = new Produto{Codigo = "902410"}"903122",
                                         QntCX = 2,
                                         ValorUnid = 2040.00m,
                                         ValorTotal = 4080.00m
@@ -1516,7 +1516,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 53,
-                                        Produto = "903189",
+                                        Produto = new Produto{Codigo = "902410"}"903189",
                                         QntCX = 1,
                                         ValorUnid = 1040.00m,
                                         ValorTotal = 1040.00m
@@ -1526,7 +1526,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 54,
-                                        Produto = "903190",
+                                        Produto = new Produto{Codigo = "902410"}"903190",
                                         QntCX = 1,
                                         ValorUnid = 1040.00m,
                                         ValorTotal = 1040.00m
@@ -1536,7 +1536,7 @@ namespace FiscaliZi.Colinfo.Model
                                     new Item
                                     {
                                         ItemID = 55,
-                                        Produto = "903201",
+                                        Produto = new Produto{Codigo = "902410"}"903201",
                                         QntCX = 1,
                                         ValorUnid = 1040.00m,
                                         ValorTotal = 1040.00m

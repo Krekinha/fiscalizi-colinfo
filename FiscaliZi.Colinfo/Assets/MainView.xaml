@@ -47,7 +47,9 @@
                 </TabItem>
                 <TabItem Header="OPÇÕES">
                 <dragablz:TabablzControl FixedHeaderCount="2"  >
-                    <TabItem Header="Tab 1"/>
+                        <TabItem Header="Produtos">
+                            <Assets:ConfigView cal:View.Model="{Binding ConfigVM}" Margin="8"/>
+                        </TabItem>
                     <TabItem Header="Tab 2"/>
                 </dragablz:TabablzControl>
             </TabItem>

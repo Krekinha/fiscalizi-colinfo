@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using FiscaliZi.Colinfo.Assets;
 using FiscaliZi.Colinfo.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace FiscaliZi.Colinfo.Utils
 {
@@ -194,10 +195,26 @@ namespace FiscaliZi.Colinfo.Utils
                         {
                             Codigo = line[2],
                             Descricao = line[4],
+                            Sigla = line[8],
+                            Familia = line[0],
                             Unidades = int.Parse(line[11]),
-                            Preco = 0,
-                            Peso = 0
-    };
+                            PesoUnd = ToDecimal(line[12]),
+                            PesoEmb = ToDecimal(line[13])
+                        };
+                        context.Produtos.Add(prd);
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        prod.Codigo = line[2];
+                        prod.Descricao = line[4];
+                        prod.Sigla = line[8];
+                        prod.Familia = line[0];
+                        prod.Unidades = int.Parse(line[11]);
+                        prod.PesoUnd = ToDecimal(line[12]);
+                        prod.PesoEmb = ToDecimal(line[13]);
+                        context.Entry(prod).State = EntityState.Modified;
+                        context.SaveChanges();
                     }
 
 

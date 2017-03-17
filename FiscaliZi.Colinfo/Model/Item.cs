@@ -13,7 +13,7 @@ namespace FiscaliZi.Colinfo.Model
         public decimal ValorCusto { get; set; }
         public decimal ValorUnid { get; set; }
         public decimal ValorTotal { get; set; }
-        public string Produto { get; set; }
+        public Produto Produto { get; set; }
         #endregion
 
         #region Foreign Keys

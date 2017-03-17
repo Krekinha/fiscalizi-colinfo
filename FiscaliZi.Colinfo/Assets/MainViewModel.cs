@@ -10,11 +10,14 @@ namespace FiscaliZi.Colinfo.Assets
             IEventAggregator events = new EventAggregator();
             EntradaVM = new EntradaViewModel(events);
             ColetaVM = new ColetaViewModel(events);
+            ConfigVM = new ConfigViewModel(events);
         }
 
         public EntradaViewModel EntradaVM { get; set; }
 
         public ColetaViewModel ColetaVM { get; set; }
+
+        public ConfigViewModel ConfigVM { get; set; }
 
         private void MigrationUpdate()
         {
