@@ -20,9 +20,9 @@ namespace FiscaliZi.Colinfo.Assets
 
         public void AtualizaProdutos()
         {
-            Coletor.GetProdutos(@"C:\Users\krekm\Desktop\PRODUTOS.CSV");
+            //Coletor.GetProdutos(@"C:\Users\krekm\Desktop\PRODUTOS.CSV");
             //Coletor.GetPedidos(@"C:\Users\CPD\Documents\DIU\PRODUTOS.CSV");
-            //Coletor.GetProdutos(@"F:\SOF\VDWIN\EXP\PRODUTOS.CSV");
+            Coletor.GetProdutos(@"F:\SOF\VDWIN\EXP\PRODUTOS.CSV");
         }
     }
 }

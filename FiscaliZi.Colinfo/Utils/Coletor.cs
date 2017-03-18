@@ -319,7 +319,7 @@ namespace FiscaliZi.Colinfo.Utils
 
                 if (int.Parse(line[47]) > 0 || int.Parse(line[48]) > 0) return true;
 
-                if (line[22] != "01" && line[22] != "10" && line[22] != "20" && line[22] != "21" && line[22] != "22" && line[22] != "02" && line[22] != "17")
+                if (line[22] != "01" && line[22] != "10" && line[22] != "20" && line[22] != "21" && line[22] != "22" && line[22] != "02" && line[22] != "17" && line[22] != "07")
                     return false;
                 
                 return true;
