@@ -139,7 +139,7 @@ namespace FiscaliZi.Colinfo.Utils
                 {
                     if (!IsValidPed(line, date)) continue;
 
-                    var prod = new Produto { Codigo = line[34] };// context.Produtos.FirstOrDefault(p => p.Codigo == line[34]);
+                    var prod =  context.Produtos.FirstOrDefault(p => p.Codigo == line[34]);
                     if (prod == null)
                         prod = new Produto { Codigo = line[34] };
 
@@ -192,6 +192,10 @@ namespace FiscaliZi.Colinfo.Utils
             {
                 foreach (var line in Lines)
                 {
+                    if (line[2] == "0000902817")
+                    {
+                        var AVISO = "NOW";
+                    }
                     if (!IsValidProduto(line)) continue;
 
                     var prod = context.Produtos.FirstOrDefault(p => p.Codigo == line[2]);
@@ -312,6 +316,12 @@ namespace FiscaliZi.Colinfo.Utils
                 if (line[0] == "Familia") return false;
 
                 if (line[29] == "0") return false;
+
+                if (int.Parse(line[47]) > 0 || int.Parse(line[48]) > 0) return true;
+
+                if (line[22] != "01" && line[22] != "10" && line[22] != "20" && line[22] != "21" && line[22] != "22" && line[22] != "02" && line[22] != "17")
+                    return false;
+                
                 return true;
             }
             catch (Exception ex)

@@ -140,6 +140,11 @@ namespace FiscaliZi.Colinfo.Model
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var peds = (List<Pedido>)value;
+
+            if (peds.First().CodVendedor == 601)
+            {
+                var AVISO = "NOW";
+            }
             if (peds == null) return "";
 
             var items = peds?.SelectMany(it => it.Itens);
@@ -147,9 +152,9 @@ namespace FiscaliZi.Colinfo.Model
             var rankedItems = Tools.RankProd(items);
             var rank2 = "?";
             if (rankedItems.Length > 1)
-                rank2 = $"{rankedItems[1]?.QntCX} {Tools.GetItemNickProd(rankedItems[1]?.Produto.Codigo)}";
+                rank2 = $"{rankedItems[1]?.QntCX} {Tools.GetItemNickProd(rankedItems[1]?.Produto)}";
 
-            return $"{rankedItems[0].QntCX} {Tools.GetItemNickProd(rankedItems[0].Produto.Codigo)}  |  {rank2}";
+            return $"{rankedItems[0].QntCX} {Tools.GetItemNickProd(rankedItems[0].Produto)}  |  {rank2}";
 
         }
 
@@ -626,7 +631,7 @@ namespace FiscaliZi.Colinfo.Model
         public static Item[] RankProd(IEnumerable<Item> items)
         {
             var rank = items
-                .GroupBy(l => l.Produto)
+                .GroupBy(l => l.Produto.Codigo)
                 .Select(cl => new Item()
                 {
                     Produto = cl.First().Produto,
@@ -634,15 +639,21 @@ namespace FiscaliZi.Colinfo.Model
                     ValorTotal = cl.Sum(c => c.ValorTotal),
                 })
                 .OrderByDescending(x => x.ValorTotal)
-                .ToList();
+                .ToList();      
 
-            var best2 = rank.FindAll(Tools.FindItem);
+            if (rank.Count >= 2)
+            {
+                var best2 = rank.FindAll(Tools.FindItem).ToArray();
 
-            if (best2.Count >= 2)
-                return best2.ToArray();
+                if (best2.Length >= 2) return best2;
+                if (best2.Length == 1) return new[] { best2[0], rank.Except(best2).First() };
+            }
+            else
+            {
+                if (rank.Count == 1) return new[] { rank.First() };
+                if (rank.Count < 1) return null;
+            }
 
-            if (best2.Count == 1)
-                return new[]{best2.First(), rank.First()};
 
             return rank.ToArray();
         }
@@ -707,9 +718,9 @@ namespace FiscaliZi.Colinfo.Model
 
         }
 
-        public static string GetItemNickProd(string prod)
+        public static string GetItemNickProd(Produto prod)
         {
-            switch (prod)
+            switch (prod.Codigo)
             {
                 case "0000901133":
                     return "GLALIT";
@@ -728,7 +739,10 @@ namespace FiscaliZi.Colinfo.Model
                 case "0000902406":
                     return "SCHLAT";
                 default:
-                    return prod;
+                {
+                    return string.IsNullOrEmpty(prod.Sigla) ? prod.Codigo : prod.Codigo;
+                }
+                    
             }
 
         }
