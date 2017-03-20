@@ -184,6 +184,8 @@ namespace FiscaliZi.Colinfo.Migrations
 
                     b.Property<int>("PedidoID");
 
+                    b.Property<int?>("ProdutoID");
+
                     b.Property<int>("QntCX");
 
                     b.Property<int>("QntUND");
@@ -197,6 +199,8 @@ namespace FiscaliZi.Colinfo.Migrations
                     b.HasKey("ItemID");
 
                     b.HasIndex("PedidoID");
+
+                    b.HasIndex("ProdutoID");
 
                     b.ToTable("Items");
                 });
@@ -250,22 +254,15 @@ namespace FiscaliZi.Colinfo.Migrations
 
                     b.Property<string>("Familia");
 
-                    b.Property<int?>("ItemID");
-
                     b.Property<decimal>("PesoEmb");
 
                     b.Property<decimal>("PesoUnd");
-
-                    b.Property<decimal>("Preco");
 
                     b.Property<string>("Sigla");
 
                     b.Property<int>("Unidades");
 
                     b.HasKey("ProdutoID");
-
-                    b.HasIndex("ItemID")
-                        .IsUnique();
 
                     b.ToTable("Produtos");
                 });
@@ -341,15 +338,19 @@ namespace FiscaliZi.Colinfo.Migrations
 
             modelBuilder.Entity("FiscaliZi.Colinfo.Model.Item", b =>
                 {
-                    b.HasOne("FiscaliZi.Colinfo.Model.Pedido")
-                        .WithMany("Itens")
+                    b.HasOne("FiscaliZi.Colinfo.Model.Pedido", "Pedido")
+                        .WithMany("Items")
                         .HasForeignKey("PedidoID")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("FiscaliZi.Colinfo.Model.Produto", "Produto")
+                        .WithMany("Items")
+                        .HasForeignKey("ProdutoID");
                 });
 
             modelBuilder.Entity("FiscaliZi.Colinfo.Model.Pedido", b =>
                 {
-                    b.HasOne("FiscaliZi.Colinfo.Model.Arquivo")
+                    b.HasOne("FiscaliZi.Colinfo.Model.Arquivo", "Arquivo")
                         .WithMany("Pedidos")
                         .HasForeignKey("ArquivoID")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -362,13 +363,6 @@ namespace FiscaliZi.Colinfo.Migrations
                     b.HasOne("FiscaliZi.Colinfo.Model.Venda")
                         .WithMany("Pedidos")
                         .HasForeignKey("VendaID");
-                });
-
-            modelBuilder.Entity("FiscaliZi.Colinfo.Model.Produto", b =>
-                {
-                    b.HasOne("FiscaliZi.Colinfo.Model.Item")
-                        .WithOne("Produto")
-                        .HasForeignKey("FiscaliZi.Colinfo.Model.Produto", "ItemID");
                 });
 
             modelBuilder.Entity("FiscaliZi.Colinfo.Model.retConsCad", b =>

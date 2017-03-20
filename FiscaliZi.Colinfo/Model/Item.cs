@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace FiscaliZi.Colinfo.Model
 {
@@ -13,12 +14,16 @@ namespace FiscaliZi.Colinfo.Model
         public decimal ValorCusto { get; set; }
         public decimal ValorUnid { get; set; }
         public decimal ValorTotal { get; set; }
-        public Produto Produto { get; set; }
+
+        public virtual Produto Produto { get; set; }
         #endregion
 
         #region Foreign Keys
         public int PedidoID { get; set; }
         #endregion
 
+        #region Navigation Properties
+        public virtual Pedido Pedido { get; set; }
+        #endregion
     }
 }

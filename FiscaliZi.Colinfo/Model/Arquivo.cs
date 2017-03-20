@@ -7,6 +7,10 @@ namespace FiscaliZi.Colinfo.Model
 {
     public class Arquivo : INotifyPropertyChanged
     {
+        /*public Arquivo()
+        {
+               Pedidos = new List<Pedido>();
+        }*/
         [Key]
         public int ArquivoID { get; set; }      
 
@@ -16,7 +20,8 @@ namespace FiscaliZi.Colinfo.Model
         public string ArquivoVendedor { get; set; }
         public DateTime DataColeta { get; set; }
         public DateTime DataEnvio { get; set; }
-        public List<Pedido> Pedidos { get; set; }
+
+        public virtual ICollection<Pedido> Pedidos { get; set; }
         #endregion
 
         #region NotifyPropertyChanged

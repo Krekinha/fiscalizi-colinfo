@@ -13,118 +13,121 @@ namespace FiscaliZi.Colinfo.Utils
     {
         public static Arquivo getArquivo(string path, string nome)
         {
-            decimal val = 0;
-
-            List<Cliente> clientes = new List<Cliente>();
-            List<Pedido> peds = new List<Pedido>();
-
-            var Lines = File.ReadLines(path).Select(a => a.Split('|'));
-
-            foreach (var line in Lines)
+            using (var context = new ColinfoContext())
             {
-                if (line[0] == "CCLI.TXT")
+                decimal val = 0;
+
+                var clientes = new List<Cliente>();
+                var peds = new List<Pedido>();
+
+                var Lines = File.ReadLines(path).Select(a => a.Split('|'));
+
+                foreach (var line in Lines)
                 {
-                    clientes.Add(new Cliente
+                    if (line[0] == "CCLI.TXT")
                     {
-                        RegiaoCliente = int.Parse(line[1]),
-                        NumCliente = int.Parse(line[2]),
-                        Razao = line[3],
-                        CNPJ = MascararCNPJ(line[15]),
-                        IE = line[17],
-                        Rota = int.Parse(line[41]),
-                        Situacao = CNPJVerif(line[15])
-                    });
+                        clientes.Add(new Cliente
+                        {
+                            RegiaoCliente = int.Parse(line[1]),
+                            NumCliente = int.Parse(line[2]),
+                            Razao = line[3],
+                            CNPJ = MascararCNPJ(line[15]),
+                            IE = line[17],
+                            Rota = int.Parse(line[41]),
+                            Situacao = CNPJVerif(line[15])
+                        });
+                    }
                 }
-            }
 
-            foreach (var line in Lines)
-            {
-                if (line[0] == "CAPAPEDIDO.TXT")
+                foreach (var line in Lines)
                 {
-                    if (decimal.TryParse(line[18], out val))
+                    if (line[0] == "CAPAPEDIDO.TXT")
                     {
-                        val = decimal.Parse(line[18].Replace(".", ","));
-                        Cliente cli = clientes.Find(x => x.RegiaoCliente == int.Parse(line[3]) && x.NumCliente == int.Parse(line[4]));
-                        if (cli != null)
+                        if (decimal.TryParse(line[18], out val))
                         {
-                            peds.Add(new Pedido
+                            val = decimal.Parse(line[18].Replace(".", ","));
+                            Cliente cli = clientes.Find(x => x.RegiaoCliente == int.Parse(line[3]) && x.NumCliente == int.Parse(line[4]));
+                            if (cli != null)
                             {
-                                NumPedPalm = line[8],
-                                ValorTotal = val,
-                                FormPgt = line[21],
-                                CodVendedor = int.Parse(line[2]),
-                                Itens = new List<Item>(),
-                                Cliente = cli
-                            });
-                        }
-                        else
-                        {
-                            peds.Add(new Pedido
+                                peds.Add(new Pedido
+                                {
+                                    NumPedPalm = line[8],
+                                    ValorTotal = val,
+                                    FormPgt = line[21],
+                                    CodVendedor = int.Parse(line[2]),
+                                    Items = new List<Item>(),
+                                    Cliente = cli
+                                });
+                            }
+                            else
                             {
-                                NumPedPalm = line[10],
-                                ValorTotal = val
-                            });
-                            //Dialog.SimpleOK($"Cliente {int.Parse(line[3])}-{int.Parse(line[4])} não encontrado no arquivo {nome}", "Erro");
+                                peds.Add(new Pedido
+                                {
+                                    NumPedPalm = line[10],
+                                    ValorTotal = val
+                                });
+                                //Dialog.SimpleOK($"Cliente {int.Parse(line[3])}-{int.Parse(line[4])} não encontrado no arquivo {nome}", "Erro");
+                            }
+
                         }
 
                     }
-
                 }
-            }
-            foreach (var line in Lines)
-            {
-                if (line[0] == "ITEMPEDIDO.TXT")
+                foreach (var line in Lines)
                 {
-
-                    Item item = new Item
+                    if (line[0] == "ITEMPEDIDO.TXT")
                     {
-                        Produto = new Produto { Codigo = line[6] },
-                        QntCX = int.Parse(line[8]),
 
-                        ValorUnid = ToDecimal(line[16]),
-                        ValorTotal = ToDecimal(line[11])
-                    };
+                        Item item = new Item
+                        {
+                            Produto = new Produto(),
+                            QntCX = int.Parse(line[8]),
 
-                    peds.Where(x => x.NumPedPalm == line[38]).ToList().ForEach(i => i.Itens.Add(item));
+                            ValorUnid = ToDecimal(line[16]),
+                            ValorTotal = ToDecimal(line[11])
+                        };
+
+                        peds.Where(x => x.NumPedPalm == line[38]).ToList().ForEach(i => i.Items.Add(item));
+                    }
                 }
-            }
 
-            if (peds.Count > 0)
-            {
-                #region Não duplicar vendedor
-                /*var vends = ds.GetVendedores().Where(c => c.DataColeta == DateTime.Today && c.Numero == peds.First().Vendedor);
-
-                if (vends.Count() > 0)
+                if (peds.Count > 0)
                 {
+                    #region Não duplicar vendedor
+                    /*var vends = ds.GetVendedores().Where(c => c.DataColeta == DateTime.Today && c.Numero == peds.First().Vendedor);
+
+                    if (vends.Count() > 0)
+                    {
+                        foreach (var item in peds)
+                        {
+                            vends.First().Pedidos.Add(item);
+                        }
+                        ds.EditarVendedor(vends.First());
+                    }
+                    else
+                    {
+
+                    }*/
+                    #endregion
+
+                    var vend = new Arquivo
+                    {
+                        NomeVendedor = "seu ze",
+                        CodVendedor = peds.First().CodVendedor,
+                        ArquivoVendedor = nome,
+                        Pedidos = new List<Pedido>(),
+                        DataEnvio = DateTime.Now,
+                        DataColeta = DateTime.Now
+                    };
                     foreach (var item in peds)
                     {
-                        vends.First().Pedidos.Add(item);
+                        vend.Pedidos.Add(item);
                     }
-                    ds.EditarVendedor(vends.First());
+
+                    return vend;
                 }
-                else
-                {
-
-                }*/
-                #endregion
-
-                var vend = new Arquivo
-                {
-                    NomeVendedor = "seu ze",
-                    CodVendedor = peds.First().CodVendedor,
-                    ArquivoVendedor = nome,
-                    Pedidos = new List<Pedido>(),
-                    DataEnvio = DateTime.Now,
-                    DataColeta = DateTime.Now
-                };
-                foreach (var item in peds)
-                {
-                    vend.Pedidos.Add(item);
-                }
-
-                return vend;
+                return null;
             }
-            return null;
 
         }
         public static List<Pedido> GetPedidos(string path, DateTime date)
@@ -163,7 +166,7 @@ namespace FiscaliZi.Colinfo.Utils
                                     NumPedido = line[0],
                                     CodVendedor = int.Parse(line[6]),
                                     DataPedido = DateTime.Parse(line[29]),
-                                    Itens = new List<Item> { item },
+                                    Items = new List<Item> { item },
                                     Cliente = GetClienteByCode(line[3]),
                                     Pasta = line[30],
                                     SitPed = line[24]
@@ -172,7 +175,7 @@ namespace FiscaliZi.Colinfo.Utils
                     }
                     else
                     {
-                        ped.Itens.Add(item);
+                        ped.Items.Add(item);
                     }
 
 
@@ -212,7 +215,7 @@ namespace FiscaliZi.Colinfo.Utils
                                 Familia = line[0],
                                 Unidades = int.Parse(line[11]),
                                 PesoUnd = ToDecimal(line[12]),
-                                PesoEmb = ToDecimal(line[13])
+                                PesoEmb = ToDecimal(line[13]),
                             };
                             context.Produtos.Add(prd);
                             context.SaveChanges();
@@ -253,6 +256,23 @@ namespace FiscaliZi.Colinfo.Utils
                     };
                 }
                 return cli;
+            }
+
+        }
+        private static Produto GetProdutoByCode(string _code)
+        {
+            using (var context = new ColinfoContext())
+            {
+                var prod = context.Produtos.FirstOrDefault(prd => prd.Codigo == _code);
+                if (prod == null)
+                {
+                    context.Produtos.Add(new Produto
+                    {
+                        Codigo = _code
+                    });
+                    context.SaveChanges();
+                }
+                return context.Produtos.FirstOrDefault(prd => prd.Codigo == _code);
             }
 
         }

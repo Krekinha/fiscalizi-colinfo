@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace FiscaliZi.Colinfo.Model
@@ -14,13 +15,12 @@ namespace FiscaliZi.Colinfo.Model
         public string Sigla { get; set; }
         public string Familia { get; set; }
         public int Unidades { get; set; }
-        public decimal Preco { get; set; }
         public decimal PesoUnd { get; set; }
         public decimal PesoEmb{ get; set; }
         #endregion
 
-        #region Foreign Keys
-        public int? ItemID { get; set; }
+        #region Navigation Properties
+        public virtual ICollection<Item> Items { get; set; }
         #endregion
 
         #region NotifyPropertyChanged

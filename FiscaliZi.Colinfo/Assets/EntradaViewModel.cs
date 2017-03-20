@@ -168,11 +168,11 @@ namespace FiscaliZi.Colinfo.Assets
                         .ThenInclude(cons => cons.RetConsultaCadastro)
                         .ThenInclude(inf => inf.infCons)
                         .ThenInclude(cad => cad.infCad)
-                        .FirstOrDefault(v => v.ArquivoID == ped.ArquivoID);
+                        .FirstOrDefault(v => v.ArquivoID == ped.Arquivo.ArquivoID);
 
                         var oldPed = vnd.Pedidos.FirstOrDefault(pd => pd.PedidoID == ped.PedidoID);
-                        var ctxPed = Arquivos.FirstOrDefault(v => v.ArquivoID == ped.ArquivoID).Pedidos.Find(p => p.PedidoID == ped.PedidoID);
-                        var ctxVnd = Arquivos.FirstOrDefault(v => v.ArquivoID == ped.ArquivoID);
+                        var ctxPed = Arquivos.FirstOrDefault(v => v.ArquivoID == ped.Arquivo.ArquivoID).Pedidos.FirstOrDefault(p => p.PedidoID == ped.PedidoID);
+                        var ctxVnd = Arquivos.FirstOrDefault(v => v.ArquivoID == ped.Arquivo.ArquivoID);
 
                         oldPed.Cliente.RetConsultaCadastro = recRet;
                         context.Entry(oldPed).State = EntityState.Modified;
@@ -195,7 +195,6 @@ namespace FiscaliZi.Colinfo.Assets
                     if (trys < NumOfRetries)
                     {
                         trys += 1;
-                        throw;
                     }
                     var consulta = new Model.retConsCad()
                     {
@@ -366,10 +365,10 @@ namespace FiscaliZi.Colinfo.Assets
                     .ThenInclude(cons => cons.RetConsultaCadastro)
                     .ThenInclude(inf => inf.infCons)
                     .ThenInclude(cad => cad.infCad)
-                    .FirstOrDefault(v => v.ArquivoID == ped.ArquivoID);
+                    .FirstOrDefault(v => v.ArquivoID == ped.Arquivo.ArquivoID);
 
                 var oldPed = vnd.Pedidos.FirstOrDefault(pd => pd.PedidoID == ped.PedidoID);
-                var ctxPed = Arquivos.FirstOrDefault(v => v.ArquivoID == ped.ArquivoID).Pedidos.Find(p => p.PedidoID == ped.PedidoID);
+                var ctxPed = Arquivos.FirstOrDefault(v => v.ArquivoID == ped.Arquivo.ArquivoID).Pedidos.FirstOrDefault(p => p.PedidoID == ped.PedidoID);
 
                 oldPed.Cliente.RetConsultaCadastro = consulta;
                 context.Entry(oldPed).State = EntityState.Modified;
@@ -384,7 +383,9 @@ namespace FiscaliZi.Colinfo.Assets
             {
                 try
                 {
-                    context.Remove(arq);
+                    var a1 = context.Arquivos.Find(arq.ArquivoID);
+                    context.Arquivos.Remove(a1);
+                    context.Entry(a1).State = EntityState.Deleted;
                     context.SaveChanges();
                 }
                 catch (Exception ex)

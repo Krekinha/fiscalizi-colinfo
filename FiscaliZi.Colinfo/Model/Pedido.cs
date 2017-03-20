@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FiscaliZi.Colinfo.Model
 {
@@ -16,16 +17,21 @@ namespace FiscaliZi.Colinfo.Model
         public string NumPedPalm { get; set; }
         public string FormPgt { get; set; }
         public Cliente Cliente { get; set; }
-        public List<Item> Itens { get; set; }
         public decimal ValorTotal { get; set; }
         public DateTime DataPedido { get; set; }
         public string Pasta { get; set; }
         public string SitPed { get; set; }
+
+        public virtual List<Item> Items { get; set; }
         #endregion
 
         #region Foreign Keys
-        public int ArquivoID { get; set; }
         public int ClienteID { get; set; }
+        public int ArquivoID { get; set; }
+        #endregion
+
+        #region Navigation Properties
+        public virtual Arquivo Arquivo { get; set; }
         #endregion
 
         #region NotifyPropertyChanged

@@ -47,6 +47,25 @@ namespace FiscaliZi.Colinfo.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Produtos",
+                columns: table => new
+                {
+                    ProdutoID = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                    Codigo = table.Column<string>(nullable: true),
+                    Descricao = table.Column<string>(nullable: true),
+                    Familia = table.Column<string>(nullable: true),
+                    PesoEmb = table.Column<decimal>(nullable: false),
+                    PesoUnd = table.Column<decimal>(nullable: false),
+                    Sigla = table.Column<string>(nullable: true),
+                    Unidades = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Produtos", x => x.ProdutoID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Vendas",
                 columns: table => new
                 {
@@ -178,7 +197,7 @@ namespace FiscaliZi.Colinfo.Migrations
                     ItemID = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     PedidoID = table.Column<int>(nullable: false),
-                    Produto = table.Column<string>(nullable: true),
+                    ProdutoID = table.Column<int>(nullable: false),
                     QntCX = table.Column<int>(nullable: false),
                     QntUND = table.Column<int>(nullable: false),
                     ValorCusto = table.Column<decimal>(nullable: false),
@@ -193,6 +212,12 @@ namespace FiscaliZi.Colinfo.Migrations
                         column: x => x.PedidoID,
                         principalTable: "Pedidos",
                         principalColumn: "PedidoID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Items_Produtos_ProdutoID",
+                        column: x => x.ProdutoID,
+                        principalTable: "Produtos",
+                        principalColumn: "ProdutoID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -282,6 +307,11 @@ namespace FiscaliZi.Colinfo.Migrations
                 column: "PedidoID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Items_ProdutoID",
+                table: "Items",
+                column: "ProdutoID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Pedidos_ArquivoID",
                 table: "Pedidos",
                 column: "ArquivoID");
@@ -319,6 +349,9 @@ namespace FiscaliZi.Colinfo.Migrations
 
             migrationBuilder.DropTable(
                 name: "Pedidos");
+
+            migrationBuilder.DropTable(
+                name: "Produtos");
 
             migrationBuilder.DropTable(
                 name: "infCons");

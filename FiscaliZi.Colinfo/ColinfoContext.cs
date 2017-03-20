@@ -1,6 +1,7 @@
 ﻿
 using FiscaliZi.Colinfo.Model;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace FiscaliZi.Colinfo
 {
@@ -22,6 +23,20 @@ namespace FiscaliZi.Colinfo
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            #region Tables Config
+
+            modelBuilder.Entity<Item>(itm =>
+            {
+                itm.HasOne(p => p.Pedido)
+                    .WithMany( x => x.Items)
+                    .HasForeignKey(x => x.PedidoID)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                itm.HasOne(x => x.Produto)
+                    .WithMany(x => x.Items);
+            });
+
+            #endregion
         }
     }
 }

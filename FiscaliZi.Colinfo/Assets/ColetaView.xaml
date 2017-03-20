@@ -177,7 +177,7 @@
                         CanUserResize="False" 
                         Width="200" />
                         <DataGridTextColumn Header="VAL. PED" 
-                        Binding="{Binding Itens, Converter={StaticResource TotalValItemsConverter}}" 
+                        Binding="{Binding Items, Converter={StaticResource TotalValItemsConverter}}" 
                         CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}"
                         CanUserResize="False"
                         Width="80" />
@@ -193,9 +193,9 @@
             Grid.Column="2" 
             BorderThickness="3"
             MinHeight="700" UniformCornerRadius="0" Margin="5,0,0,0">
-            <Grid x:Name="grdPEDS1" Height="700">
+            <Grid x:Name="grdPEDS1" Height="700" DataContext="{Binding Vendas/Pedidos}">
                 <DataGrid x:Name="dgPedidos1"
-                    ItemsSource="{Binding Vendas/Pedidos/Itens}"
+                    ItemsSource="{Binding Items}"
                     AutoGenerateColumns="False" 
                     CanUserAddRows="False" 
                     CanUserResizeColumns="False" 

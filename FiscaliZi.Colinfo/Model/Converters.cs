@@ -8,6 +8,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using DFe.Utils;
 using FiscaliZi.Colinfo.Utils;
 using MaterialDesignThemes.Wpf;
 
@@ -147,7 +148,7 @@ namespace FiscaliZi.Colinfo.Model
             }
             if (peds == null) return "";
 
-            var items = peds?.SelectMany(it => it.Itens);
+            var items = peds?.SelectMany(it => it.Items);
 
             var rankedItems = Tools.RankProd(items);
             var rank2 = "?";
@@ -167,7 +168,7 @@ namespace FiscaliZi.Colinfo.Model
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var items = (List<Pedido>)value;
+            var items = (ICollection<Pedido>) value;
             if (items == null) return "";
 
             var total = items.Cast<Pedido>().Select(p => p.Cliente.Rota).Distinct();
@@ -414,7 +415,7 @@ namespace FiscaliZi.Colinfo.Model
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var peds = (List<Pedido>)value;
+            var peds = (ICollection<Pedido>)value;
             foreach (var ped in peds)
             {
                 var sit =
@@ -600,7 +601,7 @@ namespace FiscaliZi.Colinfo.Model
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var items = (List<Pedido>)value;
+            var items = (ICollection<Pedido>)value;
             if (items == null) return "";
 
             var total = items.Cast<Pedido>().Sum(ped => ped.ValorTotal);
@@ -662,7 +663,7 @@ namespace FiscaliZi.Colinfo.Model
         {
             var items = Coletor.GetPedidos(@"C:\Users\krekm\Desktop\PEDIDOS.CSV", DateTime.Now)
                 .Where(x => x.CodVendedor == 308)
-                .SelectMany(it => it.Itens);
+                .SelectMany(it => it.Items);
 
             var result = items
                 .GroupBy(l => l.Produto)

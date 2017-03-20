@@ -55,7 +55,7 @@ namespace FiscaliZi.Colinfo.Model
                                 IE = "333647.589/0096",
                                 Situacao = "REJEIÇÃO"
                             },
-                            Itens = new List<Item>
+                            Items = new List<Item>
                             {
                                 new Item
                                 {
@@ -186,7 +186,7 @@ namespace FiscaliZi.Colinfo.Model
                                 IE = "333919.491/0096",
                                 Situacao = ""
                             },
-                            Itens = new List<Item>
+                            Items = new List<Item>
                             {
                                 new Item
                                 {
@@ -218,7 +218,7 @@ namespace FiscaliZi.Colinfo.Model
                                     IE = "333937.442/0003",
                                     Situacao = ""
                                 },
-                            Itens = new List<Item>
+                            Items = new List<Item>
                             {
                                 new Item
                                 {
@@ -390,7 +390,7 @@ namespace FiscaliZi.Colinfo.Model
                                     IE = "001500.653/0006",
                                     Situacao = ""
                                 },
-                            Itens = new List<Item>
+                            Items = new List<Item>
                             {
                                 new Item
                                 {
@@ -422,7 +422,7 @@ namespace FiscaliZi.Colinfo.Model
                                     IE = "333239.632/0013",
                                     Situacao = ""
                                 },
-                            Itens = new List<Item>
+                            Items = new List<Item>
                             {
                                 new Item
                                 {
@@ -524,7 +524,7 @@ namespace FiscaliZi.Colinfo.Model
                                     IE = "034175.800/0028",
                                     Situacao = ""
                                 },
-                            Itens = new List<Item>
+                            Items = new List<Item>
                             {
                                 new Item
                                 {
@@ -636,7 +636,7 @@ namespace FiscaliZi.Colinfo.Model
                                     IE = "001021.903/0090",
                                     Situacao = ""
                                 },
-                            Itens = new List<Item>
+                            Items = new List<Item>
                             {
                                 new Item
                                 {
@@ -758,7 +758,7 @@ namespace FiscaliZi.Colinfo.Model
                                     IE = "11057215",
                                     Situacao = ""
                                 },
-                            Itens = new List<Item>
+                            Items = new List<Item>
                             {
                                 new Item
                                 {
@@ -855,7 +855,7 @@ namespace FiscaliZi.Colinfo.Model
                                 IE = "333647.589/0096",
                                 Situacao = "REJEIÇÃO"
                             },
-                            Itens = new List<Item>
+                            Items = new List<Item>
                             {
                                 new Item
                                 {
@@ -987,7 +987,7 @@ namespace FiscaliZi.Colinfo.Model
                                 IE = "333919.491/0096",
                                 Situacao = ""
                             },
-                            Itens = new List<Item>
+                            Items = new List<Item>
                             {
                                 new Item
                                 {
@@ -1020,7 +1020,7 @@ namespace FiscaliZi.Colinfo.Model
                                     IE = "333937.442/0003",
                                     Situacao = ""
                                 },
-                            Itens = new List<Item>
+                            Items = new List<Item>
                             {
                                 new Item
                                 {
@@ -1193,7 +1193,7 @@ namespace FiscaliZi.Colinfo.Model
                                     IE = "001500.653/0006",
                                     Situacao = ""
                                 },
-                            Itens = new List<Item>
+                            Items = new List<Item>
                             {
                                 new Item
                                 {
@@ -1226,7 +1226,7 @@ namespace FiscaliZi.Colinfo.Model
                                     IE = "333239.632/0013",
                                     Situacao = ""
                                 },
-                            Itens = new List<Item>
+                            Items = new List<Item>
                             {
                                 new Item
                                 {
@@ -1329,7 +1329,7 @@ namespace FiscaliZi.Colinfo.Model
                                     IE = "034175.800/0028",
                                     Situacao = ""
                                 },
-                            Itens = new List<Item>
+                            Items = new List<Item>
                             {
                                 new Item
                                 {
@@ -1442,7 +1442,7 @@ namespace FiscaliZi.Colinfo.Model
                                     IE = "001021.903/0090",
                                     Situacao = ""
                                 },
-                            Itens = new List<Item>
+                            Items = new List<Item>
                             {
                                 new Item
                                 {
@@ -1565,7 +1565,7 @@ namespace FiscaliZi.Colinfo.Model
                                     IE = "11057215",
                                     Situacao = ""
                                 },
-                            Itens = new List<Item>
+                            Items = new List<Item>
                             {
                                 new Item
                                 {
