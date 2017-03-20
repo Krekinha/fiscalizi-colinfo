@@ -125,7 +125,7 @@ namespace FiscaliZi.Colinfo.Assets
 
                     if (vnd != null)
                     {
-                        AddArquivo(vnd);
+                        //AddArquivo(vnd);
                         Application.Current.Dispatcher.Invoke(delegate
                         {
                             Arquivos.Add(vnd);

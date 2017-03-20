@@ -80,7 +80,7 @@ namespace FiscaliZi.Colinfo.Utils
 
                         Item item = new Item
                         {
-                            Produto = new Produto(),
+                            Produto = context.Produtos.FirstOrDefault(x => x.Codigo == line[6]),
                             QntCX = int.Parse(line[8]),
 
                             ValorUnid = ToDecimal(line[16]),
@@ -110,7 +110,7 @@ namespace FiscaliZi.Colinfo.Utils
                     }*/
                     #endregion
 
-                    var vend = new Arquivo
+                    var arq = new Arquivo
                     {
                         NomeVendedor = "seu ze",
                         CodVendedor = peds.First().CodVendedor,
@@ -121,10 +121,12 @@ namespace FiscaliZi.Colinfo.Utils
                     };
                     foreach (var item in peds)
                     {
-                        vend.Pedidos.Add(item);
+                        arq.Pedidos.Add(item);
                     }
 
-                    return vend;
+                    context.Arquivos.Add(arq);
+                    context.SaveChanges();
+                    return arq;
                 }
                 return null;
             }
