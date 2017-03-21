@@ -170,11 +170,12 @@ namespace FiscaliZi.Colinfo.Model
         {
             var items = (ICollection<Pedido>) value;
             if (items == null) return "";
+            if (items.Count == 0) return "";
 
             var total = items.Cast<Pedido>().Select(p => p.Cliente.Rota).Distinct();
 
             var Trota = total.Aggregate("", (current, rota) => current + (rota + ", "));
-            return Trota.Remove(Trota.LastIndexOf(','));
+            return Trota?.Remove(Trota.LastIndexOf(','));
 
         }
 

@@ -17,28 +17,24 @@ namespace FiscaliZi.Colinfo.Utils
             {
                 decimal val = 0;
 
-                var clientes = new List<Cliente>();
                 var peds = new List<Pedido>();
 
                 var Lines = File.ReadLines(path).Select(a => a.Split('|'));
 
-                foreach (var line in Lines)
-                {
-                    if (line[0] == "CCLI.TXT")
+                //Clientes
+                var clientes = (from line in Lines
+                    where line[0] == "CCLI.TXT"
+                    select new Cliente
                     {
-                        clientes.Add(new Cliente
-                        {
-                            RegiaoCliente = int.Parse(line[1]),
-                            NumCliente = int.Parse(line[2]),
-                            Razao = line[3],
-                            CNPJ = MascararCNPJ(line[15]),
-                            IE = line[17],
-                            Rota = int.Parse(line[41]),
-                            Situacao = CNPJVerif(line[15])
-                        });
-                    }
-                }
-
+                        RegiaoCliente = int.Parse(line[1]),
+                        NumCliente = int.Parse(line[2]),
+                        Razao = line[3],
+                        CNPJ = MascararCNPJ(line[15]),
+                        IE = line[17],
+                        Rota = int.Parse(line[41]),
+                        Situacao = CNPJVerif(line[15])
+                    }).ToList();
+                //Pedidos
                 foreach (var line in Lines)
                 {
                     if (line[0] == "CAPAPEDIDO.TXT")
@@ -46,8 +42,33 @@ namespace FiscaliZi.Colinfo.Utils
                         if (decimal.TryParse(line[18], out val))
                         {
                             val = decimal.Parse(line[18].Replace(".", ","));
-                            Cliente cli = clientes.Find(x => x.RegiaoCliente == int.Parse(line[3]) && x.NumCliente == int.Parse(line[4]));
-                            if (cli != null)
+                            var cli = clientes.Find(x => x.RegiaoCliente == int.Parse(line[3]) && x.NumCliente == int.Parse(line[4]));
+                            var cli_context = context.Clientes.FirstOrDefault(x => x.CNPJ == cli.CNPJ);
+
+                            if (cli_context != null)
+                            {
+                                if (cli != null)
+                                {
+                                    cli_context.RegiaoCliente = cli.RegiaoCliente;
+                                    cli_context.NumCliente = cli.NumCliente;
+                                    cli_context.Razao = cli.Razao;
+                                    cli_context.CNPJ = cli.CNPJ;
+                                    cli_context.IE = cli.IE;
+                                    cli_context.Rota = cli.Rota;
+                                    cli_context.Situacao = CNPJVerif(cli.CNPJ);
+
+                                    peds.Add(new Pedido
+                                    {
+                                        NumPedPalm = line[8],
+                                        ValorTotal = val,
+                                        FormPgt = line[21],
+                                        CodVendedor = int.Parse(line[2]),
+                                        Items = new List<Item>(),
+                                        Cliente = cli_context
+                                    });
+                                }
+                            }
+                            else
                             {
                                 peds.Add(new Pedido
                                 {
@@ -59,26 +80,16 @@ namespace FiscaliZi.Colinfo.Utils
                                     Cliente = cli
                                 });
                             }
-                            else
-                            {
-                                peds.Add(new Pedido
-                                {
-                                    NumPedPalm = line[10],
-                                    ValorTotal = val
-                                });
-                                //Dialog.SimpleOK($"Cliente {int.Parse(line[3])}-{int.Parse(line[4])} não encontrado no arquivo {nome}", "Erro");
-                            }
-
                         }
-
                     }
                 }
+                //Items
                 foreach (var line in Lines)
                 {
                     if (line[0] == "ITEMPEDIDO.TXT")
                     {
 
-                        Item item = new Item
+                        var item = new Item
                         {
                             Produto = context.Produtos.FirstOrDefault(x => x.Codigo == line[6]),
                             QntCX = int.Parse(line[8]),
@@ -94,20 +105,7 @@ namespace FiscaliZi.Colinfo.Utils
                 if (peds.Count > 0)
                 {
                     #region Não duplicar vendedor
-                    /*var vends = ds.GetVendedores().Where(c => c.DataColeta == DateTime.Today && c.Numero == peds.First().Vendedor);
 
-                    if (vends.Count() > 0)
-                    {
-                        foreach (var item in peds)
-                        {
-                            vends.First().Pedidos.Add(item);
-                        }
-                        ds.EditarVendedor(vends.First());
-                    }
-                    else
-                    {
-
-                    }*/
                     #endregion
 
                     var arq = new Arquivo
