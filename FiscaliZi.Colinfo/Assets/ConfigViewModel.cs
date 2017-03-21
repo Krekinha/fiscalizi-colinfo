@@ -20,9 +20,12 @@ namespace FiscaliZi.Colinfo.Assets
 
         public void AtualizaProdutos()
         {
-            Coletor.GetProdutos(@"C:\Users\krekm\Desktop\PRODUTOS.CSV");
-            //Coletor.GetPedidos(@"C:\Users\CPD\Documents\DIU\PRODUTOS.CSV");
-            //Coletor.GetProdutos(@"F:\SOF\VDWIN\EXP\PRODUTOS.CSV");
+            var path = @"F:\SOF\VDWIN\EXP\PRODUTOS.CSV";
+
+            if (Environment.MachineName == "ATAIDE-PC")
+                path = @"C:\Users\krekm\Desktop\PRODUTOS.CSV";
+
+            Coletor.GetProdutos(path);
         }
     }
 }

@@ -21,11 +21,14 @@ namespace FiscaliZi.Colinfo.Assets
         public ObservableCollection<Venda> Vendas { get; set; }
         #endregion
         public void AtualizaPedidos(DateTime date)
-
         {
-            var peds = Coletor.GetPedidos(@"C:\Users\krekm\Desktop\PEDIDOS.CSV", date);
-            //var peds = Coletor.GetPedidos(@"C:\Users\CPD\Documents\DIU\PEDIDOS.CSV");
-            //var peds = Coletor.GetPedidos(@"F:\SOF\VDWIN\EXP\PEDIDOS.CSV", date);
+            var path = @"F:\SOF\VDWIN\EXP\PEDIDOS.CSV";
+
+            if (Environment.MachineName == "ATAIDE-PC")
+                path = @"C:\Users\krekm\Desktop\PEDIDOS.CSV";
+
+            var peds = Coletor.GetPedidos(path, date);
+
             var vendas = new ObservableCollection<Venda>();
 
             if (Vendas == null)

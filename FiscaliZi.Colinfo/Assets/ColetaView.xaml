@@ -137,7 +137,7 @@
             Grid.Column="1" 
             BorderThickness="3"
             MinHeight="700" UniformCornerRadius="0" Margin="5,0,0,0">
-            <Grid x:Name="grdPEDS" Height="700">
+            <StackPanel>
                 <DataGrid x:Name="dgPedidos"
                           ItemsSource="{Binding Vendas/Pedidos}"
                           AutoGenerateColumns="False" 
@@ -152,7 +152,7 @@
                           Style="{DynamicResource DatagridCustomMDesign}" 
                           CellStyle="{DynamicResource DatagridCellCustomMDesign}" 
                           RowStyle="{DynamicResource DataGridRowCustomMDesign}"
-                          ColumnHeaderStyle="{StaticResource CustomMaterialDesignDataGridColumnHeader}" SelectionMode="Single" Height="700">
+                          ColumnHeaderStyle="{StaticResource CustomMaterialDesignDataGridColumnHeader}" SelectionMode="Single" Height="171">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="PED" 
                                             Binding="{Binding NumPedido, Converter={StaticResource PedNumConverter}}" 
@@ -186,8 +186,11 @@
                         Width="80" />
                     </DataGrid.Columns>
                 </DataGrid>
-
-            </Grid>
+                <GroupBox Header="TOTAL" 
+                          Style="{DynamicResource MaterialDesignGroupBox}" Margin="16" MDesign:ColorZoneAssist.Mode="Accent">
+                    <TextBlock>My TOTALS</TextBlock>
+                </GroupBox>
+            </StackPanel>
         </MDesign:Card>
         <MDesign:Card 
             Grid.Column="2" 
