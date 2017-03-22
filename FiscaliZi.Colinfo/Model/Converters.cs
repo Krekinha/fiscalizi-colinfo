@@ -614,6 +614,36 @@ namespace FiscaliZi.Colinfo.Model
             return value;
         }
     }
+    public class TotalVendasConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var vnd = (Venda)value;
+
+            if (vnd != null)
+            {
+                var items = vnd.Pedidos?.SelectMany(it => it.Items);
+                var rank = items
+                    .GroupBy(l => l.Produto.Codigo)
+                    .Select(cl => new Item
+                    {
+                        Produto = cl.First().Produto,
+                        QntCX = cl.Sum(c => c.QntCX),
+                        ValorTotal = cl.Sum(c => c.ValorTotal)
+                    })
+                    .OrderByDescending(x => x.ValorTotal)
+                    .ToList();
+
+                return rank;
+            }
+            return null;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value;
+        }
+    }
 
     public static class Tools
     {
