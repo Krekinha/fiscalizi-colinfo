@@ -48,7 +48,7 @@
         <MDesign:Card 
             Grid.Column="0" 
             BorderThickness="3"
-            MinHeight="700" Width="350">
+            MinHeight="700" Width="300">
             <Grid x:Name="grdVendas" Height="700">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -140,7 +140,7 @@
             MinHeight="700" 
             UniformCornerRadius="0" 
             Margin="5,0,0,0"
-            DataContext="{Binding Vendas}" Width="530" Height="700">
+            DataContext="{Binding Vendas}" Width="525" Height="700">
             <GroupBox Header="PEDIDOS" 
                           Margin="3"
                           MDesign:ShadowAssist.ShadowDepth="Depth1"
@@ -188,7 +188,7 @@
                                 CanUserResize="False" />
                             <DataGridTextColumn Header="CLIENTE" 
                                 CanUserResize="False" 
-                                Width="70">
+                                Width="55">
                                 <DataGridTextColumn.Binding>
                                     <MultiBinding StringFormat=" {0}-{1}">
                                         <Binding Path="Cliente.RegiaoCliente" />
@@ -204,16 +204,15 @@
                                 Binding="{Binding Items, Converter={StaticResource TotalValItemsConverter}}" 
                                 CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}"
                                 CanUserResize="False"
-                                Width="80" />
+                                Width="75" />
                             <DataGridTextColumn Header="PESO"  
                                 CanUserResize="False"
-                                Width="80" />
+                                Width="75" />
                         </DataGrid.Columns>
                     </DataGrid>
                     <Separator 
                         Grid.Row="1"
-                            Style="{StaticResource MaterialDesignDarkSeparator}" 
-                            Margin="8 0 8 0"/>
+                            Style="{StaticResource MaterialDesignDarkSeparator}" Margin="0,5"/>
                     <Expander Grid.Row="2">
                         <Expander.Header>
                             <TextBlock Foreground="#FFABADB3" Text="Totais" FontSize="20" Grid.Row="0"/>
@@ -268,38 +267,44 @@
         <MDesign:Card 
             Grid.Column="2" 
             BorderThickness="3"
-            MinHeight="700" UniformCornerRadius="0" Margin="5,0,0,0">
+            MinHeight="700" UniformCornerRadius="0" Margin="5,0,0,0" Width="510">
             <Grid x:Name="grdPEDS1" Height="700" DataContext="{Binding Vendas/Pedidos}">
-                <DataGrid x:Name="dgPedidos1"
-                    ItemsSource="{Binding Items}"
-                    AutoGenerateColumns="False" 
-                    CanUserAddRows="False" 
-                    CanUserResizeColumns="False" 
-                    CanUserReorderColumns="False" 
-                    CanUserDeleteRows="False" 
-                    CanUserResizeRows="False" 
-                    IsReadOnly="True" 
-                    HeadersVisibility="Column"
-                    IsSynchronizedWithCurrentItem="True" 
-                    Style="{DynamicResource DatagridCustomMDesign}" 
-                    CellStyle="{DynamicResource DatagridCellCustomMDesign}" 
-                    RowStyle="{DynamicResource DataGridRowCustomMDesign}"
-                    ColumnHeaderStyle="{StaticResource CustomMaterialDesignDataGridColumnHeader}" SelectionMode="Single" Height="700">
+                <DataGrid x:Name="dgDetalhePedido"
+                          ItemsSource="{Binding Items}"
+                          AutoGenerateColumns="False" 
+                          CanUserAddRows="False" 
+                          CanUserResizeColumns="False" 
+                          CanUserReorderColumns="False" 
+                          CanUserDeleteRows="False" 
+                          CanUserResizeRows="False" 
+                          IsReadOnly="True" 
+                          HeadersVisibility="Column"
+                          IsSynchronizedWithCurrentItem="True" 
+                          Style="{DynamicResource DatagridCustomMDesign}" 
+                          CellStyle="{DynamicResource DatagridCellCustomMDesign}" 
+                          RowStyle="{DynamicResource DataGridRowCustomMDesign}"
+                          ColumnHeaderStyle="{StaticResource DataGridColumnHeader_DetalhePedido}" 
+                          SelectionMode="Single" Height="700" Background="{DynamicResource AccentColorBrush}" Foreground="{DynamicResource AccentSelectedColorBrush}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="PROD" 
                             Binding="{Binding Produto.Codigo}"                                         
                             CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}"
                             CanUserResize="False" />
+                        <DataGridTextColumn Header="OCO" 
+                                            Binding="{Binding Ocorrencia}"
+                                            CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}"
+                                            CanUserResize="False" />
                         <DataGridTextColumn Header="DESCRIÇÃO" 
-                            Binding="{Binding Produto.Descricao}"                                         
-                            CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}"
+                            Binding="{Binding Produto.Descricao}"
                             CanUserResize="False" />
-                        <DataGridTextColumn Header="Q. CX" 
-                            Binding="{Binding QntCX}"
-                            CanUserResize="False" />
-                        <DataGridTextColumn Header="Q. UND" 
-                            Binding="{Binding QntUND}"
-                            CanUserResize="False" />
+                        <DataGridTextColumn Header="CX" 
+                                            Binding="{Binding QntCX}"
+                                            CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}"
+                                            CanUserResize="False" />
+                        <DataGridTextColumn Header="UND" 
+                                            Binding="{Binding QntUND}"
+                                            CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}"
+                                            CanUserResize="False" />
                         <DataGridTextColumn Header="V. UND" 
                             Binding="{Binding ValorUnid}"
                             CanUserResize="False" />

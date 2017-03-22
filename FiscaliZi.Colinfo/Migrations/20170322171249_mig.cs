@@ -14,7 +14,7 @@ namespace FiscaliZi.Colinfo.Migrations
                 columns: table => new
                 {
                     ArquivoID = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                    .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     ArquivoVendedor = table.Column<string>(nullable: true),
                     CodVendedor = table.Column<int>(nullable: false),
                     DataColeta = table.Column<DateTime>(nullable: false),
@@ -31,7 +31,7 @@ namespace FiscaliZi.Colinfo.Migrations
                 columns: table => new
                 {
                     ClienteID = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                    .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     CNPJ = table.Column<string>(nullable: true),
                     IE = table.Column<string>(nullable: true),
                     NumCliente = table.Column<int>(nullable: false),
@@ -196,8 +196,10 @@ namespace FiscaliZi.Colinfo.Migrations
                 {
                     ItemID = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                    MotOcorrencia = table.Column<int>(nullable: false),
+                    Ocorrencia = table.Column<int>(nullable: false),
                     PedidoID = table.Column<int>(nullable: false),
-                    ProdutoID = table.Column<int>(nullable: false),
+                    ProdutoID = table.Column<int>(nullable: true),
                     QntCX = table.Column<int>(nullable: false),
                     QntUND = table.Column<int>(nullable: false),
                     ValorCusto = table.Column<decimal>(nullable: false),
@@ -218,7 +220,7 @@ namespace FiscaliZi.Colinfo.Migrations
                         column: x => x.ProdutoID,
                         principalTable: "Produtos",
                         principalColumn: "ProdutoID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(

@@ -182,6 +182,10 @@ namespace FiscaliZi.Colinfo.Migrations
                     b.Property<int>("ItemID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("MotOcorrencia");
+
+                    b.Property<string>("Ocorrencia");
+
                     b.Property<int>("PedidoID");
 
                     b.Property<int?>("ProdutoID");

@@ -149,6 +149,8 @@ namespace FiscaliZi.Colinfo.Utils
                     var item = new Item
                     {
                         Produto = prod,
+                        Ocorrencia = line[53],
+                        MotOcorrencia = line[61],
                         QntCX = int.Parse(line[45]),
                         QntUND = int.Parse(line[46]),
                         ValorCusto = ToDecimal(line[40]),

@@ -8,8 +8,8 @@ using FiscaliZi.Colinfo;
 namespace FiscaliZi.Colinfo.Migrations
 {
     [DbContext(typeof(ColinfoContext))]
-    [Migration("20170320032544_mig-2")]
-    partial class mig2
+    [Migration("20170322171249_mig")]
+    partial class mig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -183,9 +183,13 @@ namespace FiscaliZi.Colinfo.Migrations
                     b.Property<int>("ItemID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("MotOcorrencia");
+
+                    b.Property<int>("Ocorrencia");
+
                     b.Property<int>("PedidoID");
 
-                    b.Property<int>("ProdutoID");
+                    b.Property<int?>("ProdutoID");
 
                     b.Property<int>("QntCX");
 
@@ -346,8 +350,7 @@ namespace FiscaliZi.Colinfo.Migrations
 
                     b.HasOne("FiscaliZi.Colinfo.Model.Produto", "Produto")
                         .WithMany("Items")
-                        .HasForeignKey("ProdutoID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ProdutoID");
                 });
 
             modelBuilder.Entity("FiscaliZi.Colinfo.Model.Pedido", b =>

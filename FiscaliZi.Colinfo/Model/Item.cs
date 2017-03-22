@@ -14,6 +14,8 @@ namespace FiscaliZi.Colinfo.Model
         public decimal ValorCusto { get; set; }
         public decimal ValorUnid { get; set; }
         public decimal ValorTotal { get; set; }
+        public string Ocorrencia { get; set; }
+        public string MotOcorrencia { get; set; }
 
         public virtual Produto Produto { get; set; }
         #endregion

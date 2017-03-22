@@ -284,17 +284,13 @@
       <DependentUpon>Dialog_ErroConsulta.xaml</DependentUpon>
     </Compile>
     <Compile Include="ColinfoContext.cs" />
-    <Compile Include="Migrations\20170320031205_mig.cs" />
-    <Compile Include="Migrations\20170320031205_mig.designer.cs">
-      <DependentUpon>20170320031205_mig.cs</DependentUpon>
+    <Compile Include="Migrations\20170322171249_mig.cs" />
+    <Compile Include="Migrations\20170322171249_mig.designer.cs">
+      <DependentUpon>20170322171249_mig.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\20170320032544_mig-2.cs" />
-    <Compile Include="Migrations\20170320032544_mig-2.designer.cs">
-      <DependentUpon>20170320032544_mig-2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20170320032735_mig-3.cs" />
-    <Compile Include="Migrations\20170320032735_mig-3.designer.cs">
-      <DependentUpon>20170320032735_mig-3.cs</DependentUpon>
+    <Compile Include="Migrations\20170322172947_mig-2.cs" />
+    <Compile Include="Migrations\20170322172947_mig-2.designer.cs">
+      <DependentUpon>20170322172947_mig-2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\ColinfoContextModelSnapshot.cs" />
     <Compile Include="Model\CadCli.cs" />
