@@ -13,29 +13,13 @@
              d:DataContext="{d:DesignInstance Type=Model:DesignData, IsDesignTimeCreatable=True}">
 
     <UserControl.Resources>
-        <Model:TotalValPedsConverter x:Key="TotalValPedsConverter" />
         <Model:TotalValItemsConverter x:Key="TotalValItemsConverter" />
-        <Model:IsCNPJConverter x:Key="IsCnpjConverter"/>
-        <Model:TotalPedsConverter x:Key="TotalPedsConverter" />
-        <Model:ColetadosConverter x:Key="ColetadosConverter" />
-        <Model:SitCadastroClienteConverter x:Key="SitCadastroClienteConverter" />
-        <Model:RejeicoesCNPJConverter x:Key="RejeicoesCNPJConverter" />
-        <Model:Total_RejeicoesCNPJConverter x:Key="Total_RejeicoesCNPJConverter" />
-        <Model:Total_FormPgtConverter x:Key="Total_FormPgtConverter" />
-        <Model:RotaConverter x:Key="RotaConverter" />
         <Model:RotaConverter2 x:Key="RotaConverter2" />
         <Model:RotaConverter3 x:Key="RotaConverter3" />
         <Model:ResumoVendasConverter x:Key="ResumoVendasConverter" />
-        <Model:SimplificaNomeVendedorConverter x:Key="SimplificaNomeVendedorConverter" />
-        <Model:SituacaoCNPJColorConverter x:Key="SituacaoCNPJColorConverter" />
-        <Model:SituacaoCNPJIconConverter x:Key="SituacaoCNPJIconConverter" />
-        <Model:CurrentAccentColorConverter x:Key="CurrentAccentColorConverter" />
-        <Model:SituacaoCNPJIconVendConverter x:Key="SituacaoCnpjIconVendConverter"/>
-        <Model:ShowConsultaConverter x:Key="ShowConsultaConverter" />
-        <Model:SituacaoCNPJIconVendBackgroundConverter x:Key="SituacaoCNPJIconVendBackgroundConverter"/>
-        <Model:StringToIntConverter x:Key="StringToIntConverter"/>
         <Model:PedNumConverter x:Key="PedNumConverter"/>
         <Model:TotalVendasConverter x:Key="TotalVendasConverter"/>
+        <Model:PesoPedidoConverter x:Key="PesoPedidoConverter"/>
     </UserControl.Resources>
 
     <Grid>
@@ -169,7 +153,9 @@
                               CellStyle="{DynamicResource DatagridCellCustomMDesign}" 
                               RowStyle="{DynamicResource DataGridRowCustomMDesign}"
                               ColumnHeaderStyle="{StaticResource CustomMaterialDesignDataGridColumnHeader}" 
-                              SelectionMode="Single" VerticalAlignment="Top" Background="{x:Null}">
+                              SelectionMode="Single" 
+                              VerticalAlignment="Top"
+                              Background="{x:Null}">
                         <DataGrid.Resources>
                             <ResourceDictionary>
                                 <ResourceDictionary.MergedDictionaries>
@@ -205,9 +191,10 @@
                                 CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}"
                                 CanUserResize="False"
                                 Width="75" />
-                            <DataGridTextColumn Header="PESO"  
-                                CanUserResize="False"
-                                Width="75" />
+                            <DataGridTextColumn Header="PESO" 
+                                                Binding="{Binding Converter={StaticResource PesoPedidoConverter}}"
+                                                CanUserResize="False"
+                                                Width="75" />
                         </DataGrid.Columns>
                     </DataGrid>
                     <Separator 
