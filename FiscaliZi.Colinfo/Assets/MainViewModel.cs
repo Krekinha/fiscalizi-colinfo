@@ -11,7 +11,7 @@ namespace FiscaliZi.Colinfo.Assets
             EntradaVM = new EntradaViewModel(events);
             ColetaVM = new ColetaViewModel(events);
             ConfigVM = new ConfigViewModel(events);
-            //MigrationUpdate();
+            MigrationUpdate();
         }
 
         public EntradaViewModel EntradaVM { get; set; }
