@@ -150,7 +150,7 @@
                               HeadersVisibility="Column"
                               IsSynchronizedWithCurrentItem="True" 
                               Style="{DynamicResource DatagridCustomMDesign}" 
-                              CellStyle="{DynamicResource DatagridCell_DetalhePedido}" 
+                              CellStyle="{DynamicResource DatagridCellCustomMDesign}" 
                               RowStyle="{DynamicResource DataGridRowCustomMDesign}"
                               ColumnHeaderStyle="{StaticResource CustomMaterialDesignDataGridColumnHeader}" 
                               SelectionMode="Single" 
@@ -219,7 +219,7 @@
                                       HeadersVisibility="Column"
                                       IsSynchronizedWithCurrentItem="True" 
                                       Style="{DynamicResource DatagridCustomMDesign}" 
-                                      CellStyle="{DynamicResource DatagridCell_DetalhePedido}" 
+                                      CellStyle="{DynamicResource DatagridCellCustomMDesign}" 
                                       RowStyle="{DynamicResource DataGridRowCustomMDesign}"
                                       ColumnHeaderStyle="{StaticResource CustomMaterialDesignDataGridColumnHeader}" 
                                       SelectionMode="Single" VerticalAlignment="Top">
@@ -253,57 +253,70 @@
             </GroupBox>
         </MDesign:Card>
         <MDesign:Card 
+            Background="{DynamicResource AccentColorBrush}" 
             Grid.Column="2" 
             BorderThickness="3"
-            MinHeight="700" UniformCornerRadius="0" Margin="5,0,0,0" Width="510">
-            <Grid x:Name="grdPEDS1" Height="700" DataContext="{Binding Vendas/Pedidos}">
-                <DataGrid x:Name="dgDetalhePedido"
-                          ItemsSource="{Binding Items}"
-                          Height="700" 
-                          AutoGenerateColumns="False" 
-                          CanUserAddRows="False" 
-                          CanUserResizeColumns="False" 
-                          CanUserReorderColumns="False" 
-                          CanUserDeleteRows="False" 
-                          CanUserResizeRows="False" 
-                          IsReadOnly="True" 
-                          HeadersVisibility="Column"
-                          IsSynchronizedWithCurrentItem="True" 
-                          Style="{DynamicResource DatagridCustomMDesign}" 
-                          CellStyle="{DynamicResource DatagridCell_DetalhePedido}"                        
-                          ColumnHeaderStyle="{StaticResource DataGridColumnHeader_DetalhePedido}"                         
-                          Background="{DynamicResource AccentColorBrush}" 
-                          Foreground="{DynamicResource AccentSelectedColorBrush}"
-                          RowStyle="{DynamicResource DataGridRow_DetalhePedido}">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="PROD" 
+            MinHeight="700" 
+            UniformCornerRadius="0" 
+            Margin="5,0,0,0" 
+            Width="530">
+            <GroupBox Header="DETALHE PEDIDO" 
+                          Margin="3"
+                          MDesign:ShadowAssist.ShadowDepth="Depth1"
+                          Style="{DynamicResource MaterialDesignGroupBox}" 
+                          MDesign:ColorZoneAssist.Mode="PrimaryMid" 
+                          BorderThickness="0">
+                <Grid x:Name="grdPEDS1" 
+                      Height="700" 
+                      DataContext="{Binding Vendas/Pedidos}">
+                    <DataGrid x:Name="dgDetalhePedido"
+                              ItemsSource="{Binding Items}"
+                              Height="700" 
+                              AutoGenerateColumns="False" 
+                              CanUserAddRows="False" 
+                              CanUserResizeColumns="False" 
+                              CanUserReorderColumns="False" 
+                              CanUserDeleteRows="False" 
+                              CanUserResizeRows="False" 
+                              IsReadOnly="True" 
+                              HeadersVisibility="Column"
+                              IsSynchronizedWithCurrentItem="True" 
+                              Style="{DynamicResource DatagridCustomMDesign}" 
+                              CellStyle="{DynamicResource DatagridCell_DetalhePedido}"     
+                              ColumnHeaderStyle="{StaticResource DataGridColumnHeader_DetalhePedido}"     
+                              Background="{DynamicResource AccentColorBrush}" 
+                              Foreground="{DynamicResource AccentSelectedColorBrush}"
+                              RowStyle="{DynamicResource DataGridRow_DetalhePedido}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="PROD" 
                                             Binding="{Binding Produto.Codigo}" 
                                             CanUserResize="False" />
-                        <DataGridTextColumn Header="OCO" 
+                            <DataGridTextColumn Header="OCO" 
                                             Binding="{Binding Ocorrencia}"
                                             CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter_DP}"
                                             CanUserResize="False" />
-                        <DataGridTextColumn Header="DESCRIÇÃO" 
+                            <DataGridTextColumn Header="DESCRIÇÃO" 
                                             Binding="{Binding Produto.Descricao}"
                                             CanUserResize="False" />
-                        <DataGridTextColumn Header="CX" 
+                            <DataGridTextColumn Header="CX" 
                                             Binding="{Binding QntCX}"
                                             CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter_DP}"
                                             CanUserResize="False" />
-                        <DataGridTextColumn Header="UND" 
+                            <DataGridTextColumn Header="UND" 
                                             Binding="{Binding QntUND}"
                                             CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter_DP}"
                                             CanUserResize="False" />
-                        <DataGridTextColumn Header="V. UND" 
+                            <DataGridTextColumn Header="V. UND" 
                                             Binding="{Binding ValorUnid, StringFormat=\{0:N2\}}"
                                             CanUserResize="False" />
-                        <DataGridTextColumn Header="V. TOTAL" 
+                            <DataGridTextColumn Header="V. TOTAL" 
                                             Binding="{Binding ValorTotal, StringFormat=\{0:N2\}}"
                                             CanUserResize="False" />
-                    </DataGrid.Columns>
-                </DataGrid>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </GroupBox>
 
-            </Grid>
         </MDesign:Card>
     </Grid>
 </UserControl>
