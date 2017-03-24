@@ -10,7 +10,7 @@
     </Style>
 
     <Style x:Key="DatagridCellCustomMDesign" TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource MaterialDesignDataGridCell}">
-        <Setter Property="Padding" Value="0"/>
+        
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type DataGridCell}">
@@ -47,13 +47,35 @@
         </Setter>
     </Style>
 
-    <Style x:Key="DatagridCellCustomMDesign_CellRightAlign" TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource DatagridCellCustomMDesign}">
+    <Style x:Key="DatagridCell_DetalhePedido" TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource MaterialDesignDataGridCell}">
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type DataGridCell}">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}" 
+                            SnapsToDevicePixels="True">
+                        <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                          Margin="{TemplateBinding Padding}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="{x:Null}" />
+                <Setter Property="Foreground" Value="{DynamicResource AccentSelectedColorBrush}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="DatagridCellCustomMDesign_CellCenter_DP" TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource DatagridCell_DetalhePedido}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type DataGridCell}">
                     <Border>
                         <ContentPresenter
-                            HorizontalAlignment="Right"
+                            HorizontalAlignment="Center"
                             VerticalAlignment="Center"/>
                     </Border>
                 </ControlTemplate>
@@ -68,13 +90,20 @@
     </Style>
 
     <Style x:Key="DataGridRow_DetalhePedido" TargetType="{x:Type DataGridRow}" BasedOn="{StaticResource MaterialDesignDataGridRow}">
-        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Background" Value="{x:Null}"/>
         <Setter Property="SnapsToDevicePixels" Value="true"/>
         <Setter Property="Validation.ErrorTemplate" Value="{x:Null}"/>
         <Style.Triggers>
             <DataTrigger Binding="{Binding NatOper}" Value="000">
-                <Setter Property="Foreground" Value="Red"></Setter>
+                <Setter Property="Foreground" Value="#FFAA91DE"></Setter>
             </DataTrigger>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="{x:Null}" />
+                <Setter Property="Foreground" Value="Red"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="Transparent" />
+            </Trigger>
         </Style.Triggers>
     </Style>
 

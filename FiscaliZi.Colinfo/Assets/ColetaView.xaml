@@ -150,7 +150,7 @@
                               HeadersVisibility="Column"
                               IsSynchronizedWithCurrentItem="True" 
                               Style="{DynamicResource DatagridCustomMDesign}" 
-                              CellStyle="{DynamicResource DatagridCellCustomMDesign}" 
+                              CellStyle="{DynamicResource DatagridCell_DetalhePedido}" 
                               RowStyle="{DynamicResource DataGridRowCustomMDesign}"
                               ColumnHeaderStyle="{StaticResource CustomMaterialDesignDataGridColumnHeader}" 
                               SelectionMode="Single" 
@@ -188,12 +188,10 @@
                                 Width="200" />
                             <DataGridTextColumn Header="VAL. PED" 
                                 Binding="{Binding Items, Converter={StaticResource TotalValItemsConverter}}" 
-                                CellStyle="{StaticResource DatagridCellCustomMDesign_CellRightAlign}"
                                 CanUserResize="False"
                                 Width="75" />
                             <DataGridTextColumn Header="PESO" 
                                                 Binding="{Binding Converter={StaticResource PesoPedidoConverter}}"
-                                                CellStyle="{StaticResource DatagridCellCustomMDesign_CellRightAlign}"
                                                 CanUserResize="False"
                                                 Width="50" />
                         </DataGrid.Columns>
@@ -221,7 +219,7 @@
                                       HeadersVisibility="Column"
                                       IsSynchronizedWithCurrentItem="True" 
                                       Style="{DynamicResource DatagridCustomMDesign}" 
-                                      CellStyle="{DynamicResource DatagridCellCustomMDesign}" 
+                                      CellStyle="{DynamicResource DatagridCell_DetalhePedido}" 
                                       RowStyle="{DynamicResource DataGridRowCustomMDesign}"
                                       ColumnHeaderStyle="{StaticResource CustomMaterialDesignDataGridColumnHeader}" 
                                       SelectionMode="Single" VerticalAlignment="Top">
@@ -242,7 +240,6 @@
                                                         CanUserResize="False" />
                                     <DataGridTextColumn Header="V. TOTAL" 
                                                         Binding="{Binding ValorTotal, StringFormat=\{0:N2\}}" 
-                                                        CellStyle="{StaticResource DatagridCellCustomMDesign_CellRightAlign}"
                                                         CanUserResize="False" />
                                 </DataGrid.Columns>
                             </DataGrid>
@@ -262,6 +259,7 @@
             <Grid x:Name="grdPEDS1" Height="700" DataContext="{Binding Vendas/Pedidos}">
                 <DataGrid x:Name="dgDetalhePedido"
                           ItemsSource="{Binding Items}"
+                          Height="700" 
                           AutoGenerateColumns="False" 
                           CanUserAddRows="False" 
                           CanUserResizeColumns="False" 
@@ -272,37 +270,35 @@
                           HeadersVisibility="Column"
                           IsSynchronizedWithCurrentItem="True" 
                           Style="{DynamicResource DatagridCustomMDesign}" 
-                          CellStyle="{DynamicResource DatagridCellCustomMDesign}" 
-                          RowStyle="{DynamicResource DataGridRow_DetalhePedido}"
-                          ColumnHeaderStyle="{StaticResource DataGridColumnHeader_DetalhePedido}" 
-                          SelectionMode="Single" Height="700" Background="{DynamicResource AccentColorBrush}" Foreground="{DynamicResource AccentSelectedColorBrush}">
+                          CellStyle="{DynamicResource DatagridCell_DetalhePedido}"                        
+                          ColumnHeaderStyle="{StaticResource DataGridColumnHeader_DetalhePedido}"                         
+                          Background="{DynamicResource AccentColorBrush}" 
+                          Foreground="{DynamicResource AccentSelectedColorBrush}"
+                          RowStyle="{DynamicResource DataGridRow_DetalhePedido}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="PROD" 
-                            Binding="{Binding Produto.Codigo}"                                         
-                            CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}"
-                            CanUserResize="False" />
+                                            Binding="{Binding Produto.Codigo}" 
+                                            CanUserResize="False" />
                         <DataGridTextColumn Header="OCO" 
                                             Binding="{Binding Ocorrencia}"
-                                            CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}"
+                                            CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter_DP}"
                                             CanUserResize="False" />
                         <DataGridTextColumn Header="DESCRIÇÃO" 
-                            Binding="{Binding Produto.Descricao}"
-                            CanUserResize="False" />
+                                            Binding="{Binding Produto.Descricao}"
+                                            CanUserResize="False" />
                         <DataGridTextColumn Header="CX" 
                                             Binding="{Binding QntCX}"
-                                            CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}"
+                                            CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter_DP}"
                                             CanUserResize="False" />
                         <DataGridTextColumn Header="UND" 
                                             Binding="{Binding QntUND}"
-                                            CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}"
+                                            CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter_DP}"
                                             CanUserResize="False" />
                         <DataGridTextColumn Header="V. UND" 
                                             Binding="{Binding ValorUnid, StringFormat=\{0:N2\}}"
-                                            CellStyle="{StaticResource DatagridCellCustomMDesign_CellRightAlign}"
                                             CanUserResize="False" />
                         <DataGridTextColumn Header="V. TOTAL" 
                                             Binding="{Binding ValorTotal, StringFormat=\{0:N2\}}"
-                                            CellStyle="{StaticResource DatagridCellCustomMDesign_CellRightAlign}"
                                             CanUserResize="False" />
                     </DataGrid.Columns>
                 </DataGrid>
