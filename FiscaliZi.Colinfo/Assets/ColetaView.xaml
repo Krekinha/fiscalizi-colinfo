@@ -126,7 +126,7 @@
             MinHeight="700" 
             UniformCornerRadius="0" 
             Margin="5,0,0,0"
-            DataContext="{Binding Vendas}" Width="515" Height="700">
+            DataContext="{Binding Vendas}" Width="500" Height="700">
             <GroupBox Header="PEDIDOS" 
                           Margin="3"
                           MDesign:ShadowAssist.ShadowDepth="Depth1"
@@ -258,7 +258,8 @@
             Background="{DynamicResource AccentColorBrush}" 
             Grid.Column="2" 
             BorderThickness="3"
-            MinHeight="700" 
+            MinHeight="700"
+            Height="700"
             UniformCornerRadius="0" 
             Margin="5,0,0,0" 
             Width="530">
@@ -289,14 +290,23 @@
                               Background="{DynamicResource AccentColorBrush}" 
                               Foreground="{DynamicResource AccentSelectedColorBrush}"
                               RowStyle="{DynamicResource DataGridRow_DetalhePedido}" 
-                              FontSize="10.5">
+                              FontSize="10">
+                        <DataGrid.Resources>
+                            <ResourceDictionary>
+                                <ResourceDictionary.MergedDictionaries>
+                                    <ResourceDictionary Source="/FiscaliZi.Colinfo;component/Resources/Dictionaries/dicImages.xaml"/>
+                                </ResourceDictionary.MergedDictionaries>
+                            </ResourceDictionary>
+                        </DataGrid.Resources>
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="PROD" 
-                                            Binding="{Binding Produto.Codigo}" 
-                                            CanUserResize="False" />
+                                                Width="40"
+                                                Binding="{Binding Produto.Codigo}" 
+                                                CanUserResize="False" />
                             <DataGridTextColumn Header="DESCRIÇÃO" 
-                                            Binding="{Binding Produto.Descricao}"
-                                            CanUserResize="False" />
+                                                Width="220"
+                                                Binding="{Binding Produto.Descricao}"
+                                                CanUserResize="False" />
                             <DataGridTextColumn Header="CX" 
                                             Binding="{Binding QntCX}"
                                             CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter_DP}"
@@ -308,7 +318,18 @@
                             <DataGridTextColumn Header="OCO" 
                                             Binding="{Binding Ocorrencia, Converter={StaticResource OcorrenciaConverter}}"
                                             CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter_DP}"
-                                            CanUserResize="False" />
+                                            CanUserResize="False">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Style.Triggers>
+                                            <Trigger Property="Text" Value="BON">
+                                                <Setter Property="Foreground" Value="#FF1E1E1E"/>
+                                                <Setter Property="Background" Value="{StaticResource labelocorrencia}"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
                             <DataGridTextColumn Header="TAB" 
                                             Binding="{Binding Tabela, Converter={StaticResource TabelaConverter}}"
                                             CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter_DP}"
@@ -316,7 +337,7 @@
                             <DataGridTextColumn Header="V. UND" 
                                             Binding="{Binding ValorUnid, StringFormat=\{0:N2\}}"
                                             CanUserResize="False" />
-                            <DataGridTextColumn Header="V. TOTAL" 
+                            <DataGridTextColumn Header="V. TOT" 
                                             Binding="{Binding ValorTotal, StringFormat=\{0:N2\}}"
                                             CanUserResize="False" />
                         </DataGrid.Columns>

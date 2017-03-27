@@ -8,7 +8,6 @@
                 <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path3438" Fill="Gray"  Data="M406.404 316.674c-51.1-13-92.6-42.2-92.6-42.2l-32.4 102.5l-6.1 19.3l-0.1-0.3l-5.3 16.4l-17.1-48.5    c42-58.6-8.5-58-11.3-57.9c-2.8-0.1-53.3-0.7-11.3 57.9l-17.1 48.5l-5.3-16.4l-0.1 0.3l-6.1-19.3l-32.5-102.5    c0 0-41.5 29.2-92.6 42.2c-38.1 9.7-39.9 53.7-38.4 75.4c0 0 2.2 29.5 4.4 42.5c0 0 74.4 48.3 199 48.4c124.6 0 199-48.4 199-48.4    c2.2-13 4.4-42.5 4.4-42.5C446.304 370.374 444.504 326.374 406.404 316.674z"/>
             </Canvas>
         </VisualBrush.Visual>
-
     </VisualBrush>
     <VisualBrush x:Key="deleteicon">
         <VisualBrush.Visual>
@@ -17,8 +16,21 @@
             </Canvas>
         </VisualBrush.Visual>
     </VisualBrush>
+    <VisualBrush x:Key="labelocorrencia">
+        <VisualBrush.Visual>
+            <Canvas>
+                <Border 
+                    Background="LightBlue" 
+                    Width="20" 
+                    Height="80" 
+                    BorderThickness="1" 
+                    CornerRadius="10" 
+                    SnapsToDevicePixels="True"/>
+            </Canvas>
+        </VisualBrush.Visual>
+    </VisualBrush>
 
-        <DrawingBrush x:Key="statusWarning">
+    <DrawingBrush x:Key="statusWarning">
         <DrawingBrush.Drawing>
             <DrawingGroup>
                 <DrawingGroup.Children>
@@ -30,6 +42,7 @@
             </DrawingGroup>
         </DrawingBrush.Drawing>
     </DrawingBrush>
+    
     <DrawingBrush x:Key="statusErro">
         <DrawingBrush.Drawing>
             <DrawingGroup>
