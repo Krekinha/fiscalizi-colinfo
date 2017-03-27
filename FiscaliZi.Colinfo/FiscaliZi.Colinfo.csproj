@@ -296,6 +296,10 @@
     <Compile Include="Migrations\20170323173737_mi-3.designer.cs">
       <DependentUpon>20170323173737_mi-3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20170327052113_m4.cs" />
+    <Compile Include="Migrations\20170327052113_m4.designer.cs">
+      <DependentUpon>20170327052113_m4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\ColinfoContextModelSnapshot.cs" />
     <Compile Include="Model\CadCli.cs" />
     <Compile Include="Model\Cliente.cs" />

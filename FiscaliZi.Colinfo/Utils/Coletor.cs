@@ -152,6 +152,7 @@ namespace FiscaliZi.Colinfo.Utils
                         Ocorrencia = line[53],
                         MotOcorrencia = line[61],
                         NatOper = line[52],
+                        Tabela = line[35],
                         QntCX = int.Parse(line[45]),
                         QntUND = int.Parse(line[46]),
                         ValorCusto = ToDecimal(line[40]),

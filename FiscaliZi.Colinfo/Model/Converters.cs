@@ -70,6 +70,34 @@ namespace FiscaliZi.Colinfo.Model
             throw new NotSupportedException();
         }
     }
+    public class OcorrenciaConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var oco = (string)value;
+            if (!string.IsNullOrEmpty(oco))
+            {
+                switch (oco.Trim())
+                {
+                    case "001":
+                        return "NOR";
+                    case "004":
+                        return "BON";
+                    default:
+                        return oco;
+
+                }
+            }
+
+            return value;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value;
+        }
+
+    }
     public class PedNumConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -505,6 +533,24 @@ namespace FiscaliZi.Colinfo.Model
             }
 
             return value;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value;
+        }
+
+    }
+    public class TabelaConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (!string.IsNullOrEmpty((string)value))
+            {
+                return value.ToString().Substring(value.ToString().Length-2, 2);
+            }
+
+            return null;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -863,16 +863,20 @@ namespace FiscaliZi.Colinfo.Model
                                     Produto = new Produto{Codigo = "900089", Descricao = "REFR SCHIN GUARN VIVA 0,350LT DES12UNPBR"},
                                     QntCX = 5,
                                     ValorUnid = 1830.00m,
-                                    ValorTotal = 9150.00m
+                                    ValorTotal = 9150.00m,
+                                    Ocorrencia = "001",
+                                    Tabela = "20170304"
                                 },
                                 {
                                     new Item
                                     {
                                         ItemID = 2,
-                                        Produto = new Produto{Codigo = "902410"},
+                                        Produto = new Produto{Codigo = "902410", Descricao = "CERV SCHIN PILS 0,60LGFA 24UN"},
                                         QntCX = 2,
                                         ValorUnid = 5800.00m,
-                                        ValorTotal = 11600.00m
+                                        ValorTotal = 11600.00m,
+                                        Ocorrencia = "004",
+                                        Tabela = "20170314"
                                     }
                                 },
                                 {

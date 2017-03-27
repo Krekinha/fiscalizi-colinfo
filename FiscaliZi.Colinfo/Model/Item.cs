@@ -17,6 +17,7 @@ namespace FiscaliZi.Colinfo.Model
         public string Ocorrencia { get; set; }
         public string MotOcorrencia { get; set; }
         public string NatOper { get; set; }
+        public string Tabela { get; set; }
 
         public virtual Produto Produto { get; set; }
         #endregion

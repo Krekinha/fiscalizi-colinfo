@@ -20,6 +20,8 @@
         <Model:PedNumConverter x:Key="PedNumConverter"/>
         <Model:TotalVendasConverter x:Key="TotalVendasConverter"/>
         <Model:PesoPedidoConverter x:Key="PesoPedidoConverter"/>
+        <Model:TabelaConverter x:Key="TabelaConverter"/>
+        <Model:OcorrenciaConverter x:Key="OcorrenciaConverter"/>
     </UserControl.Resources>
 
     <Grid>
@@ -286,14 +288,11 @@
                               ColumnHeaderStyle="{StaticResource DataGridColumnHeader_DetalhePedido}"     
                               Background="{DynamicResource AccentColorBrush}" 
                               Foreground="{DynamicResource AccentSelectedColorBrush}"
-                              RowStyle="{DynamicResource DataGridRow_DetalhePedido}">
+                              RowStyle="{DynamicResource DataGridRow_DetalhePedido}" 
+                              FontSize="10.5">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="PROD" 
                                             Binding="{Binding Produto.Codigo}" 
-                                            CanUserResize="False" />
-                            <DataGridTextColumn Header="OCO" 
-                                            Binding="{Binding Ocorrencia}"
-                                            CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter_DP}"
                                             CanUserResize="False" />
                             <DataGridTextColumn Header="DESCRIÇÃO" 
                                             Binding="{Binding Produto.Descricao}"
@@ -304,6 +303,14 @@
                                             CanUserResize="False" />
                             <DataGridTextColumn Header="UND" 
                                             Binding="{Binding QntUND}"
+                                            CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter_DP}"
+                                            CanUserResize="False" />
+                            <DataGridTextColumn Header="OCO" 
+                                            Binding="{Binding Ocorrencia, Converter={StaticResource OcorrenciaConverter}}"
+                                            CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter_DP}"
+                                            CanUserResize="False" />
+                            <DataGridTextColumn Header="TAB" 
+                                            Binding="{Binding Tabela, Converter={StaticResource TabelaConverter}}"
                                             CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter_DP}"
                                             CanUserResize="False" />
                             <DataGridTextColumn Header="V. UND" 
