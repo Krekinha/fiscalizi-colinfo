@@ -22,6 +22,7 @@
         <Model:PesoPedidoConverter x:Key="PesoPedidoConverter"/>
         <Model:TabelaConverter x:Key="TabelaConverter"/>
         <Model:OcorrenciaConverter x:Key="OcorrenciaConverter"/>
+        <Model:StringToIntConverter x:Key="StringToIntConverter"/>
     </UserControl.Resources>
 
     <Grid>
@@ -270,11 +271,9 @@
                           MDesign:ColorZoneAssist.Mode="PrimaryMid" 
                           BorderThickness="0">
                 <Grid x:Name="grdPEDS1" 
-                      Height="700" 
                       DataContext="{Binding Vendas/Pedidos}">
                     <DataGrid x:Name="dgDetalhePedido"
-                              ItemsSource="{Binding Items}"
-                              Height="700" 
+                              ItemsSource="{Binding Items}" 
                               AutoGenerateColumns="False" 
                               CanUserAddRows="False" 
                               CanUserResizeColumns="False" 
@@ -301,7 +300,7 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="PROD" 
                                                 Width="40"
-                                                Binding="{Binding Produto.Codigo}" 
+                                                Binding="{Binding Produto.Codigo, Converter={StaticResource StringToIntConverter}}" 
                                                 CanUserResize="False" />
                             <DataGridTextColumn Header="DESCRIÇÃO" 
                                                 Width="220"
@@ -317,18 +316,8 @@
                                             CanUserResize="False" />
                             <DataGridTextColumn Header="OCO" 
                                             Binding="{Binding Ocorrencia, Converter={StaticResource OcorrenciaConverter}}"
-                                            CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter_DP}"
+                                            CellStyle="{StaticResource DatagridCell_Ocorrencia}"
                                             CanUserResize="False">
-                                <DataGridTextColumn.ElementStyle>
-                                    <Style TargetType="{x:Type TextBlock}">
-                                        <Style.Triggers>
-                                            <Trigger Property="Text" Value="BON">
-                                                <Setter Property="Foreground" Value="#FF1E1E1E"/>
-                                                <Setter Property="Background" Value="{StaticResource labelocorrencia}"/>
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </DataGridTextColumn.ElementStyle>
                             </DataGridTextColumn>
                             <DataGridTextColumn Header="TAB" 
                                             Binding="{Binding Tabela, Converter={StaticResource TabelaConverter}}"

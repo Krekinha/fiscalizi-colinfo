@@ -149,7 +149,7 @@ namespace FiscaliZi.Colinfo.Utils
                     var item = new Item
                     {
                         Produto = prod,
-                        Ocorrencia = line[53],
+                        Ocorrencia = line[53].Trim(),
                         MotOcorrencia = line[61],
                         NatOper = line[52],
                         Tabela = line[35],
