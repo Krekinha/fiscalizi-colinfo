@@ -106,7 +106,20 @@
                         <DataTemplate>
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,2,0,0">
-                                    <TextBlock Text="{Binding CodVendedor}" FontWeight="Bold" Margin="10,0,0,0" Width="25" />
+                                    <TextBlock Text="{Binding CodVendedor}" 
+                                               FontWeight="Bold" 
+                                               Margin="10,0,0,0" 
+                                               Width="25" >
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Pedidos}" Value="{x:Null}">
+                                                        <Setter Property="Foreground" Value="red"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                        </TextBlock>
                                     <TextBlock Text="{Binding Pedidos, Converter={StaticResource RotaConverter2}}" Margin="15,0,0,0" Width="30" />
                                     <TextBlock Text="{Binding Pedidos.Count}" Margin="10,0,0,0" Width="25" />
                                     <TextBlock Text="{Binding Pedidos, Converter={StaticResource ResumoVendasConverter}}" Margin="15,0,0,0"/>

@@ -22,6 +22,10 @@ namespace FiscaliZi.Colinfo.Assets
         #endregion
         public void AtualizaPedidos(DateTime date)
         {
+            var vendstands = new int[] { 301, 302, 303, 304, 305, 306, 307, 308,
+                                         401, 402, 403, 404, 405, 406, 407,
+                                         601, 602, 603, 604, 605};
+
             var path = @"F:\SOF\VDWIN\EXP\PEDIDOS.CSV";
 
             if (Environment.MachineName == "ATAIDE-PC")
@@ -40,7 +44,7 @@ namespace FiscaliZi.Colinfo.Assets
             foreach (var ped in peds)
             {
                 var vnd = vendas.FirstOrDefault(vd => vd.CodVendedor == ped.CodVendedor);
-                if (vnd == null && ped.CodVendedor != 900)
+                if (vnd == null && ped.CodVendedor != 900 && ped.CodVendedor != 302)
                 {
                     vendas.Add(new Venda
                     {
@@ -51,11 +55,21 @@ namespace FiscaliZi.Colinfo.Assets
                 }
                 else
                 {
-                    if (ped.CodVendedor == 900) continue;
+                    if (ped.CodVendedor == 900 || ped.CodVendedor == 302) continue;
                     vnd.Pedidos.Add(ped);
                 }                
             }
 
+            var vends = vendas.Select(x => x.CodVendedor).Distinct().ToArray();
+            var vendfauls = vendstands.Except(vends).ToArray();
+
+            if (vendfauls.Length > 0)
+            {
+                foreach (var item in vendfauls)
+                {
+                    vendas.Add(new Venda() { CodVendedor = item });
+                }
+            }
             var vendas2 = vendas.OrderBy(x => x.CodVendedor);
             foreach (var vd in vendas2)
             {

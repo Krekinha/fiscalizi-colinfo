@@ -195,11 +195,12 @@ namespace FiscaliZi.Colinfo.Model
         {
             var peds = (List<Pedido>)value;
 
+            if (peds == null) return "";
+
             if (peds.First().CodVendedor == 601)
             {
                 var AVISO = "NOW";
             }
-            if (peds == null) return "";
 
             var items = peds?.SelectMany(it => it.Items);
 
@@ -694,7 +695,7 @@ namespace FiscaliZi.Colinfo.Model
             if (vnd != null)
             {
                 var items = vnd.Pedidos?.SelectMany(it => it.Items);
-                var rank = items
+                var rank = items?
                     .GroupBy(l => l.Produto.Codigo)
                     .Select(cl => new Item
                     {

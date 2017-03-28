@@ -87,7 +87,7 @@
                             <Style TargetType="{x:Type Border}">
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding Ocorrencia}" Value="004">
-                                        <Setter Property="Background" Value="DeepSkyBlue"/>
+                                        <Setter Property="Background" Value="#FF3DC16D"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
