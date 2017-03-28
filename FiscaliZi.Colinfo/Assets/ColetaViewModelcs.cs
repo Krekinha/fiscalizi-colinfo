@@ -44,7 +44,7 @@ namespace FiscaliZi.Colinfo.Assets
             foreach (var ped in peds)
             {
                 var vnd = vendas.FirstOrDefault(vd => vd.CodVendedor == ped.CodVendedor);
-                if (vnd == null && ped.CodVendedor != 900 && ped.CodVendedor != 302)
+                if (vnd == null && ped.CodVendedor != 900)
                 {
                     vendas.Add(new Venda
                     {
@@ -55,7 +55,7 @@ namespace FiscaliZi.Colinfo.Assets
                 }
                 else
                 {
-                    if (ped.CodVendedor == 900 || ped.CodVendedor == 302) continue;
+                    if (ped.CodVendedor == 900) continue;
                     vnd.Pedidos.Add(ped);
                 }                
             }
