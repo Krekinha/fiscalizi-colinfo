@@ -23,6 +23,7 @@
         <Model:TabelaConverter x:Key="TabelaConverter"/>
         <Model:OcorrenciaConverter x:Key="OcorrenciaConverter"/>
         <Model:StringToIntConverter x:Key="StringToIntConverter"/>
+        <Model:ArquivoExistColorConverter x:Key="ArquivoExistColorConverter"/>
     </UserControl.Resources>
 
     <Grid>
@@ -104,30 +105,46 @@
                           IsSynchronizedWithCurrentItem="True">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="0,2,0,0">
-                                    <TextBlock Text="{Binding CodVendedor}" 
+                            <Border x:Name="brResumo">
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0,2,0,0">
+                                        <TextBlock Text="{Binding CodVendedor}" 
                                                FontWeight="Bold" 
                                                Margin="10,0,0,0" 
                                                Width="25" >
-                                        <TextBlock.Style>
-                                            <Style TargetType="{x:Type TextBlock}">
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding Pedidos}" Value="{x:Null}">
-                                                        <Setter Property="Foreground" Value="red"/>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </TextBlock.Style>
+                                            <TextBlock.Foreground>
+                                                <SolidColorBrush>
+                                                    <SolidColorBrush.Color>
+                                                        <MultiBinding Converter="{StaticResource ArquivoExistColorConverter}">
+                                                            <Binding Path="Pedidos"/>
+                                                            <Binding Path="Text" ElementName="txtResumo" />
+                                                        </MultiBinding>
+                                                    </SolidColorBrush.Color>
+                                                </SolidColorBrush>
+                                            </TextBlock.Foreground>
                                         </TextBlock>
-                                    <TextBlock Text="{Binding Pedidos, Converter={StaticResource RotaConverter2}}" Margin="15,0,0,0" Width="30" />
-                                    <TextBlock Text="{Binding Pedidos.Count}" Margin="10,0,0,0" Width="25" />
-                                    <TextBlock Text="{Binding Pedidos, Converter={StaticResource ResumoVendasConverter}}" Margin="15,0,0,0"/>
-                                </StackPanel>
-                                <Separator 
+                                        <TextBlock Text="{Binding Pedidos, Converter={StaticResource RotaConverter2}}" Margin="15,0,0,0" Width="30" />
+                                        <TextBlock Text="{Binding Pedidos.Count}" Margin="10,0,0,0" Width="25" />
+                                        <TextBlock x:Name="txtResumo" 
+                                                   Text="{Binding Converter={StaticResource ResumoVendasConverter}}"
+                                                   Margin="15,0,0,0">
+                                            <TextBlock.Foreground>
+                                                <SolidColorBrush>
+                                                    <SolidColorBrush.Color>
+                                                        <MultiBinding Converter="{StaticResource ArquivoExistColorConverter}">
+                                                            <Binding Path="Pedidos"/>
+                                                            <Binding Path="Text" ElementName="txtResumo" />
+                                                        </MultiBinding>
+                                                    </SolidColorBrush.Color>
+                                                </SolidColorBrush>
+                                            </TextBlock.Foreground>
+                                        </TextBlock>
+                                    </StackPanel>
+                                    <Separator 
                                     Style="{StaticResource MaterialDesignDarkSeparator}" 
                                     Margin="8,5,8,0" Height="Auto"/>
-                            </StackPanel>
+                                </StackPanel>
+                            </Border>
 
                         </DataTemplate>
                     </ListView.ItemTemplate>

@@ -11,9 +11,47 @@ using System.Windows.Media.Animation;
 using DFe.Utils;
 using FiscaliZi.Colinfo.Utils;
 using MaterialDesignThemes.Wpf;
+using Microsoft.EntityFrameworkCore;
 
 namespace FiscaliZi.Colinfo.Model
 {
+    public class ArquivoExistConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (!string.IsNullOrEmpty(value.ToString())) return "ok";
+            return "no";
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value;
+        }
+    }
+    public class ArquivoExistColorConverter : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            var peds = (List<Pedido>)values[0];
+            var res = (string)values[1];
+
+            if (peds == null)
+            {
+                if (!string.IsNullOrEmpty(res))
+                {
+                    return Colors.DodgerBlue; 
+                }
+                return Colors.Red;
+            }
+            return Colors.Black;
+
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
     public class ColetadosConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -193,16 +231,24 @@ namespace FiscaliZi.Colinfo.Model
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var peds = (List<Pedido>)value;
+            var vnd = (Venda) value;
 
-            if (peds == null) return "";
-
-            if (peds.First().CodVendedor == 601)
+            if (vnd?.Pedidos == null)
             {
-                var AVISO = "NOW";
-            }
+                using (var context = new ColinfoContext())
+                {
+                    var arq = context.Arquivos
+                        .Include(x => x.Pedidos)
+                        .FirstOrDefault(x => x.CodVendedor == vnd.CodVendedor && x.Pedidos.Count > 4);
+                    if (arq != null)
+                    {
+                        return $"{arq.ArquivoVendedor} ({arq.Pedidos.Count()})";
+                    }
+                    return null;
+                }
+            };
 
-            var items = peds?.SelectMany(it => it.Items);
+            var items = vnd?.Pedidos?.SelectMany(it => it.Items);
 
             var rankedItems = Tools.RankProd(items);
             var rank2 = "?";
