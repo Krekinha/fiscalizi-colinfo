@@ -43,6 +43,9 @@ namespace FiscaliZi.Colinfo.Model
                 }
                 return Colors.Red;
             }
+
+            if (peds.Count < 9)
+                return Colors.Red;
             return Colors.Black;
 
         }

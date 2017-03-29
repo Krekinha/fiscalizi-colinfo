@@ -123,8 +123,35 @@
                                                 </SolidColorBrush>
                                             </TextBlock.Foreground>
                                         </TextBlock>
-                                        <TextBlock Text="{Binding Pedidos, Converter={StaticResource RotaConverter2}}" Margin="15,0,0,0" Width="30" />
-                                        <TextBlock Text="{Binding Pedidos.Count}" Margin="10,0,0,0" Width="25" />
+                                        <TextBlock 
+                                            Text="{Binding Pedidos, Converter={StaticResource RotaConverter2}}" 
+                                            Margin="15,0,0,0" Width="30">
+                                            <TextBlock.Foreground>
+                                                <SolidColorBrush>
+                                                    <SolidColorBrush.Color>
+                                                        <MultiBinding Converter="{StaticResource ArquivoExistColorConverter}">
+                                                            <Binding Path="Pedidos"/>
+                                                            <Binding Path="Text" ElementName="txtResumo" />
+                                                        </MultiBinding>
+                                                    </SolidColorBrush.Color>
+                                                </SolidColorBrush>
+                                            </TextBlock.Foreground>
+                                        </TextBlock>
+                                        <TextBlock 
+                                            Text="{Binding Pedidos.Count}" 
+                                            Margin="10,0,0,0" 
+                                            Width="25">
+                                            <TextBlock.Foreground>
+                                                <SolidColorBrush>
+                                                    <SolidColorBrush.Color>
+                                                        <MultiBinding Converter="{StaticResource ArquivoExistColorConverter}">
+                                                            <Binding Path="Pedidos"/>
+                                                            <Binding Path="Text" ElementName="txtResumo" />
+                                                        </MultiBinding>
+                                                    </SolidColorBrush.Color>
+                                                </SolidColorBrush>
+                                            </TextBlock.Foreground>
+                                        </TextBlock>
                                         <TextBlock x:Name="txtResumo" 
                                                    Text="{Binding Converter={StaticResource ResumoVendasConverter}}"
                                                    Margin="15,0,0,0">

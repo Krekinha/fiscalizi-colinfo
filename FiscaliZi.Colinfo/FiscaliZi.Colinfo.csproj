@@ -277,8 +277,8 @@
       <DependentUpon>ConfigView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Assets\ConfigViewModel.cs" />
-    <Compile Include="Assets\Dialog_Conculta.xaml.cs">
-      <DependentUpon>Dialog_Conculta.xaml</DependentUpon>
+    <Compile Include="Assets\Dialog_Consulta.xaml.cs">
+      <DependentUpon>Dialog_Consulta.xaml</DependentUpon>
     </Compile>
     <Compile Include="Assets\Dialog_ErroConsulta.xaml.cs">
       <DependentUpon>Dialog_ErroConsulta.xaml</DependentUpon>
@@ -334,7 +334,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Assets\Dialog_Conculta.xaml">
+    <Page Include="Assets\Dialog_Consulta.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

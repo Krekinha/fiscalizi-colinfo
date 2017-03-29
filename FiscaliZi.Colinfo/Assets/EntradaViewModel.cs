@@ -336,7 +336,7 @@ namespace FiscaliZi.Colinfo.Assets
             }
             else
             {
-                var view = new Dialog_Conculta()
+                var view = new Dialog_Consulta()
                 {
                     DataContext = ped
                 };
