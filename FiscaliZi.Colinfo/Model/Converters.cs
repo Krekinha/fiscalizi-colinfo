@@ -44,7 +44,7 @@ namespace FiscaliZi.Colinfo.Model
                 return Colors.Red;
             }
 
-            if (peds.Count < 9)
+            if (peds.Count < 5)
                 return Colors.Red;
             return Colors.Black;
 
