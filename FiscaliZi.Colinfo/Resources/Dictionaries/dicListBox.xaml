@@ -97,13 +97,65 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                    <MDesign:Card Content="{TemplateBinding Content}"
+                    <Grid>
+                        <MDesign:Card Content="{TemplateBinding Content}"
                                   MDesign:ShadowAssist.ShadowDepth="Depth1"
                                   ContentTemplate="{TemplateBinding ContentTemplate}"
                                   ContentStringFormat="{TemplateBinding ContentStringFormat}"
                                   ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
                                   >
-                    </MDesign:Card>
+                        </MDesign:Card>
+                        <Border x:Name="SelectedBorder"
+                                    Opacity="0"
+                                    Background="{TemplateBinding Foreground, Converter={StaticResource BrushRoundConverter}}"
+                                    RenderTransformOrigin="0.5,0.5">
+                            <Border.RenderTransform>
+                                <ScaleTransform ScaleX="1"/>
+                            </Border.RenderTransform>
+                        </Border>
+                        <Border x:Name="MouseOverBorder" 
+                                Opacity="0"
+                                Background="{TemplateBinding Foreground, Converter={StaticResource BrushRoundConverter}}"/>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup Name="CommonStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition GeneratedDuration="0:0:0.3" To="Normal">
+                                        <VisualTransition.GeneratedEasingFunction>
+                                            <CircleEase EasingMode="EaseOut"/>
+                                        </VisualTransition.GeneratedEasingFunction>
+                                    </VisualTransition>
+                                </VisualStateGroup.Transitions>
+                                <VisualState Name="Normal"/>
+                                <VisualState Name="MouseOver">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="MouseOverBorder" Storyboard.TargetProperty="Opacity"
+                                                             To="0.1" Duration="0"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState Name="Disabled"/>
+                            </VisualStateGroup>
+                            <VisualStateGroup Name="SelectionStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition GeneratedDuration="0:0:0.6"/>
+                                </VisualStateGroup.Transitions>
+                                <VisualState Name="Selected">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="SelectedBorder"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="0.18" Duration="0"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState Name="Unselected"/>
+                                <VisualState Name="SelectedUnfocused">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="SelectedBorder"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="0.03" Duration="0"/>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
