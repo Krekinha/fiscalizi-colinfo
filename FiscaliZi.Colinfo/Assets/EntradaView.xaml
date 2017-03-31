@@ -87,7 +87,8 @@
                     ItemsSource="{Binding Arquivos}"
                     IsSynchronizedWithCurrentItem="True" 
                     SelectedIndex="-1" 
-                    Margin="10,0" Grid.Row="2"
+                    Margin="10,0" 
+                    Grid.Row="2"
                     BorderThickness="3">
                     <ListBox.Style>
                         <StaticResource ResourceKey="CustomMaterialDesignListBox"/>

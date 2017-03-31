@@ -98,20 +98,19 @@
                             FontWeight="Bold"/>
                     </StackPanel>
                 </StackPanel>
-                <ListView x:Name="lvVendas"
+                <ListBox x:Name="lstVendas"
                           Grid.Column="0" 
                           Grid.Row="2"
                           ItemsSource="{Binding Vendas}" 
-                          IsSynchronizedWithCurrentItem="True">
-                    <ListView.ItemTemplate>
+                          IsSynchronizedWithCurrentItem="True" 
+                         Style="{DynamicResource ListBox_Vendas}" ItemContainerStyle="{StaticResource ListBoxItem_Vendas}" Margin="10,0,0,0">
+                    <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Border x:Name="brResumo">
+                            <Border x:Name="brResumo" Height="22">
                                 <StackPanel>
-                                    <StackPanel Orientation="Horizontal" Margin="0,2,0,0">
+                                    <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="{Binding CodVendedor}" 
-                                               FontWeight="Bold" 
-                                               Margin="10,0,0,0" 
-                                               Width="25" >
+                                               FontWeight="Bold" >
                                             <TextBlock.Foreground>
                                                 <SolidColorBrush>
                                                     <SolidColorBrush.Color>
@@ -167,15 +166,11 @@
                                             </TextBlock.Foreground>
                                         </TextBlock>
                                     </StackPanel>
-                                    <Separator 
-                                    Style="{StaticResource MaterialDesignDarkSeparator}" 
-                                    Margin="8,5,8,0" Height="Auto"/>
                                 </StackPanel>
                             </Border>
-
                         </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </Grid>
         </MDesign:Card>
         <MDesign:Card 
