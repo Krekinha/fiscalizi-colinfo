@@ -103,12 +103,12 @@
                           Grid.Row="2"
                           ItemsSource="{Binding Vendas}" 
                           IsSynchronizedWithCurrentItem="True" 
-                         Style="{DynamicResource ListBox_Vendas}" ItemContainerStyle="{StaticResource ListBoxItem_Vendas}" Margin="10,0,0,0">
+                         Style="{DynamicResource ListBox_Vendas}" ItemContainerStyle="{StaticResource ListBoxItem_Vendas}" Margin="5,0">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Border x:Name="brResumo" Height="22">
+                            <Border x:Name="brResumo" Height="25">
                                 <StackPanel>
-                                    <StackPanel Orientation="Horizontal">
+                                    <StackPanel Orientation="Horizontal" Margin="5,3,0,0">
                                         <TextBlock Text="{Binding CodVendedor}" 
                                                FontWeight="Bold" >
                                             <TextBlock.Foreground>

@@ -9,7 +9,7 @@ namespace FiscaliZi.Colinfo.Model
         public DesignData()
         {
             Arquivos = GetArquivos();
-            Vendas = GetVendas();
+            Vendas = GetVendas(5);
             Pedido = GetPedido();
             Pedidos = GetPedidos();
         }
@@ -824,816 +824,826 @@ namespace FiscaliZi.Colinfo.Model
                 }
             };
         }
-        public ObservableCollection<Venda> GetVendas()
+        public ObservableCollection<Venda> GetVendas(int _regs)
         {
-            return new ObservableCollection<Venda>
+            var vnds = new ObservableCollection<Venda>();
+            var vnd = new Venda
             {
-                new Venda
+                VendaID = 1,
+                CodVendedor = 308,
+                DataColeta = DateTime.Now,
+                Pedidos = new List<Pedido>
                 {
-                    VendaID = 1,
-                    CodVendedor = 308,
-                    DataColeta = DateTime.Now,
-                    Pedidos = new List<Pedido>
+                    new Pedido
                     {
-                        new Pedido
+                        PedidoID = 1,
+                        NumPedido = "0",
+                        NumPedPalm = "20160611102653",
+                        CodVendedor = 308,
+                        Pasta = "3081",
+                        ValorTotal = 645.10m,
+                        Cliente = new Cliente
                         {
-                            PedidoID = 1,
-                            NumPedido = "0",
-                            NumPedPalm = "20160611102653",
-                            CodVendedor = 308,
-                            Pasta = "3081",
-                            ValorTotal = 645.10m,
-                            Cliente = new Cliente
+                            ClienteID = 1,
+                            RegiaoCliente = 101,
+                            NumCliente = 28,
+                            Razao = "SILVIO BATISTA ALVES - ME",
+                            Sigla = "",
+                            Rota = 1,
+                            CNPJ = "64.436.249/0001-27",
+                            IE = "333647.589/0096",
+                            Situacao = "REJEIÇÃO"
+                        },
+                        Items = new List<Item>
+                        {
+                            new Item
                             {
-                                ClienteID = 1,
-                                RegiaoCliente = 101,
-                                NumCliente = 28,
-                                Razao = "SILVIO BATISTA ALVES - ME",
-                                Sigla = "",
-                                Rota = 1,
-                                CNPJ = "64.436.249/0001-27",
-                                IE = "333647.589/0096",
-                                Situacao = "REJEIÇÃO"
+                                ItemID = 1,
+                                Produto =
+                                    new Produto
+                                    {
+                                        Codigo = "900089",
+                                        Descricao = "REFR SCHIN GUARN VIVA 0,350LT DES12UNPBR"
+                                    },
+                                QntCX = 5,
+                                ValorUnid = 1830.00m,
+                                ValorTotal = 9150.00m,
+                                Ocorrencia = "001",
+                                Tabela = "20170304"
                             },
-                            Items = new List<Item>
                             {
                                 new Item
                                 {
-                                    ItemID = 1,
-                                    Produto = new Produto{Codigo = "900089", Descricao = "REFR SCHIN GUARN VIVA 0,350LT DES12UNPBR"},
-                                    QntCX = 5,
-                                    ValorUnid = 1830.00m,
-                                    ValorTotal = 9150.00m,
-                                    Ocorrencia = "001",
-                                    Tabela = "20170304"
-                                },
+                                    ItemID = 2,
+                                    Produto =
+                                        new Produto {Codigo = "902410", Descricao = "CERV SCHIN PILS 0,60LGFA 24UN"},
+                                    QntCX = 2,
+                                    ValorUnid = 5800.00m,
+                                    ValorTotal = 11600.00m,
+                                    Ocorrencia = "004",
+                                    Tabela = "20170314"
+                                }
+                            },
+                            {
+                                new Item
                                 {
-                                    new Item
-                                    {
-                                        ItemID = 2,
-                                        Produto = new Produto{Codigo = "902410", Descricao = "CERV SCHIN PILS 0,60LGFA 24UN"},
-                                        QntCX = 2,
-                                        ValorUnid = 5800.00m,
-                                        ValorTotal = 11600.00m,
-                                        Ocorrencia = "004",
-                                        Tabela = "20170314"
-                                    }
-                                },
+                                    ItemID = 3,
+                                    Produto = new Produto {Codigo = "900350"},
+                                    QntCX = 1,
+                                    ValorUnid = 1850.00m,
+                                    ValorTotal = 1850.00m
+                                }
+                            },
+                            {
+                                new Item
                                 {
-                                    new Item
-                                    {
-                                        ItemID = 3,
-                                        Produto = new Produto{Codigo = "900350"},
-                                        QntCX = 1,
-                                        ValorUnid = 1850.00m,
-                                        ValorTotal = 1850.00m
-                                    }
-                                },
+                                    ItemID = 4,
+                                    Produto = new Produto {Codigo = "902410"},
+                                    QntCX = 2,
+                                    ValorUnid = 2360.00m,
+                                    ValorTotal = 4720.00m
+                                }
+                            },
+                            {
+                                new Item
                                 {
-                                    new Item
-                                    {
-                                        ItemID = 4,
-                                        Produto = new Produto{Codigo = "902410"},
-                                        QntCX = 2,
-                                        ValorUnid = 2360.00m,
-                                        ValorTotal = 4720.00m
-                                    }
-                                },
+                                    ItemID = 5,
+                                    Produto = new Produto {Codigo = "902780"},
+                                    QntCX = 6,
+                                    ValorUnid = 1850.00m,
+                                    ValorTotal = 11100.00m
+                                }
+                            },
+                            {
+                                new Item
                                 {
-                                    new Item
-                                    {
-                                        ItemID = 5,
-                                        Produto = new Produto{Codigo = "902780"},
-                                        QntCX = 6,
-                                        ValorUnid = 1850.00m,
-                                        ValorTotal = 11100.00m
-                                    }
-                                },
+                                    ItemID = 6,
+                                    Produto = new Produto {Codigo = "902795"},
+                                    QntCX = 3,
+                                    ValorUnid = 1850.00m,
+                                    ValorTotal = 5550.00m
+                                }
+                            },
+                            {
+                                new Item
                                 {
-                                    new Item
-                                    {
-                                        ItemID = 6,
-                                        Produto = new Produto{Codigo = "902795"},
-                                        QntCX = 3,
-                                        ValorUnid = 1850.00m,
-                                        ValorTotal = 5550.00m
-                                    }
-                                },
+                                    ItemID = 7,
+                                    Produto = new Produto {Codigo = "902802"},
+                                    QntCX = 2,
+                                    ValorUnid = 1850.00m,
+                                    ValorTotal = 3700.00m
+                                }
+                            },
+                            {
+                                new Item
                                 {
-                                    new Item
-                                    {
-                                        ItemID = 7,
-                                        Produto = new Produto{Codigo = "902802"},
-                                        QntCX = 2,
-                                        ValorUnid = 1850.00m,
-                                        ValorTotal = 3700.00m
-                                    }
-                                },
+                                    ItemID = 8,
+                                    Produto = new Produto {Codigo = "902809"},
+                                    QntCX = 4,
+                                    ValorUnid = 1850.00m,
+                                    ValorTotal = 7400.00m
+                                }
+                            },
+                            {
+                                new Item
                                 {
-                                    new Item
-                                    {
-                                        ItemID = 8,
-                                        Produto = new Produto{Codigo = "902809"},
-                                        QntCX = 4,
-                                        ValorUnid = 1850.00m,
-                                        ValorTotal = 7400.00m
-                                    }
-                                },
+                                    ItemID = 9,
+                                    Produto = new Produto {Codigo = "902815"},
+                                    QntCX = 2,
+                                    ValorUnid = 1850.00m,
+                                    ValorTotal = 3700.00m
+                                }
+                            },
+                            {
+                                new Item
                                 {
-                                    new Item
-                                    {
-                                        ItemID = 9,
-                                        Produto = new Produto{Codigo = "902815"},
-                                        QntCX = 2,
-                                        ValorUnid = 1850.00m,
-                                        ValorTotal = 3700.00m
-                                    }
-                                },
+                                    ItemID = 10,
+                                    Produto = new Produto {Codigo = "902817"},
+                                    QntCX = 2,
+                                    ValorUnid = 1850.00m,
+                                    ValorTotal = 3700.00m
+                                }
+                            },
+                            {
+                                new Item
                                 {
-                                    new Item
-                                    {
-                                        ItemID = 10,
-                                        Produto = new Produto{Codigo = "902817"},
-                                        QntCX = 2,
-                                        ValorUnid = 1850.00m,
-                                        ValorTotal = 3700.00m
-                                    }
-                                },
-                                {
-                                    new Item
-                                    {
-                                        ItemID = 11,
-                                        Produto = new Produto{Codigo = "903122"},
-                                        QntCX = 1,
-                                        ValorUnid = 2040.00m,
-                                        ValorTotal = 2040.00m
-                                    }
-                                },
+                                    ItemID = 11,
+                                    Produto = new Produto {Codigo = "903122"},
+                                    QntCX = 1,
+                                    ValorUnid = 2040.00m,
+                                    ValorTotal = 2040.00m
+                                }
+                            },
+                        }
+                    },
+                    new Pedido
+                    {
+                        PedidoID = 2,
+                        NumPedido = "0",
+                        NumPedPalm = "20160611092020",
+                        CodVendedor = 308,
+                        Pasta = "3081",
+                        ValorTotal = 426.00m,
+                        Cliente = new Cliente
+                        {
+                            ClienteID = 2,
+                            RegiaoCliente = 101,
+                            NumCliente = 596,
+                            Razao = "ROMUALDO ANTUNES PEREIRA - ME",
+                            Sigla = "",
+                            Rota = 0,
+                            CNPJ = "00.395.494/0001-50",
+                            IE = "333919.491/0096",
+                            Situacao = ""
+                        },
+                        Items = new List<Item>
+                        {
+                            new Item
+                            {
+                                ItemID = 12,
+                                Produto = new Produto {Codigo = "900416"},
+                                QntCX = 20,
+                                ValorUnid = 2130.00m,
+                                ValorTotal = 42600.00m
                             }
                         },
-                        new Pedido
-                        {
-                            PedidoID = 2,
-                            NumPedido = "0",
-                            NumPedPalm = "20160611092020",
-                            CodVendedor = 308,
-                            Pasta = "3081",
-                            ValorTotal = 426.00m,
-                            Cliente = new Cliente
+                    },
+                    new Pedido
+                    {
+                        PedidoID = 3,
+                        NumPedido = "0",
+                        NumPedPalm = "20160611074516",
+                        CodVendedor = 308,
+                        Pasta = "3081",
+                        ValorTotal = 2249.88m,
+                        Cliente =
+                            new Cliente
                             {
-                                ClienteID = 2,
+                                ClienteID = 3,
                                 RegiaoCliente = 101,
-                                NumCliente = 596,
-                                Razao = "ROMUALDO ANTUNES PEREIRA - ME",
+                                NumCliente = 629,
+                                Razao = "SUPERMERCADO COSTA E FARIAS LT",
                                 Sigla = "",
                                 Rota = 0,
-                                CNPJ = "00.395.494/0001-50",
-                                IE = "333919.491/0096",
+                                CNPJ = "00.705.844/0001-38",
+                                IE = "333937.442/0003",
                                 Situacao = ""
                             },
-                            Items = new List<Item>
+                        Items = new List<Item>
+                        {
+                            new Item
                             {
-                                new Item
-                                {
-                                    ItemID = 12,
-                                    Produto = new Produto{Codigo = "900416"},
-                                    QntCX = 20,
-                                    ValorUnid = 2130.00m,
-                                    ValorTotal = 42600.00m
-                                }
+                                ItemID = 13,
+                                Produto = new Produto {Codigo = "900032"},
+                                QntCX = 2,
+                                ValorUnid = 1420.00m,
+                                ValorTotal = 2840.00m
                             },
-                        },
-                        new Pedido
-                        {
-                            PedidoID = 3,
-                            NumPedido = "0",
-                            NumPedPalm = "20160611074516",
-                            CodVendedor = 308,
-                            Pasta = "3081",
-                            ValorTotal = 2249.88m,
-                            Cliente =
-                                new Cliente
-                                {
-                                    ClienteID = 3,
-                                    RegiaoCliente = 101,
-                                    NumCliente = 629,
-                                    Razao = "SUPERMERCADO COSTA E FARIAS LT",
-                                    Sigla = "",
-                                    Rota = 0,
-                                    CNPJ = "00.705.844/0001-38",
-                                    IE = "333937.442/0003",
-                                    Situacao = ""
-                                },
-                            Items = new List<Item>
                             {
                                 new Item
                                 {
-                                    ItemID = 13,
-                                    Produto = new Produto{Codigo = "900032"},
-                                    QntCX = 2,
-                                    ValorUnid = 1420.00m,
-                                    ValorTotal = 2840.00m
-                                },
-                                {
-                                    new Item
-                                    {
-                                        ItemID = 14,
-                                        Produto = new Produto{Codigo = "900320"},
-                                        QntCX = 3,
-                                        ValorUnid = 1850.00m,
-                                        ValorTotal = 5550.00m
-                                    }
-                                },
-                                {
-                                    new Item
-                                    {
-                                        ItemID = 15,
-                                        Produto = new Produto{Codigo = "900350"},
-                                        QntCX = 3,
-                                        ValorUnid = 1850.00m,
-                                        ValorTotal = 5550.00m
-                                    }
-                                },
-                                {
-                                    new Item
-                                    {
-                                        ItemID = 16,
-                                        Produto = new Produto{Codigo = "900362"},
-                                        QntCX = 1,
-                                        ValorUnid = 2040.00m,
-                                        ValorTotal = 2040.00m
-                                    }
-                                },
-                                {
-                                    new Item
-                                    {
-                                        ItemID = 17,
-                                        Produto = new Produto{Codigo = "900416"},
-                                        QntCX = 50,
-                                        ValorUnid = 2130.00m,
-                                        ValorTotal = 106500.00m
-                                    }
-                                },
-                                {
-                                    new Item
-                                    {
-                                        ItemID = 18,
-                                        Produto = new Produto{Codigo = "902410"},
-                                        QntCX = 10,
-                                        ValorUnid = 2360.00m,
-                                        ValorTotal = 23600.00m
-                                    }
-                                },
-                                {
-                                    new Item
-                                    {
-                                        ItemID = 19,
-                                        Produto = new Produto{Codigo = "902417"},
-                                        QntCX = 2,
-                                        ValorUnid = 1629.00m,
-                                        ValorTotal = 3258.00m
-                                    }
-                                },
-                                {
-                                    new Item
-                                    {
-                                        ItemID = 20,
-                                        Produto = new Produto{Codigo = "902430"},
-                                        QntCX = 3,
-                                        ValorUnid = 2400.00m,
-                                        ValorTotal = 7200.00m
-                                    }
-                                },
-                                {
-                                    new Item
-                                    {
-                                        ItemID = 21,
-                                        Produto = new Produto{Codigo = "902778"},
-                                        QntCX = 3,
-                                        ValorUnid = 1850.00m,
-                                        ValorTotal = 5550.00m
-                                    }
-                                },
-                                {
-                                    new Item
-                                    {
-                                        ItemID = 22,
-                                        Produto = new Produto{Codigo = "902780"},
-                                        QntCX = 5,
-                                        ValorUnid = 1850.00m,
-                                        ValorTotal = 9250.00m
-                                    }
-                                },
-                                {
-                                    new Item
-                                    {
-                                        ItemID = 23,
-                                        Produto = new Produto{Codigo = "900416"},
-                                        QntCX = 10,
-                                        ValorUnid = 1850.00m,
-                                        ValorTotal = 18500.00m
-                                    }
-                                },
-                                {
-                                    new Item
-                                    {
-                                        ItemID = 24,
-                                        Produto = new Produto{Codigo = "902802"},
-                                        QntCX = 1,
-                                        ValorUnid = 1850.00m,
-                                        ValorTotal = 1850.00m
-                                    }
-                                },
-                                {
-                                    new Item
-                                    {
-                                        ItemID = 25,
-                                        Produto = new Produto{Codigo = "902809"},
-                                        QntCX = 10,
-                                        ValorUnid = 1850.00m,
-                                        ValorTotal = 18500.00m
-                                    }
-                                },
-                                {
-                                    new Item
-                                    {
-                                        ItemID = 26,
-                                        Produto = new Produto{Codigo = "902815"},
-                                        QntCX = 3,
-                                        ValorUnid = 1850.00m,
-                                        ValorTotal = 5550.00m
-                                    }
-                                },
-                                {
-                                    new Item
-                                    {
-                                        ItemID = 27,
-                                        Produto = new Produto{Codigo = "902817"},
-                                        QntCX = 5,
-                                        ValorUnid = 1850.00m,
-                                        ValorTotal = 9250.00m
-                                    }
-                                },
-                            }
-                        },
-                        new Pedido
-                        {
-                            PedidoID = 4,
-                            NumPedido = "0",
-                            NumPedPalm = "20160611110832",
-                            CodVendedor = 308,
-                            Pasta = "3081",
-                            ValorTotal = 348.00m,
-                            Cliente =
-                                new Cliente
-                                {
-                                    ClienteID = 4,
-                                    RegiaoCliente = 101,
-                                    NumCliente = 640,
-                                    Razao = "JARIO ALVES DE SOUZA - ME",
-                                    Sigla = "",
-                                    Rota = 0,
-                                    CNPJ = "11.338.187/0001-54",
-                                    IE = "001500.653/0006",
-                                    Situacao = ""
-                                },
-                            Items = new List<Item>
-                            {
-                                new Item
-                                {
-                                    ItemID = 28,
-                                    Produto = new Produto{Codigo = "900089"},
-                                    QntCX = 20,
-                                    ValorUnid = 1740.00m,
-                                    ValorTotal = 34800.00m
-                                }
-                            },
-                        },
-                        new Pedido
-                        {
-                            PedidoID = 5,
-                            NumPedido = "0",
-                            NumPedPalm = "20160611081132",
-                            CodVendedor = 308,
-                            Pasta = "3081",
-                            ValorTotal = 273.22m,
-                            Cliente =
-                                new Cliente
-                                {
-                                    ClienteID = 5,
-                                    RegiaoCliente = 101,
-                                    NumCliente = 936,
-                                    Razao = "MERCEARIA MAR E TERRA LTDA - M",
-                                    Sigla = "",
-                                    Rota = 0,
-                                    CNPJ = "05.747.617/0001-99",
-                                    IE = "333239.632/0013",
-                                    Situacao = ""
-                                },
-                            Items = new List<Item>
-                            {
-                                new Item
-                                {
-                                    ItemID = 29,
-                                    Produto = new Produto{Codigo = "900032"},
-                                    QntCX = 1,
-                                    ValorUnid = 1420.00m,
-                                    ValorTotal = 1420.00m
-                                },
-                                {
-                                    new Item
-                                    {
-                                        ItemID = 30,
-                                        Produto = new Produto{Codigo = "900089"},
-                                        QntCX = 4,
-                                        ValorUnid = 1830.00m,
-                                        ValorTotal = 7320.00m
-                                    }
-                                },
-                                {
-                                    new Item
-                                    {
-                                        ItemID = 31,
-                                        Produto = new Produto{Codigo = "900362"},
-                                        QntCX = 1,
-                                        ValorUnid = 2040.00m,
-                                        ValorTotal = 2040.00m
-                                    }
-                                },
-                                {
-                                    new Item
-                                    {
-                                        ItemID = 32,
-                                        Produto = new Produto{Codigo = "902410"},
-                                        QntCX = 3,
-                                        ValorUnid = 2360.00m,
-                                        ValorTotal = 7080.00m
-                                    }
-                                },
-                                {
-                                    new Item
-                                    {
-                                        ItemID = 33,
-                                        Produto = new Produto{Codigo = "902430"},
-                                        QntCX = 1,
-                                        ValorUnid = 2400.00m,
-                                        ValorTotal = 2400.00m
-                                    }
-                                },
-                                {
-                                    new Item
-                                    {
-                                        ItemID = 34,
-                                        Produto = new Produto{Codigo = "902817"},
-                                        QntCX = 2,
-                                        ValorUnid = 1930.00m,
-                                        ValorTotal = 3860.00m
-                                    }
-                                },
-                                {
-                                    new Item
-                                    {
-                                        ItemID = 35,
-                                        Produto = new Produto{Codigo = "903122"},
-                                        QntCX = 1,
-                                        ValorUnid = 2040.00m,
-                                        ValorTotal = 2040.00m
-                                    }
-                                },
-                                {
-                                    new Item
-                                    {
-                                        ItemID = 36,
-                                        Produto = new Produto{Codigo = "903190"},
-                                        QntCX = 1,
-                                        ValorUnid = 1040.00m,
-                                        ValorTotal = 1040.00m
-                                    }
-                                },
-                            }
-                        },
-                        new Pedido
-                        {
-                            PedidoID = 6,
-                            NumPedido = "0",
-                            NumPedPalm = "20160611084522",
-                            CodVendedor = 308,
-                            Pasta = "3081",
-                            ValorTotal = 983.85m,
-                            Cliente =
-                                new Cliente
-                                {
-                                    ClienteID = 6,
-                                    RegiaoCliente = 101,
-                                    NumCliente = 958,
-                                    Razao = "MERCEARIA E PADARIA UNIAO LTDA",
-                                    Sigla = "",
-                                    Rota = 0,
-                                    CNPJ = "07.033.037/0001-65",
-                                    IE = "034175.800/0028",
-                                    Situacao = ""
-                                },
-                            Items = new List<Item>
-                            {
-                                new Item
-                                {
-                                    ItemID = 37,
-                                    Produto = new Produto{Codigo = "900023"},
-                                    QntCX = 1,
-                                    ValorUnid = 1150.00m,
-                                    ValorTotal = 1150.00m
-                                },
-                                {
-                                    new Item
-                                    {
-                                        ItemID = 38,
-                                        Produto = new Produto{Codigo = "900089"},
-                                        QntCX = 30,
-                                        ValorUnid = 1740.00m,
-                                        ValorTotal = 52200.00m
-                                    }
-                                },
-                                {
-                                    new Item
-                                    {
-                                        ItemID = 39,
-                                        Produto = new Produto{Codigo = "900350"},
-                                        QntCX = 2,
-                                        ValorUnid = 1850.00m,
-                                        ValorTotal = 3700.00m
-                                    }
-                                },
-                                {
-                                    new Item
-                                    {
-                                        ItemID = 40,
-                                        Produto = new Produto{Codigo = "902780"},
-                                        QntCX = 5,
-                                        ValorUnid = 1850.00m,
-                                        ValorTotal = 9250.00m
-                                    }
-                                },
-                                {
-                                    new Item
-                                    {
-                                        ItemID = 41,
-                                        Produto = new Produto{Codigo = "902795"},
-                                        QntCX = 5,
-                                        ValorUnid = 1850.00m,
-                                        ValorTotal = 9250.00m
-                                    }
-                                },
-                                {
-                                    new Item
-                                    {
-                                        ItemID = 42,
-                                        Produto = new Produto{Codigo = "902802"},
-                                        QntCX = 2,
-                                        ValorUnid = 1850.00m,
-                                        ValorTotal = 3700.00m
-                                    }
-                                },
-                                {
-                                    new Item
-                                    {
-                                        ItemID = 43,
-                                        Produto = new Produto{Codigo = "902809"},
-                                        QntCX = 5,
-                                        ValorUnid = 1850.00m,
-                                        ValorTotal = 9250.00m
-                                    }
-                                },
-                                {
-                                    new Item
-                                    {
-                                        ItemID = 44,
-                                        Produto = new Produto{Codigo = "902815"},
-                                        QntCX = 2,
-                                        ValorUnid = 1850.00m,
-                                        ValorTotal = 3700.00m
-                                    }
-                                },
-                                {
-                                    new Item
-                                    {
-                                        ItemID = 45,
-                                        Produto = new Produto{Codigo = "902817"},
-                                        QntCX = 3,
-                                        ValorUnid = 1850.00m,
-                                        ValorTotal = 5550.00m
-                                    }
-                                },
-                            }
-                        },
-                        new Pedido
-                        {
-                            PedidoID = 7,
-                            NumPedido = "0",
-                            NumPedPalm = "20160611080243",
-                            CodVendedor = 308,
-                            Pasta = "3081",
-                            ValorTotal = 292.01m,
-                            Cliente =
-                                new Cliente
-                                {
-                                    ClienteID = 7,
-                                    RegiaoCliente = 101,
-                                    NumCliente = 1537,
-                                    Razao = "ALEXANDRE BORGES GUIMARAES - M",
-                                    Sigla = "",
-                                    Rota = 0,
-                                    CNPJ = "08.297.701/0001-46",
-                                    IE = "001021.903/0090",
-                                    Situacao = ""
-                                },
-                            Items = new List<Item>
-                            {
-                                new Item
-                                {
-                                    ItemID = 46,
-                                    Produto = new Produto{Codigo = "900032"},
+                                    ItemID = 14,
+                                    Produto = new Produto {Codigo = "900320"},
                                     QntCX = 3,
-                                    ValorUnid = 1420.00m,
-                                    ValorTotal = 4260.00m
-                                },
-                                {
-                                    new Item
-                                    {
-                                        ItemID = 47,
-                                        Produto = new Produto{Codigo = "900089"},
-                                        QntCX = 3,
-                                        ValorUnid = 1830.00m,
-                                        ValorTotal = 5490.00m
-                                    }
-                                },
-                                {
-                                    new Item
-                                    {
-                                        ItemID = 48,
-                                        Produto = new Produto{Codigo = "902417"},
-                                        QntCX = 1,
-                                        ValorUnid = 1530.00m,
-                                        ValorTotal = 1530.00m
-                                    }
-                                },
-                                {
-                                    new Item
-                                    {
-                                        ItemID = 49,
-                                        Produto = new Produto{Codigo = "902430"},
-                                        QntCX = 2,
-                                        ValorUnid = 2400.00m,
-                                        ValorTotal = 4800.00m
-                                    }
-                                },
-                                {
-                                    new Item
-                                    {
-                                        ItemID = 50,
-                                        Produto = new Produto{Codigo = "902780"},
-                                        QntCX = 1,
-                                        ValorUnid = 1930.00m,
-                                        ValorTotal = 1930.00m
-                                    }
-                                },
-                                {
-                                    new Item
-                                    {
-                                        ItemID = 51,
-                                        Produto = new Produto{Codigo = "902817"},
-                                        QntCX = 2,
-                                        ValorUnid = 1930.00m,
-                                        ValorTotal = 3860.00m
-                                    }
-                                },
-                                {
-                                    new Item
-                                    {
-                                        ItemID = 52,
-                                        Produto = new Produto{Codigo = "903122"},
-                                        QntCX = 2,
-                                        ValorUnid = 2040.00m,
-                                        ValorTotal = 4080.00m
-                                    }
-                                },
-                                {
-                                    new Item
-                                    {
-                                        ItemID = 53,
-                                        Produto = new Produto{Codigo = "903189"},
-                                        QntCX = 1,
-                                        ValorUnid = 1040.00m,
-                                        ValorTotal = 1040.00m
-                                    }
-                                },
-                                {
-                                    new Item
-                                    {
-                                        ItemID = 54,
-                                        Produto = new Produto{Codigo = "903190"},
-                                        QntCX = 1,
-                                        ValorUnid = 1040.00m,
-                                        ValorTotal = 1040.00m
-                                    }
-                                },
-                                {
-                                    new Item
-                                    {
-                                        ItemID = 55,
-                                        Produto = new Produto{Codigo = "903201"},
-                                        QntCX = 1,
-                                        ValorUnid = 1040.00m,
-                                        ValorTotal = 1040.00m
-                                    }
-                                },
-                            }
-                        },
-                        new Pedido
-                        {
-                            PedidoID = 8,
-                            NumPedido = "0",
-                            NumPedPalm = "20160611073614",
-                            CodVendedor = 308,
-                            Pasta = "3081",
-                            ValorTotal = 156.00m,
-                            Cliente =
-                                new Cliente
-                                {
-                                    ClienteID = 8,
-                                    RegiaoCliente = 101,
-                                    NumCliente = 1686,
-                                    Razao = "EVANILDA GONCALVES DA SILVA",
-                                    Sigla = "",
-                                    Rota = 0,
-                                    CNPJ = "65.937.076/0000-00",
-                                    IE = "11057215",
-                                    Situacao = ""
-                                },
-                            Items = new List<Item>
+                                    ValorUnid = 1850.00m,
+                                    ValorTotal = 5550.00m
+                                }
+                            },
                             {
                                 new Item
                                 {
-                                    ItemID = 56,
-                                    Produto = new Produto{Codigo = "900032"},
+                                    ItemID = 15,
+                                    Produto = new Produto {Codigo = "900350"},
+                                    QntCX = 3,
+                                    ValorUnid = 1850.00m,
+                                    ValorTotal = 5550.00m
+                                }
+                            },
+                            {
+                                new Item
+                                {
+                                    ItemID = 16,
+                                    Produto = new Produto {Codigo = "900362"},
                                     QntCX = 1,
-                                    ValorUnid = 1420.00m,
-                                    ValorTotal = 1420.00m
-                                },
+                                    ValorUnid = 2040.00m,
+                                    ValorTotal = 2040.00m
+                                }
+                            },
+                            {
+                                new Item
                                 {
-                                    new Item
-                                    {
-                                        ItemID = 57,
-                                        Produto = new Produto{Codigo = "900362"},
-                                        QntCX = 1,
-                                        ValorUnid = 2040.00m,
-                                        ValorTotal = 2040.00m
-                                    }
-                                },
+                                    ItemID = 17,
+                                    Produto = new Produto {Codigo = "900416"},
+                                    QntCX = 50,
+                                    ValorUnid = 2130.00m,
+                                    ValorTotal = 106500.00m
+                                }
+                            },
+                            {
+                                new Item
                                 {
-                                    new Item
-                                    {
-                                        ItemID = 58,
-                                        Produto = new Produto{Codigo = "900368"},
-                                        QntCX = 1,
-                                        ValorUnid = 2040.00m,
-                                        ValorTotal = 2040.00m
-                                    }
-                                },
+                                    ItemID = 18,
+                                    Produto = new Produto {Codigo = "902410"},
+                                    QntCX = 10,
+                                    ValorUnid = 2360.00m,
+                                    ValorTotal = 23600.00m
+                                }
+                            },
+                            {
+                                new Item
                                 {
-                                    new Item
-                                    {
-                                        ItemID = 59,
-                                        Produto = new Produto{Codigo = "902372"},
-                                        QntCX = 1,
-                                        ValorUnid = 5000.00m,
-                                        ValorTotal = 5000.00m
-                                    }
-                                },
+                                    ItemID = 19,
+                                    Produto = new Produto {Codigo = "902417"},
+                                    QntCX = 2,
+                                    ValorUnid = 1629.00m,
+                                    ValorTotal = 3258.00m
+                                }
+                            },
+                            {
+                                new Item
                                 {
-                                    new Item
-                                    {
-                                        ItemID = 60,
-                                        Produto = new Produto{Codigo = "902417"},
-                                        QntCX = 2,
-                                        ValorUnid = 1530.00m,
-                                        ValorTotal = 3060.00m
-                                    }
-                                },
+                                    ItemID = 20,
+                                    Produto = new Produto {Codigo = "902430"},
+                                    QntCX = 3,
+                                    ValorUnid = 2400.00m,
+                                    ValorTotal = 7200.00m
+                                }
+                            },
+                            {
+                                new Item
                                 {
-                                    new Item
-                                    {
-                                        ItemID = 61,
-                                        Produto = new Produto{Codigo = "903122"},
-                                        QntCX = 1,
-                                        ValorUnid = 2040.00m,
-                                        ValorTotal = 2040.00m
-                                    }
-                                },
+                                    ItemID = 21,
+                                    Produto = new Produto {Codigo = "902778"},
+                                    QntCX = 3,
+                                    ValorUnid = 1850.00m,
+                                    ValorTotal = 5550.00m
+                                }
+                            },
+                            {
+                                new Item
+                                {
+                                    ItemID = 22,
+                                    Produto = new Produto {Codigo = "902780"},
+                                    QntCX = 5,
+                                    ValorUnid = 1850.00m,
+                                    ValorTotal = 9250.00m
+                                }
+                            },
+                            {
+                                new Item
+                                {
+                                    ItemID = 23,
+                                    Produto = new Produto {Codigo = "900416"},
+                                    QntCX = 10,
+                                    ValorUnid = 1850.00m,
+                                    ValorTotal = 18500.00m
+                                }
+                            },
+                            {
+                                new Item
+                                {
+                                    ItemID = 24,
+                                    Produto = new Produto {Codigo = "902802"},
+                                    QntCX = 1,
+                                    ValorUnid = 1850.00m,
+                                    ValorTotal = 1850.00m
+                                }
+                            },
+                            {
+                                new Item
+                                {
+                                    ItemID = 25,
+                                    Produto = new Produto {Codigo = "902809"},
+                                    QntCX = 10,
+                                    ValorUnid = 1850.00m,
+                                    ValorTotal = 18500.00m
+                                }
+                            },
+                            {
+                                new Item
+                                {
+                                    ItemID = 26,
+                                    Produto = new Produto {Codigo = "902815"},
+                                    QntCX = 3,
+                                    ValorUnid = 1850.00m,
+                                    ValorTotal = 5550.00m
+                                }
+                            },
+                            {
+                                new Item
+                                {
+                                    ItemID = 27,
+                                    Produto = new Produto {Codigo = "902817"},
+                                    QntCX = 5,
+                                    ValorUnid = 1850.00m,
+                                    ValorTotal = 9250.00m
+                                }
+                            },
+                        }
+                    },
+                    new Pedido
+                    {
+                        PedidoID = 4,
+                        NumPedido = "0",
+                        NumPedPalm = "20160611110832",
+                        CodVendedor = 308,
+                        Pasta = "3081",
+                        ValorTotal = 348.00m,
+                        Cliente =
+                            new Cliente
+                            {
+                                ClienteID = 4,
+                                RegiaoCliente = 101,
+                                NumCliente = 640,
+                                Razao = "JARIO ALVES DE SOUZA - ME",
+                                Sigla = "",
+                                Rota = 0,
+                                CNPJ = "11.338.187/0001-54",
+                                IE = "001500.653/0006",
+                                Situacao = ""
+                            },
+                        Items = new List<Item>
+                        {
+                            new Item
+                            {
+                                ItemID = 28,
+                                Produto = new Produto {Codigo = "900089"},
+                                QntCX = 20,
+                                ValorUnid = 1740.00m,
+                                ValorTotal = 34800.00m
                             }
+                        },
+                    },
+                    new Pedido
+                    {
+                        PedidoID = 5,
+                        NumPedido = "0",
+                        NumPedPalm = "20160611081132",
+                        CodVendedor = 308,
+                        Pasta = "3081",
+                        ValorTotal = 273.22m,
+                        Cliente =
+                            new Cliente
+                            {
+                                ClienteID = 5,
+                                RegiaoCliente = 101,
+                                NumCliente = 936,
+                                Razao = "MERCEARIA MAR E TERRA LTDA - M",
+                                Sigla = "",
+                                Rota = 0,
+                                CNPJ = "05.747.617/0001-99",
+                                IE = "333239.632/0013",
+                                Situacao = ""
+                            },
+                        Items = new List<Item>
+                        {
+                            new Item
+                            {
+                                ItemID = 29,
+                                Produto = new Produto {Codigo = "900032"},
+                                QntCX = 1,
+                                ValorUnid = 1420.00m,
+                                ValorTotal = 1420.00m
+                            },
+                            {
+                                new Item
+                                {
+                                    ItemID = 30,
+                                    Produto = new Produto {Codigo = "900089"},
+                                    QntCX = 4,
+                                    ValorUnid = 1830.00m,
+                                    ValorTotal = 7320.00m
+                                }
+                            },
+                            {
+                                new Item
+                                {
+                                    ItemID = 31,
+                                    Produto = new Produto {Codigo = "900362"},
+                                    QntCX = 1,
+                                    ValorUnid = 2040.00m,
+                                    ValorTotal = 2040.00m
+                                }
+                            },
+                            {
+                                new Item
+                                {
+                                    ItemID = 32,
+                                    Produto = new Produto {Codigo = "902410"},
+                                    QntCX = 3,
+                                    ValorUnid = 2360.00m,
+                                    ValorTotal = 7080.00m
+                                }
+                            },
+                            {
+                                new Item
+                                {
+                                    ItemID = 33,
+                                    Produto = new Produto {Codigo = "902430"},
+                                    QntCX = 1,
+                                    ValorUnid = 2400.00m,
+                                    ValorTotal = 2400.00m
+                                }
+                            },
+                            {
+                                new Item
+                                {
+                                    ItemID = 34,
+                                    Produto = new Produto {Codigo = "902817"},
+                                    QntCX = 2,
+                                    ValorUnid = 1930.00m,
+                                    ValorTotal = 3860.00m
+                                }
+                            },
+                            {
+                                new Item
+                                {
+                                    ItemID = 35,
+                                    Produto = new Produto {Codigo = "903122"},
+                                    QntCX = 1,
+                                    ValorUnid = 2040.00m,
+                                    ValorTotal = 2040.00m
+                                }
+                            },
+                            {
+                                new Item
+                                {
+                                    ItemID = 36,
+                                    Produto = new Produto {Codigo = "903190"},
+                                    QntCX = 1,
+                                    ValorUnid = 1040.00m,
+                                    ValorTotal = 1040.00m
+                                }
+                            },
+                        }
+                    },
+                    new Pedido
+                    {
+                        PedidoID = 6,
+                        NumPedido = "0",
+                        NumPedPalm = "20160611084522",
+                        CodVendedor = 308,
+                        Pasta = "3081",
+                        ValorTotal = 983.85m,
+                        Cliente =
+                            new Cliente
+                            {
+                                ClienteID = 6,
+                                RegiaoCliente = 101,
+                                NumCliente = 958,
+                                Razao = "MERCEARIA E PADARIA UNIAO LTDA",
+                                Sigla = "",
+                                Rota = 0,
+                                CNPJ = "07.033.037/0001-65",
+                                IE = "034175.800/0028",
+                                Situacao = ""
+                            },
+                        Items = new List<Item>
+                        {
+                            new Item
+                            {
+                                ItemID = 37,
+                                Produto = new Produto {Codigo = "900023"},
+                                QntCX = 1,
+                                ValorUnid = 1150.00m,
+                                ValorTotal = 1150.00m
+                            },
+                            {
+                                new Item
+                                {
+                                    ItemID = 38,
+                                    Produto = new Produto {Codigo = "900089"},
+                                    QntCX = 30,
+                                    ValorUnid = 1740.00m,
+                                    ValorTotal = 52200.00m
+                                }
+                            },
+                            {
+                                new Item
+                                {
+                                    ItemID = 39,
+                                    Produto = new Produto {Codigo = "900350"},
+                                    QntCX = 2,
+                                    ValorUnid = 1850.00m,
+                                    ValorTotal = 3700.00m
+                                }
+                            },
+                            {
+                                new Item
+                                {
+                                    ItemID = 40,
+                                    Produto = new Produto {Codigo = "902780"},
+                                    QntCX = 5,
+                                    ValorUnid = 1850.00m,
+                                    ValorTotal = 9250.00m
+                                }
+                            },
+                            {
+                                new Item
+                                {
+                                    ItemID = 41,
+                                    Produto = new Produto {Codigo = "902795"},
+                                    QntCX = 5,
+                                    ValorUnid = 1850.00m,
+                                    ValorTotal = 9250.00m
+                                }
+                            },
+                            {
+                                new Item
+                                {
+                                    ItemID = 42,
+                                    Produto = new Produto {Codigo = "902802"},
+                                    QntCX = 2,
+                                    ValorUnid = 1850.00m,
+                                    ValorTotal = 3700.00m
+                                }
+                            },
+                            {
+                                new Item
+                                {
+                                    ItemID = 43,
+                                    Produto = new Produto {Codigo = "902809"},
+                                    QntCX = 5,
+                                    ValorUnid = 1850.00m,
+                                    ValorTotal = 9250.00m
+                                }
+                            },
+                            {
+                                new Item
+                                {
+                                    ItemID = 44,
+                                    Produto = new Produto {Codigo = "902815"},
+                                    QntCX = 2,
+                                    ValorUnid = 1850.00m,
+                                    ValorTotal = 3700.00m
+                                }
+                            },
+                            {
+                                new Item
+                                {
+                                    ItemID = 45,
+                                    Produto = new Produto {Codigo = "902817"},
+                                    QntCX = 3,
+                                    ValorUnid = 1850.00m,
+                                    ValorTotal = 5550.00m
+                                }
+                            },
+                        }
+                    },
+                    new Pedido
+                    {
+                        PedidoID = 7,
+                        NumPedido = "0",
+                        NumPedPalm = "20160611080243",
+                        CodVendedor = 308,
+                        Pasta = "3081",
+                        ValorTotal = 292.01m,
+                        Cliente =
+                            new Cliente
+                            {
+                                ClienteID = 7,
+                                RegiaoCliente = 101,
+                                NumCliente = 1537,
+                                Razao = "ALEXANDRE BORGES GUIMARAES - M",
+                                Sigla = "",
+                                Rota = 0,
+                                CNPJ = "08.297.701/0001-46",
+                                IE = "001021.903/0090",
+                                Situacao = ""
+                            },
+                        Items = new List<Item>
+                        {
+                            new Item
+                            {
+                                ItemID = 46,
+                                Produto = new Produto {Codigo = "900032"},
+                                QntCX = 3,
+                                ValorUnid = 1420.00m,
+                                ValorTotal = 4260.00m
+                            },
+                            {
+                                new Item
+                                {
+                                    ItemID = 47,
+                                    Produto = new Produto {Codigo = "900089"},
+                                    QntCX = 3,
+                                    ValorUnid = 1830.00m,
+                                    ValorTotal = 5490.00m
+                                }
+                            },
+                            {
+                                new Item
+                                {
+                                    ItemID = 48,
+                                    Produto = new Produto {Codigo = "902417"},
+                                    QntCX = 1,
+                                    ValorUnid = 1530.00m,
+                                    ValorTotal = 1530.00m
+                                }
+                            },
+                            {
+                                new Item
+                                {
+                                    ItemID = 49,
+                                    Produto = new Produto {Codigo = "902430"},
+                                    QntCX = 2,
+                                    ValorUnid = 2400.00m,
+                                    ValorTotal = 4800.00m
+                                }
+                            },
+                            {
+                                new Item
+                                {
+                                    ItemID = 50,
+                                    Produto = new Produto {Codigo = "902780"},
+                                    QntCX = 1,
+                                    ValorUnid = 1930.00m,
+                                    ValorTotal = 1930.00m
+                                }
+                            },
+                            {
+                                new Item
+                                {
+                                    ItemID = 51,
+                                    Produto = new Produto {Codigo = "902817"},
+                                    QntCX = 2,
+                                    ValorUnid = 1930.00m,
+                                    ValorTotal = 3860.00m
+                                }
+                            },
+                            {
+                                new Item
+                                {
+                                    ItemID = 52,
+                                    Produto = new Produto {Codigo = "903122"},
+                                    QntCX = 2,
+                                    ValorUnid = 2040.00m,
+                                    ValorTotal = 4080.00m
+                                }
+                            },
+                            {
+                                new Item
+                                {
+                                    ItemID = 53,
+                                    Produto = new Produto {Codigo = "903189"},
+                                    QntCX = 1,
+                                    ValorUnid = 1040.00m,
+                                    ValorTotal = 1040.00m
+                                }
+                            },
+                            {
+                                new Item
+                                {
+                                    ItemID = 54,
+                                    Produto = new Produto {Codigo = "903190"},
+                                    QntCX = 1,
+                                    ValorUnid = 1040.00m,
+                                    ValorTotal = 1040.00m
+                                }
+                            },
+                            {
+                                new Item
+                                {
+                                    ItemID = 55,
+                                    Produto = new Produto {Codigo = "903201"},
+                                    QntCX = 1,
+                                    ValorUnid = 1040.00m,
+                                    ValorTotal = 1040.00m
+                                }
+                            },
+                        }
+                    },
+                    new Pedido
+                    {
+                        PedidoID = 8,
+                        NumPedido = "0",
+                        NumPedPalm = "20160611073614",
+                        CodVendedor = 308,
+                        Pasta = "3081",
+                        ValorTotal = 156.00m,
+                        Cliente =
+                            new Cliente
+                            {
+                                ClienteID = 8,
+                                RegiaoCliente = 101,
+                                NumCliente = 1686,
+                                Razao = "EVANILDA GONCALVES DA SILVA",
+                                Sigla = "",
+                                Rota = 0,
+                                CNPJ = "65.937.076/0000-00",
+                                IE = "11057215",
+                                Situacao = ""
+                            },
+                        Items = new List<Item>
+                        {
+                            new Item
+                            {
+                                ItemID = 56,
+                                Produto = new Produto {Codigo = "900032"},
+                                QntCX = 1,
+                                ValorUnid = 1420.00m,
+                                ValorTotal = 1420.00m
+                            },
+                            {
+                                new Item
+                                {
+                                    ItemID = 57,
+                                    Produto = new Produto {Codigo = "900362"},
+                                    QntCX = 1,
+                                    ValorUnid = 2040.00m,
+                                    ValorTotal = 2040.00m
+                                }
+                            },
+                            {
+                                new Item
+                                {
+                                    ItemID = 58,
+                                    Produto = new Produto {Codigo = "900368"},
+                                    QntCX = 1,
+                                    ValorUnid = 2040.00m,
+                                    ValorTotal = 2040.00m
+                                }
+                            },
+                            {
+                                new Item
+                                {
+                                    ItemID = 59,
+                                    Produto = new Produto {Codigo = "902372"},
+                                    QntCX = 1,
+                                    ValorUnid = 5000.00m,
+                                    ValorTotal = 5000.00m
+                                }
+                            },
+                            {
+                                new Item
+                                {
+                                    ItemID = 60,
+                                    Produto = new Produto {Codigo = "902417"},
+                                    QntCX = 2,
+                                    ValorUnid = 1530.00m,
+                                    ValorTotal = 3060.00m
+                                }
+                            },
+                            {
+                                new Item
+                                {
+                                    ItemID = 61,
+                                    Produto = new Produto {Codigo = "903122"},
+                                    QntCX = 1,
+                                    ValorUnid = 2040.00m,
+                                    ValorTotal = 2040.00m
+                                }
+                            },
                         }
                     }
                 }
             };
+
+            for (int i = 0; i < _regs; i++)
+            {
+                vnds.Add(vnd);
+            }
+            return vnds;
         }
 
         private Pedido GetPedido()
