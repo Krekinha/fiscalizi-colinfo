@@ -107,7 +107,7 @@
                         </MDesign:Card>
                         <Border x:Name="SelectedBorder"
                                     Opacity="0"
-                                    Background="{TemplateBinding Foreground, Converter={StaticResource BrushRoundConverter}}"
+                                    Background="{StaticResource AccentColorBrush}"
                                     RenderTransformOrigin="0.5,0.5">
                             <Border.RenderTransform>
                                 <ScaleTransform ScaleX="1"/>
@@ -115,7 +115,7 @@
                         </Border>
                         <Border x:Name="MouseOverBorder" 
                                 Opacity="0"
-                                Background="{TemplateBinding Foreground, Converter={StaticResource BrushRoundConverter}}"/>
+                                Background="{StaticResource AccentColorBrush}"/>
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup Name="CommonStates">
                                 <VisualStateGroup.Transitions>
@@ -128,8 +128,9 @@
                                 <VisualState Name="Normal"/>
                                 <VisualState Name="MouseOver">
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="MouseOverBorder" Storyboard.TargetProperty="Opacity"
-                                                             To="0.1" Duration="0"/>
+                                        <DoubleAnimation Storyboard.TargetName="MouseOverBorder" 
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="0.1" Duration="0"/>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState Name="Disabled"/>

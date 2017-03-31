@@ -63,10 +63,9 @@
                         <MDesign:PackIcon Kind="Refresh" />
                     </Button>
                     <MDesign:PopupBox 
-                        HorizontalAlignment="Right" 
                         Padding="2 0 2 0" 
                         Foreground="#FF918B8B" 
-                        Margin="89,10,0,5"
+                        Margin="130,10,0,5"
                         Width="25" Height="25">
                         <StackPanel>
                             <Button Content="More"/>
@@ -336,11 +335,11 @@
                               HeadersVisibility="Column"
                               IsSynchronizedWithCurrentItem="True" 
                               Style="{DynamicResource DatagridCustomMDesign}" 
-                              CellStyle="{DynamicResource DatagridCell_DetalhePedido}"     
-                              ColumnHeaderStyle="{StaticResource DataGridColumnHeader_DetalhePedido}"     
-                              Background="{DynamicResource AccentColorBrush}" 
+                              CellStyle="{DynamicResource DatagridCell_DetalhePedido}"
+                              ColumnHeaderStyle="{StaticResource DataGridColumnHeader_DetalhePedido}"
+                              Background="#FF2D2D30"
                               Foreground="{DynamicResource AccentSelectedColorBrush}"
-                              RowStyle="{DynamicResource DataGridRow_DetalhePedido}" 
+                              RowStyle="{DynamicResource DataGridRow_DetalhePedido}"
                               FontSize="10">
                         <DataGrid.Resources>
                             <ResourceDictionary>
