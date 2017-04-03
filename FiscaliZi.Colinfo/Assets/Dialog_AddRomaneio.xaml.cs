@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace FiscaliZi.Colinfo.Assets
 {
     /// <summary>
-    /// Interação lógica para ConfigView.xam
+    /// Interação lógica para Dialog_AddRomaneio.xam
     /// </summary>
-    public partial class ConfigView : UserControl
+    public partial class Dialog_AddRomaneio : UserControl
     {
-        public ConfigView()
+        public Dialog_AddRomaneio()
         {
             InitializeComponent();
         }

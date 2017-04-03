@@ -1,5 +1,6 @@
 using Caliburn.Micro;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 
 namespace FiscaliZi.Colinfo.Assets
 {
@@ -10,7 +11,8 @@ namespace FiscaliZi.Colinfo.Assets
             IEventAggregator events = new EventAggregator();
             EntradaVM = new EntradaViewModel(events);
             ColetaVM = new ColetaViewModel(events);
-            ConfigVM = new ConfigViewModel(events);
+            ConfigProdutosVM = new ConfigProdutosViewModel(events);
+            ConfigClientesVM = new ConfigClientesViewModel(events);
             MigrationUpdate();
         }
 
@@ -18,7 +20,9 @@ namespace FiscaliZi.Colinfo.Assets
 
         public ColetaViewModel ColetaVM { get; set; }
 
-        public ConfigViewModel ConfigVM { get; set; }
+        public ConfigProdutosViewModel ConfigProdutosVM { get; set; }
+
+        public ConfigClientesViewModel ConfigClientesVM { get; set; }
 
         private void MigrationUpdate()
         {

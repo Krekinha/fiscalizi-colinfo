@@ -273,10 +273,17 @@
       <DependentUpon>ColetaView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Assets\ColetaViewModelcs.cs" />
-    <Compile Include="Assets\ConfigView.xaml.cs">
-      <DependentUpon>ConfigView.xaml</DependentUpon>
+    <Compile Include="Assets\ConfigClientesView.xaml.cs">
+      <DependentUpon>ConfigClientesView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Assets\ConfigViewModel.cs" />
+    <Compile Include="Assets\ConfigClientesViewModel.cs" />
+    <Compile Include="Assets\ConfigProdutosView.xaml.cs">
+      <DependentUpon>ConfigProdutosView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Assets\ConfigProdutosViewModel.cs" />
+    <Compile Include="Assets\Dialog_AddRomaneio.xaml.cs">
+      <DependentUpon>Dialog_AddRomaneio.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Assets\Dialog_Consulta.xaml.cs">
       <DependentUpon>Dialog_Consulta.xaml</DependentUpon>
     </Compile>
@@ -299,6 +306,10 @@
     <Compile Include="Migrations\20170327052113_m4.cs" />
     <Compile Include="Migrations\20170327052113_m4.designer.cs">
       <DependentUpon>20170327052113_m4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20170402210836_mig6.cs" />
+    <Compile Include="Migrations\20170402210836_mig6.designer.cs">
+      <DependentUpon>20170402210836_mig6.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\ColinfoContextModelSnapshot.cs" />
     <Compile Include="Model\CadCli.cs" />
@@ -330,7 +341,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Assets\ConfigView.xaml">
+    <Page Include="Assets\ConfigClientesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\ConfigProdutosView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\Dialog_AddRomaneio.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

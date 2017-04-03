@@ -367,6 +367,7 @@ namespace FiscaliZi.Colinfo.Model
             var cnpj = (string)values[1];
             var ie = (string) values[2];
 
+            if (string.IsNullOrEmpty(cnpj)) return "???";
             var digts = Tools.SoString(cnpj);
             var idx = digts.Length - 6;
             if (digts.Substring(idx, 4) == "0000") return "ISENTO";
@@ -770,15 +771,21 @@ namespace FiscaliZi.Colinfo.Model
     {
         public static string SoString(string str)
         {
-            return str.Replace(".", "").Replace("/", "").Replace("-", "");
+            if (!string.IsNullOrEmpty(str))
+                return str.Replace(".", "").Replace("/", "").Replace("-", "");
+            return null;
         }
 
         public static bool IsCNPJ(string cnpj)
         {
-            var digts = cnpj.Replace(".", "").Replace("/", "").Replace("-", "");
-            var idx = digts.Length - 6;
+            if (!string.IsNullOrEmpty(cnpj))
+            {
+                var digts = cnpj.Replace(".", "").Replace("/", "").Replace("-", "");
+                var idx = digts.Length - 6;
 
-            return digts.Substring(idx, 4) != "0000";
+                return digts.Substring(idx, 4) != "0000";
+            }
+            return false;
         }
 
         public static Item[] RankProd(IEnumerable<Item> items)

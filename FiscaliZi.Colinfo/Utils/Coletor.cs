@@ -6,6 +6,7 @@ using System.Linq;
 using FiscaliZi.Colinfo.Assets;
 using FiscaliZi.Colinfo.Model;
 using Microsoft.EntityFrameworkCore;
+using NFe.Classes.Informacoes.Detalhe;
 
 namespace FiscaliZi.Colinfo.Utils
 {
@@ -189,6 +190,96 @@ namespace FiscaliZi.Colinfo.Utils
             return peds;
 
         }
+        public static Arquivo GetRomaneio(string path, string _rom)
+        {
+            var peds = new List<Pedido>();
+
+            var Lines = File.ReadLines(path).Select(a => a.Split(';'));
+
+            using (var context = new ColinfoContext())
+            {
+                foreach (var line in Lines)
+                {
+                    if (!IsValidPed(line, _rom)) continue;
+
+                    var prod = context.Produtos.FirstOrDefault(p => p.Codigo == line[34]);
+                    if (prod == null)
+                        prod = new Produto { Codigo = line[34] };
+
+                    var item = new Item
+                    {
+                        Produto = prod,
+                        Ocorrencia = line[53].Trim(),
+                        MotOcorrencia = line[61],
+                        NatOper = line[52],
+                        Tabela = line[35],
+                        QntCX = int.Parse(line[45]),
+                        QntUND = int.Parse(line[46]),
+                        ValorCusto = ToDecimal(line[40]),
+                        ValorUnid = ToDecimal(line[39]),
+                        ValorTotal = ToDecimal(line[37])
+                    };
+                    var ped = peds.Find(p => p.NumPedido == line[0]);
+                    var cli =
+                        context.Clientes.FirstOrDefault(
+                            x => x.RegiaoCliente == int.Parse(line[3].Split('-')[0]) && x.NumCliente == int.Parse(line[3].Split('-')[1]));
+                    if (cli == null)
+                    {
+                        cli = new Cliente
+                        {
+                            RegiaoCliente = int.Parse(line[3].Split('-')[0]),
+                            NumCliente = int.Parse(line[3].Split('-')[1])
+                        };
+                    }
+                    if (ped == null)
+                    {
+                        if (line[24] != "009")
+                            peds.Add(
+                                new Pedido
+                                {
+                                    NumPedido = line[0],
+                                    CodVendedor = int.Parse(line[6]),
+                                    DataPedido = DateTime.Parse(line[29]),
+                                    Items = new List<Item> { item },
+                                    Cliente = cli,
+                                    Pasta = line[30],
+                                    SitPed = line[24]
+                                }
+                            );
+                    }
+                    else
+                    {
+                        ped.Items.Add(item);
+                    }
+
+
+                }
+                if (peds.Count > 0)
+                {
+                    var arq = new Arquivo
+                    {
+                        NomeVendedor = $"ROMANEIO",
+                        CodVendedor = 000,
+                        ArquivoVendedor = $"ROM: {_rom}",
+                        Pedidos = new List<Pedido>(),
+                        DataEnvio = DateTime.Now,
+                        DataColeta = DateTime.Now
+                    };
+                    foreach (var item in peds)
+                    {
+                        arq.Pedidos.Add(item);
+                    }
+
+                    context.Arquivos.Add(arq);
+                    context.SaveChanges();
+                    return arq;
+                }
+            }
+
+
+            return null;
+
+        }
         public static void GetProdutos(string path)
         {
             var prods = new List<Produto>();
@@ -263,6 +354,51 @@ namespace FiscaliZi.Colinfo.Utils
             }
 
         }
+        public static void GetClientes(string path)
+        {
+            var clis = new List<Cliente>();
+
+            var Lines = File.ReadLines(path).Select(a => a.Split(';'));
+
+            using (var context = new ColinfoContext())
+            {
+                var clientes = (from line in Lines
+                                where IsValidCliente(line)
+                                select new Cliente
+                                {
+                                    RegiaoCliente = int.Parse(line[0]),
+                                    NumCliente = int.Parse(line[1]),
+                                    Razao = line[4],
+                                    CNPJ = ToCNPJ(line[2]),
+                                    IE = line[25],
+                                    Rota = int.Parse(line[31].Last().ToString()),
+                                    Situacao = CNPJVerif(line[2])
+                                }).ToList();
+                foreach (var cli in clientes)
+                {
+                    var cliOld = context.Clientes.FirstOrDefault(x => x.RegiaoCliente == cli.RegiaoCliente && x.NumCliente == cli.NumCliente);
+
+                    if (cliOld == null)
+                    {
+                        context.Clientes.Add(cli);
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        cliOld.RegiaoCliente = cli.RegiaoCliente;
+                        cliOld.NumCliente = cli.NumCliente;
+                        cliOld.Razao = cli.Razao;
+                        cliOld.CNPJ = cli.CNPJ;
+                        cliOld.IE = cli.IE;
+                        cliOld.Rota = cli.Rota;
+                        cliOld.Situacao = cli.Situacao;
+                        context.Entry(cliOld).State = EntityState.Modified;
+                        context.SaveChanges();
+                    }
+                }
+
+            }
+        }
         private static Produto GetProdutoByCode(string _code)
         {
             using (var context = new ColinfoContext())
@@ -315,7 +451,34 @@ namespace FiscaliZi.Colinfo.Utils
                 return 0;
             }
         }
+        private static string ToCNPJ(string _cnpj)
+        {
+            var cnpjUnmask = DesmascararCNPJ(_cnpj);
+            if (cnpjUnmask.Length == 15)
+            {
+                return MascararCNPJ(cnpjUnmask.Remove(0, 1));
+            }
+            return MascararCNPJ(cnpjUnmask);
+        }
+        private static bool IsValidCliente(string[] line)
+        {
+            try
+            {
+                if (line[0] == "Regiao") return false;
 
+                if (line[31] == "9500") return false;
+
+                if (line[41] == "20") return false;
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return true;
+            }
+
+        }
         private static bool IsValidPed(string[] line, DateTime dataPed)
         {
             try
@@ -330,6 +493,23 @@ namespace FiscaliZi.Colinfo.Utils
             {
                 Console.WriteLine(ex);
                 return true;
+            }
+
+        }
+        private static bool IsValidPed(string[] line, string _rom)
+        {
+            try
+            {
+                if (line[0] == "Pedido") return false;
+
+                if (!_rom.Equals(line[2])) return false;
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return false;
             }
 
         }

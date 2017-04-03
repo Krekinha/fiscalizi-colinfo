@@ -40,7 +40,9 @@ namespace FiscaliZi.Colinfo.Assets
 
             Configuracoes = CarregarConfiguracoes();
             InitializeMonitor();
-            test();
+            RomaneioNum = 2;
+            RomaneioData = DateTime.Parse("20/03/2017");
+            //test();
         }
 
         void test()
@@ -62,10 +64,10 @@ namespace FiscaliZi.Colinfo.Assets
         #region · Properties ·
 
         public ObservableCollection<Arquivo> Arquivos { get; set; }
-
         public Arquivo Arquivo { get; set; }
-
         public ConfiguracaoApp Configuracoes { get; set; }
+        public int RomaneioNum { get; set; }
+        public DateTime RomaneioData { get; set; }
         #endregion
 
         #region · Constructors ·
@@ -309,6 +311,7 @@ namespace FiscaliZi.Colinfo.Assets
 
         private static bool IsCNPJ(string cnpj)
         {
+            if (cnpj == null) return false;
             var digts = cnpj.Replace(".", "").Replace("/", "").Replace("-", "");
             var idx = digts.Length - 6;
 
@@ -346,9 +349,50 @@ namespace FiscaliZi.Colinfo.Assets
             
         }
 
+        public async void Dialog_AddRomaneio()
+        {
+            var view = new Dialog_AddRomaneio{DataContext = this};
+
+            var result = await DialogHost.Show(view, "RootDialog", ClosingEventHandler);
+
+            var path = @"F:\SOF\VDWIN\EXP\PEDIDOS.CSV";
+
+            if (Environment.MachineName == "ATAIDE-PC")
+                path = @"C:\Users\krekm\Desktop\PEDIDOS.CSV";
+
+            using (var context = new ColinfoContext())
+            {
+                var NumRom = ToRomaneio();
+
+                var rom = Coletor.GetRomaneio(path, NumRom);
+
+                if (rom != null)
+                {
+                    Application.Current.Dispatcher.Invoke(delegate
+                    {
+                        Arquivos.Add(rom);
+                    });
+                    ConsultaCadastros(rom);
+                }
+            }
+        }
+
+        public void AddRomaneio(string rom)
+        {
+            var r = rom;
+        }
         private void ClosingEventHandler(object sender, DialogClosingEventArgs eventArgs)
         {
             Console.WriteLine("You can intercept the closing event, and cancel here.");
+        }
+
+        private string ToRomaneio()
+        {
+            if (RomaneioNum > 0)
+            {
+                return $"{RomaneioData.Year}{RomaneioData.Month:00}{RomaneioData.Day:00}{RomaneioNum:000}";
+            }
+            return "";
         }
 
         #endregion

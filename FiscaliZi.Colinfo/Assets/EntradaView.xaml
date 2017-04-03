@@ -76,7 +76,9 @@
                         Margin="215,10,0,5"
                         Width="25" Height="25">
                         <StackPanel>
-                            <Button Content="More"/>
+                            <Button 
+                                Content="Add Romaneio..."
+                                cal:Message.Attach="Dialog_AddRomaneio" />
                             <Button Content="Options"/>
                         </StackPanel>
                     </MDesign:PopupBox>
