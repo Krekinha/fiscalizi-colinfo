@@ -323,6 +323,7 @@
     <Compile Include="Model\Pedido.cs" />
     <Compile Include="Model\Produto.cs" />
     <Compile Include="Model\Arquivo.cs" />
+    <Compile Include="Model\Resumo.cs" />
     <Compile Include="Model\Venda.cs" />
     <Compile Include="Utils\Coletor.cs" />
     <Compile Include="Utils\Funcoes.cs" />

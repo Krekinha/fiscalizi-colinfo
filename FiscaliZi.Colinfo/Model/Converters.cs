@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Media;
@@ -109,6 +110,19 @@ namespace FiscaliZi.Colinfo.Model
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotSupportedException();
+        }
+    }
+    public class IsVisibleListConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if ((int) value > 0) return Visibility.Visible;
+            return Visibility.Hidden;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value;
         }
     }
     public class OcorrenciaConverter : IValueConverter
@@ -257,6 +271,8 @@ namespace FiscaliZi.Colinfo.Model
             var rank2 = "?";
             if (rankedItems.Length > 1)
                 rank2 = $"{rankedItems[1]?.QntCX} {Tools.GetItemNickProd(rankedItems[1]?.Produto)}";
+
+            var resumo = new List<Resumo>();
 
             return $"{rankedItems[0].QntCX} {Tools.GetItemNickProd(rankedItems[0].Produto)}  |  {rank2}";
 

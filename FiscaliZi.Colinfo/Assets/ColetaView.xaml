@@ -24,6 +24,7 @@
         <Model:OcorrenciaConverter x:Key="OcorrenciaConverter"/>
         <Model:StringToIntConverter x:Key="StringToIntConverter"/>
         <Model:ArquivoExistColorConverter x:Key="ArquivoExistColorConverter"/>
+        <Model:IsVisibleListConverter x:Key="IsVisibleListConverter"/>
     </UserControl.Resources>
 
     <Grid>
@@ -340,7 +341,7 @@
                               Background="#FF2D2D30"
                               Foreground="{DynamicResource AccentSelectedColorBrush}"
                               RowStyle="{DynamicResource DataGridRow_DetalhePedido}"
-                              FontSize="10">
+                              FontSize="10" GridLinesVisibility="None">
                         <DataGrid.Resources>
                             <ResourceDictionary>
                                 <ResourceDictionary.MergedDictionaries>
@@ -348,6 +349,9 @@
                                 </ResourceDictionary.MergedDictionaries>
                             </ResourceDictionary>
                         </DataGrid.Resources>
+                        <DataGrid.Visibility>
+                            <Binding Converter="{StaticResource IsVisibleListConverter}" Mode="OneWay" Path="Items.Count" RelativeSource="{RelativeSource Self}"/>
+                        </DataGrid.Visibility>
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="PROD" 
                                                 Width="40"
