@@ -112,28 +112,20 @@
                                         <TextBlock Text="{Binding CodVendedor}" 
                                                FontWeight="Bold" >
                                             <TextBlock.Foreground>
-                                                <SolidColorBrush>
-                                                    <SolidColorBrush.Color>
-                                                        <MultiBinding Converter="{StaticResource ArquivoExistColorConverter}">
-                                                            <Binding Path="Pedidos"/>
-                                                            <Binding Path="Text" ElementName="txtResumo" />
-                                                        </MultiBinding>
-                                                    </SolidColorBrush.Color>
-                                                </SolidColorBrush>
+                                                <MultiBinding Converter="{StaticResource ArquivoExistColorConverter}" >
+                                                    <Binding Path="Pedidos"/>
+                                                    <Binding Path="DataContext" ElementName="txtResumo" />
+                                                </MultiBinding>
                                             </TextBlock.Foreground>
                                         </TextBlock>
                                         <TextBlock 
                                             Text="{Binding Pedidos, Converter={StaticResource RotaConverter2}}" 
                                             Margin="15,0,0,0" Width="30">
                                             <TextBlock.Foreground>
-                                                <SolidColorBrush>
-                                                    <SolidColorBrush.Color>
-                                                        <MultiBinding Converter="{StaticResource ArquivoExistColorConverter}">
-                                                            <Binding Path="Pedidos"/>
-                                                            <Binding Path="Text" ElementName="txtResumo" />
-                                                        </MultiBinding>
-                                                    </SolidColorBrush.Color>
-                                                </SolidColorBrush>
+                                                <MultiBinding Converter="{StaticResource ArquivoExistColorConverter}" >
+                                                    <Binding Path="Pedidos"/>
+                                                    <Binding Path="DataContext" ElementName="txtResumo" />
+                                                </MultiBinding>
                                             </TextBlock.Foreground>
                                         </TextBlock>
                                         <TextBlock 
@@ -141,28 +133,24 @@
                                             Margin="10,0,0,0" 
                                             Width="25">
                                             <TextBlock.Foreground>
-                                                <SolidColorBrush>
-                                                    <SolidColorBrush.Color>
-                                                        <MultiBinding Converter="{StaticResource ArquivoExistColorConverter}">
-                                                            <Binding Path="Pedidos"/>
-                                                            <Binding Path="Text" ElementName="txtResumo" />
-                                                        </MultiBinding>
-                                                    </SolidColorBrush.Color>
-                                                </SolidColorBrush>
+                                                <MultiBinding Converter="{StaticResource ArquivoExistColorConverter}">
+                                                    <Binding Path="Pedidos"/>
+                                                    <Binding Path="DataContext" ElementName="txtResumo" />
+                                                </MultiBinding>
                                             </TextBlock.Foreground>
                                         </TextBlock>
                                         <TextBlock x:Name="txtResumo" 
-                                                   Text="{Binding Converter={StaticResource ResumoVendasConverter}}"
+                                                   DataContext="{Binding Converter={StaticResource ResumoVendasConverter}}"
                                                    Margin="15,0,0,0">
+                                            <Run Text="{Binding [0].QntCX}"/>
+                                            <Run Text="{Binding [0].Sigla}"/>
+                                            <Run Text="{Binding [1].QntCX}"/>
+                                            <Run Text="{Binding [1].Sigla}"/>
                                             <TextBlock.Foreground>
-                                                <SolidColorBrush>
-                                                    <SolidColorBrush.Color>
-                                                        <MultiBinding Converter="{StaticResource ArquivoExistColorConverter}">
-                                                            <Binding Path="Pedidos"/>
-                                                            <Binding Path="Text" ElementName="txtResumo" />
-                                                        </MultiBinding>
-                                                    </SolidColorBrush.Color>
-                                                </SolidColorBrush>
+                                                <MultiBinding Converter="{StaticResource ArquivoExistColorConverter}" ConverterParameter="txtres">
+                                                    <Binding Path="Content" Mode="OneWay" RelativeSource="{RelativeSource TemplatedParent}" />
+                                                    <Binding Path="DataContext" ElementName="txtResumo" />
+                                                </MultiBinding>
                                             </TextBlock.Foreground>
                                         </TextBlock>
                                     </StackPanel>

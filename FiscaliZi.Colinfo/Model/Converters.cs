@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Media;
@@ -33,21 +34,43 @@ namespace FiscaliZi.Colinfo.Model
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            var peds = (List<Pedido>)values[0];
-            var res = (string)values[1];
-
-            if (peds == null)
+            if ((string)parameter == "txtres")
             {
-                if (!string.IsNullOrEmpty(res))
+                var peds = ((Venda) values[0]).Pedidos;
+                var res = (List<Resumo>)values[1];
+
+                if (peds == null)
                 {
-                    return Colors.DodgerBlue; 
+                    if (res != null)
+                    {
+                        return new SolidColorBrush(Colors.DodgerBlue);
+                    }
+                    return new SolidColorBrush(Colors.Red);
                 }
-                return Colors.Red;
+
+                if (peds.Count < 5)
+                    return new SolidColorBrush(Colors.Red);
+                return new SolidColorBrush(Colors.Black);
+            }
+            else
+            {
+                var peds = (List<Pedido>)values[0];
+                var res = (List<Resumo>)values[1];
+
+                if (peds == null)
+                {
+                    if (res != null)
+                    {
+                        return new SolidColorBrush(Colors.DodgerBlue);
+                    }
+                    return new SolidColorBrush(Colors.Red);
+                }
+
+                if (peds.Count < 5)
+                    return new SolidColorBrush(Colors.Red);
+                return new SolidColorBrush(Colors.Black);
             }
 
-            if (peds.Count < 5)
-                return Colors.Red;
-            return Colors.Black;
 
         }
 
@@ -249,6 +272,7 @@ namespace FiscaliZi.Colinfo.Model
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var vnd = (Venda) value;
+            var resumo = new List<Resumo>();
 
             if (vnd?.Pedidos == null)
             {
@@ -259,7 +283,16 @@ namespace FiscaliZi.Colinfo.Model
                         .FirstOrDefault(x => x.CodVendedor == vnd.CodVendedor && x.Pedidos.Count > 4);
                     if (arq != null)
                     {
-                        return $"{arq.ArquivoVendedor} ({arq.Pedidos.Count()})";
+                        resumo.Add
+                            (
+                            new Resumo
+                            {
+                                QntCX = arq.Pedidos.Count(),
+                                Sigla = arq.ArquivoVendedor
+                            }
+                        );
+                        return resumo;
+                        //return $"{arq.ArquivoVendedor} ({arq.Pedidos.Count()})";
                     }
                     return null;
                 }
@@ -272,9 +305,20 @@ namespace FiscaliZi.Colinfo.Model
             if (rankedItems.Length > 1)
                 rank2 = $"{rankedItems[1]?.QntCX} {Tools.GetItemNickProd(rankedItems[1]?.Produto)}";
 
-            var resumo = new List<Resumo>();
+            foreach (var item in rankedItems)
+            {
+                resumo.Add
+                    ( 
+                    new Resumo
+                    {
+                        QntCX = item.QntCX,
+                        Sigla = Tools.GetItemNickProd(item.Produto)
+                    }
+                    );
+            }
 
-            return $"{rankedItems[0].QntCX} {Tools.GetItemNickProd(rankedItems[0].Produto)}  |  {rank2}";
+            return resumo;
+            //return $"{rankedItems[0].QntCX} {Tools.GetItemNickProd(rankedItems[0].Produto)}  |  {rank2}";
 
         }
 
