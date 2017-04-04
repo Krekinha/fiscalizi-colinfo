@@ -112,8 +112,8 @@
                                         <TextBlock Text="{Binding CodVendedor}" 
                                                FontWeight="Bold" >
                                             <TextBlock.Foreground>
-                                                <MultiBinding Converter="{StaticResource ArquivoExistColorConverter}" >
-                                                    <Binding Path="Pedidos"/>
+                                                <MultiBinding Converter="{StaticResource ArquivoExistColorConverter}">
+                                                    <Binding Path="Text" ElementName="txtPeds"/>
                                                     <Binding Path="DataContext" ElementName="txtResumo" />
                                                 </MultiBinding>
                                             </TextBlock.Foreground>
@@ -122,19 +122,20 @@
                                             Text="{Binding Pedidos, Converter={StaticResource RotaConverter2}}" 
                                             Margin="15,0,0,0" Width="30">
                                             <TextBlock.Foreground>
-                                                <MultiBinding Converter="{StaticResource ArquivoExistColorConverter}" >
-                                                    <Binding Path="Pedidos"/>
+                                                <MultiBinding Converter="{StaticResource ArquivoExistColorConverter}">
+                                                    <Binding Path="Text" ElementName="txtPeds"/>
                                                     <Binding Path="DataContext" ElementName="txtResumo" />
                                                 </MultiBinding>
                                             </TextBlock.Foreground>
                                         </TextBlock>
                                         <TextBlock 
+                                            x:Name="txtPeds"
                                             Text="{Binding Pedidos.Count}" 
                                             Margin="10,0,0,0" 
                                             Width="25">
                                             <TextBlock.Foreground>
                                                 <MultiBinding Converter="{StaticResource ArquivoExistColorConverter}">
-                                                    <Binding Path="Pedidos"/>
+                                                    <Binding Path="Text" ElementName="txtPeds"/>
                                                     <Binding Path="DataContext" ElementName="txtResumo" />
                                                 </MultiBinding>
                                             </TextBlock.Foreground>
@@ -148,7 +149,7 @@
                                             <Run Text="{Binding [1].Sigla}"/>
                                             <TextBlock.Foreground>
                                                 <MultiBinding Converter="{StaticResource ArquivoExistColorConverter}" ConverterParameter="txtres">
-                                                    <Binding Path="Content" Mode="OneWay" RelativeSource="{RelativeSource TemplatedParent}" />
+                                                    <Binding Path="Text" ElementName="txtPeds"/>
                                                     <Binding Path="DataContext" ElementName="txtResumo" />
                                                 </MultiBinding>
                                             </TextBlock.Foreground>

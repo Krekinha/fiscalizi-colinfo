@@ -34,44 +34,21 @@ namespace FiscaliZi.Colinfo.Model
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if ((string)parameter == "txtres")
+            var peds = (string)values[0];
+            var res = (List<Resumo>)values[1];
+
+            if (string.IsNullOrEmpty(peds))
             {
-                var peds = ((Venda) values[0]).Pedidos;
-                var res = (List<Resumo>)values[1];
-
-                if (peds == null)
+                if (res != null)
                 {
-                    if (res != null)
-                    {
-                        return new SolidColorBrush(Colors.DodgerBlue);
-                    }
-                    return new SolidColorBrush(Colors.Red);
+                    return new SolidColorBrush(Colors.DodgerBlue);
                 }
-
-                if (peds.Count < 5)
-                    return new SolidColorBrush(Colors.Red);
-                return new SolidColorBrush(Colors.Black);
-            }
-            else
-            {
-                var peds = (List<Pedido>)values[0];
-                var res = (List<Resumo>)values[1];
-
-                if (peds == null)
-                {
-                    if (res != null)
-                    {
-                        return new SolidColorBrush(Colors.DodgerBlue);
-                    }
-                    return new SolidColorBrush(Colors.Red);
-                }
-
-                if (peds.Count < 5)
-                    return new SolidColorBrush(Colors.Red);
-                return new SolidColorBrush(Colors.Black);
+                return new SolidColorBrush(Colors.Red);
             }
 
-
+            if (int.Parse(peds) < 5)
+                return new SolidColorBrush(Colors.Red);
+            return new SolidColorBrush(Colors.Black);
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)

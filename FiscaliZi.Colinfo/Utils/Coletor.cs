@@ -290,10 +290,6 @@ namespace FiscaliZi.Colinfo.Utils
             {
                 foreach (var line in Lines)
                 {
-                    if (line[2] == "0000902817")
-                    {
-                        var AVISO = "NOW";
-                    }
                     if (!IsValidProduto(line)) continue;
 
                     var prod = context.Produtos.FirstOrDefault(p => p.Codigo == line[2]);

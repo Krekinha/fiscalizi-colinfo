@@ -45,22 +45,6 @@ namespace FiscaliZi.Colinfo.Assets
             //test();
         }
 
-        void test()
-        {
-            var peds = new List<Pedido>();
-            foreach (var vnd in Arquivos)
-            {
-                foreach (var ped in vnd.Pedidos)
-                {
-                    if (ped?.Cliente?.RetConsultaCadastro?.infCons?.infCad?.Count > 0)
-                    {
-                        peds.Add(ped);
-                    }
-                }
-            }
-            var ic = 0;
-        }
-
         #region · Properties ·
 
         public ObservableCollection<Arquivo> Arquivos { get; set; }
@@ -214,7 +198,7 @@ namespace FiscaliZi.Colinfo.Assets
                     };
                     EditarPedido(ped, consulta);
                 }
-                catch (DbUpdateException ex)
+                catch (DbUpdateException)
                 {
                     throw;
                 }
