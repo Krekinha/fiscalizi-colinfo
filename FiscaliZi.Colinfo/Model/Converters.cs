@@ -35,11 +35,11 @@ namespace FiscaliZi.Colinfo.Model
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             var peds = (string)values[0];
-            var res = (List<Resumo>)values[1];
+            var res = (string)values[1];
 
             if (string.IsNullOrEmpty(peds))
             {
-                if (res != null)
+                if (!string.IsNullOrEmpty(res))
                 {
                     return new SolidColorBrush(Colors.DodgerBlue);
                 }

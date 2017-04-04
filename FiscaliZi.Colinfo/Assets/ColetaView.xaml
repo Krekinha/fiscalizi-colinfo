@@ -114,7 +114,7 @@
                                             <TextBlock.Foreground>
                                                 <MultiBinding Converter="{StaticResource ArquivoExistColorConverter}">
                                                     <Binding Path="Text" ElementName="txtPeds"/>
-                                                    <Binding Path="DataContext" ElementName="txtResumo" />
+                                                    <Binding Path="Text" ElementName="txtResSigla1" />
                                                 </MultiBinding>
                                             </TextBlock.Foreground>
                                         </TextBlock>
@@ -124,7 +124,7 @@
                                             <TextBlock.Foreground>
                                                 <MultiBinding Converter="{StaticResource ArquivoExistColorConverter}">
                                                     <Binding Path="Text" ElementName="txtPeds"/>
-                                                    <Binding Path="DataContext" ElementName="txtResumo" />
+                                                    <Binding Path="Text" ElementName="txtResSigla1" />
                                                 </MultiBinding>
                                             </TextBlock.Foreground>
                                         </TextBlock>
@@ -136,7 +136,7 @@
                                             <TextBlock.Foreground>
                                                 <MultiBinding Converter="{StaticResource ArquivoExistColorConverter}">
                                                     <Binding Path="Text" ElementName="txtPeds"/>
-                                                    <Binding Path="DataContext" ElementName="txtResumo" />
+                                                    <Binding Path="Text" ElementName="txtResSigla1" />
                                                 </MultiBinding>
                                             </TextBlock.Foreground>
                                         </TextBlock>
@@ -144,13 +144,13 @@
                                                    DataContext="{Binding Converter={StaticResource ResumoVendasConverter}}"
                                                    Margin="15,0,0,0">
                                             <Run Text="{Binding [0].QntCX}"/>
-                                            <Run Text="{Binding [0].Sigla}"/>
+                                            <Run x:Name="txtResSigla1" Text="{Binding [0].Sigla}"/>
                                             <Run Text="{Binding [1].QntCX}"/>
                                             <Run Text="{Binding [1].Sigla}"/>
                                             <TextBlock.Foreground>
                                                 <MultiBinding Converter="{StaticResource ArquivoExistColorConverter}" ConverterParameter="txtres">
                                                     <Binding Path="Text" ElementName="txtPeds"/>
-                                                    <Binding Path="DataContext" ElementName="txtResumo" />
+                                                    <Binding Path="Text" ElementName="txtResSigla1" />
                                                 </MultiBinding>
                                             </TextBlock.Foreground>
                                         </TextBlock>
