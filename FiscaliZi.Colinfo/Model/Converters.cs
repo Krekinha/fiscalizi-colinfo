@@ -112,12 +112,38 @@ namespace FiscaliZi.Colinfo.Model
             throw new NotSupportedException();
         }
     }
+    public class IsVisibleColunaVendedorConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if ((int)value == 333) return Visibility.Visible;
+            return Visibility.Hidden;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value;
+        }
+    }
     public class IsVisibleListConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if ((int) value > 0) return Visibility.Visible;
             return Visibility.Hidden;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value;
+        }
+    }
+    public class NullatorCodVendedorConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if ((int)value == 0) return null;
+            return value;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -308,14 +334,17 @@ namespace FiscaliZi.Colinfo.Model
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var items = (ICollection<Pedido>) value;
+            var arq = (Arquivo) value;
+            if (arq?.NomeVendedor == "ROMANEIO") return null;
+
+            var items = arq?.Pedidos;
             if (items == null) return "";
             if (items.Count == 0) return "";
 
             var total = items.Cast<Pedido>().Select(p => p.Cliente.Rota).Distinct();
 
             var Trota = total.Aggregate("", (current, rota) => current + (rota + ", "));
-            return Trota?.Remove(Trota.LastIndexOf(','));
+            return $"({Trota?.Remove(Trota.LastIndexOf(','))})";
 
         }
 

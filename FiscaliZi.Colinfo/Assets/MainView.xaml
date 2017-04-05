@@ -43,12 +43,12 @@
                     <Assets:EntradaView cal:View.Model="{Binding EntradaVM}" Margin="8"/>
                 </TabItem>
                 <TabItem Header="COLETA">
-                    <Assets:ColetaView cal:View.Model="{Binding ColetaVM}" Margin="8"/>
+                    <Assets:ColetaView cal:View.Model="{Binding ColetaVM}" Margin="8" DataContext="{Binding ColetaVM}"/>
                 </TabItem>
                 <TabItem Header="OPÇÕES">
                 <dragablz:TabablzControl FixedHeaderCount="2"  >
                         <TabItem Header="Produtos">
-                            <Assets:ConfigProdutosView cal:View.Model="{Binding ConfigVM}" Margin="8"/>
+                            <Assets:ConfigProdutosView cal:View.Model="{Binding ConfigProdutosVM}" Margin="8"/>
                         </TabItem>
                         <TabItem Header="Clientes">
                             <Assets:ConfigClientesView cal:View.Model="{Binding ConfigClientesVM}" Margin="8"/>

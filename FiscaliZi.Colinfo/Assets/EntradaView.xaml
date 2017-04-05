@@ -19,20 +19,16 @@
     <UserControl.Resources>
         <Model:TotalValPedsConverter x:Key="TotalValPedsConverter" />
         <Model:IsCNPJConverter x:Key="IsCnpjConverter"/>
-        <Model:TotalPedsConverter x:Key="TotalPedsConverter" />
-        <Model:ColetadosConverter x:Key="ColetadosConverter" />
         <Model:SitCadastroClienteConverter x:Key="SitCadastroClienteConverter" />
-        <Model:RejeicoesCNPJConverter x:Key="RejeicoesCNPJConverter" />
-        <Model:Total_RejeicoesCNPJConverter x:Key="Total_RejeicoesCNPJConverter" />
-        <Model:Total_FormPgtConverter x:Key="Total_FormPgtConverter" />
         <Model:RotaConverter x:Key="RotaConverter" />
         <Model:SimplificaNomeVendedorConverter x:Key="SimplificaNomeVendedorConverter" />
         <Model:SituacaoCNPJColorConverter x:Key="SituacaoCNPJColorConverter" />
         <Model:SituacaoCNPJIconConverter x:Key="SituacaoCNPJIconConverter" />
-        <Model:CurrentAccentColorConverter x:Key="CurrentAccentColorConverter" />
         <Model:SituacaoCNPJIconVendConverter x:Key="SituacaoCnpjIconVendConverter"/>
         <Model:ShowConsultaConverter x:Key="ShowConsultaConverter" />
         <Model:SituacaoCNPJIconVendBackgroundConverter x:Key="SituacaoCNPJIconVendBackgroundConverter"/>
+        <Model:IsVisibleColunaVendedorConverter x:Key="IsVisibleColunaVendedorConverter"/>
+        <Model:NullatorCodVendedorConverter x:Key="NullatorCodVendedorConverter"/>
     </UserControl.Resources>
     
     <Grid >
@@ -117,10 +113,10 @@
                                     <TextBlock 
                                         FontWeight="Bold" Grid.Column="1" Grid.Row="0" Width="Auto" Margin="3,3,0,0" FontSize="10.5" >
                                         <TextBlock.Text>
-                                            <MultiBinding StringFormat="{}{0} ({1}) {2}">
-                                                <Binding Path="CodVendedor"/>
-                                                <Binding Path="Pedidos" Converter="{StaticResource RotaConverter}" />
-                                                <Binding Path="NomeVendedor" Converter="{StaticResource SimplificaNomeVendedorConverter}"/>
+                                            <MultiBinding StringFormat="{}{0} {1} {2}">
+                                                <Binding Path="CodVendedor" Converter="{StaticResource NullatorCodVendedorConverter}"/>
+                                                <Binding Converter="{StaticResource RotaConverter}" />
+                                                <Binding x:Name="txtNomeVendedor" Path="NomeVendedor" Converter="{StaticResource SimplificaNomeVendedorConverter}"/>
                                             </MultiBinding>
                                         </TextBlock.Text>
                                     </TextBlock>
@@ -169,6 +165,11 @@
                 <DataGridTextColumn 
                     Header="ROTA" 
                     Binding="{Binding Cliente.Rota}"                                         
+                    CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}"
+                    CanUserResize="False" />
+                <DataGridTextColumn 
+                    Header="VEND" 
+                    Binding="{Binding CodVendedor}"                                         
                     CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}"
                     CanUserResize="False" />
                 <DataGridTextColumn Header="CLIENTE" 

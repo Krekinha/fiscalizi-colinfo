@@ -22,7 +22,7 @@
                     Orientation="Vertical"
                     Margin="0 16 0 0">
             <TextBlock Text="DADOS DA CONSULTA" FontWeight="Bold" Margin="0,0,0,10" />
-            <TextBlock Text="{Binding Cliente.Razao}" FontSize="10.667" />
+            <TextBlock x:Name="txtdialogconsulta" Text="{Binding Cliente.Razao}" FontSize="10.667" />
             <TextBlock>
                 <Run Text="CNPJ: " FontWeight="Bold" FontSize="10.667"/>
                 <Run Text="{Binding Cliente.CNPJ}" FontSize="10.667"/>

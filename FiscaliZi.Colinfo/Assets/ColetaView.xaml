@@ -102,8 +102,10 @@
                           Grid.Column="0" 
                           Grid.Row="2"
                           ItemsSource="{Binding Vendas}" 
-                          IsSynchronizedWithCurrentItem="True" 
-                         Style="{DynamicResource ListBox_Vendas}" ItemContainerStyle="{StaticResource ListBoxItem_Vendas}" Margin="5,0">
+                         Style="{DynamicResource ListBox_Vendas}" 
+                         ItemContainerStyle="{StaticResource ListBoxItem_Vendas}"
+                         IsSynchronizedWithCurrentItem="True"
+                         Margin="5,0">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Border x:Name="brResumo" Height="25">
@@ -227,7 +229,7 @@
                                     </MultiBinding>
                                 </DataGridTextColumn.Binding>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Header="R. SOCIAL" 
+                            <DataGridTextColumn x:Name="txttestecoletav" Header="R. SOCIAL" 
                                 Binding="{Binding Cliente.Razao}" 
                                 CanUserResize="False" 
                                 Width="200" />

@@ -259,7 +259,6 @@ namespace FiscaliZi.Colinfo.Utils
                     var arq = new Arquivo
                     {
                         NomeVendedor = $"ROMANEIO",
-                        CodVendedor = 000,
                         ArquivoVendedor = $"ROM: {_rom}",
                         Pedidos = new List<Pedido>(),
                         DataEnvio = DateTime.Now,
