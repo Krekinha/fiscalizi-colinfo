@@ -848,7 +848,7 @@ namespace FiscaliZi.Colinfo.Model
                             RegiaoCliente = 101,
                             NumCliente = 28,
                             Razao = "SILVIO BATISTA ALVES - ME",
-                            Sigla = "",
+                            Sigla = "SUP. AVENIDA",
                             Rota = 1,
                             CNPJ = "64.436.249/0001-27",
                             IE = "333647.589/0096",

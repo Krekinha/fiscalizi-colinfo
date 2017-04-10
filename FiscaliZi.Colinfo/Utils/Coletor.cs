@@ -30,6 +30,7 @@ namespace FiscaliZi.Colinfo.Utils
                         RegiaoCliente = int.Parse(line[1]),
                         NumCliente = int.Parse(line[2]),
                         Razao = line[3],
+                        Sigla = line[4],
                         CNPJ = MascararCNPJ(line[15]),
                         IE = line[17],
                         Rota = int.Parse(line[41]),
@@ -53,6 +54,7 @@ namespace FiscaliZi.Colinfo.Utils
                                     cli_context.RegiaoCliente = cli.RegiaoCliente;
                                     cli_context.NumCliente = cli.NumCliente;
                                     cli_context.Razao = cli.Razao;
+                                    cli_context.Sigla = cli.Sigla;
                                     cli_context.CNPJ = cli.CNPJ;
                                     cli_context.IE = cli.IE;
                                     cli_context.Rota = cli.Rota;
@@ -363,6 +365,7 @@ namespace FiscaliZi.Colinfo.Utils
                                 {
                                     RegiaoCliente = int.Parse(line[0]),
                                     NumCliente = int.Parse(line[1]),
+                                    Sigla = line[3],
                                     Razao = line[4],
                                     CNPJ = ToCNPJ(line[2]),
                                     IE = line[25],

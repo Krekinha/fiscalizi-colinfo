@@ -316,6 +316,21 @@
                           BorderThickness="0">
                 <Grid x:Name="grdPEDS1" 
                       DataContext="{Binding Vendas/Pedidos}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <StackPanel>
+                        <TextBlock 
+                            Foreground="{DynamicResource AccentSelectedColorBrush}">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat=" {0} ( {1} )">
+                                    <Binding Path="Cliente.Razao"/>
+                                    <Binding Path="Cliente.Sigla"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </StackPanel>
                     <DataGrid x:Name="dgDetalhePedido"
                               ItemsSource="{Binding Items}" 
                               AutoGenerateColumns="False" 
@@ -333,7 +348,7 @@
                               Background="#FF2D2D30"
                               Foreground="{DynamicResource AccentSelectedColorBrush}"
                               RowStyle="{DynamicResource DataGridRow_DetalhePedido}"
-                              FontSize="10" GridLinesVisibility="None">
+                              FontSize="10" GridLinesVisibility="None" Grid.Row="1">
                         <DataGrid.Resources>
                             <ResourceDictionary>
                                 <ResourceDictionary.MergedDictionaries>
