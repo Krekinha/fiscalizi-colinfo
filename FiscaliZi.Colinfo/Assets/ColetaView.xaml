@@ -25,6 +25,7 @@
         <Model:StringToIntConverter x:Key="StringToIntConverter"/>
         <Model:ArquivoExistColorConverter x:Key="ArquivoExistColorConverter"/>
         <Model:IsVisibleListConverter x:Key="IsVisibleListConverter"/>
+        <Model:EnderecoConverter x:Key="EnderecoConverter"/>
     </UserControl.Resources>
 
     <Grid>
@@ -317,10 +318,10 @@
                 <Grid x:Name="grdPEDS1" 
                       DataContext="{Binding Vendas/Pedidos}">
                     <Grid.RowDefinitions>
-                        <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <StackPanel>
+                    <StackPanel Margin="0,0,0,10">
                         <TextBlock 
                             Foreground="{DynamicResource AccentSelectedColorBrush}">
                             <TextBlock.Text>
@@ -330,25 +331,30 @@
                                 </MultiBinding>
                             </TextBlock.Text>
                         </TextBlock>
+                        <TextBlock
+                            Foreground="{DynamicResource AccentSelectedColorBrush}"
+                            Text="{Binding Cliente.Endereco, Converter={StaticResource EnderecoConverter}}"/>
                     </StackPanel>
                     <DataGrid x:Name="dgDetalhePedido"
-                              ItemsSource="{Binding Items}" 
-                              AutoGenerateColumns="False" 
-                              CanUserAddRows="False" 
-                              CanUserResizeColumns="False" 
-                              CanUserReorderColumns="False" 
-                              CanUserDeleteRows="False" 
-                              CanUserResizeRows="False" 
-                              IsReadOnly="True" 
+                              ItemsSource="{Binding Items}"
+                              AutoGenerateColumns="False"
+                              CanUserAddRows="False"
+                              CanUserResizeColumns="False"
+                              CanUserReorderColumns="False"
+                              CanUserDeleteRows="False"
+                              CanUserResizeRows="False"
+                              IsReadOnly="True"
                               HeadersVisibility="Column"
-                              IsSynchronizedWithCurrentItem="True" 
-                              Style="{DynamicResource DatagridCustomMDesign}" 
+                              IsSynchronizedWithCurrentItem="True"
+                              Style="{DynamicResource DatagridCustomMDesign}"
                               CellStyle="{DynamicResource DatagridCell_DetalhePedido}"
                               ColumnHeaderStyle="{StaticResource DataGridColumnHeader_DetalhePedido}"
                               Background="#FF2D2D30"
                               Foreground="{DynamicResource AccentSelectedColorBrush}"
                               RowStyle="{DynamicResource DataGridRow_DetalhePedido}"
-                              FontSize="10" GridLinesVisibility="None" Grid.Row="1">
+                              FontSize="10"
+                              GridLinesVisibility="None"
+                              Grid.Row="1">
                         <DataGrid.Resources>
                             <ResourceDictionary>
                                 <ResourceDictionary.MergedDictionaries>

@@ -8,7 +8,7 @@ using FiscaliZi.Colinfo;
 namespace FiscaliZi.Colinfo.Migrations
 {
     [DbContext(typeof(ColinfoContext))]
-    [Migration("20170322172947_mig-2")]
+    [Migration("20170412033648_mig2")]
     partial class mig2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,6 +44,8 @@ namespace FiscaliZi.Colinfo.Migrations
 
                     b.Property<string>("CNPJ");
 
+                    b.Property<int?>("EnderecoenderID");
+
                     b.Property<string>("IE");
 
                     b.Property<int>("NumCliente");
@@ -59,6 +61,8 @@ namespace FiscaliZi.Colinfo.Migrations
                     b.Property<string>("Situacao");
 
                     b.HasKey("ClienteID");
+
+                    b.HasIndex("EnderecoenderID");
 
                     b.ToTable("Clientes");
                 });
@@ -81,6 +85,10 @@ namespace FiscaliZi.Colinfo.Migrations
                     b.Property<string>("xLgr");
 
                     b.Property<string>("xMun");
+
+                    b.Property<string>("xPrepLgr");
+
+                    b.Property<string>("xTPLgr");
 
                     b.HasKey("enderID");
 
@@ -185,6 +193,8 @@ namespace FiscaliZi.Colinfo.Migrations
 
                     b.Property<string>("MotOcorrencia");
 
+                    b.Property<string>("NatOper");
+
                     b.Property<string>("Ocorrencia");
 
                     b.Property<int>("PedidoID");
@@ -194,6 +204,8 @@ namespace FiscaliZi.Colinfo.Migrations
                     b.Property<int>("QntCX");
 
                     b.Property<int>("QntUND");
+
+                    b.Property<string>("Tabela");
 
                     b.Property<decimal>("ValorCusto");
 
@@ -307,6 +319,13 @@ namespace FiscaliZi.Colinfo.Migrations
                     b.HasKey("VendaID");
 
                     b.ToTable("Vendas");
+                });
+
+            modelBuilder.Entity("FiscaliZi.Colinfo.Model.Cliente", b =>
+                {
+                    b.HasOne("FiscaliZi.Colinfo.Model.ender", "Endereco")
+                        .WithMany()
+                        .HasForeignKey("EnderecoenderID");
                 });
 
             modelBuilder.Entity("FiscaliZi.Colinfo.Model.ender", b =>

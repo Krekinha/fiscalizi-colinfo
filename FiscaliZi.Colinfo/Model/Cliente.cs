@@ -20,6 +20,7 @@ namespace FiscaliZi.Colinfo.Model
         public string Sigla { get; set; }
         public Info Info { get; set; }
         public retConsCad RetConsultaCadastro { get; set; }
+        public Endereco Endereco { get; set; }
         #endregion
 
         #region Navigation Properties

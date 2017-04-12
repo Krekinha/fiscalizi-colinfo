@@ -8,9 +8,10 @@ using FiscaliZi.Colinfo;
 namespace FiscaliZi.Colinfo.Migrations
 {
     [DbContext(typeof(ColinfoContext))]
-    partial class ColinfoContextModelSnapshot : ModelSnapshot
+    [Migration("20170412040624_mig3")]
+    partial class mig3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
@@ -43,7 +44,7 @@ namespace FiscaliZi.Colinfo.Migrations
 
                     b.Property<string>("CNPJ");
 
-                    b.Property<int?>("EnderecoID");
+                    b.Property<int?>("EnderecoenderID");
 
                     b.Property<string>("IE");
 
@@ -61,7 +62,7 @@ namespace FiscaliZi.Colinfo.Migrations
 
                     b.HasKey("ClienteID");
 
-                    b.HasIndex("EnderecoID");
+                    b.HasIndex("EnderecoenderID");
 
                     b.ToTable("Clientes");
                 });
@@ -95,34 +96,6 @@ namespace FiscaliZi.Colinfo.Migrations
                         .IsUnique();
 
                     b.ToTable("ender");
-                });
-
-            modelBuilder.Entity("FiscaliZi.Colinfo.Model.Endereco", b =>
-                {
-                    b.Property<int>("EnderecoID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("CEP");
-
-                    b.Property<string>("cMun");
-
-                    b.Property<int>("infCadID");
-
-                    b.Property<string>("nro");
-
-                    b.Property<string>("xBairro");
-
-                    b.Property<string>("xLgr");
-
-                    b.Property<string>("xMun");
-
-                    b.Property<string>("xPrepLgr");
-
-                    b.Property<string>("xTPLgr");
-
-                    b.HasKey("EnderecoID");
-
-                    b.ToTable("Endereco");
                 });
 
             modelBuilder.Entity("FiscaliZi.Colinfo.Model.infCad", b =>
@@ -350,9 +323,9 @@ namespace FiscaliZi.Colinfo.Migrations
 
             modelBuilder.Entity("FiscaliZi.Colinfo.Model.Cliente", b =>
                 {
-                    b.HasOne("FiscaliZi.Colinfo.Model.Endereco", "Endereco")
+                    b.HasOne("FiscaliZi.Colinfo.Model.ender", "Endereco")
                         .WithMany()
-                        .HasForeignKey("EnderecoID");
+                        .HasForeignKey("EnderecoenderID");
                 });
 
             modelBuilder.Entity("FiscaliZi.Colinfo.Model.ender", b =>

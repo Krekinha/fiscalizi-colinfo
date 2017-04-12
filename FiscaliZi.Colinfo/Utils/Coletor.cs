@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Xml;
 using FiscaliZi.Colinfo.Assets;
 using FiscaliZi.Colinfo.Model;
 using Microsoft.EntityFrameworkCore;
@@ -338,7 +339,9 @@ namespace FiscaliZi.Colinfo.Utils
             var cz = code.Split('-');
             using (var context = new ColinfoContext())
             {
-                var cli = context.Clientes.FirstOrDefault(cl => cl.RegiaoCliente == int.Parse(cz[0]) && cl.NumCliente == int.Parse(cz[1]));
+                var cli = context.Clientes
+                    .Include(x => x.Endereco)
+                    .FirstOrDefault(cl => cl.RegiaoCliente == int.Parse(cz[0]) && cl.NumCliente == int.Parse(cz[1]));
                 if (cli == null)
                 {
                     return new Cliente
@@ -370,7 +373,18 @@ namespace FiscaliZi.Colinfo.Utils
                                     CNPJ = ToCNPJ(line[2]),
                                     IE = line[25],
                                     Rota = int.Parse(line[31].Last().ToString()),
-                                    Situacao = CNPJVerif(line[2])
+                                    Situacao = CNPJVerif(line[2]),
+                                    Endereco = new Endereco
+                                    {
+                                        xTPLgr = line[45],
+                                        xPrepLgr = line[46],
+                                        xLgr = line[48],
+                                        nro = line[49],
+                                        xMun = line[51],
+                                        xBairro = line[52],
+                                        cMun = line[53],
+                                        CEP = line[54]
+    }
                                 }).ToList();
                 foreach (var cli in clientes)
                 {
@@ -390,6 +404,7 @@ namespace FiscaliZi.Colinfo.Utils
                         cliOld.IE = cli.IE;
                         cliOld.Rota = cli.Rota;
                         cliOld.Situacao = cli.Situacao;
+                        cliOld.Endereco = cli.Endereco;
                         context.Entry(cliOld).State = EntityState.Modified;
                         context.SaveChanges();
                     }

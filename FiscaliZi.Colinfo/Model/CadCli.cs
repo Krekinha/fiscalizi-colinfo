@@ -102,6 +102,10 @@ namespace FiscaliZi.Colinfo.Model
         [Key]
         public int enderID { get; set; }
         [XmlElement]
+        public string xPrepLgr { get; set; }
+        [XmlElement]
+        public string xTPLgr { get; set; }
+        [XmlElement]
         public string xLgr { get; set; }
         [XmlElement]
         public string nro { get; set; }
@@ -113,6 +117,7 @@ namespace FiscaliZi.Colinfo.Model
         public string xMun { get; set; }
         [XmlElement]
         public string CEP { get; set; }
+
         public int infCadID { get; set; }
         #endregion
     }

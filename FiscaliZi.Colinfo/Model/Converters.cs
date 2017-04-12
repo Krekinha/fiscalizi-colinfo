@@ -87,6 +87,31 @@ namespace FiscaliZi.Colinfo.Model
             return value;
         }
     }
+    public class EnderecoConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var end = (Endereco)value;
+            string prep = null;
+
+            if (end != null)
+            {
+                var tpLgr = end.xTPLgr.Replace("|", "");
+
+                if (!string.IsNullOrEmpty(end.xPrepLgr)) prep = $" {end.xPrepLgr} ";
+                return $"{tpLgr}{prep}{end.xLgr}, {end.nro} - {end.xBairro} - {end.CEP}";
+
+            }
+
+            return null;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value;
+        }
+
+    }
     public class FormatIEConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

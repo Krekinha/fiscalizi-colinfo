@@ -8,8 +8,8 @@ using FiscaliZi.Colinfo;
 namespace FiscaliZi.Colinfo.Migrations
 {
     [DbContext(typeof(ColinfoContext))]
-    [Migration("20170402210836_mig6")]
-    partial class mig6
+    [Migration("20170412041351_mig4")]
+    partial class mig4
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -44,6 +44,8 @@ namespace FiscaliZi.Colinfo.Migrations
 
                     b.Property<string>("CNPJ");
 
+                    b.Property<int?>("EnderecoenderID");
+
                     b.Property<string>("IE");
 
                     b.Property<int>("NumCliente");
@@ -60,6 +62,8 @@ namespace FiscaliZi.Colinfo.Migrations
 
                     b.HasKey("ClienteID");
 
+                    b.HasIndex("EnderecoenderID");
+
                     b.ToTable("Clientes");
                 });
 
@@ -72,8 +76,6 @@ namespace FiscaliZi.Colinfo.Migrations
 
                     b.Property<string>("cMun");
 
-                    b.Property<int>("infCadID");
-
                     b.Property<string>("nro");
 
                     b.Property<string>("xBairro");
@@ -82,10 +84,11 @@ namespace FiscaliZi.Colinfo.Migrations
 
                     b.Property<string>("xMun");
 
-                    b.HasKey("enderID");
+                    b.Property<string>("xPrepLgr");
 
-                    b.HasIndex("infCadID")
-                        .IsUnique();
+                    b.Property<string>("xTPLgr");
+
+                    b.HasKey("enderID");
 
                     b.ToTable("ender");
                 });
@@ -113,6 +116,8 @@ namespace FiscaliZi.Colinfo.Migrations
 
                     b.Property<string>("dIniAtiv");
 
+                    b.Property<int?>("enderID");
+
                     b.Property<string>("indCredCTe");
 
                     b.Property<string>("indCredNFe");
@@ -126,6 +131,8 @@ namespace FiscaliZi.Colinfo.Migrations
                     b.HasKey("infCadID");
 
                     b.HasIndex("InfConsID");
+
+                    b.HasIndex("enderID");
 
                     b.ToTable("infCad");
                 });
@@ -313,12 +320,11 @@ namespace FiscaliZi.Colinfo.Migrations
                     b.ToTable("Vendas");
                 });
 
-            modelBuilder.Entity("FiscaliZi.Colinfo.Model.ender", b =>
+            modelBuilder.Entity("FiscaliZi.Colinfo.Model.Cliente", b =>
                 {
-                    b.HasOne("FiscaliZi.Colinfo.Model.infCad")
-                        .WithOne("ender")
-                        .HasForeignKey("FiscaliZi.Colinfo.Model.ender", "infCadID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasOne("FiscaliZi.Colinfo.Model.ender", "Endereco")
+                        .WithMany()
+                        .HasForeignKey("EnderecoenderID");
                 });
 
             modelBuilder.Entity("FiscaliZi.Colinfo.Model.infCad", b =>
@@ -327,6 +333,10 @@ namespace FiscaliZi.Colinfo.Migrations
                         .WithMany("infCad")
                         .HasForeignKey("InfConsID")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("FiscaliZi.Colinfo.Model.ender", "ender")
+                        .WithMany()
+                        .HasForeignKey("enderID");
                 });
 
             modelBuilder.Entity("FiscaliZi.Colinfo.Model.infCons", b =>
