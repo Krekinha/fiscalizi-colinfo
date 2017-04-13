@@ -98,8 +98,8 @@ namespace FiscaliZi.Colinfo.Model
             {
                 var tpLgr = end.xTPLgr.Replace("|", "");
 
-                if (!string.IsNullOrEmpty(end.xPrepLgr)) prep = $" {end.xPrepLgr} ";
-                return $"{tpLgr}{prep}{end.xLgr}, {end.nro} - {end.xBairro} - {end.CEP}";
+                if (!string.IsNullOrEmpty(end.xPrepLgr)) prep = $"{end.xPrepLgr} ";
+                return $"{tpLgr} {prep}{end.xLgr}, {end.nro} - {end.xBairro} - {end.CEP}";
 
             }
 

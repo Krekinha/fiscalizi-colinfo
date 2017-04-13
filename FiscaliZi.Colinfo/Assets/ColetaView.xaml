@@ -26,6 +26,7 @@
         <Model:ArquivoExistColorConverter x:Key="ArquivoExistColorConverter"/>
         <Model:IsVisibleListConverter x:Key="IsVisibleListConverter"/>
         <Model:EnderecoConverter x:Key="EnderecoConverter"/>
+        <sys:DateTime x:Key="DataPedidos">#03/20/2017#</sys:DateTime>
     </UserControl.Resources>
 
     <Grid>
@@ -50,7 +51,7 @@
                     Orientation="Horizontal" 
                     Margin="10,0">
                     <DatePicker x:Name="datPedidos" 
-                                SelectedDate="{x:Static sys:DateTime.Now}"
+                                SelectedDate="{StaticResource DataPedidos}"
                                 Language="pt-BR"
                                 Width="90" 
                                 HorizontalAlignment="Left" 
@@ -333,7 +334,7 @@
                         </TextBlock>
                         <TextBlock
                             Foreground="{DynamicResource AccentSelectedColorBrush}"
-                            Text="{Binding Cliente.Endereco, Converter={StaticResource EnderecoConverter}}"/>
+                            Text="{Binding Cliente.Endereco, Converter={StaticResource EnderecoConverter}}" FontSize="10"/>
                     </StackPanel>
                     <DataGrid x:Name="dgDetalhePedido"
                               ItemsSource="{Binding Items}"
