@@ -291,29 +291,9 @@
       <DependentUpon>Dialog_ErroConsulta.xaml</DependentUpon>
     </Compile>
     <Compile Include="ColinfoContext.cs" />
-    <Compile Include="Migrations\20170412032122_mig.cs" />
-    <Compile Include="Migrations\20170412032122_mig.designer.cs">
-      <DependentUpon>20170412032122_mig.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20170412033648_mig2.cs" />
-    <Compile Include="Migrations\20170412033648_mig2.designer.cs">
-      <DependentUpon>20170412033648_mig2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20170412040624_mig3.cs" />
-    <Compile Include="Migrations\20170412040624_mig3.designer.cs">
-      <DependentUpon>20170412040624_mig3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20170412041351_mig4.cs" />
-    <Compile Include="Migrations\20170412041351_mig4.designer.cs">
-      <DependentUpon>20170412041351_mig4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20170412042855_mig5.cs" />
-    <Compile Include="Migrations\20170412042855_mig5.designer.cs">
-      <DependentUpon>20170412042855_mig5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20170412045014_mig6.cs" />
-    <Compile Include="Migrations\20170412045014_mig6.designer.cs">
-      <DependentUpon>20170412045014_mig6.cs</DependentUpon>
+    <Compile Include="Migrations\20170418014929_mig.cs" />
+    <Compile Include="Migrations\20170418014929_mig.designer.cs">
+      <DependentUpon>20170418014929_mig.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\ColinfoContextModelSnapshot.cs" />
     <Compile Include="Model\CadCli.cs" />

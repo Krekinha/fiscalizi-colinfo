@@ -254,6 +254,8 @@ namespace FiscaliZi.Colinfo.Migrations
                     b.Property<int>("PedidoID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<decimal>("ADFinanceiro");
+
                     b.Property<int>("ArquivoID");
 
                     b.Property<int>("ClienteID");
@@ -262,17 +264,19 @@ namespace FiscaliZi.Colinfo.Migrations
 
                     b.Property<DateTime>("DataPedido");
 
-                    b.Property<string>("FormPgt");
-
                     b.Property<string>("NumPedPalm");
 
                     b.Property<string>("NumPedido");
 
                     b.Property<string>("Pasta");
 
+                    b.Property<int>("PrazoPgt");
+
                     b.Property<string>("SitPed");
 
-                    b.Property<decimal>("ValorTotal");
+                    b.Property<int>("TipoPgt");
+
+                    b.Property<decimal>("ValorTotalPed");
 
                     b.Property<int?>("VendaID");
 

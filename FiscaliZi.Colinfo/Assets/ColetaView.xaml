@@ -26,6 +26,8 @@
         <Model:ArquivoExistColorConverter x:Key="ArquivoExistColorConverter"/>
         <Model:IsVisibleIfNotNullConverter x:Key="IsVisibleListConverter"/>
         <Model:EnderecoConverter x:Key="EnderecoConverter"/>
+        <Model:TotalValPedsConverter x:Key="TotalValPedsConverter"/>
+        <Model:TotalPesoPedsConverter x:Key="TotalPesoPedsConverter"/>
         <sys:DateTime x:Key="DataPedidos">#03/20/2017#</sys:DateTime>
     </UserControl.Resources>
 
@@ -313,7 +315,7 @@
                                         Margin="3,2" 
                                         Background="#FF686868"/>
                                         <TextBlock 
-                                    Text="{Binding Items.Count}" 
+                                    Text="{Binding Pedidos, Converter={StaticResource TotalValPedsConverter}}" 
                                     Foreground="{DynamicResource AccentColorBrush}"
                                     FontSize="10" 
                                     Margin="0,0,5,0" 
@@ -341,7 +343,7 @@
                                         Margin="3,2" 
                                         Background="#FF686868"/>
                                         <TextBlock 
-                                    Text="{Binding Items.Count}" 
+                                    Text="{Binding Pedidos, Converter={StaticResource TotalPesoPedsConverter}}"
                                     Foreground="{DynamicResource AccentColorBrush}"
                                     FontSize="10" 
                                     Margin="0,0,5,0" 
@@ -524,7 +526,7 @@
                         Grid.Row="2" 
                         Margin="0,10,0,0"
                         Orientation="Horizontal">
-                        <Border Background="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" 
+                        <Border Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" 
                                     CornerRadius="5" 
                                     HorizontalAlignment="Left" Height="20">
                             <StackPanel Orientation="Horizontal">
@@ -544,34 +546,6 @@
                                         Background="#FF686868"/>
                                 <TextBlock 
                                     Text="{Binding Items.Count}" 
-                                    Foreground="{DynamicResource AccentColorBrush}"
-                                    FontSize="10" 
-                                    Margin="0,0,5,0" 
-                                    HorizontalAlignment="Center" 
-                                    VerticalAlignment="Center" 
-                                    FontWeight="Bold"/>
-                            </StackPanel>
-                        </Border>
-                        <Border Background="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" 
-                                    CornerRadius="5" 
-                                    HorizontalAlignment="Left" Height="20" Margin="10,0,0,0">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock 
-                                        Text="VALOR" 
-                                        Foreground="{DynamicResource AccentColorBrush}"
-                                        FontSize="10" 
-                                    Margin="5,0,2,0" 
-                                    HorizontalAlignment="Center" 
-                                    VerticalAlignment="Center"
-                                    FontWeight="Bold"/>
-                                <Separator
-                                        Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"
-                                        Height="10" 
-                                        Width="1" 
-                                        Margin="3,2" 
-                                        Background="#FF686868"/>
-                                <TextBlock 
-                                    Text="{Binding Items, Converter={StaticResource TotalValItemsConverter}}" 
                                     Foreground="{DynamicResource AccentColorBrush}"
                                     FontSize="10" 
                                     Margin="0,0,5,0" 

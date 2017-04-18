@@ -65,8 +65,8 @@ namespace FiscaliZi.Colinfo.Utils
                                     {
                                         NumPedPalm = line[8],
                                         ValorTotalPed = val,
-                                        PrazoPgt = int.Parse(line[20]),
                                         TipoPgt = int.Parse(line[21]),
+                                        PrazoPgt = int.Parse(line[22]),
                                         CodVendedor = int.Parse(line[2]),
                                         Items = new List<Item>(),
                                         Cliente = cli_context
@@ -79,8 +79,8 @@ namespace FiscaliZi.Colinfo.Utils
                                 {
                                     NumPedPalm = line[8],
                                     ValorTotalPed = val,
-                                    PrazoPgt = int.Parse(line[20]),
                                     TipoPgt = int.Parse(line[21]),
+                                    PrazoPgt = int.Parse(line[22]),
                                     CodVendedor = int.Parse(line[2]),
                                     Items = new List<Item>(),
                                     Cliente = cli

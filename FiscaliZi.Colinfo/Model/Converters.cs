@@ -795,6 +795,32 @@ namespace FiscaliZi.Colinfo.Model
             return value;
         }
     }
+    public class TotalPesoPedsConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var peds = (List<Pedido>)value;
+            decimal tot = 0;
+
+            if (peds == null) return 0;
+
+            foreach (var ped in peds)
+            {
+                foreach (var itm in ped.Items)
+                {
+                    if (itm.Produto.Unidades != 0)
+                        tot += ((((itm.QntCX * itm.Produto.Unidades) + itm.QntUND) / itm.Produto.Unidades) * itm.Produto.PesoUnd) + (itm.Produto.PesoEmb * itm.QntCX);
+                }
+            }
+
+            return tot.ToString("N2", CultureInfo.CreateSpecificCulture("pt-BR"));
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value;
+        }
+    }
     public class TotalValItemsConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
