@@ -42,7 +42,7 @@ namespace FiscaliZi.Colinfo.Model
                             NumPedido = "0",
                             NumPedPalm = "20160611102653",
                             CodVendedor = 308,
-                            ValorTotal = 645.10m,
+                            ValorTotalPed = 645.10m,
                             Cliente = new Cliente
                             {
                                 ClienteID = 1,
@@ -173,7 +173,7 @@ namespace FiscaliZi.Colinfo.Model
                             NumPedido = "0",
                             NumPedPalm = "20160611092020",
                             CodVendedor = 308,
-                            ValorTotal = 426.00m,
+                            ValorTotalPed = 426.00m,
                             Cliente = new Cliente
                             {
                                 ClienteID = 2,
@@ -204,7 +204,7 @@ namespace FiscaliZi.Colinfo.Model
                             NumPedido = "0",
                             NumPedPalm = "20160611074516",
                             CodVendedor = 308,
-                            ValorTotal = 2249.88m,
+                            ValorTotalPed = 2249.88m,
                             Cliente =
                                 new Cliente
                                 {
@@ -376,7 +376,7 @@ namespace FiscaliZi.Colinfo.Model
                             NumPedido = "0",
                             NumPedPalm = "20160611110832",
                             CodVendedor = 308,
-                            ValorTotal = 348.00m,
+                            ValorTotalPed = 348.00m,
                             Cliente =
                                 new Cliente
                                 {
@@ -408,7 +408,7 @@ namespace FiscaliZi.Colinfo.Model
                             NumPedido = "0",
                             NumPedPalm = "20160611081132",
                             CodVendedor = 308,
-                            ValorTotal = 273.22m,
+                            ValorTotalPed = 273.22m,
                             Cliente =
                                 new Cliente
                                 {
@@ -510,7 +510,7 @@ namespace FiscaliZi.Colinfo.Model
                             NumPedido = "0",
                             NumPedPalm = "20160611084522",
                             CodVendedor = 308,
-                            ValorTotal = 983.85m,
+                            ValorTotalPed = 983.85m,
                             Cliente =
                                 new Cliente
                                 {
@@ -622,7 +622,7 @@ namespace FiscaliZi.Colinfo.Model
                             NumPedido = "0",
                             NumPedPalm = "20160611080243",
                             CodVendedor = 308,
-                            ValorTotal = 292.01m,
+                            ValorTotalPed = 292.01m,
                             Cliente =
                                 new Cliente
                                 {
@@ -744,7 +744,7 @@ namespace FiscaliZi.Colinfo.Model
                             NumPedido = "0",
                             NumPedPalm = "20160611073614",
                             CodVendedor = 308,
-                            ValorTotal = 156.00m,
+                            ValorTotalPed = 156.00m,
                             Cliente =
                                 new Cliente
                                 {
@@ -837,11 +837,14 @@ namespace FiscaliZi.Colinfo.Model
                     new Pedido
                     {
                         PedidoID = 1,
-                        NumPedido = "0",
+                        NumPedido = "000000000370",
                         NumPedPalm = "20160611102653",
                         CodVendedor = 308,
                         Pasta = "3081",
-                        ValorTotal = 645.10m,
+                        ValorTotalPed = 645.10m,
+                        TipoPgt = 4,
+                        PrazoPgt = 34,
+                        ADFinanceiro = 1.70m,
                         Cliente = new Cliente
                         {
                             ClienteID = 1,
@@ -852,7 +855,18 @@ namespace FiscaliZi.Colinfo.Model
                             Rota = 1,
                             CNPJ = "64.436.249/0001-27",
                             IE = "333647.589/0096",
-                            Situacao = "REJEIÇÃO"
+                            Situacao = "REJEIÇÃO",
+                            Endereco = new Endereco
+                            {
+                                xTPLgr = "RUA",
+                                xPrepLgr = "DA",
+                                xLgr = "AMIZADE",
+                                nro = "37",
+                                xBairro = "INOCOP",
+                                xMun = "MEDINA",
+                                cMun = "MG",
+                                CEP = "39630000"
+                            }
                         },
                         Items = new List<Item>
                         {
@@ -983,7 +997,7 @@ namespace FiscaliZi.Colinfo.Model
                         NumPedPalm = "20160611092020",
                         CodVendedor = 308,
                         Pasta = "3081",
-                        ValorTotal = 426.00m,
+                        ValorTotalPed = 426.00m,
                         Cliente = new Cliente
                         {
                             ClienteID = 2,
@@ -1015,7 +1029,7 @@ namespace FiscaliZi.Colinfo.Model
                         NumPedPalm = "20160611074516",
                         CodVendedor = 308,
                         Pasta = "3081",
-                        ValorTotal = 2249.88m,
+                        ValorTotalPed = 2249.88m,
                         Cliente =
                             new Cliente
                             {
@@ -1188,7 +1202,7 @@ namespace FiscaliZi.Colinfo.Model
                         NumPedPalm = "20160611110832",
                         CodVendedor = 308,
                         Pasta = "3081",
-                        ValorTotal = 348.00m,
+                        ValorTotalPed = 348.00m,
                         Cliente =
                             new Cliente
                             {
@@ -1221,7 +1235,7 @@ namespace FiscaliZi.Colinfo.Model
                         NumPedPalm = "20160611081132",
                         CodVendedor = 308,
                         Pasta = "3081",
-                        ValorTotal = 273.22m,
+                        ValorTotalPed = 273.22m,
                         Cliente =
                             new Cliente
                             {
@@ -1324,7 +1338,7 @@ namespace FiscaliZi.Colinfo.Model
                         NumPedPalm = "20160611084522",
                         CodVendedor = 308,
                         Pasta = "3081",
-                        ValorTotal = 983.85m,
+                        ValorTotalPed = 983.85m,
                         Cliente =
                             new Cliente
                             {
@@ -1437,7 +1451,7 @@ namespace FiscaliZi.Colinfo.Model
                         NumPedPalm = "20160611080243",
                         CodVendedor = 308,
                         Pasta = "3081",
-                        ValorTotal = 292.01m,
+                        ValorTotalPed = 292.01m,
                         Cliente =
                             new Cliente
                             {
@@ -1560,7 +1574,7 @@ namespace FiscaliZi.Colinfo.Model
                         NumPedPalm = "20160611073614",
                         CodVendedor = 308,
                         Pasta = "3081",
-                        ValorTotal = 156.00m,
+                        ValorTotalPed = 156.00m,
                         Cliente =
                             new Cliente
                             {

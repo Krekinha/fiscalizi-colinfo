@@ -154,7 +154,7 @@
     </Style>
 
     <Style x:Key="DataGridColumnHeader_DetalhePedido" TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource CustomMaterialDesignDataGridColumnHeader}">
-        <Setter Property="Foreground" Value="{DynamicResource IdealForegroundColorBrush}" />
+        <Setter Property="Foreground" Value="#FF95B3C3" />
     </Style>
 
 </ResourceDictionary>

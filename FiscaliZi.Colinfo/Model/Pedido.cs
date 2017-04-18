@@ -15,9 +15,11 @@ namespace FiscaliZi.Colinfo.Model
         public string NumPedido { get; set; }
         public int CodVendedor { get; set; }
         public string NumPedPalm { get; set; }
-        public string FormPgt { get; set; }
+        public int TipoPgt { get; set; }
+        public int PrazoPgt { get; set; }
         public Cliente Cliente { get; set; }
-        public decimal ValorTotal { get; set; }
+        public decimal ValorTotalPed { get; set; }
+        public decimal ADFinanceiro { get; set; }
         public DateTime DataPedido { get; set; }
         public string Pasta { get; set; }
         public string SitPed { get; set; }

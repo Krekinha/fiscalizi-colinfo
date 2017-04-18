@@ -150,11 +150,11 @@ namespace FiscaliZi.Colinfo.Model
             return value;
         }
     }
-    public class IsVisibleListConverter : IValueConverter
+    public class IsVisibleIfNotNullConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if ((int) value > 0) return Visibility.Visible;
+            if (value != null) return Visibility.Visible;
             return Visibility.Hidden;
         }
 
@@ -215,7 +215,7 @@ namespace FiscaliZi.Colinfo.Model
                 if (pedn.Length > 8)
                     return pedn.Substring(8, 4);
             }
-            return string.Empty;
+            return value;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -710,7 +710,7 @@ namespace FiscaliZi.Colinfo.Model
             int? totBols = 0;
             foreach (var item in items)
             {
-                totBols += item.Pedidos?.Cast<Pedido>().Count(ped => ped.FormPgt == "4");
+                totBols += item.Pedidos?.Cast<Pedido>().Count(ped => ped.TipoPgt == 4);
             }
             return totBols;
         }
@@ -818,7 +818,7 @@ namespace FiscaliZi.Colinfo.Model
             var items = (ICollection<Pedido>)value;
             if (items == null) return "";
 
-            var total = items.Cast<Pedido>().Sum(ped => ped.ValorTotal);
+            var total = items.Cast<Pedido>().Sum(ped => ped.ValorTotalPed);
             return total.ToString("N2", CultureInfo.CreateSpecificCulture("pt-BR"));
         }
 

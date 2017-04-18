@@ -24,7 +24,7 @@
         <Model:OcorrenciaConverter x:Key="OcorrenciaConverter"/>
         <Model:StringToIntConverter x:Key="StringToIntConverter"/>
         <Model:ArquivoExistColorConverter x:Key="ArquivoExistColorConverter"/>
-        <Model:IsVisibleListConverter x:Key="IsVisibleListConverter"/>
+        <Model:IsVisibleIfNotNullConverter x:Key="IsVisibleListConverter"/>
         <Model:EnderecoConverter x:Key="EnderecoConverter"/>
         <sys:DateTime x:Key="DataPedidos">#03/20/2017#</sys:DateTime>
     </UserControl.Resources>
@@ -292,10 +292,65 @@
                                                         CanUserResize="False" />
                                 </DataGrid.Columns>
                             </DataGrid>
-                            <MDesign:Card 
-                                    Height="50" 
-                                    Margin="0,0,0,5"
-                                    MDesign:ShadowAssist.ShadowDepth="Depth0"/>
+                            <StackPanel
+                                    Margin="0,0,0,5" Orientation="Horizontal">
+                                <Border Background="{DynamicResource AccentColorBrush3}" 
+                                    CornerRadius="5" 
+                                    HorizontalAlignment="Left" Height="20" Margin="0,10,0,0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock 
+                                        Text="VAL. TOT" 
+                                        Foreground="{DynamicResource AccentColorBrush}"
+                                        FontSize="10" 
+                                    Margin="5,0,2,0" 
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center"
+                                    FontWeight="Bold"/>
+                                        <Separator
+                                        Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"
+                                        Height="10" 
+                                        Width="1" 
+                                        Margin="3,2" 
+                                        Background="#FF686868"/>
+                                        <TextBlock 
+                                    Text="{Binding Items.Count}" 
+                                    Foreground="{DynamicResource AccentColorBrush}"
+                                    FontSize="10" 
+                                    Margin="0,0,5,0" 
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center" 
+                                    FontWeight="Bold"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border Background="{DynamicResource AccentColorBrush3}" 
+                                    CornerRadius="5" 
+                                    HorizontalAlignment="Left" Height="20" Margin="10,10,0,0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock 
+                                        Text="PESO" 
+                                        Foreground="{DynamicResource AccentColorBrush}"
+                                        FontSize="10" 
+                                    Margin="5,0,2,0" 
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center"
+                                    FontWeight="Bold"/>
+                                        <Separator
+                                        Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"
+                                        Height="10" 
+                                        Width="1" 
+                                        Margin="3,2" 
+                                        Background="#FF686868"/>
+                                        <TextBlock 
+                                    Text="{Binding Items.Count}" 
+                                    Foreground="{DynamicResource AccentColorBrush}"
+                                    FontSize="10" 
+                                    Margin="0,0,5,0" 
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center" 
+                                    FontWeight="Bold"/>
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
                         </StackPanel>
                     </Expander>
                 </Grid>
@@ -317,24 +372,92 @@
                           MDesign:ColorZoneAssist.Mode="PrimaryMid" 
                           BorderThickness="0">
                 <Grid x:Name="grdPEDS1" 
-                      DataContext="{Binding Vendas/Pedidos}">
+                      DataContext="{Binding Vendas/Pedidos}"
+                      Visibility="{Binding Converter={StaticResource IsVisibleListConverter}}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <StackPanel Margin="0,0,0,10">
-                        <TextBlock 
-                            Foreground="{DynamicResource AccentSelectedColorBrush}">
-                            <TextBlock.Text>
-                                <MultiBinding StringFormat=" {0} ( {1} )">
-                                    <Binding Path="Cliente.Razao"/>
-                                    <Binding Path="Cliente.Sigla"/>
-                                </MultiBinding>
-                            </TextBlock.Text>
-                        </TextBlock>
+                        <StackPanel Orientation="Horizontal">
+                            <Border 
+                                    CornerRadius="5" 
+                                    HorizontalAlignment="Left" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock 
+                                        Text="{Binding NumPedido, Converter={StaticResource PedNumConverter}}" 
+                                        Foreground="{DynamicResource AccentColorBrush}"
+                                        FontSize="10" Margin="5,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+                            <TextBlock 
+                                Text="{Binding Cliente.Razao}"
+                                Foreground="{DynamicResource AccentSelectedColorBrush}" Margin="5,0,0,0"/>
+                            <TextBlock 
+                                Text="{Binding Cliente.Sigla, StringFormat={}({0})}"
+                                Foreground="{DynamicResource labelocorrencia}" 
+                                Margin="5,0,0,0"/>
+                        </StackPanel>
                         <TextBlock
                             Foreground="{DynamicResource AccentSelectedColorBrush}"
                             Text="{Binding Cliente.Endereco, Converter={StaticResource EnderecoConverter}}" FontSize="10"/>
+                        <TextBlock 
+                            Foreground="{DynamicResource AccentSelectedColorBrush}"
+                            FontSize="10">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} - {1}">
+                                    <Binding Path="Cliente.Endereco.xMun"/>
+                                    <Binding Path="Cliente.Endereco.cMun"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                            <Border Background="#7F62626A" 
+                                    CornerRadius="5" 
+                                    HorizontalAlignment="Left">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock 
+                                        Text="PG" 
+                                        Foreground="{DynamicResource AccentSelectedColorBrush}"
+                                        FontSize="10" Margin="5,0,2,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <Separator
+                                        Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"
+                                        Height="10" 
+                                        Width="1" 
+                                        Margin="3,2" 
+                                        Background="#FF686868"/>
+                                    <TextBlock 
+                                        Text="{Binding TipoPgt}" 
+                                        Foreground="{DynamicResource AccentSelectedColorBrush}"
+                                        FontSize="10" Margin="2,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <TextBlock 
+                                        Text="-" 
+                                        Foreground="{DynamicResource AccentSelectedColorBrush}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <TextBlock 
+                                        Text="{Binding PrazoPgt}" 
+                                        Foreground="{DynamicResource AccentSelectedColorBrush}"
+                                        FontSize="10" Margin="0,0,5,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+                            <Border Background="#7F62626A" 
+                                    CornerRadius="5" 
+                                    HorizontalAlignment="Left" Margin="10,0,0,0">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock 
+                                        Text="AD" 
+                                        Foreground="{DynamicResource AccentSelectedColorBrush}"
+                                        FontSize="10" Margin="5,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <Separator
+                                        Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"
+                                         Height="10" Width="1" Margin="3,2" Background="#FF686868"/>
+                                    <TextBlock 
+                                        Text="{Binding ADFinanceiro}" 
+                                        Foreground="{DynamicResource AccentSelectedColorBrush}"
+                                        FontSize="10" Margin="5,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
                     </StackPanel>
                     <DataGrid x:Name="dgDetalhePedido"
                               ItemsSource="{Binding Items}"
@@ -363,9 +486,6 @@
                                 </ResourceDictionary.MergedDictionaries>
                             </ResourceDictionary>
                         </DataGrid.Resources>
-                        <DataGrid.Visibility>
-                            <Binding Converter="{StaticResource IsVisibleListConverter}" Mode="OneWay" Path="Items.Count" RelativeSource="{RelativeSource Self}"/>
-                        </DataGrid.Visibility>
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="PROD" 
                                                 Width="40"
@@ -400,6 +520,67 @@
                                             CanUserResize="False" />
                         </DataGrid.Columns>
                     </DataGrid>
+                    <StackPanel 
+                        Grid.Row="2" 
+                        Margin="0,10,0,0"
+                        Orientation="Horizontal">
+                        <Border Background="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" 
+                                    CornerRadius="5" 
+                                    HorizontalAlignment="Left" Height="20">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock 
+                                        Text="ITENS" 
+                                        Foreground="{DynamicResource AccentColorBrush}"
+                                        FontSize="10" 
+                                    Margin="5,0,2,0" 
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center"
+                                    FontWeight="Bold"/>
+                                <Separator
+                                        Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"
+                                        Height="10" 
+                                        Width="1" 
+                                        Margin="3,2" 
+                                        Background="#FF686868"/>
+                                <TextBlock 
+                                    Text="{Binding Items.Count}" 
+                                    Foreground="{DynamicResource AccentColorBrush}"
+                                    FontSize="10" 
+                                    Margin="0,0,5,0" 
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center" 
+                                    FontWeight="Bold"/>
+                            </StackPanel>
+                        </Border>
+                        <Border Background="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" 
+                                    CornerRadius="5" 
+                                    HorizontalAlignment="Left" Height="20" Margin="10,0,0,0">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock 
+                                        Text="VALOR" 
+                                        Foreground="{DynamicResource AccentColorBrush}"
+                                        FontSize="10" 
+                                    Margin="5,0,2,0" 
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center"
+                                    FontWeight="Bold"/>
+                                <Separator
+                                        Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"
+                                        Height="10" 
+                                        Width="1" 
+                                        Margin="3,2" 
+                                        Background="#FF686868"/>
+                                <TextBlock 
+                                    Text="{Binding Items, Converter={StaticResource TotalValItemsConverter}}" 
+                                    Foreground="{DynamicResource AccentColorBrush}"
+                                    FontSize="10" 
+                                    Margin="0,0,5,0" 
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center" 
+                                    FontWeight="Bold"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
                 </Grid>
             </GroupBox>
 

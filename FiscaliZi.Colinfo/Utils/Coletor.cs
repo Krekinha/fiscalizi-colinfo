@@ -64,8 +64,9 @@ namespace FiscaliZi.Colinfo.Utils
                                     peds.Add(new Pedido
                                     {
                                         NumPedPalm = line[8],
-                                        ValorTotal = val,
-                                        FormPgt = line[21],
+                                        ValorTotalPed = val,
+                                        PrazoPgt = int.Parse(line[20]),
+                                        TipoPgt = int.Parse(line[21]),
                                         CodVendedor = int.Parse(line[2]),
                                         Items = new List<Item>(),
                                         Cliente = cli_context
@@ -77,8 +78,9 @@ namespace FiscaliZi.Colinfo.Utils
                                 peds.Add(new Pedido
                                 {
                                     NumPedPalm = line[8],
-                                    ValorTotal = val,
-                                    FormPgt = line[21],
+                                    ValorTotalPed = val,
+                                    PrazoPgt = int.Parse(line[20]),
+                                    TipoPgt = int.Parse(line[21]),
                                     CodVendedor = int.Parse(line[2]),
                                     Items = new List<Item>(),
                                     Cliente = cli
@@ -173,11 +175,15 @@ namespace FiscaliZi.Colinfo.Utils
                                 {
                                     NumPedido = line[0],
                                     CodVendedor = int.Parse(line[6]),
+                                    ADFinanceiro = decimal.Parse(line[9]),
+                                    TipoPgt = int.Parse(line[10]),
+                                    PrazoPgt = int.Parse(line[11]),
                                     DataPedido = DateTime.Parse(line[29]),
                                     Items = new List<Item> { item },
                                     Cliente = GetClienteByCode(line[3]),
                                     Pasta = line[30],
-                                    SitPed = line[24]
+                                    SitPed = line[24],
+                                    ValorTotalPed = ToDecimal(line[37])
                                 }
                             );
                     }
