@@ -8,9 +8,24 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <Button x:Name="btnAtualizaVendas"
+        <StackPanel>
+            <TextBlock Margin="0,10,0,0">
+                <Run Text="Clientes ativos encontrados: " FontWeight="Bold" FontSize="10.667"/>
+                <Run Text="{Binding CliAtivos}"/>
+            </TextBlock>
+            <TextBlock>
+                <Run Text="Clientes adicionados: " FontWeight="Bold" FontSize="10.667"/>
+                <Run Text="{Binding CliAdded}"/>
+            </TextBlock>
+            <TextBlock>
+                <Run Text="Clientes atualizados: " FontWeight="Bold" FontSize="10.667"/>
+                <Run Text="{Binding CliAtualizados}"/>
+            </TextBlock>
+            <Button x:Name="btnAtualizaVendas"
                 cal:Message.Attach="AtualizaClientes" 
-                Padding="2 0 2 0" Content="Atualizar Clientes">
-        </Button>
+                Padding="2 0 2 0" Content="Atualizar Clientes" Margin="0,10,0,0" HorizontalAlignment="Left">
+            </Button>
+        </StackPanel>
+        
     </Grid>
 </UserControl>
