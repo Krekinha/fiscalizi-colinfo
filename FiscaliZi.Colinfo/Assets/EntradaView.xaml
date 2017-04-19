@@ -201,7 +201,7 @@
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
                 <DataGridTextColumn Header="VAL. PED" 
-                                    Binding="{Binding ValorTotal}" 
+                                    Binding="{Binding ValorTotalPed}" 
                                     CanUserResize="False" 
                                     Width="80" />
                 <DataGridTemplateColumn 
