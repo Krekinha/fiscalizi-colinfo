@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace FiscaliZi.Colinfo.Model
 {
-    public class Item
+    public class Item : IEquatable<Item>
     {
         [Key]
         public int ItemID { get; set; }
@@ -28,6 +29,19 @@ namespace FiscaliZi.Colinfo.Model
 
         #region Navigation Properties
         public virtual Pedido Pedido { get; set; }
+        #endregion
+
+        #region Compare
+        public bool Equals(Item other)
+        {
+            if (this.Produto.Codigo != other.Produto.Codigo) return false;
+            if (this.QntCX != other.QntCX) return false;
+            if (this.QntUND != other.QntUND) return false;
+
+            // TODO: Compare Members and return false if not the same
+
+            return true;
+        }
         #endregion
     }
 }

@@ -26,7 +26,7 @@ namespace FiscaliZi.Colinfo.Assets
                                          401, 402, 403, 404, 405, 406, 407,
                                          601, 602, 603, 604, 605};
 
-            var path = @"F:\SOF\VDWIN\EXP\PEDIDOS.CSV";
+            var path = @"F:\SOF\VDWIN\EXP\PEDIDOSDUP.CSV";
 
             if (Environment.MachineName == "ATAIDE-PC")
                 path = @"C:\Users\krekm\Desktop\PEDIDOS.CSV";

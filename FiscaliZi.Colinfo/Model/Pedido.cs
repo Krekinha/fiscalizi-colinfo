@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FiscaliZi.Colinfo.Model
 {
-    public class Pedido : INotifyPropertyChanged
+    public class Pedido : INotifyPropertyChanged, IEquatable<Pedido>
     {
         [Key]
         public int PedidoID { get; set; }
@@ -38,9 +38,22 @@ namespace FiscaliZi.Colinfo.Model
 
         #region NotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
+
         public void ForcePropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        #endregion
+
+        #region Compare
+        public bool Equals(Pedido other)
+        {
+            if (this.Cliente.CNPJ != other.Cliente.CNPJ) return false;
+            if (!this.Items.Equals(other.Items)) return false;
+
+            // TODO: Compare Members and return false if not the same
+
+            return true;
         }
         #endregion
     }

@@ -137,6 +137,26 @@ namespace FiscaliZi.Colinfo.Model
             throw new NotSupportedException();
         }
     }
+    public class IsDuplePedConverter : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            var peds = (List<Pedido>)values[0];
+            var ped = (Pedido)values[1];
+
+            foreach (var p in peds)
+            {
+                if (!ped.Equals(p)) return "S";
+            }
+
+            return "N";
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
     public class IsVisibleColunaVendedorConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
