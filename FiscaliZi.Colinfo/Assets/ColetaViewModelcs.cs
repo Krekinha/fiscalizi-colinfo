@@ -29,7 +29,7 @@ namespace FiscaliZi.Colinfo.Assets
             var path = @"F:\SOF\VDWIN\EXP\PEDIDOSDUP.CSV";
 
             if (Environment.MachineName == "ATAIDE-PC")
-                path = @"C:\Users\krekm\Desktop\PEDIDOS.CSV";
+                path = @"C:\Users\krekm\Desktop\PEDIDOSDUP.CSV";
 
             var peds = Coletor.GetPedidos(path, date);
 
@@ -70,17 +70,50 @@ namespace FiscaliZi.Colinfo.Assets
                     vendas.Add(new Venda() { CodVendedor = item });
                 }
             }
-            var vendas2 = vendas.OrderBy(x => x.CodVendedor);
+
+            var vendas2 = CheckDuple(vendas).OrderBy(x => x.CodVendedor);
+
             foreach (var vd in vendas2)
             {
                 Vendas.Add(vd);
             }
-            
         }
 
         public void RemoverVenda(Venda vnd)
         {
             Vendas.Remove(vnd);
+        }
+
+        private ObservableCollection<Venda> CheckDuple( ObservableCollection<Venda> vnds )
+        {
+            foreach (var vnd in vnds)
+            {
+                foreach (var ped in vnd.Pedidos)
+                {
+                    var peds = (vnd.Pedidos.Except(new List<Pedido> { ped })).ToList();
+                    foreach (var p in peds)
+                    {
+                        if (ped.Equals(p))
+                        {
+                            if (p.DP == "S")
+                            {
+                                ped.DP = "S1";
+                            }
+                            else
+                            {
+                                ped.DP = "S";
+                            }
+                            
+                        }
+                    }
+                }
+            }
+            return vnds;
+
+
+
+
+
         }
 
 

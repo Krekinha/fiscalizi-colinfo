@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using FiscaliZi.Colinfo.Utils;
 
 namespace FiscaliZi.Colinfo.Model
 {
@@ -9,7 +11,7 @@ namespace FiscaliZi.Colinfo.Model
         public DesignData()
         {
             Arquivos = GetArquivos();
-            Vendas = GetVendas(5);
+            Vendas = GetVendas2();
             Pedido = GetPedido();
             Pedidos = GetPedidos();
         }
@@ -1660,6 +1662,40 @@ namespace FiscaliZi.Colinfo.Model
             return vnds;
         }
 
+        private static ObservableCollection<Venda> GetVendas2()
+        {
+
+            var path = @"F:\SOF\VDWIN\EXP\PEDIDOSDUP.CSV";
+
+            if (Environment.MachineName == "ATAIDE-PC")
+                path = @"C:\Users\krekm\Desktop\PEDIDOSDUP.CSV";
+
+            var peds = Coletor.GetPedidos(path, new DateTime(2017,4,19));
+
+            var vendas = new ObservableCollection<Venda>();
+
+            foreach (var ped in peds)
+            {
+                var vnd = vendas.FirstOrDefault(vd => vd.CodVendedor == ped.CodVendedor);
+                if (vnd == null && ped.CodVendedor != 900)
+                {
+                    vendas.Add(new Venda
+                    {
+                        CodVendedor = ped.CodVendedor,
+                        DataColeta = ped.DataPedido,
+                        Pedidos = new List<Pedido> { ped }
+                    });
+                }
+                else
+                {
+                    if (ped.CodVendedor == 900) continue;
+                    vnd.Pedidos.Add(ped);
+                }
+            }
+
+            return vendas;
+
+        }
         private Pedido GetPedido()
         {
             return new Pedido

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace FiscaliZi.Colinfo.Model
 {
@@ -23,6 +24,7 @@ namespace FiscaliZi.Colinfo.Model
         public DateTime DataPedido { get; set; }
         public string Pasta { get; set; }
         public string SitPed { get; set; }
+        public string DP { get; set; }
 
         public virtual List<Item> Items { get; set; }
         #endregion
@@ -46,14 +48,34 @@ namespace FiscaliZi.Colinfo.Model
         #endregion
 
         #region Compare
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as Pedido);
+        }
         public bool Equals(Pedido other)
         {
-            if (this.Cliente.CNPJ != other.Cliente.CNPJ) return false;
-            if (!this.Items.Equals(other.Items)) return false;
+            if (other == null) return false;
+            if (Items == null) return false;
+
+            if (this.Cliente.RegiaoCliente != other.Cliente.RegiaoCliente)
+            {
+                return false;
+            }
+
+            if (this.Cliente.NumCliente != other.Cliente.NumCliente)
+            {
+                return false;
+            }
+
+            var ThisItms = Items.Select(item => $"{item.Produto.Codigo}{item.QntCX}{item.QntUND}").ToList();
+
+            var OtherItms = other.Items.Select(item => $"{item.Produto.Codigo}{item.QntCX}{item.QntUND}").ToList();
+
+            var res = Enumerable.SequenceEqual(ThisItms.OrderBy(t => t), OtherItms.OrderBy(t => t));
 
             // TODO: Compare Members and return false if not the same
 
-            return true;
+            return res;
         }
         #endregion
     }

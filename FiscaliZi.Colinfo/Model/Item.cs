@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace FiscaliZi.Colinfo.Model
 {
-    public class Item : IEquatable<Item>
+    public class Item : INotifyPropertyChanged
     {
         [Key]
         public int ItemID { get; set; }
@@ -31,16 +31,12 @@ namespace FiscaliZi.Colinfo.Model
         public virtual Pedido Pedido { get; set; }
         #endregion
 
-        #region Compare
-        public bool Equals(Item other)
+        #region NotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void ForcePropertyChanged(string propertyName)
         {
-            if (this.Produto.Codigo != other.Produto.Codigo) return false;
-            if (this.QntCX != other.QntCX) return false;
-            if (this.QntUND != other.QntUND) return false;
-
-            // TODO: Compare Members and return false if not the same
-
-            return true;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
     }

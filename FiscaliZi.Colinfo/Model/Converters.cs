@@ -14,6 +14,7 @@ using DFe.Utils;
 using FiscaliZi.Colinfo.Utils;
 using MaterialDesignThemes.Wpf;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Primitives;
 
 namespace FiscaliZi.Colinfo.Model
 {
@@ -55,6 +56,48 @@ namespace FiscaliZi.Colinfo.Model
         {
             throw new NotImplementedException();
         }
+    }
+    public class CheckDuplePedIconConverter : IValueConverter
+    {
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var peds = (ICollection<Pedido>)value;
+
+            var res = peds?.Select(x => x.DP).Distinct().ToArray();
+            if (res.Contains("S")) return PackIconKind.Animation;
+
+            return PackIconKind.CheckCircle;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value;
+        }
+
+    }
+    public class CheckDuplePedForegroundConverter : IValueConverter
+    {
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+
+            switch ((PackIconKind)value)
+            {
+                case PackIconKind.Animation:
+                    return new SolidColorBrush(Colors.Red);
+                case PackIconKind.CheckCircle:
+                    return new SolidColorBrush(Colors.MediumSeaGreen);
+                default:
+                    return new SolidColorBrush(Colors.Transparent);
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value;
+        }
+
     }
     public class ColetadosConverter : IValueConverter
     {
@@ -141,12 +184,16 @@ namespace FiscaliZi.Colinfo.Model
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            var peds = (List<Pedido>)values[0];
             var ped = (Pedido)values[1];
+            var peds = ((List<Pedido>)values[0]).Except(new List<Pedido>{ped}).ToList();
+            
 
             foreach (var p in peds)
             {
-                if (!ped.Equals(p)) return "S";
+                if (ped.Equals(p))
+                {
+                    return "S";
+                }
             }
 
             return "N";
