@@ -88,25 +88,29 @@ namespace FiscaliZi.Colinfo.Assets
         {
             foreach (var vnd in vnds)
             {
-                foreach (var ped in vnd.Pedidos)
+                if (vnd.Pedidos != null)
                 {
-                    var peds = (vnd.Pedidos.Except(new List<Pedido> { ped })).ToList();
-                    foreach (var p in peds)
+                    foreach (var ped in vnd.Pedidos)
                     {
-                        if (ped.Equals(p))
+                        var peds = (vnd.Pedidos.Except(new List<Pedido> { ped })).ToList();
+                        foreach (var p in peds)
                         {
-                            if (p.DP == "S")
+                            if (ped.Equals(p))
                             {
-                                ped.DP = "S1";
+                                if (p.DP == "S")
+                                {
+                                    ped.DP = "S1";
+                                }
+                                else
+                                {
+                                    ped.DP = "S";
+                                }
+
                             }
-                            else
-                            {
-                                ped.DP = "S";
-                            }
-                            
                         }
                     }
                 }
+
             }
             return vnds;
 

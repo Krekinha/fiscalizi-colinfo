@@ -65,9 +65,7 @@ namespace FiscaliZi.Colinfo.Model
             var peds = (ICollection<Pedido>)value;
 
             var res = peds?.Select(x => x.DP).Distinct().ToArray();
-            if (res.Contains("S")) return PackIconKind.Animation;
-
-            return PackIconKind.CheckCircle;
+            return res != null && res.Contains("S") ? PackIconKind.Animation : PackIconKind.CheckCircle;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -87,7 +85,7 @@ namespace FiscaliZi.Colinfo.Model
                 case PackIconKind.Animation:
                     return new SolidColorBrush(Colors.Red);
                 case PackIconKind.CheckCircle:
-                    return new SolidColorBrush(Colors.MediumSeaGreen);
+                    return new SolidColorBrush(Colors.Transparent);
                 default:
                     return new SolidColorBrush(Colors.Transparent);
             }
