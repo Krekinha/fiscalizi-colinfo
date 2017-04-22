@@ -67,9 +67,9 @@ namespace FiscaliZi.Colinfo.Model
                 return false;
             }
 
-            var ThisItms = Items.Select(item => $"{item.Produto.Codigo}{item.QntCX}{item.QntUND}").ToList();
+            var ThisItms = Items?.Select(item => $"{item?.Produto?.Codigo}{item?.QntCX}{item?.QntUND}").ToList();
 
-            var OtherItms = other.Items.Select(item => $"{item.Produto.Codigo}{item.QntCX}{item.QntUND}").ToList();
+            var OtherItms = other.Items?.Select(item => $"{item?.Produto?.Codigo}{item?.QntCX}{item?.QntUND}").ToList();
 
             var res = Enumerable.SequenceEqual(ThisItms.OrderBy(t => t), OtherItms.OrderBy(t => t));
 
