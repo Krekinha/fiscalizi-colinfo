@@ -22,14 +22,15 @@ namespace FiscaliZi.Colinfo.Assets
         #endregion
         public void AtualizaPedidos(DateTime date)
         {
+            var test = 0;
             var vendstands = new int[] { 301, 302, 303, 304, 305, 306, 307, 308,
                                          401, 402, 403, 404, 405, 406, 407,
                                          601, 602, 603, 604, 605};
 
-            var path = @"F:\SOF\VDWIN\EXP\PEDIDOSDUP.CSV";
+            var path = @"F:\SOF\VDWIN\EXP\PEDIDOS.CSV";
 
             if (Environment.MachineName == "ATAIDE-PC")
-                path = @"C:\Users\krekm\Desktop\PEDIDOSDUP.CSV";
+                path = @"C:\Users\krekm\Desktop\PEDIDOS.CSV";
 
             var peds = Coletor.GetPedidos(path, date);
 
