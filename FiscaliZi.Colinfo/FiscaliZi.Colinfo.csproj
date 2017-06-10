@@ -308,6 +308,7 @@
     <Compile Include="Model\AppSettings.cs" />
     <Compile Include="Model\CadCli.cs" />
     <Compile Include="Model\CertificadoDados.cs" />
+    <Compile Include="Model\Class1.cs" />
     <Compile Include="Model\Cliente.cs" />
     <Compile Include="Model\ConfiguracaoApp.cs" />
     <Compile Include="Model\ConfiguracaoCsc.cs" />
