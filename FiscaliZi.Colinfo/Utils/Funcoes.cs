@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Windows;
 using Microsoft.Win32;
+using FiscaliZi.Colinfo.Model;
 
 namespace FiscaliZi.Colinfo.Utils
 {
@@ -172,6 +173,25 @@ namespace FiscaliZi.Colinfo.Utils
             else
             {
                 Mensagem("Bugão doido", "Erro fatal", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        /// <summary>
+        ///     Mostra um erro fatal em uma função usando o método Mensagem
+        /// </summary>
+        /// <typeparam name="Exception"></typeparam>
+        /// <param name="ex">Objeto contendo dados do erro</param>
+        public static AppSettings CarregarConfiguracoes()
+        {
+            try
+            {
+                var config = DFe.Utils.FuncoesXml.ArquivoXmlParaClasse<AppSettings>(@"Config\config.xml");
+                return config;
+            }
+            catch (System.Exception ex)
+            {
+                Utils.Funcoes.MostrarErro(ex);
+                return null;
             }
         }
     }

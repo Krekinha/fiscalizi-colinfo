@@ -67,25 +67,25 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Caliburn.Micro, Version=3.0.3.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
-      <HintPath>..\packages\Caliburn.Micro.Core.3.0.3\lib\net45\Caliburn.Micro.dll</HintPath>
+      <HintPath>..\packages\Caliburn.Micro.Core.3.1.0\lib\net45\Caliburn.Micro.dll</HintPath>
     </Reference>
     <Reference Include="Caliburn.Micro.Platform, Version=3.0.3.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
-      <HintPath>..\packages\Caliburn.Micro.3.0.3\lib\net45\Caliburn.Micro.Platform.dll</HintPath>
+      <HintPath>..\packages\Caliburn.Micro.3.1.0\lib\net45\Caliburn.Micro.Platform.dll</HintPath>
     </Reference>
     <Reference Include="Caliburn.Micro.Platform.Core, Version=3.0.3.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
-      <HintPath>..\packages\Caliburn.Micro.3.0.3\lib\net45\Caliburn.Micro.Platform.Core.dll</HintPath>
+      <HintPath>..\packages\Caliburn.Micro.3.1.0\lib\net45\Caliburn.Micro.Platform.Core.dll</HintPath>
     </Reference>
     <Reference Include="DFe.Classes, Version=0.0.0.7, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Zeus.Net.NFe.NFCe.1.0.1.485\lib\net40\DFe.Classes.dll</HintPath>
+      <HintPath>..\packages\Zeus.Net.NFe.NFCe.1.0.1.535\lib\net40\DFe.Classes.dll</HintPath>
     </Reference>
     <Reference Include="DFe.Utils, Version=0.0.0.7, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Zeus.Net.NFe.NFCe.1.0.1.485\lib\net40\DFe.Utils.dll</HintPath>
+      <HintPath>..\packages\Zeus.Net.NFe.NFCe.1.0.1.535\lib\net40\DFe.Utils.dll</HintPath>
     </Reference>
     <Reference Include="Dragablz, Version=0.0.3.186, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dragablz.0.0.3.186\lib\net45\Dragablz.dll</HintPath>
     </Reference>
-    <Reference Include="MahApps.Metro, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MahApps.Metro.1.5.0-alpha018\lib\net45\MahApps.Metro.dll</HintPath>
+    <Reference Include="MahApps.Metro, Version=1.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.6.0-alpha002\lib\net45\MahApps.Metro.dll</HintPath>
     </Reference>
     <Reference Include="MaterialDesignColors, Version=1.1.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.1.1.3\lib\net45\MaterialDesignColors.dll</HintPath>
@@ -157,16 +157,16 @@
       <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="NFe.Classes, Version=1.0.1.456, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Zeus.Net.NFe.NFCe.1.0.1.485\lib\net40\NFe.Classes.dll</HintPath>
+      <HintPath>..\packages\Zeus.Net.NFe.NFCe.1.0.1.535\lib\net40\NFe.Classes.dll</HintPath>
     </Reference>
-    <Reference Include="NFe.Servicos, Version=1.0.1.456, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Zeus.Net.NFe.NFCe.1.0.1.485\lib\net40\NFe.Servicos.dll</HintPath>
+    <Reference Include="NFe.Servicos, Version=1.0.1.457, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Zeus.Net.NFe.NFCe.1.0.1.535\lib\net40\NFe.Servicos.dll</HintPath>
     </Reference>
     <Reference Include="NFe.Utils, Version=1.0.1.456, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Zeus.Net.NFe.NFCe.1.0.1.485\lib\net40\NFe.Utils.dll</HintPath>
+      <HintPath>..\packages\Zeus.Net.NFe.NFCe.1.0.1.535\lib\net40\NFe.Utils.dll</HintPath>
     </Reference>
     <Reference Include="NFe.Wsdl, Version=1.0.1.456, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Zeus.Net.NFe.NFCe.1.0.1.485\lib\net40\NFe.Wsdl.dll</HintPath>
+      <HintPath>..\packages\Zeus.Net.NFe.NFCe.1.0.1.535\lib\net40\NFe.Wsdl.dll</HintPath>
     </Reference>
     <Reference Include="Npgsql, Version=3.2.1.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
       <HintPath>..\packages\Npgsql.3.2.1\lib\net451\Npgsql.dll</HintPath>
@@ -246,7 +246,7 @@
     </Reference>
     <Reference Include="System.Transactions" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\MahApps.Metro.1.5.0-alpha018\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\packages\MahApps.Metro.1.6.0-alpha002\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml" />
@@ -277,6 +277,10 @@
       <DependentUpon>ConfigClientesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Assets\ConfigClientesViewModel.cs" />
+    <Compile Include="Assets\ConfigGeralView.xaml.cs">
+      <DependentUpon>ConfigGeralView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Assets\ConfigGeralViewModel.cs" />
     <Compile Include="Assets\ConfigProdutosView.xaml.cs">
       <DependentUpon>ConfigProdutosView.xaml</DependentUpon>
     </Compile>
@@ -290,6 +294,7 @@
     <Compile Include="Assets\Dialog_ErroConsulta.xaml.cs">
       <DependentUpon>Dialog_ErroConsulta.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Assets\NotifyMessage.cs" />
     <Compile Include="ColinfoContext.cs" />
     <Compile Include="Migrations\20170418014929_mig.cs" />
     <Compile Include="Migrations\20170418014929_mig.designer.cs">
@@ -300,7 +305,9 @@
       <DependentUpon>20170422001459_mig-2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\ColinfoContextModelSnapshot.cs" />
+    <Compile Include="Model\AppSettings.cs" />
     <Compile Include="Model\CadCli.cs" />
+    <Compile Include="Model\CertificadoDados.cs" />
     <Compile Include="Model\Cliente.cs" />
     <Compile Include="Model\ConfiguracaoApp.cs" />
     <Compile Include="Model\ConfiguracaoCsc.cs" />
@@ -332,6 +339,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Assets\ConfigClientesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Assets\ConfigGeralView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

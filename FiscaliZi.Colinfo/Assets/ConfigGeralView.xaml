@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="FiscaliZi.Colinfo.Assets.ConfigGeralView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FiscaliZi.Colinfo.Assets"
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <StackPanel>
+            <TextBlock Text="Certificado" Height="20" Margin="10,0,0,0" />
+            <StackPanel Orientation="Horizontal" Margin="15,0,0,0">
+                <materialDesign:PackIcon Kind="Certificate" />
+                <TextBlock Margin="5,0,0,0">
+                    <Run Text="{Binding Configuracoes.Certificado.Nome}" FontWeight="Bold"/>
+                    <Run Text="  |  "/>
+                    <Run Text="{Binding Configuracoes.Certificado.Validade, StringFormat=VAL: \{0:dd/MM/yyyy\}}"/>
+                </TextBlock>
+                <Button 
+                    Content="..." 
+                    Height="25"
+                    Margin="10,0,0,0"
+                    cal:Message.Attach="BuscarCertificado()" />
+            </StackPanel>
+        </StackPanel>
+        <Button 
+            Content="Salvar"
+            Width="80" 
+            HorizontalAlignment="Right" 
+            VerticalAlignment="Bottom"
+            Margin="0,0,15,10"
+            cal:Message.Attach="SalvarConfiguracoes()" />
+    </Grid>
+</UserControl>

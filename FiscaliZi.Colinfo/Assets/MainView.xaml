@@ -11,13 +11,13 @@
     xmlns:local="clr-namespace:FiscaliZi.Colinfo" 
     xmlns:Assets="clr-namespace:FiscaliZi.Colinfo.Assets"
     xmlns:cal="http://www.caliburnproject.org"
-    xmlns:materialDesignMahApps="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:MDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     mc:Ignorable="d"
-    Title="MainWindow" 
-    Width="1360" Height="800"
+    Title="Assistente De Coleta"
     GlowBrush="{DynamicResource AccentColorBrush}"
     BorderBrush="{DynamicResource WindowTitleColorBrush}" 
-    BorderThickness="2" WindowStartupLocation="CenterScreen" >
+    BorderThickness="2" WindowStartupLocation="CenterScreen"
+    Width="1360" Height="800"><!--Width="1360" Height="800"-->
 
     <Window.Resources>
     </Window.Resources>
@@ -27,7 +27,7 @@
                 x:Name="LeftFlyout" 
                 Position="Left" 
                 Header="Items" 
-                materialDesignMahApps:FlyoutAssist.HeaderColorMode="Accent" 
+                MDesign:FlyoutAssist.HeaderColorMode="Accent" 
                 Background="{DynamicResource AccentColorBrush}">
                 <Assets:FlyPedido />
             </Metro:Flyout>
@@ -35,8 +35,9 @@
     </Metro:MetroWindow.Flyouts>
 
     <wpf:DialogHost Identifier="RootDialog" SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}">
-        <dockablz:Layout>
-        <dragablz:TabablzControl BorderThickness="0"
+        <Grid>
+            <dockablz:Layout>
+            <dragablz:TabablzControl BorderThickness="0"
                                  Margin="0,-1,0,1" 
                                  FixedHeaderCount="2" >
                 <TabItem Header="ENTRADA">
@@ -45,8 +46,11 @@
                 <TabItem Header="COLETA">
                     <Assets:ColetaView cal:View.Model="{Binding ColetaVM}" Margin="8" DataContext="{Binding ColetaVM}"/>
                 </TabItem>
-                <TabItem Header="OPÇÕES">
-                <dragablz:TabablzControl FixedHeaderCount="2"  >
+                <TabItem Header="CONFIGURAÇÕES">
+                    <dragablz:TabablzControl FixedHeaderCount="2"  >
+                        <TabItem Header="Geral">
+                            <Assets:ConfigGeralView cal:View.Model="{Binding ConfigGeralVM}" Margin="8"/>
+                        </TabItem>
                         <TabItem Header="Produtos">
                             <Assets:ConfigProdutosView cal:View.Model="{Binding ConfigProdutosVM}" Margin="8"/>
                         </TabItem>
@@ -54,10 +58,14 @@
                             <Assets:ConfigClientesView cal:View.Model="{Binding ConfigClientesVM}" Margin="8"/>
                         </TabItem>
                     </dragablz:TabablzControl>
-            </TabItem>
-        </dragablz:TabablzControl>
-    </dockablz:Layout>
+                </TabItem>
+            </dragablz:TabablzControl>
+        </dockablz:Layout>
+            <MDesign:Snackbar x:Name="MainSnackbar" MessageQueue="{Binding MainMessageQueue}"/>
+        </Grid>
+        
     </wpf:DialogHost>
         
+
 
 </Metro:MetroWindow>

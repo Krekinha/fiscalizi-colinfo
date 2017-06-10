@@ -1,25 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using FiscaliZi.Colinfo.Model;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Documents;
 using Caliburn.Micro;
-using DFe.Classes.Entidades;
-using DFe.Classes.Flags;
 using FiscaliZi.Colinfo.Utils;
-using NFe.Classes.Informacoes.Emitente;
-using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Classes.Servicos.ConsultaCadastro;
-using NFe.Classes.Servicos.Tipos;
 using NFe.Servicos;
 using NFe.Utils.Excecoes;
-using TipoAmbiente = NFe.Classes.Informacoes.Identificacao.Tipos.TipoAmbiente;
 using DFe.Utils;
 using MaterialDesignThemes.Wpf;
 using Microsoft.EntityFrameworkCore;
@@ -42,14 +33,15 @@ namespace FiscaliZi.Colinfo.Assets
             InitializeMonitor();
             RomaneioNum = 2;
             RomaneioData = DateTime.Parse("20/03/2017");
+            SnackbarMQ = new SnackbarMessageQueue();
             //test();
         }
 
         #region · Properties ·
-
         public ObservableCollection<Arquivo> Arquivos { get; set; }
+        public SnackbarMessageQueue SnackbarMQ { get; set; }
         public Arquivo Arquivo { get; set; }
-        public ConfiguracaoApp Configuracoes { get; set; }
+        public AppSettings Configuracoes { get; set; }
         public int RomaneioNum { get; set; }
         public DateTime RomaneioData { get; set; }
         #endregion
@@ -132,15 +124,17 @@ namespace FiscaliZi.Colinfo.Assets
 
         public void ConsultaCadastro(Pedido ped)
         {
-            int NumOfRetries = 3;
-            int trys = 0;
+            int NumOfRetries = 10;
+            int trysExCom = 0;
+            int trysExOthers = 0;
             var recRet = new Model.retConsCad();
             Task.Run(() =>
             {
+                TryAgain:
                 try
                 {
                     var servicoNFe = new ServicosNFe(Configuracoes.CfgServico);
-                    //var cert = CertificadoDigital.ListareObterDoRepositorio();
+                    //var cert = DFe.Utils.Assinatura.CertificadoDigital.ListareObterDoRepositorio();
                     //Configuracoes.CfgServico.Certificado.Serial = cert.SerialNumber;
                     var retornoConsulta = servicoNFe.NfeConsultaCadastro("MG", (ConsultaCadastroTipoDocumento)1, ped.Cliente.CNPJ.Replace(".", "").Replace("/", "").Replace("-", ""));
                     recRet = FuncoesXml.XmlStringParaClasse<Model.retConsCad>(retornoConsulta.RetornoCompletoStr);
@@ -178,9 +172,11 @@ namespace FiscaliZi.Colinfo.Assets
                 }
                 catch (ComunicacaoException ex)
                 {
-                    if (trys < NumOfRetries)
+                    if (trysExCom < NumOfRetries)
                     {
-                        trys += 1;
+                        trysExCom += 1;
+                        goto TryAgain;
+                        
                     }
                     var consulta = new Model.retConsCad()
                     {
@@ -204,6 +200,12 @@ namespace FiscaliZi.Colinfo.Assets
                 }
                 catch (Exception ex)
                 {
+                    if (trysExOthers < NumOfRetries)
+                    {
+                        trysExOthers += 1;
+                        goto TryAgain;
+
+                    }
                     var consulta = new Model.retConsCad()
                     {
                         ErrorCode = "err_dives",
@@ -223,10 +225,10 @@ namespace FiscaliZi.Colinfo.Assets
             }
 
         }
-        private ConfiguracaoApp CarregarConfiguracoes()
+        private AppSettings CarregarConfiguracoes()
         {
-            var config = new ConfiguracaoApp();
-            config.CfgServico.Certificado.Serial = "29CC1C5B551BABA7";
+            var config = Funcoes.CarregarConfiguracoes();
+            /*config.CfgServico.Certificado.Serial = "29CC1C5B551BABA7";
             config.CfgServico.Certificado.ManterDadosEmCache = true;
             config.CfgServico.TimeOut = 5000;
             config.CfgServico.cUF = (Estado) 31;
@@ -242,7 +244,7 @@ namespace FiscaliZi.Colinfo.Assets
             config.Emitente.CNPJ = "21795927000488";
             config.Emitente.CRT = (CRT) 1;
 
-            config.EnderecoEmitente.UF = "MG";
+            config.EnderecoEmitente.UF = "MG";*/
 
             return config;
         }
@@ -379,6 +381,11 @@ namespace FiscaliZi.Colinfo.Assets
             return "";
         }
 
+        public async void Notify()
+        {
+            _events.PublishOnUIThread(new NotifyMessage("venho do entradavm", ""));
+        }
+
         #endregion
 
         #region · CRUD ·
@@ -437,6 +444,31 @@ namespace FiscaliZi.Colinfo.Assets
                 context.SaveChanges();
             }
 
+        }
+        public void LimparTudo()
+        {
+            using (var context = new ColinfoContext())
+            {
+                try
+                {
+                    context.Arquivos.RemoveRange();
+                    var existingArqs = context.Arquivos.ToList();
+                    context.Arquivos.RemoveRange(existingArqs);
+                    context.SaveChanges();
+                    AtualizaArquivos();
+                }
+                catch (Exception ex)
+                {
+                    var msg = "";
+                    if (!string.IsNullOrEmpty(ex.Message))
+                    {
+                        msg = ex.InnerException?.Message ?? ex.Message;
+                        //ShowDialogErrorAsync(msg);
+                    }
+                }
+            }
+
+            AtualizaArquivos();
         }
         private ObservableCollection<Arquivo> GetArquivos()
         {
