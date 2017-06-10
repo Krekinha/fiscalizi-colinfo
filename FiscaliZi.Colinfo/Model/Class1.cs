@@ -10,7 +10,7 @@ namespace FiscaliZi.Colinfo.Model
     {
         public Class1()
         {
-            
+            var teste = "esi";
         }
     }
 }
