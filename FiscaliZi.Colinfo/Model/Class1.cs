@@ -8,5 +8,9 @@ namespace FiscaliZi.Colinfo.Model
 {
     class Class1
     {
+        public Class1()
+        {
+            
+        }
     }
 }
