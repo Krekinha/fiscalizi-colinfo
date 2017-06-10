@@ -1668,7 +1668,7 @@ namespace FiscaliZi.Colinfo.Model
             var path = @"F:\SOF\VDWIN\EXP\PEDIDOSDUP.CSV";
 
             if (Environment.MachineName == "ATAIDE-PC")
-                path = @"C:\Users\krekm\Desktop\PEDIDOSDUP.CSV";
+                path = @"C:\Users\krekm\Desktop\PEDIDOS.CSV";
 
             var peds = Coletor.GetPedidos(path, new DateTime(2017,4,19));
 

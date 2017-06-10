@@ -66,6 +66,9 @@
                                 Content="Add Romaneio..."
                                 cal:Message.Attach="Dialog_AddRomaneio" />
                             <Button 
+                                Content="Reconsultar Pedidos Pendentes..."
+                                cal:Message.Attach="ReconsultaCadastros" />
+                            <Button 
                                 Content="Limpar Tudo"
                                 cal:Message.Attach="LimparTudo"/>
                         </StackPanel>

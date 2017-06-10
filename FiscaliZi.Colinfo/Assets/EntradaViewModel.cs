@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using FiscaliZi.Colinfo.Model;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -39,6 +40,7 @@ namespace FiscaliZi.Colinfo.Assets
 
         #region · Properties ·
         public ObservableCollection<Arquivo> Arquivos { get; set; }
+        public List<Pedido> PedidosPendentes { get; set; }
         public SnackbarMessageQueue SnackbarMQ { get; set; }
         public Arquivo Arquivo { get; set; }
         public AppSettings Configuracoes { get; set; }
@@ -155,6 +157,7 @@ namespace FiscaliZi.Colinfo.Assets
                         var ctxVnd = Arquivos.FirstOrDefault(v => v.ArquivoID == ped.Arquivo.ArquivoID);
 
                         oldPed.Cliente.RetConsultaCadastro = recRet;
+                        oldPed.Cliente.Situacao = SituacaoCadastro(oldPed);
                         context.Entry(oldPed).State = EntityState.Modified;
                         context.SaveChanges();
 
@@ -215,6 +218,61 @@ namespace FiscaliZi.Colinfo.Assets
                 }
             });
 
+        }
+        public void ReconsultaCadastros()
+        {
+            foreach (var arq in Arquivos)
+            {
+                foreach (var ped in arq.Pedidos)
+                {
+                    if (IsCNPJ(ped.Cliente.CNPJ) 
+                        && ped.SitPed != "HABILITADO" 
+                        && ped.SitPed != "ISENTO")
+                        ConsultaCadastro(ped);
+                }
+            }
+        }
+
+        private string SituacaoCadastro(Pedido ped)
+        {
+            var cnpj = ped.Cliente?.CNPJ;
+            var consulta = ped.Cliente?.RetConsultaCadastro;
+            var ie = ped.Cliente?.IE;
+
+            if (string.IsNullOrEmpty(cnpj)) return "???";
+            var digts = Tools.SoString(cnpj);
+            var idx = digts.Length - 6;
+            if (digts.Substring(idx, 4) == "0000") return "ISENTO";
+
+            if (consulta != null)
+            {
+                if (consulta.ErrorCode == "err_dives") return "ERRO";
+
+                if (ie == "" || ie == "ISENTO")
+                {
+                    return consulta.infCons?.infCad?.Count > 0 ? "ERRO" : "ISENTO";
+                }
+
+                var sit = consulta.infCons?.infCad.Find(s => s.IE == ie.Replace(".", "").Replace("/", ""));
+                if (sit == null)
+                {
+                    return !string.IsNullOrEmpty(consulta.infCons.cStat) ? "ERRO" : "CONSULTAR";
+                }
+                switch (sit.cSit)
+                {
+                    case "1":
+                        return "HABILITADO";
+                    case "0":
+                        return "REJEIÇÃO";
+                    default:
+                        return "?????";
+                }
+            }
+            else
+            {
+                if (ie == "" || ie == "ISENTO") return "ISENTO";
+                return "CONSULTAR";
+            }
         }
         private void ConsultaCadastros(Arquivo arq)
         {
@@ -406,6 +464,7 @@ namespace FiscaliZi.Colinfo.Assets
                 var ctxPed = Arquivos.FirstOrDefault(v => v.ArquivoID == ped.Arquivo.ArquivoID).Pedidos.FirstOrDefault(p => p.PedidoID == ped.PedidoID);
 
                 oldPed.Cliente.RetConsultaCadastro = consulta;
+                oldPed.Cliente.Situacao = SituacaoCadastro(oldPed);
                 context.Entry(oldPed).State = EntityState.Modified;
                 context.SaveChanges();
 
