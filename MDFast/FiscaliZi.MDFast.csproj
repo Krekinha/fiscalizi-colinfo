@@ -54,6 +54,9 @@
     <Reference Include="DFe.Utils, Version=0.0.0.7, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Zeus.Net.NFe.NFCe.1.0.1.535\lib\net40\DFe.Utils.dll</HintPath>
     </Reference>
+    <Reference Include="Dragablz, Version=0.0.3.186, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dragablz.0.0.3.186\lib\net45\Dragablz.dll</HintPath>
+    </Reference>
     <Reference Include="FluentValidation, Version=6.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentValidation.6.4.0-beta9\lib\Net45\FluentValidation.dll</HintPath>
       <Private>True</Private>
@@ -258,6 +261,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Assets\HomeView.xaml.cs">
+      <DependentUpon>HomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Assets\HomeViewModel.cs" />
+    <Compile Include="Assets\MDFastBootstrapper.cs" />
+    <Compile Include="Assets\Window1.xaml.cs">
+      <DependentUpon>Window1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Design\DesignDataService.cs" />
     <Compile Include="MDFastContext.cs" />
     <Compile Include="Migrations\20170122011742_mig.cs" />
@@ -270,6 +281,7 @@
     </Compile>
     <Compile Include="Migrations\MDFastContextModelSnapshot.cs" />
     <Compile Include="Model\Converters.cs" />
+    <Compile Include="Model\DesignData.cs" />
     <Compile Include="Model\DialogContent\CustomDialogMotoristaContent.cs" />
     <Compile Include="Model\DataService.cs" />
     <Compile Include="Model\DialogContent\DialogMessages.cs" />
@@ -282,7 +294,7 @@
     <Compile Include="Validation\MotoristaValidator.cs" />
     <Compile Include="Validation\VeiculoValidator.cs" />
     <Compile Include="ViewModel\DialogViewModel.cs" />
-    <Compile Include="ViewModel\EntradaViewModel.cs" />
+    <Compile Include="Assets\EntradaViewModel.cs" />
     <Compile Include="Assets\MainViewModel.cs" />
     <Compile Include="ViewModel\MotoristasViewModel.cs" />
     <Compile Include="ViewModel\VeiculosViewModel.cs" />
@@ -296,13 +308,21 @@
     <Compile Include="Views\Dialogs\DialogMotoristas.xaml.cs">
       <DependentUpon>DialogMotoristas.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Entrada.xaml.cs">
-      <DependentUpon>Entrada.xaml</DependentUpon>
+    <Compile Include="Assets\EntradaView.xaml.cs">
+      <DependentUpon>EntradaView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ErrorControl.xaml.cs">
       <DependentUpon>ErrorControl.xaml</DependentUpon>
     </Compile>
-    <Page Include="Design\dicMDFast.xaml">
+    <Page Include="Assets\HomeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Assets\Window1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Dics\dicMDFast.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -318,7 +338,7 @@
       <DependentUpon>MainView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Design\dicStyles.xaml">
+    <Page Include="Resources\Dics\dicStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -338,8 +358,8 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Entrada.xaml">
-      <SubType>Form</SubType>
+    <Page Include="Assets\EntradaView.xaml">
+      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ErrorControl.xaml">

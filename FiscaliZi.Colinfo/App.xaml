@@ -10,22 +10,24 @@
     d1p1:Ignorable="d ignore">
 
     <Application.Resources>
-        
+
         <ResourceDictionary>
 
-
-            <!-- primary -->
+            <!--#region Primary -->
             <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#744CE0"/>
             <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="#FFFFFF"/>
             <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#FF3F3F46"/>
             <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="#FFFFFF"/>
             <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#4D1DCF"/>
             <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="#FFFFFF"/>
-            <!-- accent -->
+            <!--#endregion-->
+
+            <!--#region Accent -->
             <SolidColorBrush x:Key="SecondaryAccentBrush" Color="red"/>
             <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="#FFFFFF"/>
+            <!--#endregion-->
 
-            <!-- MahApps Brushes -->
+            <!--#region MahApps Brushes -->
             <SolidColorBrush x:Key="AccentColorBrush" Color="#FF2D2D30"/>
             <SolidColorBrush x:Key="AccentColorBrush2" Color="{DynamicResource Primary400}"/>
             <SolidColorBrush x:Key="AccentColorBrush3" Color="{DynamicResource Primary300}"/>
@@ -33,46 +35,51 @@
             <SolidColorBrush x:Key="WindowTitleColorBrush" Color="#FF2D2D30"/>
             <SolidColorBrush x:Key="AccentSelectedColorBrush" Color="{DynamicResource Primary500Foreground}"/>
             <LinearGradientBrush x:Key="ProgressBrush" EndPoint="0.001,0.5" StartPoint="1.002,0.5">
-                <GradientStop Color="{DynamicResource Primary700}" Offset="0"/>
-                <GradientStop Color="{DynamicResource Primary300}" Offset="1"/>
+            <GradientStop Color="{DynamicResource Primary700}" Offset="0"/>
+            <GradientStop Color="{DynamicResource Primary300}" Offset="1"/>
             </LinearGradientBrush>
             <SolidColorBrush x:Key="CheckmarkFill" Color="{DynamicResource Primary500}"/>
             <SolidColorBrush x:Key="RightArrowFill" Color="{DynamicResource Primary500}"/>
             <SolidColorBrush x:Key="IdealForegroundColorBrush" Color="{DynamicResource Primary500Foreground}"/>
             <SolidColorBrush x:Key="IdealForegroundDisabledBrush" Color="{DynamicResource Primary500}" Opacity="0.4"/>
+            <!--#endregion-->
 
             <!-- Dragablz Material Design -->
             <Style TargetType="{x:Type dragablz:TabablzControl}" BasedOn="{StaticResource MaterialDesignTabablzControlStyle}" />
 
             <ResourceDictionary.MergedDictionaries>
 
-                <!-- Caliburn -->
+                <!--#region Caliburn -->
                 <ResourceDictionary>
                     <vm:ColinfoBootstrapper x:Key="bootstrapper"/>
                 </ResourceDictionary>
-                
-                <!-- MahApps -->
+                <!--#endregion-->
+
+                <!--#region MahApps -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
-                
-                <!-- Material Design -->
+                <!--#endregion-->
+
+                <!--#region Material Design -->
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.MahApps;component/Themes/MaterialDesignTheme.MahApps.Fonts.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.BlueGrey.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.amber.xaml" />
-                
+                <!--#endregion-->
 
-
-                <!-- Dragablz Material Design -->
+                <!--#region Dragablz Material Design -->
                 <ResourceDictionary Source="pack://application:,,,/Dragablz;component/Themes/materialdesign.xaml"/>
+                <!--#endregion-->
 
-                <!-- Locais -->
+                <!--#region Locais -->
                 <ResourceDictionary Source="Resources/Dictionaries/dicDatagrid.xaml"/>
                 <ResourceDictionary Source="Resources/Dictionaries/dicImages.xaml"/>
                 <ResourceDictionary Source="Resources/Dictionaries/dicListBox.xaml" />
+                <!--#endregion-->
+                
             </ResourceDictionary.MergedDictionaries>
 
             

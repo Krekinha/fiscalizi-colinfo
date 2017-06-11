@@ -1,20 +1,19 @@
-﻿using GalaSoft.MvvmLight;
-using FiscaliZi.MDFast.Model;
-using System.Collections.ObjectModel;
-using GalaSoft.MvvmLight.CommandWpf;
-using System;
+﻿using System.Collections.ObjectModel;
+using Caliburn.Micro;
 using DFe.Utils;
+using FiscaliZi.MDFast.Model;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
 using Microsoft.Win32;
-using FiscaliZi.MDFast.Validation;
 using NFe.Classes.Servicos.DistribuicaoDFe.Schemas;
 
-namespace FiscaliZi.MDFast.ViewModel
+namespace FiscaliZi.MDFast.Assets
 {
-    public class EntradaViewModel : ViewModelBase
+    public class EntradaViewModel : PropertyChangedBase
     {
-        public EntradaViewModel(IDataService dataService)
+        public EntradaViewModel(IEventAggregator events)
         {
-            _dataService = dataService;
+            _events = events;
             NFs = new ObservableCollection<nfeProc>();
             AddNFSCommand = new RelayCommand(AddNFS);
             TestCommand = new RelayCommand(Teste);
@@ -24,27 +23,16 @@ namespace FiscaliZi.MDFast.ViewModel
 
         private const string ArquivoConfiguracao = @"..\..\Utils\configuracao.xml";
         private readonly IDataService _dataService;
+        private IEventAggregator _events;
 
         public RelayCommand AddNFSCommand { get; set; }
         public RelayCommand TestCommand { get; set; }
 
-        private ObservableCollection<nfeProc> _nfs;
-        public ObservableCollection<nfeProc> NFs
-        {
-            get
-            {
-                return _nfs;
-            }
-
-            set
-            {
-                Set(() => NFs, ref _nfs, value);
-            }
-        }
+        public ObservableCollection<nfeProc> NFs { get; set; }
 
         #endregion
 
-        #region · Construtores ·
+        #region · Metodos ·
         private void AddNFS()
         {
             OpenFileDialog opd = new OpenFileDialog
@@ -62,7 +50,6 @@ namespace FiscaliZi.MDFast.ViewModel
                 {
                     var nf = FuncoesXml.ArquivoXmlParaClasse<nfeProc>(file);
                     NFs.Add(nf);
-                    RaisePropertyChanged("NFS");
                 }
             }
         }

@@ -4,7 +4,8 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-                    xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" xmlns:Views="clr-namespace:MDFast.Views"
+                    xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                    xmlns:Dragablz="clr-namespace:Dragablz;assembly=Dragablz"
                     mc:Ignorable="d" 
                     >
 
@@ -220,6 +221,8 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+    <!-- Dragablz TabablzControl -->
+    <Style TargetType="{x:Type Dragablz:TabablzControl}" BasedOn="{StaticResource MaterialDesignTabablzControlStyle}" />
     <x:Array Type="sys:String" x:Key="UF" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib">
         <sys:String>AC</sys:String>
         <sys:String>AL</sys:String>

@@ -16,7 +16,7 @@ namespace FiscaliZi.Colinfo
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            const string conn = "User ID=postgres;Password=admin;Host=localhost;Port=5432;Database=db_colinfo;Pooling=true;";
+            const string conn = "User ID=postgres;Password=123456;Host=localhost;Port=5432;Database=db_colinfo;Pooling=true;";
             optionsBuilder.UseNpgsql(conn);
             
         }

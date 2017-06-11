@@ -12,12 +12,14 @@ namespace FiscaliZi.MDFast.Assets
             IEventAggregator events = new EventAggregator();
             events.Subscribe(this);
 
-            #region · ViewModels Scope ·
+            #region · ViewModels Call ·
+            EntradaVM = new EntradaViewModel(events);
             #endregion
 
         }
 
         #region · ViewModels Scope ·
+        public EntradaViewModel EntradaVM { get; set; }
         #endregion
 
         #region · Properties ·

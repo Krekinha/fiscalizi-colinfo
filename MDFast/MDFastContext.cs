@@ -11,9 +11,7 @@ namespace FiscaliZi.MDFast
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string conn = "User ID=postgres;Password=123456;Host=localhost;Port=5432;Database=db_mdfast;Pooling=true;";
-            optionsBuilder.UseNpgsql(conn);
-
+            optionsBuilder.UseNpgsql("User ID=postgres;Password=123456;Host=localhost;Port=5432;Database=db_mdfast;Pooling=true;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
