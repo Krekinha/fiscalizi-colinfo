@@ -308,7 +308,6 @@
     <Compile Include="Model\AppSettings.cs" />
     <Compile Include="Model\CadCli.cs" />
     <Compile Include="Model\CertificadoDados.cs" />
-    <Compile Include="Model\Class1.cs" />
     <Compile Include="Model\Cliente.cs" />
     <Compile Include="Model\ConfiguracaoApp.cs" />
     <Compile Include="Model\ConfiguracaoCsc.cs" />
@@ -431,7 +430,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="teste.csx" />
+    <None Include="Utils\teste.csx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

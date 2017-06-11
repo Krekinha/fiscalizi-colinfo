@@ -1,12 +1,12 @@
 ﻿using GalaSoft.MvvmLight;
 using FiscaliZi.MDFast.Model;
 using System.Collections.ObjectModel;
-using NFe.Utils;
 using GalaSoft.MvvmLight.CommandWpf;
 using System;
+using DFe.Utils;
 using Microsoft.Win32;
-using NFe.Classes;
 using FiscaliZi.MDFast.Validation;
+using NFe.Classes.Servicos.DistribuicaoDFe.Schemas;
 
 namespace FiscaliZi.MDFast.ViewModel
 {

@@ -1,5 +1,4 @@
 ﻿using FiscaliZi.MDFast.Validation;
-using NFe.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

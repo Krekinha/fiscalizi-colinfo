@@ -441,7 +441,11 @@ namespace FiscaliZi.Colinfo.Assets
 
         public async void Notify()
         {
-            _events.PublishOnUIThread(new NotifyMessage("venho do entradavm", ""));
+            await Task.Run(() =>
+             {
+                 _events.PublishOnUIThread(new NotifyMessage("venho do entradavm", ""));
+             });
+             
         }
 
         #endregion
