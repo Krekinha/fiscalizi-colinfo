@@ -46,7 +46,7 @@ namespace FiscaliZi.MDFast.ViewModel
 
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<EntradaViewModel>();
-            SimpleIoc.Default.Register<VeiculosViewModel>();
+            SimpleIoc.Default.Register<ConfigVeiculosViewModel>();
             SimpleIoc.Default.Register<DialogViewModel>();
             SimpleIoc.Default.Register<DialogMessages>();
             SimpleIoc.Default.Register<IDialogCoordinator, DialogCoordinator>();
@@ -68,11 +68,11 @@ namespace FiscaliZi.MDFast.ViewModel
             }
         }
 
-        public VeiculosViewModel VeiculosVM
+        public ConfigVeiculosViewModel VeiculosVM
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<VeiculosViewModel>();
+                return ServiceLocator.Current.GetInstance<ConfigVeiculosViewModel>();
             }
         }
 

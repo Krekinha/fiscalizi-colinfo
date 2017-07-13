@@ -1,33 +1,34 @@
-﻿using FluentValidation.Results;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.CommandWpf;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using Caliburn.Micro;
 using FiscaliZi.MDFast.Model;
 using FiscaliZi.MDFast.Model.DialogContent;
 using FiscaliZi.MDFast.Validation;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System;
-using MahApps.Metro.Controls.Dialogs;
-using FiscaliZi.MDFast.Views;
-using GalaSoft.MvvmLight.Messaging;
 using FiscaliZi.MDFast.Views.Dialogs;
+using FluentValidation.Results;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Messaging;
+using MahApps.Metro.Controls.Dialogs;
 
-namespace FiscaliZi.MDFast.ViewModel
+namespace FiscaliZi.MDFast.Assets
 {
-    public class VeiculosViewModel : ViewModelBase, INotifyPropertyChanged
+    public class ConfigVeiculosViewModel : ViewModelBase, INotifyPropertyChanged
     {
-        public VeiculosViewModel(IDataService dataService, IDialogCoordinator dialogCoordinator)
+        public ConfigVeiculosViewModel(IEventAggregator events)
         {
-            _dataService = dataService;
+            //_dataService = new DataService(dialogCoordinator);
+            _events = events;
 
-            Cars = _dataService.GetVeiculos();
-            Mots = _dataService.GetMotoristas();
-            NewVeiculo = _dataService.GetStandVeiculo();
-            Errors = _dataService.fakeERR();
-            _dialogViewMotoristas = new DialogMotoristas { DataContext = this };
+            //Cars = _dataService.GetVeiculos();
+            //Mots = _dataService.GetMotoristas();
+            //NewVeiculo = _dataService.GetStandVeiculo();
+            //Errors = _dataService.fakeERR();
+            //    not       _dialogViewMotoristas = new DialogMotoristas { DataContext = this };
 
-            _dialogCoordinator = dialogCoordinator;
-            Messenger.Default.Register<string>(this, ProcessMessage);
+            //_dialogCoordinator = dialogCoordinator;
+            //Messenger.Default.Register<string>(this, ProcessMessage);
 
             #region · Commands ·
             AddVeiculoCommand = new RelayCommand(AddVeiculo);
@@ -54,6 +55,7 @@ namespace FiscaliZi.MDFast.ViewModel
         #region · Propriedades ·
 
         private readonly IDataService _dataService;
+        private readonly IEventAggregator _events;
 
         #region · Commands ·
         public RelayCommand AddVeiculoCommand { get; set; }

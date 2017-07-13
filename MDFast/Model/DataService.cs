@@ -21,7 +21,7 @@ namespace FiscaliZi.MDFast.Model
             _dialogCoordinator = dialogCoordinator;
 
             DialogMessages = new DialogMessages();
-            DialogViewError = new DialogError();
+            DialogViewError = null;
         }
 
         #region · Dialogs ·

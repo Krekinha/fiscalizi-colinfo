@@ -4,6 +4,7 @@ using FiscaliZi.Colinfo.Model;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -31,11 +32,11 @@ namespace FiscaliZi.Colinfo.Assets
             Arquivos = GetArquivos();
 
             Configuracoes = CarregarConfiguracoes();
+            //Configuracoes = settings();
+
             InitializeMonitor();
             RomaneioNum = 2;
-            RomaneioData = DateTime.Parse("20/03/2017");
             SnackbarMQ = new SnackbarMessageQueue();
-            //test();
         }
 
         #region · Properties ·
@@ -138,6 +139,8 @@ namespace FiscaliZi.Colinfo.Assets
                     var servicoNFe = new ServicosNFe(Configuracoes.CfgServico);
                     //var cert = DFe.Utils.Assinatura.CertificadoDigital.ListareObterDoRepositorio();
                     //Configuracoes.CfgServico.Certificado.Serial = cert.SerialNumber;
+                    //Configuracoes.CfgServico.Certificado.Serial = "00D424AA";
+
                     var retornoConsulta = servicoNFe.NfeConsultaCadastro("MG", (ConsultaCadastroTipoDocumento)1, ped.Cliente.CNPJ.Replace(".", "").Replace("/", "").Replace("-", ""));
                     recRet = FuncoesXml.XmlStringParaClasse<Model.retConsCad>(retornoConsulta.RetornoCompletoStr);
                     //ped.Cliente.RetConsultaCadastro = recRet;
@@ -556,5 +559,27 @@ namespace FiscaliZi.Colinfo.Assets
         }
 
         #endregion
+
+        private AppSettings settings()
+        {
+            var config = new AppSettings();
+            config.CfgServico.Certificado = new DFe.Utils.ConfiguracaoCertificado
+            {
+                Serial = "00D424AA",
+                ManterDadosEmCache = true,
+
+                TipoCertificado = TipoCertificado.A1Repositorio
+            };
+            config.CfgServico.TimeOut = 5000;
+            config.CfgServico.cUF = (DFe.Classes.Entidades.Estado)31;
+            config.CfgServico.tpAmb = NFe.Classes.Informacoes.Identificacao.Tipos.TipoAmbiente.taProducao;
+            config.CfgServico.tpEmis = NFe.Classes.Informacoes.Identificacao.Tipos.TipoEmissao.teNormal;
+            config.CfgServico.ModeloDocumento = (DFe.Classes.Flags.ModeloDocumento)55;
+            config.CfgServico.VersaoNfeConsultaCadastro = NFe.Classes.Servicos.Tipos.VersaoServico.ve200;
+            config.CfgServico.SalvarXmlServicos = false;
+            config.CfgServico.DiretorioSchemas = @"Schemas";
+            config.CfgServico.ProtocoloDeSeguranca = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls;
+            return config;
+        }
     }
 }

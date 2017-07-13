@@ -23,7 +23,9 @@
                 <TabItem Header="ENTRADA">
                     <Assets:EntradaView Cal:View.Model="{Binding EntradaVM}" Margin="8"/>
                 </TabItem>
-                <TabItem Header="CONFIGURAÇÕES"/>
+                <TabItem Header="CONFIGURAÇÕES">
+                    <Assets:ConfiguracoesView/>
+                </TabItem>
             </Dragablz:TabablzControl>
         </Dockablz:Layout>
     </Grid>

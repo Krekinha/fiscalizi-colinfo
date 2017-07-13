@@ -261,14 +261,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Assets\ConfiguracoesView.xaml.cs">
+      <DependentUpon>ConfiguracoesView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Assets\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Assets\HomeViewModel.cs" />
     <Compile Include="Assets\MDFastBootstrapper.cs" />
-    <Compile Include="Assets\Window1.xaml.cs">
-      <DependentUpon>Window1.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Design\DesignDataService.cs" />
     <Compile Include="MDFastContext.cs" />
     <Compile Include="Migrations\20170122011742_mig.cs" />
@@ -297,10 +297,10 @@
     <Compile Include="Assets\EntradaViewModel.cs" />
     <Compile Include="Assets\MainViewModel.cs" />
     <Compile Include="ViewModel\MotoristasViewModel.cs" />
-    <Compile Include="ViewModel\VeiculosViewModel.cs" />
+    <Compile Include="Assets\ConfigVeiculosViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Compile Include="Views\ConfigVeiculos.xaml.cs">
-      <DependentUpon>ConfigVeiculos.xaml</DependentUpon>
+    <Compile Include="Assets\ConfigVeiculosView.xaml.cs">
+      <DependentUpon>ConfigVeiculosView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Dialogs\DialogError.xaml.cs">
       <DependentUpon>DialogError.xaml</DependentUpon>
@@ -314,13 +314,13 @@
     <Compile Include="Views\ErrorControl.xaml.cs">
       <DependentUpon>ErrorControl.xaml</DependentUpon>
     </Compile>
+    <Page Include="Assets\ConfiguracoesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Assets\HomeView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Assets\Window1.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\Dics\dicMDFast.xaml">
       <SubType>Designer</SubType>
@@ -346,7 +346,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ConfigVeiculos.xaml">
+    <Page Include="Assets\ConfigVeiculosView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
