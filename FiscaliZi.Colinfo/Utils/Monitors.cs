@@ -6,6 +6,7 @@ namespace FiscaliZi.Colinfo.Utils
     public class Monitors
     {
         static string dir_Pedidos = @"Pedidos\";
+        const string DIR_BACKUP_FILE = @"F:\SOF\VDWIN\PTPED\ZIPS\";
 
         public static void MonitorGZPTPED(string pathPTPED)
         {
@@ -30,9 +31,13 @@ namespace FiscaliZi.Colinfo.Utils
                 try
                 {
                     File.Copy(e.FullPath, dir_Pedidos + e.Name, true);
+
+                    // Descompactar e gurdar backup
+                    UnzipAndBackup(e.FullPath, e.Name);
+                    
                     break;
                 }
-                catch (IOException)
+                catch (IOException ex)
                 {
                     if (i == NumberOfRetries)
                         throw;
@@ -77,6 +82,20 @@ namespace FiscaliZi.Colinfo.Utils
                     Thread.Sleep(DelayOnRetry);
                 }
             }
+        }
+
+        private static void UnzipAndBackup(string fullpath, string filename)
+        {
+            var gzfile = new FileInfo(fullpath);
+
+            Unzip.Start(gzfile);
+
+            if (File.Exists(DIR_BACKUP_FILE + filename))
+            {
+                File.Delete(DIR_BACKUP_FILE + filename);
+            }
+            File.Move(fullpath, DIR_BACKUP_FILE + filename);
+
         }
     }
 }

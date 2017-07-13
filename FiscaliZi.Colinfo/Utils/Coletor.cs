@@ -203,87 +203,93 @@ namespace FiscaliZi.Colinfo.Utils
         {
             var peds = new List<Pedido>();
 
-            var Lines = File.ReadLines(path).Select(a => a.Split(';'));
-
-            using (var context = new ColinfoContext())
+            try
             {
-                foreach (var line in Lines)
+                var Lines = File.ReadLines(path).Select(a => a.Split(';'));
+
+                using (var context = new ColinfoContext())
                 {
-                    if (!IsValidPed(line, _rom)) continue;
-
-                    var prod = context.Produtos.FirstOrDefault(p => p.Codigo == line[34]);
-                    if (prod == null)
-                        prod = new Produto { Codigo = line[34] };
-
-                    var item = new Item
+                    foreach (var line in Lines)
                     {
-                        Produto = prod,
-                        Ocorrencia = line[53].Trim(),
-                        MotOcorrencia = line[61],
-                        NatOper = line[52],
-                        Tabela = line[35],
-                        QntCX = int.Parse(line[45]),
-                        QntUND = int.Parse(line[46]),
-                        ValorCusto = ToDecimal(line[40]),
-                        ValorUnid = ToDecimal(line[39]),
-                        ValorTotal = ToDecimal(line[37])
-                    };
-                    var ped = peds.Find(p => p.NumPedido == line[0]);
-                    var cli =
-                        context.Clientes.FirstOrDefault(
-                            x => x.RegiaoCliente == int.Parse(line[3].Split('-')[0]) && x.NumCliente == int.Parse(line[3].Split('-')[1]));
-                    if (cli == null)
-                    {
-                        cli = new Cliente
+                        if (!IsValidPed(line, _rom)) continue;
+
+                        var prod = context.Produtos.FirstOrDefault(p => p.Codigo == line[34]);
+                        if (prod == null)
+                            prod = new Produto { Codigo = line[34] };
+
+                        var item = new Item
                         {
-                            RegiaoCliente = int.Parse(line[3].Split('-')[0]),
-                            NumCliente = int.Parse(line[3].Split('-')[1])
+                            Produto = prod,
+                            Ocorrencia = line[53].Trim(),
+                            MotOcorrencia = line[61],
+                            NatOper = line[52],
+                            Tabela = line[35],
+                            QntCX = int.Parse(line[45]),
+                            QntUND = int.Parse(line[46]),
+                            ValorCusto = ToDecimal(line[40]),
+                            ValorUnid = ToDecimal(line[39]),
+                            ValorTotal = ToDecimal(line[37])
                         };
-                    }
-                    if (ped == null)
-                    {
-                        if (line[24] != "009")
-                            peds.Add(
-                                new Pedido
-                                {
-                                    NumPedido = line[0],
-                                    CodVendedor = int.Parse(line[6]),
-                                    DataPedido = DateTime.Parse(line[29]),
-                                    Items = new List<Item> { item },
-                                    Cliente = cli,
-                                    Pasta = line[30],
-                                    SitPed = line[24]
-                                }
-                            );
-                    }
-                    else
-                    {
-                        ped.Items.Add(item);
-                    }
+                        var ped = peds.Find(p => p.NumPedido == line[0]);
+                        var cli =
+                            context.Clientes.FirstOrDefault(
+                                x => x.RegiaoCliente == int.Parse(line[3].Split('-')[0]) && x.NumCliente == int.Parse(line[3].Split('-')[1]));
+                        if (cli == null)
+                        {
+                            cli = new Cliente
+                            {
+                                RegiaoCliente = int.Parse(line[3].Split('-')[0]),
+                                NumCliente = int.Parse(line[3].Split('-')[1])
+                            };
+                        }
+                        if (ped == null)
+                        {
+                            if (line[24] != "009")
+                                peds.Add(
+                                    new Pedido
+                                    {
+                                        NumPedido = line[0],
+                                        CodVendedor = int.Parse(line[6]),
+                                        DataPedido = DateTime.Parse(line[29]),
+                                        Items = new List<Item> { item },
+                                        Cliente = cli,
+                                        Pasta = line[30],
+                                        SitPed = line[24]
+                                    }
+                                );
+                        }
+                        else
+                        {
+                            ped.Items.Add(item);
+                        }
 
 
-                }
-                if (peds.Count > 0)
-                {
-                    var arq = new Arquivo
-                    {
-                        NomeVendedor = $"ROMANEIO",
-                        ArquivoVendedor = $"ROM: {_rom}",
-                        Pedidos = new List<Pedido>(),
-                        DataEnvio = DateTime.Now,
-                        DataColeta = DateTime.Now
-                    };
-                    foreach (var item in peds)
-                    {
-                        arq.Pedidos.Add(item);
                     }
+                    if (peds.Count > 0)
+                    {
+                        var arq = new Arquivo
+                        {
+                            NomeVendedor = $"ROMANEIO",
+                            ArquivoVendedor = $"ROM: {_rom}",
+                            Pedidos = new List<Pedido>(),
+                            DataEnvio = DateTime.Now,
+                            DataColeta = DateTime.Now
+                        };
+                        foreach (var item in peds)
+                        {
+                            arq.Pedidos.Add(item);
+                        }
 
-                    context.Arquivos.Add(arq);
-                    context.SaveChanges();
-                    return arq;
+                        context.Arquivos.Add(arq);
+                        context.SaveChanges();
+                        return arq;
+                    }
                 }
             }
-
+            catch (Exception ex)
+            {
+                Funcoes.MostrarErro(ex);
+            }
 
             return null;
 

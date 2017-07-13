@@ -36,6 +36,7 @@ namespace FiscaliZi.Colinfo.Assets
 
             InitializeMonitor();
             RomaneioNum = 2;
+            RomaneioData = DateTime.Now;
             SnackbarMQ = new SnackbarMessageQueue();
         }
 
