@@ -906,10 +906,23 @@ namespace FiscaliZi.Colinfo.Model
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var items = (ICollection<Pedido>)value;
-            if (items == null) return "";
+            decimal total = 0;
+            var peds = (ICollection<Pedido>)value;
+            if (peds == null) return "";
 
-            var total = items.Cast<Pedido>().Sum(ped => ped.ValorTotalPed);
+            foreach (var ped in peds)
+            {
+                if (ped.Items != null)
+                {
+                    foreach (var itm in ped.Items)
+                    {
+                        total += itm.ValorTotal;
+                    }
+                }
+
+            }
+
+            //var total = peds.Cast<Pedido>().Sum(ped => ped.ValorTotalPed);
             return total.ToString("N2", CultureInfo.CreateSpecificCulture("pt-BR"));
         }
 

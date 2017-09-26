@@ -385,7 +385,8 @@
                           BorderThickness="0">
                 <Grid x:Name="grdPEDS1" 
                       DataContext="{Binding Vendas/Pedidos}"
-                      Visibility="{Binding Converter={StaticResource IsVisibleListConverter}}">
+                      Visibility="Visible">
+                    <!--Visibility="{Binding Converter={StaticResource IsVisibleListConverter}}"-->
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -541,7 +542,7 @@
                                     HorizontalAlignment="Left" Height="20">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock 
-                                        Text="ITENS" 
+                                        Text="VAL. TOTAL" 
                                         Foreground="{DynamicResource AccentColorBrush}"
                                         FontSize="10" 
                                     Margin="5,0,2,0" 
@@ -555,7 +556,7 @@
                                         Margin="3,2" 
                                         Background="#FF686868"/>
                                 <TextBlock 
-                                    Text="{Binding Items.Count}" 
+                                    Text="0" 
                                     Foreground="{DynamicResource AccentColorBrush}"
                                     FontSize="10" 
                                     Margin="0,0,5,0" 
@@ -563,6 +564,7 @@
                                     VerticalAlignment="Center" 
                                     FontWeight="Bold"/>
                             </StackPanel>
+
                         </Border>
                     </StackPanel>
                 </Grid>
@@ -570,5 +572,6 @@
 
         </MDesign:Card>
     </Grid>
+    
 </UserControl>
 
