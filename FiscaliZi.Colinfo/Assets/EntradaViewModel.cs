@@ -54,9 +54,12 @@ namespace FiscaliZi.Colinfo.Assets
 
         private void InitializeMonitor()
         {
+            var pc = Environment.MachineName;
             var path = @"F:\SOF\VDWIN\PTPED";
-            if (Environment.MachineName == "ATAIDE-PC")
+            if (pc == "ATAIDE-PC")
                 path = @"D:\SOF\VDWIN\PTPED";
+            if (pc == "KREKINHA-PC")
+                path = @"C:\Users\Krekinha\Desktop\PTPED";
 
             MonitorTXTPED();
             Monitors.MonitorGZPTPED(path);
@@ -550,12 +553,21 @@ namespace FiscaliZi.Colinfo.Assets
                     .ThenInclude(inf => inf.infCons)
                     .ThenInclude(inf2 => inf2.infCad);
 
-                foreach (var item in arqs)
+                try
                 {
-                    Arqs.Add(item);
+                    foreach (var item in arqs)
+                    {
+                        Arqs.Add(item);
+                    }
+
+                    return Arqs;
+                }
+                catch (Exception)
+                {
+
+                    return Arqs;
                 }
 
-                return Arqs;
             }
         }
 
