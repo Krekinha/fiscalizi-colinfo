@@ -80,7 +80,7 @@
                         Height="25">
                         <StackPanel>
                             <Button Content="Pedidos -99,99 À Prazo"
-                                    cal:Message.Attach="PedsMinAPrazo()" />
+                                    cal:Message.Attach="PedsMinAPrazoAsync()" />
                         </StackPanel>
                     </MDesign:PopupBox>
                 </StackPanel>

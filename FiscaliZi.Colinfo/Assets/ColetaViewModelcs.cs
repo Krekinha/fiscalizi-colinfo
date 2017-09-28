@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Data;
 using System.Linq;
 using System;
+using MaterialDesignThemes.Wpf;
 
 namespace FiscaliZi.Colinfo.Assets
 {
@@ -81,7 +82,7 @@ namespace FiscaliZi.Colinfo.Assets
                 Vendas.Add(vd);
             }
         }
-        public void PedsMinAPrazo()
+        public async System.Threading.Tasks.Task PedsMinAPrazoAsync()
         {
             var pedMin = new List<Pedido>();
             if (Vendas != null)
@@ -97,6 +98,12 @@ namespace FiscaliZi.Colinfo.Assets
                         }
                     }
                 }
+                var view = new Dialog_PedMin()
+                {
+                    DataContext = pedMin
+                };
+
+                var result = await DialogHost.Show(view, "RootDialog", ClosingEventHandler);
             }
 
         }
@@ -141,6 +148,9 @@ namespace FiscaliZi.Colinfo.Assets
 
         }
 
-
+        private void ClosingEventHandler(object sender, DialogClosingEventArgs eventArgs)
+        {
+            Console.WriteLine("You can intercept the closing event, and cancel here.");
+        }
     }
 }
