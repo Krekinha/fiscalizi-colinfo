@@ -25,10 +25,13 @@ namespace FiscaliZi.Colinfo.Assets
             var vendstands = new int[] { 301, 302, 303, 304, 305, 306, 307, 308,
                                          401, 402, 403, 404, 405, 406, 407,
                                          601, 602, 603, 604, 605};
+            var pc = Environment.MachineName;
 
             var path = @"F:\SOF\VDWIN\EXP\PEDIDOS.CSV";
 
-            if (Environment.MachineName == "ATAIDE-PC")
+            if (pc == "ATAIDE-PC")
+                path = @"C:\Users\krekm\Desktop\PEDIDOS.CSV";
+            if (pc == "KREKINHA-PC")
                 path = @"C:\Users\krekm\Desktop\PEDIDOS.CSV";
 
             var peds = Coletor.GetPedidos(path, date);

@@ -313,6 +313,31 @@ namespace FiscaliZi.Colinfo.Model
             throw new NotSupportedException();
         }
     }
+    public class PesoPedidoDetalheConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var items = (List<Item>)value;
+            if (items == null) return "";
+
+            decimal tot = 0;
+            foreach (var itm in items)
+            {
+                if (itm.Produto.Unidades != 0)
+                    tot += ((((itm.QntCX * itm.Produto.Unidades) + itm.QntUND) / itm.Produto.Unidades) * itm.Produto.PesoUnd) + (itm.Produto.PesoEmb * itm.QntCX);
+            }
+            return tot.ToString("N2", CultureInfo.CreateSpecificCulture("pt-BR"));
+            /*var unds = items.Sum(itm => (itm.QntCX * itm.Produto.Unidades) + itm.QntUND);
+            var und_por_cx = items.Produto.Unidades;
+            var total = items.Sum(itm => ((((itm.QntCX * itm.Produto.Unidades) + itm.QntUND)/ itm.Produto.Unidades) * itm.Produto.PesoUnd) + itm.Produto.PesoEmb * itm.QntCX );
+            return total.ToString("N2", CultureInfo.CreateSpecificCulture("pt-BR"));*/
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotSupportedException();
+        }
+    }
     public class RejeicoesCNPJConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

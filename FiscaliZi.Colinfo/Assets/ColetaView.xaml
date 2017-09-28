@@ -21,6 +21,7 @@
         <Model:PedNumConverter x:Key="PedNumConverter"/>
         <Model:TotalVendasConverter x:Key="TotalVendasConverter"/>
         <Model:PesoPedidoConverter x:Key="PesoPedidoConverter"/>
+        <Model:PesoPedidoDetalheConverter x:Key="PesoPedidoDetalheConverter"/>
         <Model:TabelaConverter x:Key="TabelaConverter"/>
         <Model:OcorrenciaConverter x:Key="OcorrenciaConverter"/>
         <Model:StringToIntConverter x:Key="StringToIntConverter"/>
@@ -385,7 +386,7 @@
                           BorderThickness="0">
                 <Grid x:Name="grdPEDS1" 
                       DataContext="{Binding Vendas/Pedidos}"
-                      Visibility="Visible">
+                      Visibility="{Binding Converter={StaticResource IsVisibleListConverter}}">
                     <!--Visibility="{Binding Converter={StaticResource IsVisibleListConverter}}"-->
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -542,7 +543,7 @@
                                     HorizontalAlignment="Left" Height="20">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock 
-                                        Text="VAL. TOTAL" 
+                                        Text="VAL. PED" 
                                         Foreground="{DynamicResource AccentColorBrush}"
                                         FontSize="10" 
                                     Margin="5,0,2,0" 
@@ -556,7 +557,36 @@
                                         Margin="3,2" 
                                         Background="#FF686868"/>
                                 <TextBlock 
-                                    Text="0" 
+                                    Text="{Binding Items, Converter={StaticResource TotalValItemsConverter}}"
+                                    Foreground="{DynamicResource AccentColorBrush}"
+                                    FontSize="10" 
+                                    Margin="0,0,5,0" 
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center" 
+                                    FontWeight="Bold"/>
+                            </StackPanel>
+
+                        </Border>
+                        <Border Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" 
+                                    CornerRadius="5" 
+                                    HorizontalAlignment="Left" Height="20" Margin="20,0,0,0">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock 
+                                        Text="PESO PED" 
+                                        Foreground="{DynamicResource AccentColorBrush}"
+                                        FontSize="10" 
+                                    Margin="5,0,2,0" 
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center"
+                                    FontWeight="Bold"/>
+                                <Separator
+                                        Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"
+                                        Height="10" 
+                                        Width="1" 
+                                        Margin="3,2" 
+                                        Background="#FF686868"/>
+                                <TextBlock 
+                                    Text="{Binding Items, Converter={StaticResource PesoPedidoDetalheConverter}}"
                                     Foreground="{DynamicResource AccentColorBrush}"
                                     FontSize="10" 
                                     Margin="0,0,5,0" 
