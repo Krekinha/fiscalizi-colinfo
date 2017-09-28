@@ -29,6 +29,7 @@
         <Model:SituacaoCNPJIconVendBackgroundConverter x:Key="SituacaoCNPJIconVendBackgroundConverter"/>
         <Model:IsVisibleColunaVendedorConverter x:Key="IsVisibleColunaVendedorConverter"/>
         <Model:NullatorCodVendedorConverter x:Key="NullatorCodVendedorConverter"/>
+        <Model:ToMoney x:Key="ToMoney"/>
     </UserControl.Resources>
 
     <Grid >
@@ -196,7 +197,7 @@
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
                 <DataGridTextColumn Header="VAL. PED" 
-                                    Binding="{Binding ValorTotalPed}" 
+                                    Binding="{Binding ValorTotalPed, Converter={StaticResource ToMoney}}" 
                                     CanUserResize="False" 
                                     Width="80" />
                 <DataGridTemplateColumn 

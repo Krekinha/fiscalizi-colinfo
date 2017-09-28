@@ -81,7 +81,25 @@ namespace FiscaliZi.Colinfo.Assets
                 Vendas.Add(vd);
             }
         }
+        public void PedsMinAPrazo()
+        {
+            var pedMin = new List<Pedido>();
+            if (Vendas != null)
+            {
+                foreach (var vnd in Vendas)
+                {
+                    foreach (var ped in vnd.Pedidos)
+                    {
+                        var val = ped.Items.Sum(itm => itm.ValorTotal);
+                        if (val < 100 && ped.TipoPgt != 1)
+                        {
+                            pedMin.Add(ped);
+                        }
+                    }
+                }
+            }
 
+        }
         public void RemoverVenda(Venda vnd)
         {
             Vendas.Remove(vnd);

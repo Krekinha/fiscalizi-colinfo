@@ -183,7 +183,7 @@ namespace FiscaliZi.Colinfo.Utils
                                     Cliente = GetClienteByCode(line[3]),
                                     Pasta = line[30],
                                     SitPed = line[24],
-                                    ValorTotalPed = ToDecimal(line[37])
+                                    ValorTotalPed = ToDecimal(line[37])//ToDecimal(line[37])
                                 }
                             );
                     }

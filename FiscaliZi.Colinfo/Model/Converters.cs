@@ -791,6 +791,20 @@ namespace FiscaliZi.Colinfo.Model
         }
 
     }
+    public class ToMoney : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null) return 0;
+            var total = (decimal)value;
+            return total.ToString("N2", CultureInfo.CreateSpecificCulture("pt-BR"));
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value;
+        }
+    }
     public class Total_FormPgtConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
