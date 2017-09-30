@@ -89,15 +89,19 @@ namespace FiscaliZi.Colinfo.Assets
             {
                 foreach (var vnd in Vendas)
                 {
-                    foreach (var ped in vnd.Pedidos)
+                    if (vnd.Pedidos != null)
                     {
-                        var val = ped.Items.Sum(itm => itm.ValorTotal);
-                        if (val < 100 && ped.TipoPgt != 1)
+                        foreach (var ped in vnd.Pedidos)
                         {
-                            pedMin.Add(ped);
+                            var val = ped.Items.Sum(itm => itm.ValorTotal);
+                            if (val < 100 && ped.TipoPgt != 1)
+                            {
+                                pedMin.Add(ped);
+                            }
                         }
                     }
                 }
+                        
                 var view = new Dialog_PedMin()
                 {
                     DataContext = pedMin

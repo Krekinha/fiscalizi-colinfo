@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading;
 
 namespace FiscaliZi.Colinfo.Utils
@@ -6,7 +7,7 @@ namespace FiscaliZi.Colinfo.Utils
     public class Monitors
     {
         static string dir_Pedidos = @"Pedidos\";
-        const string DIR_BACKUP_FILE = @"F:\SOF\VDWIN\PTPED\ZIPS\";
+        static string DIR_BACKUP_FILE = getZipFolder();
 
         public static void MonitorGZPTPED(string pathPTPED)
         {
@@ -96,6 +97,18 @@ namespace FiscaliZi.Colinfo.Utils
             }
             File.Move(fullpath, DIR_BACKUP_FILE + filename);
 
+        }
+
+        private static string getZipFolder() {
+
+            var pc = Environment.MachineName;
+            var path = @"F:\SOF\VDWIN\PTPED\ZIPS\";
+            if (pc == "ATAIDE-PC")
+                path = @"C:\Users\KREKM\Desktop\PTPED\ZIPS\";
+            if (pc == "KREKINHA-PC")
+                path = @"C:\Users\Krekinha\Desktop\PTPED\ZIPS\";
+
+            return path;
         }
     }
 }

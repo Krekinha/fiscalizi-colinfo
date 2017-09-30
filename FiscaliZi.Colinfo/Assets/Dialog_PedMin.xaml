@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="FiscaliZi.Colinfo.Assets.Dialog_PedMin"
+﻿<UserControl x:Name="userControl" x:Class="FiscaliZi.Colinfo.Assets.Dialog_PedMin"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -8,9 +8,11 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300" Background="#FF2D2D30">
     <UserControl.Resources>
         <Model:PedNumConverter x:Key="PedNumConverter"/>
+        <Model:TotalValItemsConverter x:Key="TotalValItemsConverter"/>
+        <Model:IsVisibleIfNotNullConverter x:Key="IsVisibleIfNotNullConverter"/>
     </UserControl.Resources>
     <Grid Margin="16">
 
@@ -18,42 +20,60 @@
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <ListBox 
-                    x:Name="lsPedsMin" 
-                    ItemsSource="{Binding}"
-                    IsSynchronizedWithCurrentItem="True" 
-                    Margin="10,0" 
-                    BorderThickness="3">
-            <ListBox.ItemTemplate>
-                <DataTemplate x:Name="dtPedidos">
-                    <StackPanel>
-                        <StackPanel x:Name="DadosHome"
-                                        Orientation="Horizontal">
-                            <StackPanel>
-                                <TextBlock
-                                    Margin="5,3,0,0" 
-                                    Height="Auto" 
-                                    Width="Auto" 
-                                    FontSize="10.5" 
-                                    Text="{Binding NumPedido, Converter={StaticResource PedNumConverter}}" 
-                                    FontWeight="Bold"/>
-                            </StackPanel>
-
-                        </StackPanel>
-                    </StackPanel>
-
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-        <StackPanel Orientation="Horizontal" Grid.Row="3"
-                    Margin="0 16 0 0">
+        <StackPanel Orientation="Vertical">
+            <TextBlock x:Name="textBlock" 
+                       Uid="{Binding .Count}"
+                       Foreground="{DynamicResource AccentSelectedColorBrush}" FontSize="11">
+            <Run Text="Pedidos encontrados: "/> 
+            <Run Text="{Binding Uid, ElementName=textBlock}"/>
+            </TextBlock>
+            <DataGrid x:Name="dgPedsMin"
+                              ItemsSource="{Binding}"
+                              AutoGenerateColumns="False"
+                              CanUserAddRows="False"
+                              CanUserResizeColumns="False"
+                              CanUserReorderColumns="False"
+                              CanUserDeleteRows="False"
+                              CanUserResizeRows="False"
+                              IsReadOnly="True"
+                              HeadersVisibility="Column"
+                              IsSynchronizedWithCurrentItem="True"
+                              Style="{DynamicResource DatagridCustomMDesign}"
+                              CellStyle="{DynamicResource DatagridCell_DetalhePedido}"
+                              ColumnHeaderStyle="{StaticResource DataGridColumnHeader_DetalhePedido}"
+                              Foreground="{DynamicResource AccentSelectedColorBrush}"
+                              RowStyle="{DynamicResource DataGridRow_DetalhePedido}"
+                              FontSize="10"
+                              GridLinesVisibility="None"
+                              Grid.Row="1" Margin="0,7,0,0" Background="{x:Null}"
+                      Visibility="{Binding Converter={StaticResource IsVisibleIfNotNullConverter}}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="PED" 
+                                                Width="40"
+                                                Binding="{Binding NumPedido, Converter={StaticResource PedNumConverter}}" 
+                                                CanUserResize="False" />
+                    <DataGridTextColumn Header="VEND" 
+                                        Width="40"
+                                        Binding="{Binding CodVendedor}" 
+                                        CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter_DP}"
+                                        CanUserResize="False" />
+                    <DataGridTextColumn Header="VALOR" 
+                                        Width="60"
+                                        Binding="{Binding Items, Converter={StaticResource TotalValItemsConverter}}"
+                                        CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter_DP}"
+                                        CanUserResize="False" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+        <Grid Grid.Row="3"
+              Margin="0 16 0 0">
             <Button IsDefault="True" Style="{DynamicResource MaterialDesignFlatButton}"
-                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
+                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Background="#FF9BA29F" Height="27" FontSize="12">
                 <Button.CommandParameter>
                     <system:Boolean>True</system:Boolean>
                 </Button.CommandParameter>
                 OK
             </Button>
-        </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>

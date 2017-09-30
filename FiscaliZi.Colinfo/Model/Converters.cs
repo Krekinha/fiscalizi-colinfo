@@ -15,6 +15,7 @@ using FiscaliZi.Colinfo.Utils;
 using MaterialDesignThemes.Wpf;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Primitives;
+using System.Reflection;
 
 namespace FiscaliZi.Colinfo.Model
 {
@@ -219,7 +220,15 @@ namespace FiscaliZi.Colinfo.Model
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value != null) return Visibility.Visible;
+            if (value != null)
+            {
+                if (((List<Pedido>)value).Count > 0)
+                {
+                    return Visibility.Visible;
+                }
+            }
+
+
             return Visibility.Hidden;
         }
 
@@ -953,10 +962,8 @@ namespace FiscaliZi.Colinfo.Model
             {
                 if (ped.Items != null)
                 {
-                    foreach (var itm in ped.Items)
-                    {
-                        total += itm.ValorTotal;
-                    }
+                    var tot = ped.Items.Sum(itm => itm.ValorTotal);
+                    total += tot;
                 }
 
             }

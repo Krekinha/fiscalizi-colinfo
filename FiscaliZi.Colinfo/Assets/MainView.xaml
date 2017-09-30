@@ -17,7 +17,7 @@
     BorderBrush="{DynamicResource WindowTitleColorBrush}" 
     BorderThickness="2" 
     WindowStartupLocation="CenterScreen"
-    Width="1100" Height="600"><!--Width="1360" Height="800"-->
+    Width="1360" Height="800"><!--Width="1360" Height="800"-->
     
     <Metro:MetroWindow.Flyouts>
         <Metro:FlyoutsControl>
