@@ -129,6 +129,20 @@ namespace FiscaliZi.Colinfo.Model
             return value;
         }
     }
+    public class DatagridTotaisVendaHeight : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            //var cor = AppearanceManager.Current.AccentColor;
+            //return new SolidColorBrush(cor);
+            return System.Convert.ToDouble(value) * System.Convert.ToDouble(parameter);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value;
+        }
+    }
     public class EnderecoConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -957,6 +971,32 @@ namespace FiscaliZi.Colinfo.Model
             decimal total = 0;
             var peds = (ICollection<Pedido>)value;
             if (peds == null) return "";
+            var tot = peds.Sum(ped => ped.ValorTotalPed);
+            /*foreach (var ped in peds)
+            {
+                if (ped.Items != null)
+                {
+                    var tot = ped.Items.Sum(itm => itm.ValorTotal);
+                    total += tot;
+                }
+            }*/
+
+            //var total = peds.Cast<Pedido>().Sum(ped => ped.ValorTotalPed);
+            return tot.ToString("N2", CultureInfo.CreateSpecificCulture("pt-BR"));
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value;
+        }
+    }
+    public class TotalValPedsColetadosConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            decimal total = 0;
+            var peds = (ICollection<Pedido>)value;
+            if (peds == null) return "";
 
             foreach (var ped in peds)
             {
@@ -965,7 +1005,6 @@ namespace FiscaliZi.Colinfo.Model
                     var tot = ped.Items.Sum(itm => itm.ValorTotal);
                     total += tot;
                 }
-
             }
 
             //var total = peds.Cast<Pedido>().Sum(ped => ped.ValorTotalPed);

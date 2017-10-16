@@ -28,11 +28,12 @@
         <Model:ArquivoExistColorConverter x:Key="ArquivoExistColorConverter"/>
         <Model:IsVisibleIfNotNullConverter x:Key="IsVisibleListConverter"/>
         <Model:EnderecoConverter x:Key="EnderecoConverter"/>
-        <Model:TotalValPedsConverter x:Key="TotalValPedsConverter"/>
+        <Model:TotalValPedsColetadosConverter x:Key="TotalValPedsColetadosConverter"/>
         <Model:TotalPesoPedsConverter x:Key="TotalPesoPedsConverter"/>
         <Model:IsDuplePedConverter x:Key="IsDuplePedConverter"/>
         <Model:CheckDuplePedIconConverter x:Key="CheckDuplePedIconConverter"/>
         <Model:CheckDuplePedForegroundConverter x:Key="CheckDuplePedForegroundConverter"/>
+        <Model:DatagridTotaisVendaHeight x:Key="DatagridTotaisVendaHeight"/>
         <sys:DateTime x:Key="DataPedidos">#04/19/2017#</sys:DateTime>
     </UserControl.Resources>
 
@@ -41,28 +42,27 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
-            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <MDesign:Card 
             Grid.Column="0" 
-            BorderThickness="3"
-            MinHeight="700" Width="320">
-            <Grid x:Name="grdVendas" Height="700">
+            BorderThickness="3" Width="320" Height="700" VerticalAlignment="Stretch">
+            <Grid x:Name="grdVendas">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <StackPanel 
                     Grid.Row="0" 
                     Orientation="Horizontal" 
                     Margin="10,0">
                     <DatePicker x:Name="datPedidos" 
-                                SelectedDate="{x:Static sys:DateTime.Now}"
+                                SelectedDate="09/13/2017"
                                 Language="pt-BR"
                                 Width="90" 
                                 HorizontalAlignment="Left" 
                                 Margin="0,10,0,5"/>
+                    <!--SelectedDate="{x:Static sys:DateTime.Now}"-->
                     <Button x:Name="btnAtualizaVendas"
                             cal:Message.Attach="AtualizaPedidos(datPedidos.Text)" 
                             HorizontalAlignment="Right" 
@@ -72,6 +72,10 @@
                             MDesign:RippleAssist.IsCentered="True">
                         <MDesign:PackIcon Kind="Refresh" />
                     </Button>
+                    <Button x:Name="btnTotaisVenda2" 
+                            cal:Message.Attach="ShowTotaisVendaFlyout()"
+                            Grid.Row="2" 
+                            Content="Totais"/>
                     <MDesign:PopupBox 
                         Padding="2 0 2 0"
                         Foreground="#FF918B8B"
@@ -87,8 +91,7 @@
                 <StackPanel Orientation="Vertical" Grid.Row="1">
                     <Separator 
                     Style="{StaticResource MaterialDesignDarkSeparator}" 
-                    Margin="8 0 8 0">
-                    </Separator>
+                    Margin="8 0 8 0"/>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                         <TextBlock 
                             Text="VEND" 
@@ -124,7 +127,7 @@
                                         <MDesign:PackIcon 
                                             Kind="{Binding Pedidos, Converter={StaticResource CheckDuplePedIconConverter}}"
                                             HorizontalAlignment="Right"
-                                            Foreground="{Binding Kind, RelativeSource={RelativeSource Self}, Converter={StaticResource CheckDuplePedForegroundConverter}}"
+                                            Foreground="{Binding Kind, Converter={StaticResource CheckDuplePedForegroundConverter}, RelativeSource={RelativeSource Self}}"
                                             Margin="0,0,10,0" />
                                         <TextBlock Text="{Binding CodVendedor}" 
                                                FontWeight="Bold" >
@@ -161,16 +164,16 @@
                                                     Orientation="Horizontal"
                                                    DataContext="{Binding Converter={StaticResource ResumoVendasConverter}}"
                                                    Margin="15,0,0,0">
-                                            <TextBlock Text="{Binding [0].QntCX}" FontWeight="Bold"/>
-                                            <TextBlock x:Name="txtResSigla1" Text="{Binding [0].Sigla}" Width="60" Margin="5,0,0,0"/>
-                                            <TextBlock Text="{Binding [1].QntCX}" FontWeight="Bold"/>
-                                            <TextBlock Text="{Binding [1].Sigla}" Margin="5,0,0,0"/>
                                             <TextBlock.Foreground>
                                                 <MultiBinding Converter="{StaticResource ArquivoExistColorConverter}" ConverterParameter="txtres">
                                                     <Binding Path="Text" ElementName="txtPeds"/>
                                                     <Binding Path="Text" ElementName="txtResSigla1" />
                                                 </MultiBinding>
                                             </TextBlock.Foreground>
+                                            <TextBlock Text="{Binding [0].QntCX}" FontWeight="Bold"/>
+                                            <TextBlock x:Name="txtResSigla1" Text="{Binding [0].Sigla}" Width="60" Margin="5,0,0,0"/>
+                                            <TextBlock Text="{Binding [1].QntCX}" FontWeight="Bold"/>
+                                            <TextBlock Text="{Binding [1].Sigla}" Margin="5,0,0,0"/>
                                         </StackPanel>
                                     </StackPanel>
                                 </StackPanel>
@@ -182,18 +185,17 @@
         </MDesign:Card>
         <MDesign:Card 
             Grid.Column="1" 
-            BorderThickness="3"
-            MinHeight="700" 
+            BorderThickness="3" 
             UniformCornerRadius="0" 
             Margin="5,0,0,0"
-            DataContext="{Binding Vendas}" Width="500" Height="700">
+            Width="500" Height="auto" VerticalAlignment="Stretch">
             <GroupBox Header="PEDIDOS" 
                           Margin="3"
                           MDesign:ShadowAssist.ShadowDepth="Depth1"
                           Style="{DynamicResource MaterialDesignGroupBox}" 
                           MDesign:ColorZoneAssist.Mode="PrimaryMid" 
                           BorderThickness="0">
-                <Grid>
+                <Grid DataContext="{Binding Vendas}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
@@ -201,7 +203,7 @@
                     </Grid.RowDefinitions>
                     <DataGrid x:Name="dgPedidos"
                               Grid.Row="0"
-                              ItemsSource="{Binding Pedidos}"
+                              ItemsSource="{Binding Path=Pedidos}"
                               AutoGenerateColumns="False"
                               CanUserAddRows="False"
                               CanUserResizeColumns="False" 
@@ -261,111 +263,10 @@
                     <Separator 
                         Grid.Row="1"
                             Style="{StaticResource MaterialDesignDarkSeparator}" Margin="0,5"/>
-                    <Expander Grid.Row="2">
-                        <Expander.Header>
-                            <TextBlock Foreground="#FFABADB3" Text="Totais" FontSize="20" Grid.Row="0"/>
-                        </Expander.Header>
-                        <StackPanel 
-                                Orientation="Vertical"
-                                TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
-                                Margin="5">
-                            <DataGrid x:Name="dgTotaisVenda"
-                                      ItemsSource="{Binding /, Converter={StaticResource TotalVendasConverter}}"
-                                      AutoGenerateColumns="False"
-                                      CanUserAddRows="False" 
-                                      CanUserResizeColumns="False" 
-                                      CanUserReorderColumns="False" 
-                                      CanUserDeleteRows="False" 
-                                      CanUserResizeRows="False" 
-                                      IsReadOnly="True" 
-                                      HeadersVisibility="Column"
-                                      IsSynchronizedWithCurrentItem="True" 
-                                      Style="{DynamicResource DatagridCustomMDesign}" 
-                                      CellStyle="{DynamicResource DatagridCellCustomMDesign}" 
-                                      RowStyle="{DynamicResource DataGridRowCustomMDesign}"
-                                      ColumnHeaderStyle="{StaticResource CustomMaterialDesignDataGridColumnHeader}" 
-                                      SelectionMode="Single" VerticalAlignment="Top">
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn Header="PRODUTO" 
-                                                        Binding="{Binding Produto.Codigo}" 
-                                                        CanUserResize="False" />
-                                    <DataGridTextColumn Header="DESCRICAO" 
-                                                        Binding="{Binding Produto.Descricao}" 
-                                                        CanUserResize="False" />
-                                    <DataGridTextColumn Header="CX" 
-                                                        Binding="{Binding QntCX}" 
-                                                        CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}"
-                                                        CanUserResize="False" />
-                                    <DataGridTextColumn Header="UND" 
-                                                        Binding="{Binding QntUND}" 
-                                                        CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}"
-                                                        CanUserResize="False" />
-                                    <DataGridTextColumn Header="V. TOTAL" 
-                                                        Binding="{Binding ValorTotal, StringFormat=\{0:N2\}}" 
-                                                        CanUserResize="False" />
-                                </DataGrid.Columns>
-                            </DataGrid>
-                            <StackPanel
-                                    Margin="0,0,0,5" Orientation="Horizontal">
-                                <Border Background="{DynamicResource AccentColorBrush3}" 
-                                    CornerRadius="5" 
-                                    HorizontalAlignment="Left" Height="20" Margin="0,10,0,0">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock 
-                                        Text="VAL. TOT" 
-                                        Foreground="{DynamicResource AccentColorBrush}"
-                                        FontSize="10" 
-                                    Margin="5,0,2,0" 
-                                    HorizontalAlignment="Center" 
-                                    VerticalAlignment="Center"
-                                    FontWeight="Bold"/>
-                                        <Separator
-                                        Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"
-                                        Height="10" 
-                                        Width="1" 
-                                        Margin="3,2" 
-                                        Background="#FF686868"/>
-                                        <TextBlock 
-                                    Text="{Binding Pedidos, Converter={StaticResource TotalValPedsConverter}}" 
-                                    Foreground="{DynamicResource AccentColorBrush}"
-                                    FontSize="10" 
-                                    Margin="0,0,5,0" 
-                                    HorizontalAlignment="Center" 
-                                    VerticalAlignment="Center" 
-                                    FontWeight="Bold"/>
-                                    </StackPanel>
-                                </Border>
-                                <Border Background="{DynamicResource AccentColorBrush3}" 
-                                    CornerRadius="5" 
-                                    HorizontalAlignment="Left" Height="20" Margin="10,10,0,0">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock 
-                                        Text="PESO" 
-                                        Foreground="{DynamicResource AccentColorBrush}"
-                                        FontSize="10" 
-                                    Margin="5,0,2,0" 
-                                    HorizontalAlignment="Center" 
-                                    VerticalAlignment="Center"
-                                    FontWeight="Bold"/>
-                                        <Separator
-                                        Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"
-                                        Height="10" 
-                                        Width="1" 
-                                        Margin="3,2" 
-                                        Background="#FF686868"/>
-                                        <TextBlock 
-                                    Text="{Binding Pedidos, Converter={StaticResource TotalPesoPedsConverter}}"
-                                    Foreground="{DynamicResource AccentColorBrush}"
-                                    FontSize="10" 
-                                    Margin="0,0,5,0" 
-                                    HorizontalAlignment="Center" 
-                                    VerticalAlignment="Center" 
-                                    FontWeight="Bold"/>
-                                    </StackPanel>
-                                </Border>
-                            </StackPanel>
-                        </StackPanel>
-                    </Expander>
+                    <Button x:Name="btnTotaisVenda" 
+                            cal:Message.Attach="ShowTotaisVendaFlyout()"
+                            Grid.Row="2" 
+                            Content="Totais"/>
                 </Grid>
             </GroupBox>
         </MDesign:Card>
@@ -373,7 +274,6 @@
             Background="{DynamicResource AccentColorBrush}" 
             Grid.Column="2" 
             BorderThickness="3"
-            MinHeight="700"
             Height="700"
             UniformCornerRadius="0" 
             Margin="5,0,0,0" 
@@ -602,6 +502,6 @@
 
         </MDesign:Card>
     </Grid>
-    
+
 </UserControl>
 

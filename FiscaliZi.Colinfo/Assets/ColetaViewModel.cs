@@ -7,6 +7,7 @@ using System.Windows.Data;
 using System.Linq;
 using System;
 using MaterialDesignThemes.Wpf;
+using System.Windows;
 
 namespace FiscaliZi.Colinfo.Assets
 {
@@ -115,7 +116,12 @@ namespace FiscaliZi.Colinfo.Assets
         {
             Vendas.Remove(vnd);
         }
-
+        public void ShowTotaisVendaFlyout()
+        {
+            var vnd = 0;
+            ((MainView)Application.Current.MainWindow).TotaisVendaFlyout.IsOpen = !((MainView)Application.Current.MainWindow).TotaisVendaFlyout.IsOpen;
+            ((MainView)Application.Current.MainWindow).TotaisVendaFlyout.DataContext = vnd;
+        }
         private ObservableCollection<Venda> CheckDuple( ObservableCollection<Venda> vnds )
         {
             foreach (var vnd in vnds)
@@ -156,5 +162,6 @@ namespace FiscaliZi.Colinfo.Assets
         {
             Console.WriteLine("You can intercept the closing event, and cancel here.");
         }
+
     }
 }
