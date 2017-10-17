@@ -1,12 +1,134 @@
-﻿<UserControl x:Class="FiscaliZi.Colinfo.Assets.FlyTotaisVenda"
+﻿<UserControl x:Name="userControl" x:Class="FiscaliZi.Colinfo.Assets.FlyTotaisVenda"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FiscaliZi.Colinfo.Assets"
+             xmlns:Model="clr-namespace:FiscaliZi.Colinfo.Model"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+
+    <UserControl.Resources>
+        <Model:TotalVendasConverter x:Key="TotalVendasConverter" />
+        <Model:TotalValPedsConverter x:Key="TotalValPedsConverter" />
+        <Model:TotalPesoPedsConverter x:Key="TotalPesoPedsConverter" />
+    </UserControl.Resources>
+
     <Grid>
-        <TextBlock FontSize="70">TOTAIS</TextBlock>   
+        <StackPanel 
+            Orientation="Vertical"
+            TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
+            Margin="5">
+            <DataGrid x:Name="dgTotaisVenda"
+                      ItemsSource="{Binding DataContext, Converter={StaticResource TotalVendasConverter}, ElementName=userControl}"
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False" 
+                      CanUserResizeColumns="False" 
+                      CanUserReorderColumns="False" 
+                      CanUserDeleteRows="False" 
+                      CanUserResizeRows="False" 
+                      IsReadOnly="True" 
+                      HeadersVisibility="Column"
+                      IsSynchronizedWithCurrentItem="True" 
+                      Style="{DynamicResource DatagridCustomMDesign}" 
+                      CellStyle="{DynamicResource DatagridCellCustomMDesign}" 
+                      RowStyle="{DynamicResource DataGridRowCustomMDesign}"
+                      ColumnHeaderStyle="{StaticResource CustomMaterialDesignDataGridColumnHeader}" 
+                      SelectionMode="Single" VerticalAlignment="Top">
+                <DataGrid.Columns>
+                    <DataGridTextColumn 
+                        Header="PRODUTO"
+                        Binding="{Binding Produto.Codigo}" 
+                        CanUserResize="False" />
+                    <DataGridTextColumn 
+                        Header="DESCRICAO" 
+                        Binding="{Binding Produto.Descricao}" 
+                        CanUserResize="False" />
+                    <DataGridTextColumn 
+                        Header="CX" 
+                        Binding="{Binding QntCX}" 
+                        CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}"
+                        CanUserResize="False" />
+                    <DataGridTextColumn 
+                        Header="UND" 
+                        Binding="{Binding QntUND}" 
+                        CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter}"
+                        CanUserResize="False" />
+                    <DataGridTextColumn 
+                        Header="V. TOTAL" 
+                        Binding="{Binding ValorTotal, StringFormat=\{0:N2\}}" 
+                        CanUserResize="False" />
+                </DataGrid.Columns>
+            </DataGrid>
+            <StackPanel
+                Margin="0,0,0,5" 
+                Orientation="Horizontal">
+                <Border 
+                    Background="{DynamicResource AccentColorBrush3}" 
+                    CornerRadius="5" 
+                    HorizontalAlignment="Left" 
+                    Height="20" 
+                    Margin="0,10,0,0">
+                    <StackPanel 
+                        Orientation="Horizontal">
+                        <TextBlock 
+                            Text="VAL. TOT" 
+                            Foreground="{DynamicResource AccentColorBrush}"
+                            FontSize="10" 
+                            Margin="5,0,2,0" 
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Center"
+                            FontWeight="Bold"/>
+                        <Separator
+                            Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"
+                            Height="10" 
+                            Width="1" 
+                            Margin="3,2" 
+                            Background="#FF686868"/>
+                        <TextBlock 
+                            Text="{Binding Pedidos, Converter={StaticResource TotalValPedsConverter}}" 
+                            Foreground="{DynamicResource AccentColorBrush}"
+                            FontSize="10" 
+                            Margin="0,0,5,0" 
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Center" 
+                            FontWeight="Bold"/>
+                    </StackPanel>
+                </Border>
+                <Border 
+                    Background="{DynamicResource AccentColorBrush3}" 
+                    CornerRadius="5" 
+                    HorizontalAlignment="Left" 
+                    Height="20" 
+                    Margin="10,10,0,0">
+                    <StackPanel 
+                        Orientation="Horizontal">
+                        <TextBlock 
+                            Text="PESO" 
+                            Foreground="{DynamicResource AccentColorBrush}"
+                            FontSize="10" 
+                            Margin="5,0,2,0" 
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Center"
+                            FontWeight="Bold"/>
+                        <Separator
+                            Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"
+                            Height="10" 
+                            Width="1" 
+                            Margin="3,2" 
+                            Background="#FF686868"/>
+                        <TextBlock 
+                            Text="{Binding Pedidos, Converter={StaticResource TotalPesoPedsConverter}}"
+                            Foreground="{DynamicResource AccentColorBrush}"
+                            FontSize="10" 
+                            Margin="0,0,5,0" 
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Center" 
+                            FontWeight="Bold"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </StackPanel>
     </Grid>
+
 </UserControl>

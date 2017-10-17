@@ -1020,11 +1020,10 @@ namespace FiscaliZi.Colinfo.Model
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var vnd = (Venda)value;
-
-            if (vnd != null)
+            if (value != null && value.GetType() == typeof(List<Pedido>))
             {
-                var items = vnd.Pedidos?.SelectMany(it => it.Items);
+                var peds = (List<Pedido>)value;
+                var items = peds?.SelectMany(it => it.Items);
                 var rank = items?
                     .GroupBy(l => l.Produto.Codigo)
                     .Select(cl => new Item

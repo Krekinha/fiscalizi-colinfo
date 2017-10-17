@@ -72,10 +72,6 @@
                             MDesign:RippleAssist.IsCentered="True">
                         <MDesign:PackIcon Kind="Refresh" />
                     </Button>
-                    <Button x:Name="btnTotaisVenda2" 
-                            cal:Message.Attach="ShowTotaisVendaFlyout()"
-                            Grid.Row="2" 
-                            Content="Totais"/>
                     <MDesign:PopupBox 
                         Padding="2 0 2 0"
                         Foreground="#FF918B8B"
@@ -195,7 +191,7 @@
                           Style="{DynamicResource MaterialDesignGroupBox}" 
                           MDesign:ColorZoneAssist.Mode="PrimaryMid" 
                           BorderThickness="0">
-                <Grid DataContext="{Binding Vendas}">
+                <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
@@ -203,7 +199,7 @@
                     </Grid.RowDefinitions>
                     <DataGrid x:Name="dgPedidos"
                               Grid.Row="0"
-                              ItemsSource="{Binding Path=Pedidos}"
+                              ItemsSource="{Binding Vendas/Pedidos}"
                               AutoGenerateColumns="False"
                               CanUserAddRows="False"
                               CanUserResizeColumns="False" 
@@ -264,7 +260,7 @@
                         Grid.Row="1"
                             Style="{StaticResource MaterialDesignDarkSeparator}" Margin="0,5"/>
                     <Button x:Name="btnTotaisVenda" 
-                            cal:Message.Attach="ShowTotaisVendaFlyout()"
+                            cal:Message.Attach="ShowTotaisVendaFlyout(dgPedidos.ItemsSource)"
                             Grid.Row="2" 
                             Content="Totais"/>
                 </Grid>

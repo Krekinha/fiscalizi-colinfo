@@ -116,9 +116,8 @@ namespace FiscaliZi.Colinfo.Assets
         {
             Vendas.Remove(vnd);
         }
-        public void ShowTotaisVendaFlyout()
+        public void ShowTotaisVendaFlyout(object vnd)
         {
-            var vnd = 0;
             ((MainView)Application.Current.MainWindow).TotaisVendaFlyout.IsOpen = !((MainView)Application.Current.MainWindow).TotaisVendaFlyout.IsOpen;
             ((MainView)Application.Current.MainWindow).TotaisVendaFlyout.DataContext = vnd;
         }
