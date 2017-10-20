@@ -296,8 +296,8 @@
     <Compile Include="Assets\Dialog_PedMin.xaml.cs">
       <DependentUpon>Dialog_PedMin.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Assets\FlyTotaisVenda.xaml.cs">
-      <DependentUpon>FlyTotaisVenda.xaml</DependentUpon>
+    <Compile Include="Assets\Dialog_TotaisVenda.xaml.cs">
+      <DependentUpon>Dialog_TotaisVenda.xaml</DependentUpon>
     </Compile>
     <Compile Include="Assets\NotifyMessage.cs" />
     <Compile Include="Assets\teste.xaml.cs">
@@ -378,7 +378,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Assets\FlyTotaisVenda.xaml">
+    <Page Include="Assets\Dialog_TotaisVenda.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

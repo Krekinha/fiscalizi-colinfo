@@ -14,6 +14,7 @@ namespace FiscaliZi.Colinfo.Model
             Vendas = GetVendas2();
             Pedido = GetPedido();
             Pedidos = GetPedidos();
+            Pedidos2 = GetPedidos2();
         }
 
 
@@ -21,6 +22,7 @@ namespace FiscaliZi.Colinfo.Model
         public ObservableCollection<Arquivo> Arquivos { get; set; }
         public ObservableCollection<Venda> Vendas { get; set; }
         public ObservableCollection<Pedido> Pedidos { get; set; }
+        public List<Pedido> Pedidos2 { get; set; }
 
         public Pedido Pedido { get; set; }
 
@@ -1742,6 +1744,18 @@ namespace FiscaliZi.Colinfo.Model
         private ObservableCollection<Pedido> GetPedidos()
         {
             var peds = new ObservableCollection<Pedido>();
+            foreach (var arq in Arquivos)
+            {
+                foreach (var ped in arq.Pedidos)
+                {
+                    peds.Add(ped);
+                }
+            }
+            return peds;
+        }
+        private List<Pedido> GetPedidos2()
+        {
+            var peds = new List<Pedido>();
             foreach (var arq in Arquivos)
             {
                 foreach (var ped in arq.Pedidos)

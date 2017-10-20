@@ -17,7 +17,7 @@
     BorderBrush="{DynamicResource WindowTitleColorBrush}" 
     BorderThickness="2" 
     WindowStartupLocation="CenterScreen"
-    Width="1200" Height="600"><!--Width="1360" Height="800"-->
+    Width="1360" Height="800"><!--Width="1360" Height="800"-->
     
     <Metro:MetroWindow.Flyouts>
         <Metro:FlyoutsControl>
@@ -35,7 +35,7 @@
                 Header="Items" 
                 MDesign:FlyoutAssist.HeaderColorMode="Accent" 
                 Background="{DynamicResource AccentColorBrush}">
-                <Assets:FlyTotaisVenda />
+                <Assets:Dialog_TotaisVenda />
             </Metro:Flyout>
         </Metro:FlyoutsControl>
     </Metro:MetroWindow.Flyouts>

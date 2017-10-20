@@ -8,6 +8,7 @@ using System.Linq;
 using System;
 using MaterialDesignThemes.Wpf;
 using System.Windows;
+using System.Threading.Tasks;
 
 namespace FiscaliZi.Colinfo.Assets
 {
@@ -116,10 +117,18 @@ namespace FiscaliZi.Colinfo.Assets
         {
             Vendas.Remove(vnd);
         }
-        public void ShowTotaisVendaFlyout(object vnd)
+        public async Task ShowTotaisVendaAsync(object vnd)
         {
-            ((MainView)Application.Current.MainWindow).TotaisVendaFlyout.IsOpen = !((MainView)Application.Current.MainWindow).TotaisVendaFlyout.IsOpen;
-            ((MainView)Application.Current.MainWindow).TotaisVendaFlyout.DataContext = vnd;
+            if (vnd != null)
+            {
+                var view = new Dialog_TotaisVenda()
+                {
+                    DataContext = vnd,
+                    MaxHeight = App.Current.MainWindow.Height
+                };
+
+                var result = await DialogHost.Show(view, "RootDialog", ClosingEventHandler);
+            }
         }
         private ObservableCollection<Venda> CheckDuple( ObservableCollection<Venda> vnds )
         {

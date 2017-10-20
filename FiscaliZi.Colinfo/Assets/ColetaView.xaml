@@ -45,19 +45,25 @@
         </Grid.ColumnDefinitions>
         <MDesign:Card 
             Grid.Column="0" 
-            BorderThickness="3" Width="320" Height="700" VerticalAlignment="Stretch">
-            <Grid x:Name="grdVendas">
+            BorderThickness="3"
+            UniformCornerRadius="0" 
+            Margin="5,2,0,3"
+            Width="320" 
+            Height="auto" 
+            VerticalAlignment="Stretch">
+            <Grid 
+                x:Name="grdVendas">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <StackPanel 
                     Grid.Row="0" 
                     Orientation="Horizontal" 
                     Margin="10,0">
                     <DatePicker x:Name="datPedidos" 
-                                SelectedDate="09/13/2017"
+                                SelectedDate="{x:Static sys:DateTime.Now}"
                                 Language="pt-BR"
                                 Width="90" 
                                 HorizontalAlignment="Left" 
@@ -107,18 +113,18 @@
                             FontWeight="Bold"/>
                     </StackPanel>
                 </StackPanel>
-                <ListBox x:Name="lstVendas"
-                          Grid.Column="0" 
-                          Grid.Row="2"
-                          ItemsSource="{Binding Vendas}" 
-                         Style="{DynamicResource ListBox_Vendas}" 
-                         ItemContainerStyle="{StaticResource ListBoxItem_Vendas}"
-                         IsSynchronizedWithCurrentItem="True"
-                         Margin="5,0">
+                <ListBox 
+                    x:Name="lstVendas"
+                    Grid.Row="2"
+                    ItemsSource="{Binding Vendas}" 
+                    Style="{DynamicResource ListBox_Vendas}" 
+                    ItemContainerStyle="{StaticResource ListBoxItem_Vendas}"
+                    IsSynchronizedWithCurrentItem="True"
+                    Margin="5,0">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Border x:Name="brResumo" Height="25">
-                                <StackPanel>
+                                <Grid>
                                     <StackPanel Orientation="Horizontal" Margin="5,3,0,0">
                                         <MDesign:PackIcon 
                                             Kind="{Binding Pedidos, Converter={StaticResource CheckDuplePedIconConverter}}"
@@ -172,7 +178,7 @@
                                             <TextBlock Text="{Binding [1].Sigla}" Margin="5,0,0,0"/>
                                         </StackPanel>
                                     </StackPanel>
-                                </StackPanel>
+                                </Grid>
                             </Border>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -183,8 +189,10 @@
             Grid.Column="1" 
             BorderThickness="3" 
             UniformCornerRadius="0" 
-            Margin="5,0,0,0"
-            Width="500" Height="auto" VerticalAlignment="Stretch">
+            Margin="5,2,0,3"
+            Width="500" 
+            Height="auto" 
+            VerticalAlignment="Stretch">
             <GroupBox Header="PEDIDOS" 
                           Margin="3"
                           MDesign:ShadowAssist.ShadowDepth="Depth1"
@@ -260,20 +268,21 @@
                         Grid.Row="1"
                             Style="{StaticResource MaterialDesignDarkSeparator}" Margin="0,5"/>
                     <Button x:Name="btnTotaisVenda" 
-                            cal:Message.Attach="ShowTotaisVendaFlyout(dgPedidos.ItemsSource)"
+                            cal:Message.Attach="ShowTotaisVendaAsync(dgPedidos.ItemsSource)"
                             Grid.Row="2" 
                             Content="Totais"/>
                 </Grid>
             </GroupBox>
         </MDesign:Card>
         <MDesign:Card 
-            Background="{DynamicResource AccentColorBrush}" 
-            Grid.Column="2" 
+            Grid.Column="2"
+            Background="{DynamicResource AccentColorBrush}"  
             BorderThickness="3"
-            Height="700"
             UniformCornerRadius="0" 
-            Margin="5,0,0,0" 
-            Width="530">
+            Margin="5,2,0,3" 
+            Width="530"
+            Height="auto" 
+            VerticalAlignment="Stretch">
             <GroupBox Header="DETALHE PEDIDO" 
                           Margin="3"
                           MDesign:ShadowAssist.ShadowDepth="Depth1"
