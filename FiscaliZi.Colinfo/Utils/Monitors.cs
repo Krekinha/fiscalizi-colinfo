@@ -7,7 +7,7 @@ namespace FiscaliZi.Colinfo.Utils
     public class Monitors
     {
         static string dir_Pedidos = @"Pedidos\";
-        static string DIR_BACKUP_FILE = getZipFolder();
+        static string DIR_ZIP_FOLDER = getZipFolder();
 
         public static void MonitorGZPTPED(string pathPTPED)
         {
@@ -91,11 +91,14 @@ namespace FiscaliZi.Colinfo.Utils
 
             Unzip.Start(gzfile);
 
-            if (File.Exists(DIR_BACKUP_FILE + filename))
+            if (!Directory.Exists(DIR_ZIP_FOLDER))
+                Directory.CreateDirectory(DIR_ZIP_FOLDER);
+
+            if (File.Exists(DIR_ZIP_FOLDER + filename))
             {
-                File.Delete(DIR_BACKUP_FILE + filename);
+                File.Delete(DIR_ZIP_FOLDER + filename);
             }
-            File.Move(fullpath, DIR_BACKUP_FILE + filename);
+            File.Move(fullpath, DIR_ZIP_FOLDER + filename);
 
         }
 
@@ -104,7 +107,7 @@ namespace FiscaliZi.Colinfo.Utils
             var pc = Environment.MachineName;
             var path = @"F:\SOF\VDWIN\PTPED\ZIPS\";
             if (pc == "ATAIDE-PC")
-                path = @"C:\Users\KREKM\Desktop\PTPED\ZIPS\";
+                path = @"C:\Users\KREKM\Desktop\FISCALIZI\PTPED\ZIPS\";
             if (pc == "KREKINHA-PC")
                 path = @"C:\Users\Krekinha\Desktop\PTPED\ZIPS\";
 

@@ -27,7 +27,7 @@ var result2 = items
     }).ToList();
 
 var items2 = Coletor.GetPedidos(@"C:\Users\krekm\Desktop\PEDIDOS.CSV")
-    .Where(x => x.CodVendedor == "308")
+    .Where(x => x.CodVendedor == "307")
     .SelectMany(it => it.Itens);
 
 var result3 = items2

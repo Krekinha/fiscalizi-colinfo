@@ -57,7 +57,7 @@ namespace FiscaliZi.Colinfo.Assets
             var pc = Environment.MachineName;
             var path = @"F:\SOF\VDWIN\PTPED";
             if (pc == "ATAIDE-PC")
-                path = @"C:\Users\KREKM\Desktop\PTPED";
+                path = @"C:\Users\KREKM\Desktop\FISCALIZI\PTPED";
             if (pc == "KREKINHA-PC")
                 path = @"C:\Users\Krekinha\Desktop\PTPED";
 

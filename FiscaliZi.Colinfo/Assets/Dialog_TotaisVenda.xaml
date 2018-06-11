@@ -8,7 +8,8 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300"
+             Background="{DynamicResource AccentColorBrush}">
 
     <UserControl.Resources>
         <Model:TotalVendasConverter x:Key="TotalVendasConverter" />
@@ -16,7 +17,7 @@
         <Model:TotalPesoPedsConverter x:Key="TotalPesoPedsConverter" />
     </UserControl.Resources>
 
-    <Grid>
+    <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
@@ -96,7 +97,7 @@
                             Margin="3,2" 
                             Background="#FF686868"/>
                     <TextBlock 
-                            Text="{Binding Pedidos, Converter={StaticResource TotalValPedsConverter}}" 
+                            Text="{Binding DataContext, Converter={StaticResource TotalValPedsConverter}, ElementName=userControl}" 
                             Foreground="{DynamicResource AccentColorBrush}"
                             FontSize="10" 
                             Margin="0,0,5,0" 
@@ -128,7 +129,7 @@
                             Margin="3,2" 
                             Background="#FF686868"/>
                     <TextBlock 
-                            Text="{Binding Pedidos, Converter={StaticResource TotalPesoPedsConverter}}"
+                            Text="{Binding DataContext, Converter={StaticResource TotalPesoPedsConverter}, ElementName=userControl}"
                             Foreground="{DynamicResource AccentColorBrush}"
                             FontSize="10" 
                             Margin="0,0,5,0" 
@@ -137,25 +138,16 @@
                             FontWeight="Bold"/>
                 </StackPanel>
             </Border>
-            <Border 
-                    Background="{DynamicResource AccentColorBrush3}" 
-                    CornerRadius="5" 
-                    HorizontalAlignment="Left" 
-                    Height="20" 
-                    Margin="40,10,0,0">
-                <Button 
-                            IsDefault="True" 
-                            Style="{DynamicResource MaterialDesignFlatButton}"
-                            Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" 
-                            Background="#FF9BA29F" 
-                            Height="27" 
-                            FontSize="12">
-                    <Button.CommandParameter>
-                        <sys:Boolean>True</sys:Boolean>
-                    </Button.CommandParameter>
-                    OK
-                </Button>
-            </Border>
+            <Button 
+                IsDefault="True" 
+                Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                FontSize="14"
+                Content="OK"
+                Margin="3,3,0,3">
+                <Button.CommandParameter>
+                    <sys:Boolean>True</sys:Boolean>
+                </Button.CommandParameter>
+            </Button>
         </StackPanel>
     </Grid>
 

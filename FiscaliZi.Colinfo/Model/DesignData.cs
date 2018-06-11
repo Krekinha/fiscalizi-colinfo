@@ -33,11 +33,11 @@ namespace FiscaliZi.Colinfo.Model
                 new Arquivo
                 {
                     ArquivoID = 1,
-                    CodVendedor = 308,
+                    CodVendedor = 307,
                     DataColeta = DateTime.Now,
                     DataEnvio = DateTime.Parse("03/05/2000 00:00:00"),
                     NomeVendedor = "RAFAEL ALVES",
-                    ArquivoVendedor = "TXAA0600000308.TXT",
+                    ArquivoVendedor = "TXAA0600000307.TXT",
                     Pedidos = new List<Pedido>
                     {
                         new Pedido
@@ -45,7 +45,7 @@ namespace FiscaliZi.Colinfo.Model
                             PedidoID = 1,
                             NumPedido = "0",
                             NumPedPalm = "20160611102653",
-                            CodVendedor = 308,
+                            CodVendedor = 307,
                             ValorTotalPed = 645.10m,
                             Cliente = new Cliente
                             {
@@ -176,7 +176,7 @@ namespace FiscaliZi.Colinfo.Model
                             PedidoID = 2,
                             NumPedido = "0",
                             NumPedPalm = "20160611092020",
-                            CodVendedor = 308,
+                            CodVendedor = 307,
                             ValorTotalPed = 426.00m,
                             Cliente = new Cliente
                             {
@@ -207,7 +207,7 @@ namespace FiscaliZi.Colinfo.Model
                             PedidoID = 3,
                             NumPedido = "0",
                             NumPedPalm = "20160611074516",
-                            CodVendedor = 308,
+                            CodVendedor = 307,
                             ValorTotalPed = 2249.88m,
                             Cliente =
                                 new Cliente
@@ -379,7 +379,7 @@ namespace FiscaliZi.Colinfo.Model
                             PedidoID = 4,
                             NumPedido = "0",
                             NumPedPalm = "20160611110832",
-                            CodVendedor = 308,
+                            CodVendedor = 307,
                             ValorTotalPed = 348.00m,
                             Cliente =
                                 new Cliente
@@ -411,7 +411,7 @@ namespace FiscaliZi.Colinfo.Model
                             PedidoID = 5,
                             NumPedido = "0",
                             NumPedPalm = "20160611081132",
-                            CodVendedor = 308,
+                            CodVendedor = 307,
                             ValorTotalPed = 273.22m,
                             Cliente =
                                 new Cliente
@@ -513,7 +513,7 @@ namespace FiscaliZi.Colinfo.Model
                             PedidoID = 6,
                             NumPedido = "0",
                             NumPedPalm = "20160611084522",
-                            CodVendedor = 308,
+                            CodVendedor = 307,
                             ValorTotalPed = 983.85m,
                             Cliente =
                                 new Cliente
@@ -625,7 +625,7 @@ namespace FiscaliZi.Colinfo.Model
                             PedidoID = 7,
                             NumPedido = "0",
                             NumPedPalm = "20160611080243",
-                            CodVendedor = 308,
+                            CodVendedor = 307,
                             ValorTotalPed = 292.01m,
                             Cliente =
                                 new Cliente
@@ -747,7 +747,7 @@ namespace FiscaliZi.Colinfo.Model
                             PedidoID = 8,
                             NumPedido = "0",
                             NumPedPalm = "20160611073614",
-                            CodVendedor = 308,
+                            CodVendedor = 307,
                             ValorTotalPed = 156.00m,
                             Cliente =
                                 new Cliente
@@ -834,7 +834,7 @@ namespace FiscaliZi.Colinfo.Model
             var vnd = new Venda
             {
                 VendaID = 1,
-                CodVendedor = 308,
+                CodVendedor = 307,
                 DataColeta = DateTime.Now,
                 Pedidos = new List<Pedido>
                 {
@@ -843,8 +843,8 @@ namespace FiscaliZi.Colinfo.Model
                         PedidoID = 1,
                         NumPedido = "000000000370",
                         NumPedPalm = "20160611102653",
-                        CodVendedor = 308,
-                        Pasta = "3081",
+                        CodVendedor = 307,
+                        Pasta = "3071",
                         ValorTotalPed = 645.10m,
                         TipoPgt = 4,
                         PrazoPgt = 34,
@@ -999,8 +999,8 @@ namespace FiscaliZi.Colinfo.Model
                         PedidoID = 2,
                         NumPedido = "0",
                         NumPedPalm = "20160611092020",
-                        CodVendedor = 308,
-                        Pasta = "3081",
+                        CodVendedor = 307,
+                        Pasta = "3071",
                         ValorTotalPed = 426.00m,
                         Cliente = new Cliente
                         {
@@ -1031,8 +1031,8 @@ namespace FiscaliZi.Colinfo.Model
                         PedidoID = 3,
                         NumPedido = "0",
                         NumPedPalm = "20160611074516",
-                        CodVendedor = 308,
-                        Pasta = "3081",
+                        CodVendedor = 307,
+                        Pasta = "33071",
                         ValorTotalPed = 2249.88m,
                         Cliente =
                             new Cliente
@@ -1204,8 +1204,8 @@ namespace FiscaliZi.Colinfo.Model
                         PedidoID = 4,
                         NumPedido = "0",
                         NumPedPalm = "20160611110832",
-                        CodVendedor = 308,
-                        Pasta = "3081",
+                        CodVendedor = 307,
+                        Pasta = "3071",
                         ValorTotalPed = 348.00m,
                         Cliente =
                             new Cliente
@@ -1237,8 +1237,8 @@ namespace FiscaliZi.Colinfo.Model
                         PedidoID = 5,
                         NumPedido = "0",
                         NumPedPalm = "20160611081132",
-                        CodVendedor = 308,
-                        Pasta = "3081",
+                        CodVendedor = 307,
+                        Pasta = "3071",
                         ValorTotalPed = 273.22m,
                         Cliente =
                             new Cliente
@@ -1340,8 +1340,8 @@ namespace FiscaliZi.Colinfo.Model
                         PedidoID = 6,
                         NumPedido = "0",
                         NumPedPalm = "20160611084522",
-                        CodVendedor = 308,
-                        Pasta = "3081",
+                        CodVendedor = 307,
+                        Pasta = "3071",
                         ValorTotalPed = 983.85m,
                         Cliente =
                             new Cliente
@@ -1453,8 +1453,8 @@ namespace FiscaliZi.Colinfo.Model
                         PedidoID = 7,
                         NumPedido = "0",
                         NumPedPalm = "20160611080243",
-                        CodVendedor = 308,
-                        Pasta = "3081",
+                        CodVendedor = 307,
+                        Pasta = "3071",
                         ValorTotalPed = 292.01m,
                         Cliente =
                             new Cliente
@@ -1576,8 +1576,8 @@ namespace FiscaliZi.Colinfo.Model
                         PedidoID = 8,
                         NumPedido = "0",
                         NumPedPalm = "20160611073614",
-                        CodVendedor = 308,
-                        Pasta = "3081",
+                        CodVendedor = 307,
+                        Pasta = "3071",
                         ValorTotalPed = 156.00m,
                         Cliente =
                             new Cliente

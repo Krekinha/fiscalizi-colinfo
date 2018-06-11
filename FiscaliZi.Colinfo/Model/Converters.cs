@@ -926,21 +926,30 @@ namespace FiscaliZi.Colinfo.Model
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var peds = (List<Pedido>)value;
-            decimal tot = 0;
-
-            if (peds == null) return 0;
-
-            foreach (var ped in peds)
+            try
             {
-                foreach (var itm in ped.Items)
+                var peds = (List<Pedido>)value;
+                decimal tot = 0;
+
+                if (peds == null) return 0;
+
+                foreach (var ped in peds)
                 {
-                    if (itm.Produto.Unidades != 0)
-                        tot += ((((itm.QntCX * itm.Produto.Unidades) + itm.QntUND) / itm.Produto.Unidades) * itm.Produto.PesoUnd) + (itm.Produto.PesoEmb * itm.QntCX);
+                    foreach (var itm in ped.Items)
+                    {
+                        if (itm.Produto.Unidades != 0)
+                            tot += ((((itm.QntCX * itm.Produto.Unidades) + itm.QntUND) / itm.Produto.Unidades) * itm.Produto.PesoUnd) + (itm.Produto.PesoEmb * itm.QntCX);
+                    }
                 }
+
+                return tot.ToString("N2", CultureInfo.CreateSpecificCulture("pt-BR"));
+            }
+            catch (Exception)
+            {
+
+                return null;
             }
 
-            return tot.ToString("N2", CultureInfo.CreateSpecificCulture("pt-BR"));
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -969,20 +978,29 @@ namespace FiscaliZi.Colinfo.Model
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             decimal total = 0;
-            var peds = (ICollection<Pedido>)value;
-            if (peds == null) return "";
-            var tot = peds.Sum(ped => ped.ValorTotalPed);
-            /*foreach (var ped in peds)
+            try
             {
-                if (ped.Items != null)
+                var peds = (ICollection<Pedido>)value;
+                if (peds == null) return "";
+                var tot = peds.Sum(ped => ped.ValorTotalPed);
+                /*foreach (var ped in peds)
                 {
-                    var tot = ped.Items.Sum(itm => itm.ValorTotal);
-                    total += tot;
-                }
-            }*/
+                    if (ped.Items != null)
+                    {
+                        var tot = ped.Items.Sum(itm => itm.ValorTotal);
+                        total += tot;
+                    }
+                }*/
 
-            //var total = peds.Cast<Pedido>().Sum(ped => ped.ValorTotalPed);
-            return tot.ToString("N2", CultureInfo.CreateSpecificCulture("pt-BR"));
+                //var total = peds.Cast<Pedido>().Sum(ped => ped.ValorTotalPed);
+                return tot.ToString("N2", CultureInfo.CreateSpecificCulture("pt-BR"));
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -1100,7 +1118,7 @@ namespace FiscaliZi.Colinfo.Model
         public static void Test()
         {
             var items = Coletor.GetPedidos(@"C:\Users\krekm\Desktop\PEDIDOS.CSV", DateTime.Now)
-                .Where(x => x.CodVendedor == 308)
+                .Where(x => x.CodVendedor == 307)
                 .SelectMany(it => it.Items);
 
             var result = items

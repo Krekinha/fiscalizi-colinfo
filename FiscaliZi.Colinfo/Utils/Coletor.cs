@@ -140,60 +140,68 @@ namespace FiscaliZi.Colinfo.Utils
         {
             var peds = new List<Pedido>();
 
-            var Lines = File.ReadLines(path).Select(a => a.Split(';'));
-
             using (var context = new ColinfoContext())
             {
-                foreach (var line in Lines)
+                try
                 {
-                    if (!IsValidPed(line, date)) continue;
+                    var Lines = File.ReadLines(path).Select(a => a.Split(';'));
 
-                    var prod =  context.Produtos.FirstOrDefault(p => p.Codigo == line[34]);
-                    if (prod == null)
-                        prod = new Produto { Codigo = line[34] };
-
-                    var item = new Item
+                    foreach (var line in Lines)
                     {
-                        Produto = prod,
-                        Ocorrencia = line[53].Trim(),
-                        MotOcorrencia = line[61],
-                        NatOper = line[52],
-                        Tabela = line[35],
-                        QntCX = int.Parse(line[45]),
-                        QntUND = int.Parse(line[46]),
-                        ValorCusto = ToDecimal(line[40]),
-                        ValorUnid = ToDecimal(line[39]),
-                        ValorTotal = ToDecimal(line[37])
-                    };
-                    var ped = peds.Find(p => p.NumPedido == line[0]);
+                        if (!IsValidPed(line, date)) continue;
 
-                    if (ped == null)
-                    {
-                        if (line[24] != "009")
-                            peds.Add(
-                                new Pedido
-                                {
-                                    NumPedido = line[0],
-                                    CodVendedor = int.Parse(line[6]),
-                                    ADFinanceiro = decimal.Parse(line[9]),
-                                    TipoPgt = int.Parse(line[10]),
-                                    PrazoPgt = int.Parse(line[11]),
-                                    DataPedido = DateTime.Parse(line[29]),
-                                    Items = new List<Item> { item },
-                                    Cliente = GetClienteByCode(line[3]),
-                                    Pasta = line[30],
-                                    SitPed = line[24],
-                                    ValorTotalPed = ToDecimal(line[37])//ToDecimal(line[37])
+                        var prod = context.Produtos.FirstOrDefault(p => p.Codigo == line[34]);
+                        if (prod == null)
+                            prod = new Produto { Codigo = line[34] };
+
+                        var item = new Item
+                        {
+                            Produto = prod,
+                            Ocorrencia = line[53].Trim(),
+                            MotOcorrencia = line[61],
+                            NatOper = line[52],
+                            Tabela = line[35],
+                            QntCX = int.Parse(line[45]),
+                            QntUND = int.Parse(line[46]),
+                            ValorCusto = ToDecimal(line[40]),
+                            ValorUnid = ToDecimal(line[39]),
+                            ValorTotal = ToDecimal(line[37])
+                        };
+                        var ped = peds.Find(p => p.NumPedido == line[0]);
+
+                        if (ped == null)
+                        {
+                            if (line[24] != "009")
+                                peds.Add(
+                                    new Pedido
+                                    {
+                                        NumPedido = line[0],
+                                        CodVendedor = int.Parse(line[6]),
+                                        ADFinanceiro = decimal.Parse(line[9]),
+                                        TipoPgt = int.Parse(line[10]),
+                                        PrazoPgt = int.Parse(line[11]),
+                                        DataPedido = DateTime.Parse(line[29]),
+                                        Items = new List<Item> { item },
+                                        Cliente = GetClienteByCode(line[3]),
+                                        Pasta = line[30],
+                                        SitPed = line[24],
+                                        ValorTotalPed = ToDecimal(line[37])//ToDecimal(line[37])
                                 }
-                            );
-                    }
-                    else
-                    {
-                        ped.Items.Add(item);
-                    }
+                                );
+                        }
+                        else
+                        {
+                            ped.Items.Add(item);
+                        }
 
 
+                    }
                 }
+                catch (Exception ex)
+                {
+                    Utils.Funcoes.MostrarErro(ex);
+                }
+
             }
             
             return peds;
