@@ -55,8 +55,8 @@ namespace FiscaliZi.Colinfo.Model
                                 Razao = "SILVIO BATISTA ALVES - ME",
                                 Sigla = "",
                                 Rota = 0,
-                                CNPJ = "64.436.249/0001-27",
-                                IE = "333647.589/0096",
+                                CNPJ = "000",
+                                IE = "000",
                                 Situacao = "REJEIÇÃO"
                             },
                             Items = new List<Item>
@@ -186,8 +186,8 @@ namespace FiscaliZi.Colinfo.Model
                                 Razao = "ROMUALDO ANTUNES PEREIRA - ME",
                                 Sigla = "",
                                 Rota = 0,
-                                CNPJ = "00.395.494/0001-50",
-                                IE = "333919.491/0096",
+                                CNPJ = "000",
+                                IE = "000",
                                 Situacao = ""
                             },
                             Items = new List<Item>
@@ -218,8 +218,8 @@ namespace FiscaliZi.Colinfo.Model
                                     Razao = "SUPERMERCADO COSTA E FARIAS LT",
                                     Sigla = "",
                                     Rota = 0,
-                                    CNPJ = "00.705.844/0001-38",
-                                    IE = "333937.442/0003",
+                                    CNPJ = "000",
+                                    IE = "000",
                                     Situacao = ""
                                 },
                             Items = new List<Item>
@@ -390,8 +390,8 @@ namespace FiscaliZi.Colinfo.Model
                                     Razao = "JARIO ALVES DE SOUZA - ME",
                                     Sigla = "",
                                     Rota = 0,
-                                    CNPJ = "11.338.187/0001-54",
-                                    IE = "001500.653/0006",
+                                    CNPJ = "000",
+                                    IE = "000",
                                     Situacao = ""
                                 },
                             Items = new List<Item>
@@ -422,8 +422,8 @@ namespace FiscaliZi.Colinfo.Model
                                     Razao = "MERCEARIA MAR E TERRA LTDA - M",
                                     Sigla = "",
                                     Rota = 0,
-                                    CNPJ = "05.747.617/0001-99",
-                                    IE = "333239.632/0013",
+                                    CNPJ = "000",
+                                    IE = "000.000/000",
                                     Situacao = ""
                                 },
                             Items = new List<Item>
@@ -524,8 +524,8 @@ namespace FiscaliZi.Colinfo.Model
                                     Razao = "MERCEARIA E PADARIA UNIAO LTDA",
                                     Sigla = "",
                                     Rota = 0,
-                                    CNPJ = "07.033.037/0001-65",
-                                    IE = "034175.800/0028",
+                                    CNPJ = "000",
+                                    IE = "000",
                                     Situacao = ""
                                 },
                             Items = new List<Item>
@@ -636,8 +636,8 @@ namespace FiscaliZi.Colinfo.Model
                                     Razao = "ALEXANDRE BORGES GUIMARAES - M",
                                     Sigla = "",
                                     Rota = 0,
-                                    CNPJ = "08.297.701/0001-46",
-                                    IE = "001021.903/0090",
+                                    CNPJ = "000",
+                                    IE = "000",
                                     Situacao = ""
                                 },
                             Items = new List<Item>
@@ -758,8 +758,8 @@ namespace FiscaliZi.Colinfo.Model
                                     Razao = "EVANILDA GONCALVES DA SILVA",
                                     Sigla = "",
                                     Rota = 0,
-                                    CNPJ = "65.937.076/0000-00",
-                                    IE = "11057215",
+                                    CNPJ = "000",
+                                    IE = "000",
                                     Situacao = ""
                                 },
                             Items = new List<Item>
@@ -857,8 +857,8 @@ namespace FiscaliZi.Colinfo.Model
                             Razao = "SILVIO BATISTA ALVES - ME",
                             Sigla = "SUP. AVENIDA",
                             Rota = 1,
-                            CNPJ = "64.436.249/0001-27",
-                            IE = "333647.589/0096",
+                            CNPJ = "000",
+                            IE = "000",
                             Situacao = "REJEIÇÃO",
                             Endereco = new Endereco
                             {
@@ -1010,8 +1010,8 @@ namespace FiscaliZi.Colinfo.Model
                             Razao = "ROMUALDO ANTUNES PEREIRA - ME",
                             Sigla = "",
                             Rota = 0,
-                            CNPJ = "00.395.494/0001-50",
-                            IE = "333919.491/0096",
+                            CNPJ = "000",
+                            IE = "000",
                             Situacao = ""
                         },
                         Items = new List<Item>
@@ -1043,8 +1043,8 @@ namespace FiscaliZi.Colinfo.Model
                                 Razao = "SUPERMERCADO COSTA E FARIAS LT",
                                 Sigla = "",
                                 Rota = 0,
-                                CNPJ = "00.705.844/0001-38",
-                                IE = "333937.442/0003",
+                                CNPJ = "000",
+                                IE = "000",
                                 Situacao = ""
                             },
                         Items = new List<Item>
@@ -1216,8 +1216,8 @@ namespace FiscaliZi.Colinfo.Model
                                 Razao = "JARIO ALVES DE SOUZA - ME",
                                 Sigla = "",
                                 Rota = 0,
-                                CNPJ = "11.338.187/0001-54",
-                                IE = "001500.653/0006",
+                                CNPJ = "000",
+                                IE = "000",
                                 Situacao = ""
                             },
                         Items = new List<Item>
@@ -1249,8 +1249,8 @@ namespace FiscaliZi.Colinfo.Model
                                 Razao = "MERCEARIA MAR E TERRA LTDA - M",
                                 Sigla = "",
                                 Rota = 0,
-                                CNPJ = "05.747.617/0001-99",
-                                IE = "333239.632/0013",
+                                CNPJ = "000",
+                                IE = "000",
                                 Situacao = ""
                             },
                         Items = new List<Item>
@@ -1352,8 +1352,8 @@ namespace FiscaliZi.Colinfo.Model
                                 Razao = "MERCEARIA E PADARIA UNIAO LTDA",
                                 Sigla = "",
                                 Rota = 0,
-                                CNPJ = "07.033.037/0001-65",
-                                IE = "034175.800/0028",
+                                CNPJ = "000",
+                                IE = "000",
                                 Situacao = ""
                             },
                         Items = new List<Item>
@@ -1465,8 +1465,8 @@ namespace FiscaliZi.Colinfo.Model
                                 Razao = "ALEXANDRE BORGES GUIMARAES - M",
                                 Sigla = "",
                                 Rota = 0,
-                                CNPJ = "08.297.701/0001-46",
-                                IE = "001021.903/0090",
+                                CNPJ = "000",
+                                IE = "000",
                                 Situacao = ""
                             },
                         Items = new List<Item>
@@ -1588,8 +1588,8 @@ namespace FiscaliZi.Colinfo.Model
                                 Razao = "EVANILDA GONCALVES DA SILVA",
                                 Sigla = "",
                                 Rota = 0,
-                                CNPJ = "65.937.076/0000-00",
-                                IE = "11057215",
+                                CNPJ = "000",
+                                IE = "000",
                                 Situacao = ""
                             },
                         Items = new List<Item>
@@ -1705,14 +1705,14 @@ namespace FiscaliZi.Colinfo.Model
                 Cliente = new Cliente
                 {
                     Razao = "RESTAURANTE LEAO E CARVALHO LTDA",
-                    CNPJ = "08.454.523/0001-10",
-                    IE = "001022.887/0038",
+                    CNPJ = "000",
+                    IE = "000",
 
                     RetConsultaCadastro = new retConsCad
                     {
                         infCons = new infCons
                         {
-                            CNPJ = "08454523000110",
+                            CNPJ = "000",
                             UF = "MG",
                             cStat = "111",
                             cUF = "31",
@@ -1723,9 +1723,9 @@ namespace FiscaliZi.Colinfo.Model
                                 new infCad
                                 {
                                     CNAE = "5611201",
-                                    CNPJ = "08454523000110",
-                                    IE = "0010228870038",
-                                    IEAtual = "0010228870038",
+                                    CNPJ = "000",
+                                    IE = "000",
+                                    IEAtual = "000",
                                     UF = "MG",
                                     cSit = "1",
                                     dIniAtiv = "2006-12-01",

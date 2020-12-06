@@ -341,6 +341,7 @@
     <Compile Include="Model\ConfiguracaoApp.cs" />
     <Compile Include="Model\ConfiguracaoCsc.cs" />
     <Compile Include="Model\Converters.cs" />
+    <Compile Include="Model\DesignData.cs" />
     <Compile Include="Model\Endereco.cs" />
     <Compile Include="Model\Extension.cs" />
     <Compile Include="Model\Info.cs" />
