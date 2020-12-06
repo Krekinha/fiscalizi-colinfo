@@ -25,6 +25,8 @@ namespace FiscaliZi.Colinfo.Model
         public string Pasta { get; set; }
         public string SitPed { get; set; }
         public string DP { get; set; }
+        public string MotivoErro { get; set; }
+        public string GeraNF { get; set; }
 
         public virtual List<Item> Items { get; set; }
         #endregion

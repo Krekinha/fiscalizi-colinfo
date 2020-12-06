@@ -91,6 +91,12 @@
                                     <DataTrigger Binding="{Binding Ocorrencia}" Value="004">
                                         <Setter Property="Background" Value="#FF3DC16D"/>
                                     </DataTrigger>
+                                    <DataTrigger Binding="{Binding Ocorrencia}" Value="002">
+                                        <Setter Property="Background" Value="#FF3DC16D"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Ocorrencia}" Value="045">
+                                        <Setter Property="Background" Value="#FF2782E5"/>
+                                    </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </Border.Style>
@@ -101,6 +107,15 @@
         <Style.Triggers>
             <DataTrigger Binding="{Binding Ocorrencia}" Value="004">
                 <Setter Property="Foreground" Value="{DynamicResource AccentColorBrush}"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="FontSize" Value="8.5"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Ocorrencia}" Value="002">
+                <Setter Property="Foreground" Value="{DynamicResource AccentColorBrush}"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="FontSize" Value="8.5"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Ocorrencia}" Value="045">
                 <Setter Property="FontWeight" Value="Bold"/>
                 <Setter Property="FontSize" Value="8.5"/>
             </DataTrigger>

@@ -23,7 +23,7 @@ namespace FiscaliZi.Colinfo.Utils
 
                 var Lines = File.ReadLines(path).Select(a => a.Split('|'));
 
-                //Clientes
+                # region Clientes
                 var clientes = (from line in Lines
                     where line[0] == "CCLI.TXT"
                     select new Cliente
@@ -37,7 +37,9 @@ namespace FiscaliZi.Colinfo.Utils
                         Rota = int.Parse(line[41]),
                         Situacao = CNPJVerif(line[15])
                     }).ToList();
-                //Pedidos
+                #endregion
+
+                # region Pedidos
                 foreach (var line in Lines)
                 {
                     if (line[0] == "CAPAPEDIDO.TXT")
@@ -89,7 +91,9 @@ namespace FiscaliZi.Colinfo.Utils
                         }
                     }
                 }
-                //Items
+                #endregion
+
+                #region Items
                 foreach (var line in Lines)
                 {
                     if (line[0] == "ITEMPEDIDO.TXT")
@@ -107,6 +111,7 @@ namespace FiscaliZi.Colinfo.Utils
                         peds.Where(x => x.NumPedPalm == line[38]).ToList().ForEach(i => i.Items.Add(item));
                     }
                 }
+                #endregion
 
                 if (peds.Count > 0)
                 {
@@ -185,7 +190,8 @@ namespace FiscaliZi.Colinfo.Utils
                                         Cliente = GetClienteByCode(line[3]),
                                         Pasta = line[30],
                                         SitPed = line[24],
-                                        ValorTotalPed = ToDecimal(line[37])//ToDecimal(line[37])
+                                        ValorTotalPed = ToDecimal(line[37]),//ToDecimal(line[37])
+                                        GeraNF = line[54]
                                 }
                                 );
                         }

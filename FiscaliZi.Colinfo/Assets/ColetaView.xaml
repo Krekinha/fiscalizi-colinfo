@@ -87,6 +87,10 @@
                         <StackPanel>
                             <Button Content="Pedidos -99,99 À Prazo"
                                     cal:Message.Attach="PedsMinAPrazoAsync()" />
+                            <Button Content="Pedidos -30,00"
+                                    cal:Message.Attach="PedsAbaixo70Async()" />
+                            <Button Content="Pedidos à Vista Duplicados"
+                                    cal:Message.Attach="PedsAvistaDuplicados()" />
                         </StackPanel>
                     </MDesign:PopupBox>
                 </StackPanel>
@@ -423,15 +427,19 @@
                                             CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter_DP}"
                                             CanUserResize="False" />
                             <DataGridTextColumn Header="OCO" 
-                                            Binding="{Binding Ocorrencia, Converter={StaticResource OcorrenciaConverter}}"
+                                            Binding="{Binding Ocorrencia}"
                                             CellStyle="{StaticResource DatagridCell_Ocorrencia}"
+                                            CanUserResize="False">
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="MOT" 
+                                            Binding="{Binding MotOcorrencia}"
                                             CanUserResize="False">
                             </DataGridTextColumn>
                             <DataGridTextColumn Header="TAB" 
                                             Binding="{Binding Tabela, Converter={StaticResource TabelaConverter}}"
                                             CellStyle="{StaticResource DatagridCellCustomMDesign_CellCenter_DP}"
                                             CanUserResize="False" />
-                            <DataGridTextColumn Header="V. UND" 
+                            <DataGridTextColumn Header="V. CX" 
                                             Binding="{Binding ValorUnid, StringFormat=\{0:N2\}}"
                                             CanUserResize="False" />
                             <DataGridTextColumn Header="V. TOT" 

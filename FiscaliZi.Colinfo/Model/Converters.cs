@@ -236,12 +236,11 @@ namespace FiscaliZi.Colinfo.Model
         {
             if (value != null)
             {
-                if (((List<Pedido>)value).Count > 0)
+                if (((List< Pedido>)value).Count > 0)
                 {
                     return Visibility.Visible;
                 }
             }
-
 
             return Visibility.Hidden;
         }
@@ -977,12 +976,12 @@ namespace FiscaliZi.Colinfo.Model
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            decimal total = 0;
             try
             {
                 var peds = (ICollection<Pedido>)value;
-                if (peds == null) return "";
-                var tot = peds.Sum(ped => ped.ValorTotalPed);
+
+                if (peds == null) return 0;
+                var tot = peds.Sum(ped => ped.Items.Sum(it => it.ValorTotal));
                 /*foreach (var ped in peds)
                 {
                     if (ped.Items != null)
@@ -993,6 +992,32 @@ namespace FiscaliZi.Colinfo.Model
                 }*/
 
                 //var total = peds.Cast<Pedido>().Sum(ped => ped.ValorTotalPed);
+                return tot.ToString("N2", CultureInfo.CreateSpecificCulture("pt-BR"));
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value;
+        }
+    }
+    public class TotalValPedsEntradaConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            try
+            {
+                var peds = (ICollection<Pedido>)value;
+
+                if (peds == null) return 0;
+                var tot = peds.Sum(ped => ped.ValorTotalPed);
+
                 return tot.ToString("N2", CultureInfo.CreateSpecificCulture("pt-BR"));
             }
             catch (Exception)
